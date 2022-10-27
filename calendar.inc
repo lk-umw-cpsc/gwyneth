@@ -88,8 +88,10 @@ function show_week($days, $week, $edit, $year, $doy, $venue) {
 //		echo ("Showing week ". $week->get_id(). " for venue " . $venue . " and first day " . $days[0]->get_id() . "<br>");
     $daynames = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
     echo ('<table id="calendar" align="center" ><tr class="weekname"><td colspan="16" ' .
-    'align="center" >' .$venues[$venue]. ' Calendar: ' . $week->get_name() .show_week_no($week->get_id()). '</td></tr>
+    'align="center" >Calendar: ' . $week->get_name() . '</td></tr>
 				<tr><td bgcolor=lightblue></td>');
+				//removed: ' .$venues[$venue]. ' between '>' and 'Calendar'
+                //removed: show_week_no($week->get_id()). after '$week->get_name() .'
     for ($i = 0; $i < 7; $i++)
         echo ('<td class="dom">' . get_dom($days[$i]) . '</td><td class="dow">&nbsp; ' . $daynames[$i] . '</td>');
     echo('<td bgcolor=lightblue></td></tr>');
