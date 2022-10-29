@@ -29,6 +29,13 @@
 	private $phone2type; // home, cell, or work
 	private $birthday;     // format: 64-03-12
 	private $email;   // email address as a string
+	private $shirt_size;   // t-shirt size
+	private $computer;   // computer - yes or no
+	private $camera;   // camera - yes or no
+	private $transportation;   // transportation - yes or no
+	private $contact_name;   // emergency contact name
+	private $contact_num;   // emergency cont. phone number
+	private $relation;   // relation to emergency contact
 	private $employer;    // current employer or school attending
 	private $position;    // job title or "student"
 	private $credithours; // hours required if volunteering for academic credit; otherwise blank
@@ -48,8 +55,8 @@
 	private $password;     // password for calendar and database access: default = $id
 
 
-	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $t,
-			$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
+	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
+			$t,$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
 		$this->id = $f . $p1;
 		$this->start_date = $sd;
@@ -66,6 +73,13 @@
 		$this->phone2type = $p2t;
 		$this->birthday = $bd;
 		$this->email = $e;
+		$this->shirt_size = $ts;
+		$this->computer = $comp;
+		$this->camera = $cam;
+		$this->transportation = $tran;
+		$this->contact_name = $cn;
+		$this->contact_num = $cpn;
+		$this->relation = $rel;
 		$this->employer = $emp;
 		$this->position = $pos;
 		$this->credithours = $credithours;
@@ -162,6 +176,34 @@
 
 	function get_email() {
 		return $this->email;
+	}
+
+	function get_shirt_size() {
+		return $this->shirt_size;
+	}
+
+	function get_computer() {
+		return $this->computer;
+	}
+
+	function get_camera() {
+		return $this->camera;
+	}
+
+	function get_transportation() {
+		return $this->transportation;
+	}
+
+	function get_contact_name() {
+		return $this->contact_name;
+	}
+
+	function get_contact_num() {
+		return $this->contact_num;
+	}
+
+	function get_relation() {
+		return $this->relation;
 	}
 
 	function get_employer() {

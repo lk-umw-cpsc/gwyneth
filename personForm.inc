@@ -114,6 +114,17 @@ foreach ($states as $st) {
         if ($id=='new')
         	echo ' (Applicants younger than 18 should contact RMH for a separate application)';
         echo '<p>Email address: '. '<input type="text" name="email" tabindex="10" value="'.$person->get_email().'">';
+
+        //added for GG database
+        echo '<h2>Added for GG database, needs editing + entered info does not save on the screen when going back to edit person</h2>';
+        echo '<p>Shirt size: '. '<input type="text" name="shirt_size" tabindex="11" placeholder="S, M, L, XL, or XXL" '.$person->get_shirt_size().'">';
+        echo '<p>Do you own a computer: '. '<input type="text" name="computer" tabindex="12" placeholder="Yes or No" '.$person->get_computer().'">';
+        echo '<p>Do you own a camera: '. '<input type="text" name="camera" tabindex="13" placeholder="Yes or No" '.$person->get_camera().'">';
+        echo '<p>Do you have reliable transportation: '. '<input type="text" name="transportation" tabindex="14" placeholder="Yes or No" '.$person->get_transportation().'">';
+        echo '<p>Emergency contact name: '. '<input type="text" name="contact_name" tabindex="15" placeholder="Name" '.$person->get_contact_name().'">';
+        echo '<p>Emergency contact number: '. '<input type="text" name="contact_num" tabindex="16" placeholder="Phone number" '.$person->get_contact_num().'">';
+        echo '<p>Relation to emergency contact: '. '<input type="text" name="relation" tabindex="17" placeholder="Relative, Spouse, Friend, etc." '.$person->get_relation().'">';
+        //echo '<p>Do you have reliable transportation: '. '<input type="text" name="transportation" tabindex="14" placeholder="Yes or No" '.$person->get_transportation().'">';
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>

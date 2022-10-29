@@ -45,6 +45,13 @@ function add_person($person) {
                 $person->get_phone2type() . '","' .
                 $person->get_birthday() . '","' .
                 $person->get_email() . '","' .
+                $person->get_shirt_size() . '","' .
+                $person->get_computer() . '","' .
+                $person->get_camera() . '","' .
+                $person->get_transportation() . '","' .
+                $person->get_contact_name() . '","' .
+                $person->get_contact_num() . '","' .
+                $person->get_relation() . '","' .
                 $person->get_employer() . '","' . 
                 $person->get_position() . '","' . 
                 $person->get_credithours() . '","' . 
@@ -202,8 +209,8 @@ function getall_volunteer_names() {
 
 function make_a_person($result_row) {
 	/*
-	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $t, 
-    		$screening_type, $screening_status, $st, $emp, $pos, $hours, $comm, $mot, $spe, 
+	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, 
+            $cn, $cpn, $rel, $t, $screening_type, $screening_status, $st, $emp, $pos, $hours, $comm, $mot, $spe, 
     		$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
 	 */
     $thePerson = new Person(
@@ -219,6 +226,13 @@ function make_a_person($result_row) {
                     $result_row['phone2'],
                     $result_row['phone2type'],
                     $result_row['email'],
+                    $result_row['shirt_size'],
+                    $result_row['computer'],
+                    $result_row['camera'],
+                    $result_row['transportation'],
+                    $result_row['contact_name'],
+                    $result_row['contact_num'],
+                    $result_row['relation'],
                     $result_row['type'],
                     $result_row['screening_type'],
                     $result_row['screening_status'],
