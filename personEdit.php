@@ -22,7 +22,7 @@ $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
     $person = new Person('new', 'applicant', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
-                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
+                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
 } else {
     $person = retrieve_person($id);
     if (!$person) { // try again by changing blanks to _ in id
@@ -88,12 +88,14 @@ if ($id == 'new') {
                         $person = new Person($person->get_first_name(), $_POST['last_name'], $_POST['location'], 
                         				$_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
                                         $person->get_phone1(), $_POST['phone1type'], $_POST['phone2'],$_POST['phone2type'], 
-                        		        $_POST['email'], implode(',', $_POST['type']), 
+                        		        $_POST['email'], $_POST['shirt_size'], $_POST['computer'], $_POST['camera'], $_POST['transportation'],
+                                        $_POST['contact_name'],$_POST['contact_num'],$_POST['relation'],
+                                         implode(',', $_POST['type']), 
                         				$_POST['screening_type'], implode(',', $_POST['screening_status']),
                                         $_POST['status'], $employer, $position, $_POST['credithours'], 
                                         $_POST['commitment'], $_POST['motivation'], $_POST['specialties'], $_POST['convictions'], 
                                         $availability, $_POST['schedule'], $_POST['hours'], 
-                                        $_POST['birthday'], $_POST['start_date'], $_POST['howdidyouhear'],
+                                        $_POST['birthday'], $_POST['start_date'], $_POST['howdidyouhear'], 
                                         $_POST['notes'], $_POST['old_pass']);
                         include('personForm.inc');
                     }
@@ -135,6 +137,14 @@ if ($id == 'new') {
                     $clean_phone2 = preg_replace("/[^0-9]/", "", $phone2);
                     $phone2type = $_POST['phone2type'];
                     $email = $_POST['email'];
+                    $shirt_size = trim(htmlentities($_POST['shirt_size']));
+                    $computer = trim(htmlentities($_POST['computer']));
+                    $camera = trim(htmlentities($_POST['camera']));
+                    $transportation = trim(htmlentities($_POST['transportation']));
+                    $contact_name = trim(htmlentities($_POST['contact_name']));
+                    $contact_num = trim(str_replace(' ', '', htmlentities($_POST['contact_num'])));
+                    $clean_contact_num = preg_replace("/[^0-9]/", "", $contact_num);
+                    $relation = trim(htmlentities($_POST['relation']));
                     $type = implode(',', $_POST['type']);
                     $screening_type = $_POST['screening_type'];
                     if ($screening_type!="") {
@@ -214,7 +224,7 @@ if ($id == 'new') {
                         $result = remove_person($id);
                         $pass = $first_name . $clean_phone1;
                         $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, "");
                         $result = add_person($newperson);
@@ -233,7 +243,7 @@ if ($id == 'new') {
                             echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Another person with the same name and phone is already there.');
                         else {
                         	$newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, "");
                             $result = add_person($newperson);
@@ -255,7 +265,7 @@ if ($id == 'new') {
                             echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the House Manager.');
                         else {
                             $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $type, $screening_type, $screening_status, $status, $employer, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, $pass);
                             $result = add_person($newperson);

@@ -40,9 +40,13 @@ function show_report($venue) {
 	    else if (in_array('history', $_POST['report-types'])) {
 				report_volunteer_history($from, $to, $name_from,$name_to, $venue, $export);
 	    }
-		if (in_array('volunteers', $_POST['report-types'])) {
+		else if (in_array('volunteers', $_POST['report-types'])) {
 				report_all_volunteers($name_from, $name_to, $venue, $export);	
 		}
+		else if (in_array('information', $_POST['report-types'])) {
+			report_all_volunteers_info($name_from, $name_to, $venue, $export);	
+	}
+
 	}
 }
 
@@ -98,6 +102,7 @@ function report_volunteer_history($from, $to, $name_from, $name_to, $venue, $exp
 	display_logged_hours($report, $export, $venue);
 }
 
+//used for contact info
 function report_all_volunteers($name_from, $name_to, $venue, $export) {
 	echo ("<br><b>".pretty_venue($venue)." Volunteer Contact Info</b><br> Report date: ");
 	echo date("F d, Y")."<br><br>";
@@ -106,6 +111,17 @@ function report_all_volunteers($name_from, $name_to, $venue, $export) {
 	
 	$report = getall_dbPersons($name_from, $name_to, $venue);
 	display_volunteers($report, $export, $venue);
+}
+
+//used for all important, general info
+function report_all_volunteers_info($name_from, $name_to, $venue, $export) {
+	echo ("<br><b>".pretty_venue($venue)." General Volunteer Info</b><br> Report date: ");
+	echo date("F d, Y")."<br><br>";
+	if($name_from == ""){$name_from="A";}
+	if($name_to == ""){$name_to = "Z";}
+	
+	$report = getall_dbPersons($name_from, $name_to, $venue);
+	display_volunteers_full($report, $export, $venue);
 }
 
 function display_birthdays($report, $export, $venue) { //Create a table to display birthdays
@@ -383,7 +399,7 @@ function civil_time($army_time){
 
 // Improve venue display by using associative array, i.e, turning fam --> "Family Room" 
 function pretty_venue($v){
-	$venue = array('portland' => 'RMH Portland', 'bangor' => 'RMH Bangor');
+	$venue = array('portland' => "Gwyneth's Gift", 'bangor' => "Gwyneth's Gift");
 		return $venue[$v];
 }
 
@@ -482,6 +498,48 @@ function display_volunteers ($report, $export, $venue) {
 	echo "</div>";
 	if ($export=="yes") 
 		export_report ("Volunteer Contact Info", $col_labels, $export_data, $venue);
+}
+
+
+//function to display all important volunteer info
+function display_volunteers_full ($report, $export, $venue) { 
+	$col_labels = array("Name","Address","City","State","Zip","Phone 1", "Email","Start Date", "Phone 1 type", "Birthday",
+	"Shirt Size", "Computer", "Camera", "Transportation", "Contact Name","Contact Number", "Contact Relation", "Notes");
+	$res = "
+		<table id = 'report'> 
+			<thead>
+			<tr>";
+	$row = "<tr>";
+	
+	foreach($col_labels as $col_name){
+		$row .= "<td><b>".$col_name."</b></td>";
+	}
+	$row .="</tr>";
+	$res .= $row;
+	$res .= "
+			</thead>
+			<tbody>";
+	
+	echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';
+	$export_data = array();			       
+	foreach($report as $person){
+		$p = array($person->get_last_name() . ", ". $person->get_first_name(), 
+				$person->get_address(), $person->get_city(), $person->get_state(), $person->get_zip(),
+			    $person->get_phone1(), $person->get_email(),
+			    $person->get_start_date(), $person->get_phone1type(), $person->get_birthday(),$person->get_shirt_size(),
+				$person->get_computer(), $person->get_camera(), $person->get_transportation(), 
+				$person->get_contact_name(),$person->get_contact_num(),$person->get_relation(), $person->get_notes());
+		$export_data[] = $p;
+		$res .= "<tr>";
+		foreach ($p as $info)
+			$res .= "<td>". $info . "</td>";
+	    $res .= "</tr>";
+	}
+	$res .= "</tbody></table>";
+	echo $res;
+	echo "</div>";
+	if ($export=="yes") 
+		export_report ("General Volunteer Info", $col_labels, $export_data, $venue);
 }
 
 function export_report($heading, $col_labels, $data, $venue) {
