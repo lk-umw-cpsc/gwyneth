@@ -80,7 +80,7 @@
 	        	echo(' | <a href="' . $path . 'about.php">about</a>');
 	            echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
 	            //echo(' | calendars: <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor, </a>');
-	            echo(' | <a href="' . $path . 'calendar.php?venue=portland'.''.'">calendar</a>'); //added before '<a': |, changed: 'Bangor' to 'calendar'
+	            echo(' | <a href="' . $path . 'calendar.php?venue=portland'.''.'">calendar</a>'); //added before '<a': |, changed: 'Portland' to 'calendar'
 	        }
 	        if ($_SESSION['access_level'] >= 2) {
 	            //echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
