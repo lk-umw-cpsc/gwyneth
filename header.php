@@ -74,19 +74,19 @@
         	echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
         }
         else {
-        	echo " <br><b>"."Homebase"."</b> ";
+        	echo " <br><b>"."Gwyneth's Gift"."</b> "; //changed: 'Homebase' to 'Gwyneth's Gift'
 	        if ($_SESSION['access_level'] >= 1) {
 	        	echo('<a href="' . $path . 'index.php">home</a>');
 	        	echo(' | <a href="' . $path . 'about.php">about</a>');
 	            echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
-	            echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
-	            echo(' <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor</a>');
+	            //echo(' | calendars: <a href="' . $path . 'calendar.php?venue=portland'.''.'">Portland, </a>');
+	            echo(' | <a href="' . $path . 'calendar.php?venue=bangor'.''.'">calendar</a>'); //added before '<a': |, changed: 'Bangor' to 'calendar'
 	        }
 	        if ($_SESSION['access_level'] >= 2) {
-	            echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
-	            echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
+	            //echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
+	            //echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
 	            echo(' | volunteers: <a href="' . $path . 'personSearch.php">search</a>, 
-				        <a href="personEdit.php?id=' . 'new' . '">add, </a> <a href="viewScreenings.php?type=new">screenings</a>');
+				        <a href="personEdit.php?id=' . 'new' . '">add</a>'); //remove after 'add,': <a href="viewScreenings.php?type=new">screenings</a>
 	            echo(' | <a href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">reports</a>');
 	        }
 	        echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
