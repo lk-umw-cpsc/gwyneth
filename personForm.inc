@@ -58,13 +58,11 @@ if ($_SESSION['access_level'] == 0) {
 			})
 	</script>
     <?PHP 
-    	$venues = array('portland'=>"Portland House", 'bangor'=>"Bangor House");       
+    	$venues = array('portland'=>"Portland House");       
         echo '<table><tr><td>Date: '. 
 	             '</td><td colspan=2><input name="start_date" type="text" id="start_date" value="'.$person->get_start_date().'">';
-	   	echo "</td></tr><tr><td>Location<span style='font-size:x-small;color:FF0000'>*</span>: </td>";	
 	   	foreach ($venues as $venue=>$venuename) {
-	   		echo ('<td><input type="radio" name="location" value="' .$venue.'"'. ($person->get_venue()==$venue?' checked':'').'>');
-	    	echo "</td><td>".$venuename."</td>";
+	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($person->get_venue()==$venue?' checked':'').'>');
 	   	}
 	   	echo "</tr></table><br>"; 
     ?>
