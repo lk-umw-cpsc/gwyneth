@@ -46,7 +46,7 @@
         $permission_array['calendar.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
-        $permission_array['personedit.php'] = 2;
+        $permission_array['personedit.php'] = 0;
         $permission_array['viewschedule.php'] = 2;
         $permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;
