@@ -24,29 +24,23 @@
 		<div id="container">
 			<?PHP include('header.php');?>
 			<div id="content">
-				<p><strong>Background</strong><br /><br />
-				<i>Homebase</i> is a web-based volunteer management and scheduling system developed over the years by 
-				college students and an instructor in collaboration with staff members at the Ronald McDonald Houses in 
-				Portland, ME and Providence, RI. 
+				<p><strong>About Gwyneth's Gift Foundation</strong><br /><br />
+				Gwyneth’s Gift Foundation is devoted to making a difference in the community and the lives of those within. We hope that through our work,
+				we can serve as a catalyst for increasing the survival rate of those suffering from an out-of-hospital cardiac arrest because they received
+				immediate life-saving measures from a member within their community.
 				
-				<p>The original version of <i>Homebase</i></a> was developed in 2008 by <a href="http://www.bowdoin.edu/computer-science" target="_blank">
-	            Bowdoin College</a> students and an instructor for the <a href="http://www.rmhcmaine.org/" target="_blank">Ronald McDonald House in 
-	            Portland, Maine</a>.  It was later revised and enhanced in 2011, 2013, and 2015 by other groups of students and RMH staff members.      
+				<p>Gwyneth’s Gift Foundation is a 501(c)(3) tax-exempt organization. Gwyneth’s Gift Foundation is Guidestar Gold Transparency, a member of
+				the Rappahannock United Way Local Government Campaign (LGC) and the Commonwealth of Virginia Campaign (CVC).
  
-				<p>This project is supported by <a href="http://npfi.org" target="_blank">
-				The Non-Profit FOSS Institute (NPFI)</a>, which "aims to build communities that develop and support customized 
-				free and open source software (FOSS) applications that directly benefit the missions of humanitarian 
-				non-profit organizations."  NPFI is inspired by the <a href="http://www.hfoss.org" target="_blank">Humanitarian 
-				Free and Open Source (HFOSS) Project</a>, which has more global humanitarian goals.
+				<p>Gwyneth’s Gift Foundation was founded in 2015 by Joel and Jennifer Griffin in honor of their oldest daughter, Gwyneth. Through the Foundation’s
+				work, Gwyneth’s spirit of caring, compassion, and community lives on as we create a world where everyone can save a life.
 				<p>
 				
- 				<p><b>System Access and Reuse</b><br /><br />
-				Because <i>Homebase</i> must protect the privacy of individual RMH volunteers and staff, outside access to the system is
-				restricted.  If you are an RMH staff member or volunteer and have forgotten your Username or Password, please contact the Volunteer Coordinator.
+ 				<p><b>Our Vision</b><br /><br />
+				To create a Culture of Action where communities are educated, confident and empowered to save the lives of individuals suffering from cardiac arrest.
                 </p>
-				<p> <i>Homebase</i> is free and open source software. Its source code can be freely downloaded and adapted to support the volunteer scheduling needs of other nonprofit organizations  
-				(see <a href="https://github.com/megandalster/homebasedemo2017/wiki" TARGET="_BLANK">https://github.com/megandalster/homebasedemo2017/wiki</a>).  
-				For more information about <i>Homebase</i>, please visit the website <a href="https://npfi.org/the-homebase-project" TARGET="_BLANK">https://npfi.org/the-homebase-project</a>.
+                <p><b>Our Mission</b><br /><br />
+				To raise awareness of Cardiopulmonary Resuscitation (CPR) and the use of Automated External Defibrillators (AEDs).
 				</p>
 				
 			</div>
