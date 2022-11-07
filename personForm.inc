@@ -112,8 +112,13 @@ foreach ($states as $st) {
         //if ($id=='new')
         	//echo ' (Applicants younger than 18 should contact RMH for a separate application)';
         echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input type="text" name="email" tabindex="9" value="'.$person->get_email().'">';
-        
-
+        echo '<p>What is the best time to contact you: '. '<input type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
+        // radio for computer
+        echo "<p>What is the best way to contact you? ";
+        echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
+        echo '<p><input type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
+		    '&nbsp;&nbsp;<input type="radio" name="cMethod" value="Email" '.($person->get_cMethod()=="Email"?"checked":"").'>Email'.
+            '&nbsp;&nbsp;<input type="radio" name="cMethod" value="Text" '.($person->get_cMethod()=="Text"?"checked":"").'>Text';
         //added for GG database
         //echo '<h2>Added for GG database, needs editing + entered info does not save on the screen when going back to edit person</h2>';
         //echo '<p>Shirt size: '. '<input type="text" name="shirt_size" tabindex="11" placeholder="S, M, L, XL, or XXL" '.$person->get_shirt_size().'">';

@@ -52,7 +52,9 @@ function add_person($person) {
                 $person->get_contact_name() . '","' .
                 $person->get_contact_num() . '","' .
                 $person->get_relation() . '","' .
-                $person->get_employer() . '","' . 
+                $person->get_contact_time() . '","' .
+                //$person->get_contact_method() . '","' .
+                $person->get_cMethod() . '","' . 
                 $person->get_position() . '","' . 
                 $person->get_credithours() . '","' . 
                 $person->get_howdidyouhear() . '","' . 
@@ -210,7 +212,8 @@ function getall_volunteer_names() {
 function make_a_person($result_row) {
 	/*
 	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, 
-            $cn, $cpn, $rel, $t, $screening_type, $screening_status, $st, $emp, $pos, $hours, $comm, $mot, $spe, 
+            $cn, $cpn, $ct, $cm, $rel, $ct, $cm, $t, $screening_type, $screening_status, $st, 
+            $emp, $pos, $hours, $comm, $mot, $spe, 
     		$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
 	 */
     $thePerson = new Person(
@@ -233,11 +236,13 @@ function make_a_person($result_row) {
                     $result_row['contact_name'],
                     $result_row['contact_num'],
                     $result_row['relation'],
+                    $result_row['contact_time'],
+                    //$result_row['contact_method'],
                     $result_row['type'],
                     $result_row['screening_type'],
                     $result_row['screening_status'],
                     $result_row['status'],
-                    $result_row['employer'],  
+                    $result_row['cMethod'],  
                     $result_row['position'],
                     $result_row['hours'],
                     $result_row['commitment'],

@@ -36,7 +36,9 @@
 	private $contact_name;   // emergency contact name
 	private $contact_num;   // emergency cont. phone number
 	private $relation;   // relation to emergency contact
-	private $employer;    // current employer or school attending
+	private $contact_time; //best time to contact
+	//private $contact_method; //best method to contact (email, phone, text)
+	private $cMethod;    // current cMethod or school attending
 	private $position;    // job title or "student"
 	private $credithours; // hours required if volunteering for academic credit; otherwise blank
 	private $howdidyouhear;  // about RMH; internet, family, friend, volunteer, other (explain)
@@ -56,7 +58,7 @@
 
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
-			$t,$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
+			$ct, /*$cm,*/ $t,$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
 		$this->id = $f . $p1;
 		$this->start_date = $sd;
@@ -80,7 +82,9 @@
 		$this->contact_name = $cn;
 		$this->contact_num = $cpn;
 		$this->relation = $rel;
-		$this->employer = $emp;
+		$this->contact_time = $ct;
+		//$this->contact_method = $cm;
+		$this->cMethod = $emp;
 		$this->position = $pos;
 		$this->credithours = $credithours;
 		$this->howdidyouhear = $hdyh;
@@ -206,8 +210,16 @@
 		return $this->relation;
 	}
 
-	function get_employer() {
-		return $this->employer;
+	function get_contact_time() {
+		return $this->contact_time;
+	}
+
+	/*function get_contact_method) {
+		return $this->contact_method;
+	}*/
+
+	function get_cMethod() {
+		return $this->cMethod;
 	}
 
 	function get_position() {
