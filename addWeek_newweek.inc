@@ -13,12 +13,12 @@
 
 <p>
 	<?php 
-	$venues = array("portland" => "RMH Portland", "bangor" => "RMH Bangor");
+	$venues = array("portland" => "", "bangor" => "RMH Bangor");
 	echo("<strong>" . $venues[$venue] . " </strong>"); 
 	
 	?>
     <strong>Calendar Week Management</strong><br />
-    Here you can add new weeks to the calendar and you can edit weeks that are already there. <br>Click the "Add new week" button for adding a new week, or select an option at the right of an existing week.</p>
+    Here you can add new weeks to the calendar and edit weeks that already exist. <br>Click the "Add new week" button to add a new week, or select an option at the right of an existing week.</p>
 <span class="nextWeekTable">
     <form method="POST">
         <table border="1">
