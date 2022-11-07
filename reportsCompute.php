@@ -464,7 +464,7 @@ function display_logged_hours ($report, $export, $venue) {
 
 //Create a table to display volunteer contact info
 function display_volunteers ($report, $export, $venue) { 
-	$col_labels = array("Name","Address","City","State","Zip","Phone 1", "Phone 2", "Email","Start Date", "Notes");
+	$col_labels = array("Name","Address","City","State","Zip","Phone Number", "Email","Start Date", "Notes");
 	$res = "
 		<table id = 'report'> 
 			<thead>
@@ -485,7 +485,7 @@ function display_volunteers ($report, $export, $venue) {
 	foreach($report as $person){
 		$p = array($person->get_last_name() . ", ". $person->get_first_name(), 
 				$person->get_address(), $person->get_city(), $person->get_state(), $person->get_zip(),
-			    $person->get_phone1(), $person->get_phone2(), $person->get_email(),
+			    $person->get_phone1(), $person->get_email(),
 			    $person->get_start_date(), $person->get_notes());
 		$export_data[] = $p;
 		$res .= "<tr>";
@@ -503,7 +503,7 @@ function display_volunteers ($report, $export, $venue) {
 
 //function to display all important volunteer info
 function display_volunteers_full ($report, $export, $venue) { 
-	$col_labels = array("Name","Address","City","State","Zip","Phone 1", "Email","Start Date", "Phone 1 type", "Birthday",
+	$col_labels = array("Name","Address","City","State","Zip","Phone Number", "Email", "Start Date", "Phone Type", "Birthday",
 	"Shirt Size", "Computer", "Camera", "Transportation", "Contact Name","Contact Number", "Contact Relation", "Notes");
 	$res = "
 		<table id = 'report'> 
