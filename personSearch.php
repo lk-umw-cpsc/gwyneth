@@ -30,8 +30,7 @@ session_cache_expire(30);
                 $area = $_GET['area'];
                 echo('<form method="post">');
                 echo('<p><strong>Search for volunteers:</strong>');
-                $types = array('volunteer' => 'House Volunteer', 'weekendmgr' => 'Weekend Manager', 
-                		'mealprep' => 'Guest Chef', 'events' => 'Events/Special projects', 'manager' => 'Manager');
+                $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
                 echo '<p>Type:<select name="s_type">' ;
                 echo '<option value="" SELECTED></option>' ;
                 foreach ($types as $type => $typename)

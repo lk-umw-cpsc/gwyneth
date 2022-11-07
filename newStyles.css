@@ -1,0 +1,171 @@
+/* 	RMH DASHBOARD CSS */
+
+
+/* GENERAL STYLES */
+body{
+    /* background:#001460; */
+    background:#FFFFDD;
+    font-family:verdana, arial, sans-serif;
+    font-size:12px;
+    color: 	#000000;
+}
+
+p {padding-left: 15px; padding-right:15px;}
+p.notes {padding-left:20px;}
+h3 {padding-left: 20px}
+
+
+/* TABLE STYLES */
+table { border-collapse:collapse; font-family:verdana, arial, sans-serif;}
+td {border: black; font-size:12px; padding:6px; border-style: solid; border-width: 1px;}
+
+table.searchResults{ border-collapse:collapse;vertical-align:middle; font-family:verdana, arial, sans-serif; padding-left:15px;}
+td.searchResults {border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
+
+table.warningTable{border-collapse:collapse; font-family:verdana, arial, sans-serif; padding-left:0px;}
+td.warningTable{border: none; font-size:12px; padding-top:3px; padding-bottom:3px; padding-left:6px; padding-right:6px;}
+
+table#areport{
+	border-collapse:collapse;
+	vertical-align:middle;
+	font-family:verdana, arial, sans-serif;
+	padding-left:0px;
+}
+table#areport td{
+	border:none;
+	text-align:center;
+	font-size:12px;
+	padding-top:8x;
+	padding-bottom:8px;
+	padding-left:6px;
+	padding-right:6px;
+}
+
+table#spacedRowTable td{
+	padding-top:12px;
+}
+
+table tr:nth-child(odd) {
+    background-color: #CECECE;
+}
+
+#topBox{
+    background-color: #FCFCFC;
+}
+
+
+/* LINK STYLES */
+A			{ color: #001460; text-decoration: none; img-decoration: none; }
+A:link		{ color: #018AFEE; text-decoration: none; img-decoration: none; }
+A:visited	{ color: #001460; text-decoration: none; img-decoration: none; }
+A:active	{ color: #BE0000;  }
+A:hover		{ color: #BE0000;  }
+
+
+
+
+/*INFO BOXES*/
+.infobox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.vacancyBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 4px;
+}
+
+.scheduleBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 4px;
+}
+
+.applicantsBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.logBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    margin-left:15px;
+    margin-right:15px;
+    padding: 4px;
+}
+
+.anniversaryBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    padding: 4px;
+    margin-left: 15px;
+    margin-right:15px;
+}
+
+.inactiveBox{
+    border:1px solid #264576;
+    background: #FFFFDD;
+    padding: 4px;
+    margin-left: 15px;
+    margin-right:15px;
+}
+
+/*WARNINGS AND ERRORS*/
+.warning{
+    border:1px solid #264576;
+    background:#FFCECE;
+    padding:4px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+p.error {color: #FF0000;}
+
+
+/* LAYOUT CONTROL IDS */
+
+#container{
+    box-align:center;
+    margin-right : auto;
+    margin-left : auto;
+}
+
+#header{
+    height: 0px;
+    border-left:2px solid #264576;
+    border-top:2px solid #264576;
+    border-right:2px solid #264576;
+    padding: 0px;
+/*    background:url("images/rmhHeader.gif") #FCFCFC; */
+    background-repeat:no-repeat;
+    background-position:top left;
+    overflow:hidden;
+}
+
+#navigationLinks{
+    font-size:11pt;
+    border-left:2px solid #264576;
+    border-right:2px solid #264576;
+    background:#FCFCFC;
+}
+
+#content{
+    border-left:2px solid #264576;
+    border-bottom:2px solid #264576;
+    border-right:2px solid #264576;
+    box-align:center;
+    padding: 10px;
+    background:#FCFCFC;
+    overflow:hidden;
+}
