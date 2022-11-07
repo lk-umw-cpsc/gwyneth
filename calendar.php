@@ -51,6 +51,7 @@ session_cache_expire(30);
                         if (!$week instanceof Week || $week->get_status() == "unpublished" && $_SESSION['access_level'] == 1) {
                             echo 'This week\'s calendar is not available for viewing. ';
                             if ($_SESSION['access_level'] >= 2)
+                                echo '<br>In order to view the calendar, you must select "Manage weeks" and follow the instructions to add a new week. ';
                                 echo ('<a href="addWeek.php?archive=false&venue='.$venue.'"> <br> Manage weeks</a>');
                         }
                         else {

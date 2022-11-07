@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2fb5792e-447b-40f4-8ee0-f887be64c2b9" name="Changes" comment="cleaned up login_form.php, removed footer with copyright info" />
+    <list default="true" id="2fb5792e-447b-40f4-8ee0-f887be64c2b9" name="Changes" comment="untracked files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addWeek_newweek.inc" beforeDir="false" afterPath="$PROJECT_DIR$/addWeek_newweek.inc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar.php" beforeDir="false" afterPath="$PROJECT_DIR$/calendar.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,7 +14,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="clean_up" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -101,7 +105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667408072572</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="untracked files">
+      <created>1667408539361</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667408539361</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -125,6 +136,7 @@
     <MESSAGE value="edit to header.php, calendar link pointed to portland venue instead of bangor" />
     <MESSAGE value="edit comment to reflect change" />
     <MESSAGE value="cleaned up login_form.php, removed footer with copyright info" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleaned up login_form.php, removed footer with copyright info" />
+    <MESSAGE value="untracked files" />
+    <option name="LAST_COMMIT_MESSAGE" value="untracked files" />
   </component>
 </project>
