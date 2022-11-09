@@ -473,7 +473,30 @@ if ($_SESSION['access_level']==0)
 			}    
             echo "</fieldset>";
         }*/
-        
+
+        //change password - only volunteers here       
+        if ($_SESSION['access_level'] == 1) {
+            if ($id != 'new' ) { 
+
+                echo "<fieldset>";
+                echo "<legend>Change Password: </legend>";
+                echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                echo '</fieldset>';
+            }
+
+            }
+            
+            if ($_SESSION['access_level'] == 2) {
+                echo "<fieldset>";
+                echo "<legend>Change password: </legend>";
+                echo "Admins cannot change a volunteer's password. They can reset the password below. <br></br>";
+                echo "Admins can change their own password from the home page";
+                echo '</fieldset>';
+            }
+
+        //echo '</fieldset>';
+        //end change password
+
         echo('<input type="hidden" name="schedule" value="' . implode(',', $person->get_schedule()) . '">');
         echo('<input type="hidden" name="hours" value="' . implode(',', $person->get_hours()) . '">');
         echo('<input type="hidden" name="password" value="' . $person->get_password() . ')">');
@@ -488,6 +511,7 @@ if ($_SESSION['access_level']==0)
             '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />' .
             '<input type="checkbox" name="reset_pass" value="RESET"> Check this box and then hit ' .
             '<input type="submit" value="Reset Password" name="Reset Password"> to reset this person\'s password.</p>');
+            
         }
         ?>
 </form>
