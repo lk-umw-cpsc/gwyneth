@@ -327,8 +327,7 @@ echo('</textarea>');
 //		 '<br> Please note: our facility is unable to accommodate court-ordered community service or probation-based hours.';
 //}
 
-echo('<p><strong>NEED TO ADD: </strong><br />');
-echo('<p>Time best to contact, best contact option, user picture');
+
 
 
 echo '</fieldset>';
