@@ -18,10 +18,10 @@
 		<title>
 			About
 		</title>
-		<link rel="stylesheet" href="styles.css" type="text/css" />
+		<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
 	</head>
 	<body>
-		<div id="container">
+		<div class="container-fluid">
 			<?PHP include('header.php');?>
 			<div id="content">
 				<p><strong>About Gwyneth's Gift Foundation</strong><br /><br />

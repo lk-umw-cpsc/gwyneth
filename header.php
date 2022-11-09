@@ -9,16 +9,30 @@
  */
 ?>
 <!-- Begin Header -->
+
 <style type="text/css">
-    h1 {padding-left: 0px; padding-right:165px;}
+        /* Modify the background color */
+        .navbar-custom {
+            background-color: rgb(250, 249, 246);
+        }
+        /* Modify brand and text color */
+         
+        .navbar-custom .navbar-brand,
+        .navbar-custom .navbar-text {
+            background-color: rgb(250, 249, 246);
+        }
 </style>
+
 <div id="header">
 <!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
 <h1><br><br>Homebase <br></h1>-->
 
 </div>
 
-<div align="center" id="navigationLinks">
+<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>
+<script src="lib\bootstrap\js\bootstrap.js"></script>
+
+<div class="d-flex justify-content-center mt-3" id="navigationLinks">
 
     <?PHP
     //Log-in security
@@ -66,30 +80,43 @@
         }
         //This line gives us the path to the html pages in question, useful if the server isn't installed @ root.
         $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
-		$venues = array("portland"=>"RMH Portland","bangor"=>"RMH Bangor");
+		$venues = array("portland"=>"RMH Portland");
         
         //they're logged in and session variables are set.
         if ($_SESSION['venue'] =="") { 
-        	echo(' <a href="' . $path . 'personEdit.php?id=' . 'new' . '">apply</a>');
-        	echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
+        	echo(' <a href="' . $path . 'personEdit.php?id=' . 'new' . '">Apply</a>');
+        	echo(' | <a href="' . $path . 'logout.php">Logout</a><br>');
         }
         else {
-        	echo " <br><b>"."Gwyneth's Gift Homebase"."</b> "; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
+            echo('<nav class="navbar navbar-custom navbar-expand-lg bg-light">');
+            echo('<div class="container-fluid">');
+            echo('<a class="navbar-brand">Gwyneth\'s Gift Homebase</a>');
+            echo('<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>');
+        	echo('<div class="collapse navbar-collapse" id="navbarSupportedContent">');
+            echo('<ul class="navbar-nav me-auto mb-2 mb-lg-0">');
+            //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 	        if ($_SESSION['access_level'] >= 1) {
-	        	echo('<a href="' . $path . 'index.php">home</a>');
-	        	echo(' | <a href="' . $path . 'about.php">about</a>');
-	            echo(' | <a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a>');
+                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'about.php">About</a></li>');
+                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">Help</a></li>');
+                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php?venue=portland'.''.'">Calendar</a></li>');
+                echo('<a class="navbar-brand">|</a>');
+                //echo('<button type="button" class="btn btn-link"><a href="' . $path . 'index.php" class="link-primary">home</a></button>');
+	        	//echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'about.php">about</a></button>');
+	            //echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a></button>');
 	            //echo(' | calendars: <a href="' . $path . 'calendar.php?venue=bangor'.''.'">Bangor, </a>');
-	            echo(' | <a href="' . $path . 'calendar.php?venue=portland'.''.'">calendar</a>'); //added before '<a': |, changed: 'Portland' to 'calendar'
+	            //echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'calendar.php?venue=portland'.''.'">calendar</a></button>'); //added before '<a': |, changed: 'Portland' to 'calendar'
 	        }
 	        if ($_SESSION['access_level'] >= 2) {
 	            //echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
 	            //echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
-	            echo(' | volunteers: <a href="' . $path . 'personSearch.php">search</a>, 
-				        <a href="personEdit.php?id=' . 'new' . '">add</a>'); //remove after 'add,': <a href="viewScreenings.php?type=new">screenings</a>
-	            echo(' | <a href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">reports</a>');
+	            echo('<a class="navbar-brand">Volunteers</a>');
+                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
+			        <li class="nav-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); //remove after 'add,': <a href="viewScreenings.php?type=new">screenings</a>
+	            echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
-	        echo(' | <a href="' . $path . 'logout.php">logout</a><br>');
+	        echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a></li><br>');
+            echo('</div></div></nav>');
         }
         
     }
