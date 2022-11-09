@@ -45,7 +45,7 @@ session_cache_expire(30);
                 <p>
                     <?PHP
                     if ($_SESSION['access_level'] == 0)
-                        echo('<p> To apply for volunteering at the Portland or Bangor Ronald McDonald House, '.
+                        echo('<p> To apply for volunteering '.
                         		'please select <b>apply</b>.');
                     if ($person) {
                         /*

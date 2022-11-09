@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="2fb5792e-447b-40f4-8ee0-f887be64c2b9" name="Changes" comment="untracked files">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/addWeek_newweek.inc" beforeDir="false" afterPath="$PROJECT_DIR$/addWeek_newweek.inc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/calendar.php" beforeDir="false" afterPath="$PROJECT_DIR$/calendar.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Gh159E7jxFuC5pK3oFlq2y7XPV" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2fb5792e-447b-40f4-8ee0-f887be64c2b9" name="Changes" comment="" />
+      <created>1666825820426</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666825820426</updated>
+    </task>
+    <task id="LOCAL-00001" summary="minor header edits">
+      <created>1666829671134</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1666829671134</updated>
+    </task>
+    <task id="LOCAL-00002" summary="remove venue from week.php">
+      <created>1666829927541</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1666829927541</updated>
+    </task>
+    <task id="LOCAL-00003" summary="minor edits to header.php">
+      <created>1666833322594</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1666833322594</updated>
+    </task>
+    <task id="LOCAL-00004" summary="minor edits to header.php and calendar.inc, removing dual calendar system in GUI">
+      <created>1666834360870</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666834360870</updated>
+    </task>
+    <task id="LOCAL-00005" summary="minor edits to header.php and calendar.inc, removing dual calendar system from GUI">
+      <created>1666835513409</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1666835513409</updated>
+    </task>
+    <task id="LOCAL-00006" summary="minor edits to header.php and calendar.inc, removed screening and dual calendar system from GUI">
+      <created>1666836361491</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1666836361491</updated>
+    </task>
+    <task id="LOCAL-00007" summary="edit to header.php, calendar link pointed to portland venue instead of bangor">
+      <created>1667237696317</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1667237696317</updated>
+    </task>
+    <task id="LOCAL-00008" summary="edit comment to reflect change">
+      <created>1667237841751</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1667237841751</updated>
+    </task>
+    <task id="LOCAL-00009" summary="cleaned up login_form.php, removed footer with copyright info">
+      <created>1667408072572</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1667408072572</updated>
+    </task>
+    <task id="LOCAL-00010" summary="untracked files">
+      <created>1667408539361</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1667408539361</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="minor header edits" />
+    <MESSAGE value="remove venue from week.php" />
+    <MESSAGE value="minor edits to header.php" />
+    <MESSAGE value="minor edits to header.php and calendar.inc, removing dual calendar system in GUI" />
+    <MESSAGE value="minor edits to header.php and calendar.inc, removing dual calendar system from GUI" />
+    <MESSAGE value="minor edits to header.php and calendar.inc, removed screening and dual calendar system from GUI" />
+    <MESSAGE value="edit to header.php, calendar link pointed to portland venue instead of bangor" />
+    <MESSAGE value="edit comment to reflect change" />
+    <MESSAGE value="cleaned up login_form.php, removed footer with copyright info" />
+    <MESSAGE value="untracked files" />
+    <option name="LAST_COMMIT_MESSAGE" value="untracked files" />
+  </component>
+</project>
