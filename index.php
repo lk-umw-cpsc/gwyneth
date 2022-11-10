@@ -12,7 +12,7 @@ session_cache_expire(30);
 
 <head>
     <title>
-        Gwyneth's Gifts
+        Gwyneth's Gift
     </title>
     <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
     <style>
@@ -150,7 +150,7 @@ session_cache_expire(30);
 
                         //log box
                         echo ('<div class="container-fluid" id="logBox"><p><strong>Recent Schedule Changes:</strong><br/>');
-                        echo ('<table class="table border table-striped-columns table-hover w-auto p-3" id="searchResults">');
+                        echo ('<table class="table border table-striped-columns table-hover table-bordered w-auto p-3" id="searchResults">');
                         echo ('
                             <theadx>
                             <tr>

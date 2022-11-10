@@ -16,6 +16,7 @@ include_once('domain/Person.php');
 <title>
 	<?PHP echo('Volunteer Hours Log');?>
 </title>
+<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="lib/jquery-ui.css" />
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <link rel="stylesheet" href="lib/jquery.timepicker.css" />
@@ -30,8 +31,8 @@ $(function() {
 });
 </script>
 </head>
-<body>
-<div id="container">
+<body style="background-color: rgb(250, 249, 246);">
+<div class="container-fluid" id="container" style="background-color: rgb(250, 249, 246);">
     <?PHP include('header.php'); ?>
     <div id="content">
     <form method="POST">
@@ -47,7 +48,7 @@ $(function() {
 		
 	    	$person = retrieve_person($_GET['id']);
 		    $hours = $person->get_hours();
-		    echo '<p><b> '.$venues[$_SESSION['venue']].' Volunteer Log Sheet </b> for '.$person->get_first_name()." ".$person->get_last_name();
+		    echo '<p><b> Gwyneth\'s Gift Volunteer Log Sheet </b> for '.$person->get_first_name()." ".$person->get_last_name();
 			echo "<br> Today is ".date('l F j, Y')."</p>"; 
 			$total = 0;
 			echo '<p><table name="log_entries" id="spacedRowTable" style="width:40%">';
@@ -75,7 +76,7 @@ $(function() {
 				<td><input type="text" name="hours-worked[]" class="hours-worked" size=10></td>';
 			echo '</tr></table></p>';
 	        
-		    echo('<p>Hit <input type="submit" value="Submit" name="Submit" tabindex=5> to save these changes.<br /><br />');
+		    echo('<p>Hit <input class="btn btn-success" type="submit" value="Submit" name="Submit" tabindex=5> to save these changes.<br /><br />');
 
 	    // rebuilds the hours array from the form, taking in edits to previous entries and a new entry 
 	    function gather_hours($dates, $start_times, $end_times, $venues, $hours_worked) {
