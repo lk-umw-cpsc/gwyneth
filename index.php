@@ -72,7 +72,7 @@ session_cache_expire(30);
                     if ($_SESSION['access_level'] == 1) {
                         	
                         // link to personal profile for editing
-                        echo('<br><div class="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
+                        echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
                         echo('</ul><p>Go <strong><a href="personEdit.php?id='.$person->get_id()
                         	     .'">here</a></strong> to view or edit your account.</p></div>');
                         echo('<br></br>');
@@ -143,7 +143,7 @@ session_cache_expire(30);
                         mysqli_close($con);
                         
                         // link to personal profile for editing
-                        echo('<br><div class="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
+                        echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
                         echo('</ul><p>Go <strong><a href="personEdit.php?id='.$person->get_id()
                         .'">here</a></strong> to view or edit your account.</p></div>');
                         echo('<br></br>');

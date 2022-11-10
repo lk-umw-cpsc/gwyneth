@@ -12,6 +12,8 @@
  * 	@author Oliver Radwan, Xun Wang and Allen Tucker
  * 	@version 9/1/2008, revised 4/1/2012, revised 3/11/2015
  */
+ 
+echo('<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>');
 
 if ($_SESSION['access_level'] == 0) {
     echo('<p><strong>Volunteer Service Application</strong><br />');
@@ -59,25 +61,25 @@ if ($_SESSION['access_level'] == 0) {
 	</script>
     <?PHP 
     	$venues = array('portland'=>"Portland House");       
-        echo '<table><tr><td>Date: '. 
-	             '</td><td colspan=2><input name="start_date" type="text" id="start_date" value="'.$person->get_start_date().'">';
+        echo '<table class="table"><tr><td>Date: '. 
+	             '</td><td colspan=2><input class="form-control-sm" name="start_date" type="text" id="start_date" value="'.$person->get_start_date().'">';
 	   	foreach ($venues as $venue=>$venuename) {
 	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($person->get_venue()==$venue?' checked':'').'>');
 	   	}
 	   	echo "</tr></table><br>"; 
     ?>
-    <fieldset>
-        <legend>Personal information:</legend>
+    <fieldset class="row mb-3">
+        <legend class="col-sm-2 col-form-label col-form-label-lg">Personal Information:</legend>
     <?php
         if ($person->get_first_name()=="new")
-        	echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'">';
+        	echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'">';
         else 
         	echo '<p>First Name: '.$person->get_first_name();
-    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="last_name" tabindex="2" value="<?PHP echo($person->get_last_name()) ?>">
-        <p>Address<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="address" tabindex="3" size=40 value="<?PHP echo($person->get_address()) ?>">
-        <p>City<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="city" tabindex="4" value="<?PHP echo($person->get_city()) ?>">
+    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="last_name" tabindex="2" value="<?PHP echo($person->get_last_name()) ?>">
+        <p>Address<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="address" tabindex="3" size=40 value="<?PHP echo($person->get_address()) ?>">
+        <p>City<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="city" tabindex="4" value="<?PHP echo($person->get_city()) ?>">
         State, Zip<span style="font-size:x-small;color:FF0000">*</span>:
-            <select name="state" tabindex="5">
+            <select class="form-select-sm" name="state" tabindex="5">
 <?PHP
 $states = array("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA",
     "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM",
@@ -93,14 +95,14 @@ foreach ($states as $st) {
 }
 ?>
 </select>,
-<input type="text" name="zip" size="5" tabindex="6" value="<?PHP echo($person->get_zip()) ?>">
+<input class="form-control-sm" type="text" name="zip" size="5" tabindex="6" value="<?PHP echo($person->get_zip()) ?>">
 <?php     
         $phonetypes = array("home", "cell", "work");
         if ($person->get_first_name()=="new") {
         	echo '<p>Primary Phone<span style="font-size:x-small;color:FF0000">*</span>: ';
-        	echo '<input type="text" name="phone1" MAXLENGTH=12 tabindex="7" value="'.phone_edit($person->get_phone1()).'">';
+        	echo '<input class="form-control-sm" type="text" name="phone1" MAXLENGTH=12 tabindex="7" value="'.phone_edit($person->get_phone1()).'">';
         	foreach ($phonetypes as $pvalue)
-        		echo '<input type="radio" name="phone1type" value="'.$pvalue.'"'.($person->get_phone1type()==$pvalue?' checked':'').'>'.$pvalue.' ';
+        		echo '<input class="form-check-input" type="radio" name="phone1type" value="'.$pvalue.'"'.($person->get_phone1type()==$pvalue?' checked':'').'>'.$pvalue.' ';
         }
         else echo '<p>Primary Phone: '.phone_edit($person->get_phone1());
         //echo '<p>Secondary Phone: ';
@@ -108,17 +110,17 @@ foreach ($states as $st) {
         //foreach ($phonetypes as $pvalue)
         //	echo '<input type="radio" name="phone2type" value="'.$pvalue.'"'.($person->get_phone2type()==$pvalue?" checked":"").'>'.$pvalue.' ';
         
-        echo '<p>Birth date: '. '<input name="birthday" type="text" id="birthday" tabindex="8" value="'.$person->get_birthday().'">';
+        echo '<p>Birth date: '. '<input class="form-control-sm" name="birthday" type="text" id="birthday" tabindex="8" value="'.$person->get_birthday().'">';
         //if ($id=='new')
         	//echo ' (Applicants younger than 18 should contact RMH for a separate application)';
-        echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input type="text" name="email" tabindex="9" value="'.$person->get_email().'">';
-        echo '<p>What is the best time to contact you: '. '<input type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
+        echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="email" tabindex="9" value="'.$person->get_email().'">';
+        echo '<p>What is the best time to contact you: '. '<input class="form-control-sm" type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
         // radio for computer
         echo "<p>What is the best way to contact you? ";
         echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-        echo '<p><input type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
-		    '&nbsp;&nbsp;<input type="radio" name="cMethod" value="Email" '.($person->get_cMethod()=="Email"?"checked":"").'>Email'.
-            '&nbsp;&nbsp;<input type="radio" name="cMethod" value="Text" '.($person->get_cMethod()=="Text"?"checked":"").'>Text';
+        echo '<p><input class="form-check-input" type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
+		    '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Email" '.($person->get_cMethod()=="Email"?"checked":"").'>Email'.
+            '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Text" '.($person->get_cMethod()=="Text"?"checked":"").'>Text';
         //added for GG database
         //echo '<h2>Added for GG database, needs editing + entered info does not save on the screen when going back to edit person</h2>';
         //echo '<p>Shirt size: '. '<input type="text" name="shirt_size" tabindex="11" placeholder="S, M, L, XL, or XXL" '.$person->get_shirt_size().'">';
@@ -137,7 +139,7 @@ foreach ($states as $st) {
 <?php 		  
 if ($_SESSION['access_level']==2) {
 	echo('<p>Manager Notes:<br />');
-	echo('<textarea name="notes" rows="2" cols="75">');
+	echo('<textarea class="form-control-sm" name="notes" rows="2" cols="75">');
 	echo($person->get_notes().'</textarea>');
 }
 
@@ -159,7 +161,7 @@ echo '<br>If yes, number of hours required: ';
 echo '<input type="text" name="credithours" size=5 value="'.$person->get_credithours().'">';
 echo '</fieldset>';*/
 
-echo '<fieldset> <legend>Volunteer Information:</legend>';
+echo '<fieldset class="row mb-3"> <legend class="col-sm-2 col-form-label col-form-label-lg">Volunteer Information:</legend>';
 /*
 echo "<p>How did you hear about Gwyneth's Gift? ";
 echo '<p><input type="radio" name="howdidyouhear" value="internet" '.($person->get_howdidyouhear()=="internet"?"checked":"").'>Internet search or website'.
@@ -187,7 +189,7 @@ echo('</textarea>');*/
 // dropdown for t shirt size
 echo ('<p>Shirt Size:');
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="shirt size">');
+echo('<select class="form-select-sm" name="shirt size">');
 
 	echo ('<option value="S"');
 	if ($person->get_shirt_size() == 'S')
@@ -211,8 +213,8 @@ echo('</select>');
 // radio for computer
 echo "<p>Do you own a computer? ";
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo '<p><input type="radio" name="computer" value="Yes" '.($person->get_computer()=="Yes"?"checked":"").'>Yes'.
-		'&nbsp;&nbsp;<input type="radio" name="computer" value="No" '.($person->get_computer()=="No"?"checked":"").'>No';
+echo '<p><input class="form-check-input" type="radio" name="computer" value="Yes" '.($person->get_computer()=="Yes"?"checked":"").'>Yes'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="computer" value="No" '.($person->get_computer()=="No"?"checked":"").'>No';
 
 // dropdown for computer - not in use
 /*
@@ -233,8 +235,8 @@ echo('</select>');
 // radio for camera
 echo "<p>Do you own a camera? ";
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo '<p><input type="radio" name="camera" value="Yes" '.($person->get_camera()=="Yes"?"checked":"").'>Yes'.
-		'&nbsp;&nbsp;<input type="radio" name="camera" value="No" '.($person->get_camera()=="No"?"checked":"").'>No';
+echo '<p><input class="form-check-input" type="radio" name="camera" value="Yes" '.($person->get_camera()=="Yes"?"checked":"").'>Yes'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="camera" value="No" '.($person->get_camera()=="No"?"checked":"").'>No';
 
 // dropdown for camera - not in use
 /*
@@ -255,8 +257,8 @@ echo('</select>');
 // radio for transportation
 echo "<p>Do you have reliable transportation? ";
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo '<p><input type="radio" name="transportation" value="Yes" '.($person->get_transportation()=="Yes"?"checked":"").'>Yes'.
-		'&nbsp;&nbsp;<input type="radio" name="transportation" value="No" '.($person->get_transportation()=="No"?"checked":"").'>No';
+echo '<p><input class="form-check-input" type="radio" name="transportation" value="Yes" '.($person->get_transportation()=="Yes"?"checked":"").'>Yes'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="transportation" value="No" '.($person->get_transportation()=="No"?"checked":"").'>No';
 
 
         
@@ -275,16 +277,16 @@ echo('<select name="transportation">');
 	    echo (' SELECTED'); echo('>Yes</option>');
 echo('</select>'); */
 
-echo('<p>Emergency contact information: ');
+echo('<p><b>Emergency contact information: </b>');
 
-echo '<p>Emergency contact name<span style="font-size:x-small;color:FF0000">*</span>: '. '<input type="text" name="contact_name" tabindex="1" value="'.$person->get_contact_name().'">';
-echo '<p>Emergency contact number<span style="font-size:x-small;color:FF0000">*</span>: '. '<input type="text" name="contact_num" tabindex="2" value=" '.$person->get_contact_num().'">';
+echo '<p>Emergency contact name<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="contact_name" tabindex="1" value="'.$person->get_contact_name().'">';
+echo '<p>Emergency contact number<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="contact_num" tabindex="2" value=" '.$person->get_contact_num().'">';
 //echo '<p>Relation to emergency contact: '. '<input type="text" name="relation" tabindex="17" placeholder="Relative, Spouse, Friend, etc." '.$person->get_relation().'">';
 
 // dropdown for emergency contact relation
 echo ('<p>What is your relationship to the emergency contact:');
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="relation">');
+echo('<select class="form-select-sm" name="relation">');
 
 echo ('<option value="Relative"');
 if ($person->get_relation() == 'Relative')
@@ -308,15 +310,15 @@ echo('</select>');
 
 //echo '<fieldset> <legend>Volunteer Information:</legend>';
 
-echo "<p>How did you hear about Gwyneth's Gift? ";
-echo '<p><input type="radio" name="howdidyouhear" value="internet" '.($person->get_howdidyouhear()=="internet"?"checked":"").'>Internet search or website'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="family" '.($person->get_howdidyouhear()=="family"?"checked":"").'>Family or friend'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="volunteer" '.($person->get_howdidyouhear()=="volunteer"?"checked":"").'>Current volunteer'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="other" '.($person->get_howdidyouhear()=="other"?"checked":"").'>other';
+echo "<p><b>How did you hear about Gwyneth's Gift? </b>";
+echo '<p><input class="form-check-input" type="radio" name="howdidyouhear" value="internet" '.($person->get_howdidyouhear()=="internet"?"checked":"").'>Internet search or website'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="howdidyouhear" value="family" '.($person->get_howdidyouhear()=="family"?"checked":"").'>Family or friend'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="howdidyouhear" value="volunteer" '.($person->get_howdidyouhear()=="volunteer"?"checked":"").'>Current volunteer'.
+		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="howdidyouhear" value="other" '.($person->get_howdidyouhear()=="other"?"checked":"").'>other';
 
 
 echo('<p>Please list special skills or training you would like us to know about:<br />');
-echo('<textarea name="specialties" rows="3" cols="75">');
+echo('<textarea class="form-control-sm" name="specialties" rows="3" cols="75">');
 echo($person->get_specialties());
 echo('</textarea>');
 /*echo '<p>Have you ever been convicted of a felony? ';
@@ -334,7 +336,7 @@ echo '</fieldset>';
 
 echo ('<p>Status:');
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="status">');
+echo('<select class="form-select-sm" name="status">');
 if ($_SESSION['access_level'] == 0) {
 	echo ('<option value="applicant"');
     echo (' SELECTED'); 
@@ -365,7 +367,7 @@ echo('<p>Position type:');
 echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
 
 foreach ($types as $key => $value) {
-    echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="type[]" value=' . $key);
+    echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="type[]" value=' . $key);
     if (in_array($key,$person->get_type()) !== false)
         echo(' CHECKED');
     echo ('>' . $value );
@@ -378,8 +380,8 @@ if ($_SESSION['access_level']==0)
        // or monthly (for weekend shifts). Volunteers may also work flex shifts, filling in as their schedule allows.';
 ?>
 
-    <fieldset id='availability'>
-        <legend>Availability:<span style="font-size:x-small;color:FF0000">*</span>  </legend>
+    <fieldset class="row mb-3" id='availability'>
+        <legend class="col-sm-2 col-form-label col-form-label-lg">Availability:<span style="font-size:x-small;color:FF0000">*</span>  </legend>
         <span class="bigTable">
                 <?PHP
                 $shifts = array('9-12' => '9-12', '12-3' => '12-3', '3-6' => '3-6',
@@ -401,7 +403,7 @@ if ($_SESSION['access_level']==0)
                 	$sunshifts = $sunshiftsbangor;
                 }
                 $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-                echo "<table>";
+                echo "<table class='table'>";
     			echo "<tr><td>Monday&nbsp;&nbsp;</td><td>Tuesday&nbsp;&nbsp;</td><td>Wednesday&nbsp;&nbsp;</td>".
 					"<td>Thursday&nbsp;&nbsp;</td><td>Friday&nbsp;&nbsp;</td><td>Saturday&nbsp;&nbsp;</td><td>Sunday</td></tr>";
     			foreach ($shifts as $shift => $shiftvalue) {
@@ -414,7 +416,7 @@ if ($_SESSION['access_level']==0)
     	  			  else $shiftdisplay=$shiftvalue;
     	  			  if (($shift!="night" || $day=="Fri" || $day=="Sat") && $shiftdisplay!="") {
        					$realkey = $day . ":". $shiftdisplay. ":". $person->get_venue();
-       	  				echo ('<td><input type="checkbox" name="availability[]" value="' . $realkey . '"');
+       	  				echo ('<td><input class="form-check-input" type="checkbox" name="availability[]" value="' . $realkey . '"');
     	  				if (in_array($realkey, $person->get_availability())) echo(' CHECKED');
     	  				echo ('>');
     	  				echo " ".$shiftdisplay.'</td>';
@@ -436,7 +438,7 @@ if ($_SESSION['access_level']==0)
             	$screeningType = $person->get_screening_type();
                 $screening = retrieve_dbApplicantScreenings($screeningType);
                 $screenings = getall_ApplicantScreenings();
-                echo('<p> Screening Type:&nbsp; <select name="screening_type">');
+                echo('<p> Screening Type:&nbsp; <select class="form-select" name="screening_type">');
                 if ($person->get_screening_type() == "")
                     echo('<option value="" SELECTED></option>');
                 foreach ($screenings as $s) {
@@ -486,8 +488,8 @@ if ($_SESSION['access_level']==0)
             }
             
             if ($_SESSION['access_level'] == 2) {
-                echo "<fieldset>";
-                echo "<legend>Change password: </legend>";
+                echo "<fieldset class='row mb-3'>";
+                echo "<legend class='col-form-label col-sm-2 pt-0'>Change password: </legend>";
                 echo "Admins cannot change a volunteer's password. They can reset the password below. <br></br>";
                 echo "Admins can change their own password from the home page";
                 echo '</fieldset>';
@@ -504,7 +506,7 @@ if ($_SESSION['access_level']==0)
             echo('By hitting <input type="submit" value="Submit" name="Submit Edits">, I understand the importance of this volunteer 
             		commitment and have answered the application questions honestly and to the best of my knowledge.<br /><br />');
         else
-            echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
+            echo('Hit <input class="btn btn-success" type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
         if ($id != 'new' && $_SESSION['access_level'] >= 2) {
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
             '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />' .

@@ -23,16 +23,10 @@
         }
 </style>
 
-<div id="header">
-<!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
-<h1><br><br>Homebase <br></h1>-->
-
-</div>
-
 <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>
 <script src="lib\bootstrap\js\bootstrap.js"></script>
 
-<div class="d-flex justify-content-center mt-3" id="navigationLinks">
+<div class="d-flex justify-content-center" id="navigationLinks">
 
     <?PHP
     //Log-in security
