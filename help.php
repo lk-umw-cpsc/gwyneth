@@ -21,23 +21,23 @@
 	<body>
 		<div id="container">
 			<div id="content">
-				<div align="center"><p><a href="?">Help Home</a></p></div>
+				<div align="center"><p><a href="?">Help</a></p></div>
 
 				<?PHP
 					//The array $assocHelp associates the page a person is viewing
-					//with the help page for that view. 
-					
+					//with the help page for that view.
+
 					//basic pages
 					$assocHelp['login.php']='login.inc.php';
 					$assocHelp['index.php']='index.inc.php';
 					$assocHelp['about.php']='index.inc.php';
 					$assocHelp['volunteerLog.php']='volunteerLogHelp.inc.php';
-					
+
 					//person editing, searching
 					$assocHelp['personSearch.php']='searchPersonHelp.inc.php';
 					$assocHelp['personEdit.php']='editPersonHelp.inc.php';
 					$assocHelp['personAdd.php']='addPersonHelp.inc.php';
-					
+
 					//calendar managing
 					$assocHelp['calendar.php']='manageCalendarHelp.inc.php';
 					$assocHelp['addWeek.php']='generateWeekHelp.inc.php';
@@ -47,25 +47,26 @@
 					$assocHelp['subCallList.php']='subCallListHelp.inc.php';
 					$assocHelp['addNotes.php']='calendarNotesHelp.inc.php';
 					$assocHelp['navigateThroughWeeks.php']='navigateThroughWeeksHelp.inc.php';
-					
+
 					// master schedule managing
 					$assocHelp['viewSchedule.php']='schedulingHelp.inc.php';
-					
+
 					// other
 					$assocHelp['quickStartGuide.php']='quickStartGuideHelp.inc.php';
 					$assocHelp['reports.php']='reportsHelp.inc.php';
 					$assocHelp['dataExport.inc.php']='dataExportHelp.inc.php';
 
-					// Now if we have an undefined array value for the key they've passed us, 
+					// Now if we have an undefined array value for the key they've passed us,
 					// the page they're looking for help on doesn't have an associated help page.
 					// So we pass them to the help index page to see if they can find help from there.
 					$loc = substr($_GET['helpPage'],strpos($_GET['helpPage'],"/")+1);
 					if(!$assocHelp[$loc])
 						$assocHelp[$loc]='index.inc.php';
-					
+
 					//now this line actually snags the tutorial data they're requesting and displays it.
 					include('tutorial/'.$assocHelp[$loc]);
 				?>
+
 			</div>
 		</div>
 		<?PHP include('footer.inc');?>

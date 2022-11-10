@@ -19,7 +19,7 @@ session_cache_expire(30);
 			<strong> Signing in and out of the System</strong>
 		
 		
-		<p>Access to Homebase requires a Username and a Password. The form
+		<p>Access to Gwyneth's Gift Homebase requires a Username and a Password. The form
 			looks like this:
 		
 		
@@ -63,11 +63,7 @@ session_cache_expire(30);
 				</p>
 				<p>At this point, you can retry entering your Username and Password
 					(if you think you may have mistyped them).
-			
-			<li>If all else fails, or if you do not remember your password,
-				please contact the <a href="mailto:allen@npfi.org"><i>Portland House Manager</i></a>
-        		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.
-		
+
 		</ul>
 		<p>
 			Remember to <strong>logout</strong> when you are finished using
