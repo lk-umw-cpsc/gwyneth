@@ -176,24 +176,35 @@ session_cache_expire(30);
                         }
 
                         // give admin ability to change password even if it is not default
-                        if (md5($person->get_id()) != $person->get_password() && ['access_level'] == 2) {
-                            if (!isset($_POST['_rp_submitted']))
-                                echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
-                            else {
+                        //echo '&nbsp&nbsp&nbsp&nbsp<strong>Would you like to change your password:</strong>';
+                        if (md5($person->get_id()) != $person->get_password() && $_SESSION['access_level'] == 2) {
+
+                            echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
+                    echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                       echo('<br></br>');
+                            //if (!isset($_POST['_rp_submitted']))
+                              //  echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
+                            //else {
                                 //they've submitted
-                                if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
-                                    echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                else if (md5($_POST['_rp_old']) != $person->get_password())
-                                    echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                else if ((md5($_POST['_rp_old']) == $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
-                                    $newPass = md5($_POST['_rp_newa']);
-                                    change_password($person->get_id(), $newPass);
-                                    echo('Password has been updated');
-                                }
-                            }
+                              //  if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
+                                //    echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
+                                //else if (md5($_POST['_rp_old']) != $person->get_password())
+                                  //  echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
+                                //else if ((md5($_POST['_rp_old']) == $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
+                                    //$newPass = md5($_POST['_rp_newa']);
+                                    //change_password($person->get_id(), $newPass);
+                                    //echo('Password has been updated');
+                            //    }
+                            //}
                             
                             echo('<br clear="all">');
                         }
+                        
+                        //echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
+                    //echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                      // echo('<br></br>');
+
+                       
 
 
                     }
