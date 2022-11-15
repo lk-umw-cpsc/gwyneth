@@ -41,8 +41,10 @@ if ($id == 'new') {
             Editing <?PHP echo($person->get_first_name() . " " . $person->get_last_name()); ?>
         </title>
         <link rel="stylesheet" href="lib/jquery-ui.css" />
-        <link rel="stylesheet" href="styles.css" type="text/css" />
+        <link rel="stylesheet" href="styles.css" type="text/css"/>
+        <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
         <script src="lib/jquery-1.9.1.js"></script>
+        <script src="lib\bootstrap\js\bootstrap.js"></script>
 		<script src="lib/jquery-ui.js"></script>
 		<script>
 			$(function(){
@@ -53,10 +55,10 @@ if ($id == 'new') {
 			})
 		</script>
     </head>
-    <body>
-        <div id="container">
+    <body style="background-color: rgb(250, 249, 246);">
+        <div class="container-fluid" id="container">
             <?PHP include('header.php'); ?>
-            <div id="content">
+            <div class="container-fluid border border-dark" id="content">
                 <?PHP
                 include('personValidate.inc');
                 if ($_POST['_form_submit'] != 1)

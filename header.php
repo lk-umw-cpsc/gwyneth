@@ -23,16 +23,10 @@
         }
 </style>
 
-<div id="header">
-<!--<br><br><img src="images/rmhHeader.gif" align="center"><br>
-<h1><br><br>Homebase <br></h1>-->
-
-</div>
-
 <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>
 <script src="lib\bootstrap\js\bootstrap.js"></script>
 
-<div class="d-flex justify-content-center mt-3" id="navigationLinks">
+<div class="d-flex justify-content-center" id="navigationLinks">
 
     <?PHP
     //Log-in security
@@ -90,6 +84,9 @@
         else {
             echo('<nav class="navbar navbar-custom navbar-expand-lg bg-light">');
             echo('<div class="container-fluid">');
+            echo('<a class="navbar-brand" href="' . $path . 'index.php">
+            <img src="images\gwynethsgift.png" alt="Gwyneth\'s Gift" width="203" height="63">
+          </a>');
             echo('<a class="navbar-brand">Gwyneth\'s Gift Homebase</a>');
             echo('<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>');
         	echo('<div class="collapse navbar-collapse" id="navbarSupportedContent">');
