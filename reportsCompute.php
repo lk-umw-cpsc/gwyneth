@@ -34,14 +34,11 @@ function show_report($venue) {
 	    else if (in_array('shifts-staffed-vacant', $_POST['report-types'])) {
 			report_shifts_staffed_vacant_by_day($from, $to, $venue);
 		}
-		else if (in_array('birthdays', $_POST['report-types'])) {
-				report_volunteer_birthdays($name_from,$name_to, $venue, $export);
-		}
-	    else if (in_array('history', $_POST['report-types'])) {
-				report_volunteer_history($from, $to, $name_from,$name_to, $venue, $export);
-	    }
 		else if (in_array('volunteers', $_POST['report-types'])) {
 				report_all_volunteers($name_from, $name_to, $venue, $export);	
+		}
+		else if (in_array('emails', $_POST['report-types'])) {
+        		report_all_emails($name_from, $name_to, $venue, $export);
 		}
 		else if (in_array('information', $_POST['report-types'])) {
 			report_all_volunteers_info($name_from, $name_to, $venue, $export);	
@@ -78,28 +75,15 @@ function report_shifts_staffed_vacant_by_day($from, $to, $venue) {
 	display_vacancies_table($report, $venue);
 }
 
-function report_volunteer_birthdays($name_from, $name_to, $venue, $export) {
-	echo ("<br><b>".pretty_venue($venue)." Volunteer Birthdays Report</b> (ordered by age) <br> Report date: ");
+// used for email info
+function report_all_emails($name_from, $name_to, $venue, $export) {
+	echo ("<br><b>".pretty_venue($venue)." Volunteer Contact Info</b><br> Report date: ");
 	echo date("F d, Y")."<br><br>";
 	if($name_from == ""){$name_from="A";}
 	if($name_to == ""){$name_to = "Z";}
-	
-	$report = get_birthdays($name_from, $name_to,$venue);
-	//display_birthdays($col_labels,$report);
-	display_birthdays($report, $export, $venue);
-}
 
-function report_volunteer_history($from, $to, $name_from, $name_to, $venue, $export) {
-	if($from == ""){$from ="00-00-00";}
-	if($to == ""){$to = date("y-m-d");}
-	if($name_from == ""){$name_from="A";}
-	if($name_to == ""){$name_to = "Z";}
-	
-	echo ("<br><b>".pretty_venue($venue)." Volunteer History Report</b><br> Report date: ");
-	echo date("F d, Y")."<br><br>";
-	
-	$report = get_logged_hours($from, $to, $name_from,$name_to, $venue);
-	display_logged_hours($report, $export, $venue);
+	$report = getall_dbPersons($name_from, $name_to, $venue);
+	display_volunteers_emails($report, $export, $venue);
 }
 
 //used for contact info
@@ -124,69 +108,6 @@ function report_all_volunteers_info($name_from, $name_to, $venue, $export) {
 	display_volunteers_full($report, $export, $venue);
 }
 
-function display_birthdays($report, $export, $venue) { //Create a table to display birthdays
-	$col_labels = array("Volunteer Name ","Address", "City", "State", "Zip", "Birth Date ","Age ");
-	$res = "
-		<table id = 'report'> 
-			<thead>
-			<tr>";
-	$row = "<tr>";
-	
-	foreach($col_labels as $col_name){
-		$row .= "<td><b>".$col_name."</b></td>";
-	}
-	$row .="</tr>";
-	$res .= $row;
-	$res .= "
-			</thead>
-			<tbody>";
-	
-	$full_names = array();
-	$dobs = array();
-	$ages = array();
-	echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';
-
-	$export_data = array();
-	foreach($report as $person){
-		//check if the person's date of birth is known 
-		if (strlen($person->get_birthday()) == 8 && substr($person->get_birthday(), 6) != "XX" ){
-			$dob = pretty_date($person->get_birthday());
-			$age = calculate_age($person->get_birthday());
-		}
-		elseif (strlen($person->get_birthday()) == 8){
-			$dob = pretty_date($person->get_birthday());
-			$age = "N/A";
-		}
-		else {
-			$dob = "N/A";
-			$age = "N/A";
-		}
-		if ($dob != "N/A") {
-			$p = array($person->get_first_name()." ".$person->get_last_name(),
-				   $person->get_address(), $person->get_city(), $person->get_state(), 
-				   $person->get_zip(),$dob,$age);
-			$export_data[] = $p;
-			$res .= "<tr>";
-			foreach ($p as $info)
-				$res .= "<td>". $info . "</td>";
-		    $res .= "</tr>";
-	/*    $row = "<tr>";
-			$row .= "<td>".$person->get_first_name()." ".$person->get_last_name().
-					"</td><td>".$person->get_address() ."</td><td>".$person->get_city()."</td>". 
-			        "</td><td>".$person->get_state() ."</td><td>".$person->get_zip()."</td>". 
-			        "</td><td>".$dob ."</td><td align=right>".$age."</td>";
-			$row .= "</tr>";
-			$res .= $row;
-	*/	}
-		
-	}
-	$res .= "</tbody></table>";
-	echo $res;
-	echo "</div>";
-	if ($export=="yes") 
-		export_report ("Volunteer Birthdays Report", $col_labels, $export_data, $venue);
-}
-
 function pretty_date($date){
 	//eg. date is 78-03-30, this function can convert it into "March 30, 1978"
   	//explode the date to get month, day and year
@@ -206,8 +127,6 @@ function pretty_date($date){
 	//$dob[1] = $dateObj->format('M'); 
 	return date("F j", mktime(0,0,0,$dob[1],$dob[2],$dob[0])).", ".$year;
 }
-
-
 
 function display_totals_table($report, $venue){  //Creates a table for the Total Hours report
 	$row_lab = array("9-12"=>"Morning","12-3"=>"Early PM","3-6"=>"Late PM","6-9"=>"Evening","night"=>"Night","Total"=>"Total");
@@ -403,15 +322,15 @@ function pretty_venue($v){
 		return $venue[$v];
 }
 
-//Create a table to display volunteer history report
-function display_logged_hours ($report, $export, $venue) { 
-	$col_labels = array("Name","Date","Start time","End time","Hours");
+//Create a table to display volunteer emails
+function display_volunteers_emails($report, $export, $venue) {
+	$col_labels = array("Name","Email");
 	$res = "
-		<table id = 'report'> 
+		<table id = 'report'>
 			<thead>
 			<tr>";
 	$row = "<tr>";
-	
+
 	foreach($col_labels as $col_name){
 		$row .= "<td><b>".$col_name."</b></td>";
 	}
@@ -420,47 +339,25 @@ function display_logged_hours ($report, $export, $venue) {
 	$res .= "
 			</thead>
 			<tbody>";
-	
-	$full_name = array();
-	$first_name = array();
-	$dates = array();
-	$shifts_worked = array();
-	$hours_count = array();
-    $export_data = array();
-	
-    echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';			       
-	foreach($report as $key){
-		$entry = explode(";",$key);
-		$last_name = $entry[0];
-		$first_name = $entry[1];
-		$dates = explode(",",$entry[2]);
-		$res .= "<tr><td>".$last_name . ", ". $first_name."</td>";
-		$p = array($last_name . ", ". $first_name);
-		$total_hours=0;
-		foreach ($dates as $date) {
-			$d = explode(":",$date);
-			$total_hours += $d[2];
-			$times = explode(",",$d[1]);
-			foreach ($times as $time) {
-				$t = explode("-",$time);
-				$start_time = civil_time($t[0]);
-				$end_time = civil_time($t[1]);
-				$res .= "<td align=right>".pretty_date($d[0])."</td><td align=right>".$start_time.
-				        "</td><td align=right>".$end_time."</td><td align=right>".$d[2]."</td></tr><tr><td></td>";
-				$p = array($last_name . ", ". $first_name,
-							pretty_date($d[0]),$start_time,$end_time,$d[2]);
-				$export_data[] = $p; 
-			}
-		}
-		$res .= "<td></td><td></td><td><b>Total hours</b></td><td align=right>".$total_hours."</td></tr>";
+
+	echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';
+	$export_data = array();
+	foreach($report as $person){
+		$p = array($person->get_last_name() . ", ". $person->get_first_name(), $person->get_email());
+		$export_data[] = $p;
+		$res .= "<tr>";
+		foreach ($p as $info)
+			$res .= "<td>". $info . "</td>";
+	    $res .= "</tr>";
 	}
-	
 	$res .= "</tbody></table>";
 	echo $res;
 	echo "</div>";
-	if ($export=="yes") 
-		export_report ("Volunteer History Report", $col_labels, $export_data, $venue);
+	if ($export=="yes")
+		export_report ("Volunteer Email Info", $col_labels, $export_data, $venue);
 }
+
+
 
 //Create a table to display volunteer contact info
 function display_volunteers ($report, $export, $venue) { 
