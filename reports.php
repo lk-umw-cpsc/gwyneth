@@ -112,12 +112,13 @@ $(function() {
 	</tr>
 	<tr>
 	<td valign="top">
-	<p>To view report, click <input type="submit" value="Submit" id ="report-submit" class ="btn"></p>
-	</td>
-	<td colspan=3 valign="top">
-	<p>* To save the report, check here <input type="checkbox" name="export" value="export">, hit 'Submit' again, and browse to 'export.csv'.</p>
-	</td>
-	</tr>
+	To view report, click <input type="submit" value="Submit" id ="report-submit" class ="btn">
+	</td></tr>
+	<tr>
+	<td>* To save the report, check here <input type="checkbox" name="export" value="export">, hit 'Submit', and
+	<a href="http://localhost/GwynethsGift/export.csv">Click here</a>.</td></tr>
+	<tr><td></td></tr>
+	<tr><td>To run another report, please refresh the page.</td></tr>
 	</table>
 	</form>
 	<p id="outputs">
