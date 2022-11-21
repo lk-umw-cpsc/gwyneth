@@ -87,7 +87,7 @@ $(function() {
 		<?php date_default_timezone_set ("America/New_York");
 		$venue = $_GET['venue'];
 		$venues = array('portland'=>"RMH Portland",'bangor'=>"RMH Bangor");
-		echo '<b>'.$venues[$venue]." Volunteer Reports</b><br>Today's date: ".date("F d, Y");
+		echo '<b>'." Gwyneth's Gifts Volunteer Reports</b><br>Today's date: ".date("F d, Y");
 		echo '</p>';
 		echo '<input type="hidden" name="_form_submit" value="report'.$venue.'" />';?>
 	<table>	<tr>
@@ -95,8 +95,7 @@ $(function() {
 		<p>	<select multiple name="report-types[]" id = "report-type" size="6"> <!-- size should = # of options -->
 	  		<option value="volunteer-hours">Total Hours</option>
 	  		<option value="shifts-staffed-vacant">Shifts/Vacancies</option>
-	  		<option value="birthdays">* Volunteer Birthdays</option>
-	  		<option value="history">* Volunteer History</option>
+	  		<option value="emails">* Volunteer Emails</option>
 	  		<option value="volunteers">* Volunteer Contact Info</option>
 			<option value="information">* General Volunteer Info</option> <!-- added this report for full volunteer information -->
 			</select>
@@ -113,7 +112,7 @@ $(function() {
 	</tr>
 	<tr>
 	<td valign="top">
-	<p>To view report, hit <input type="submit" value="Submit" id ="report-submit" class ="btn">.</p>
+	<p>To view report, click <input type="submit" value="Submit" id ="report-submit" class ="btn"></p>
 	</td>
 	<td colspan=3 valign="top">
 	<p>* To save the report, check here <input type="checkbox" name="export" value="export">, hit 'Submit' again, and browse to 'export.csv'.</p>
