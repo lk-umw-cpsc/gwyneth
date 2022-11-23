@@ -19,8 +19,8 @@
 function validate_form($person) {
     if ($_POST['status']=='applicant' && ($_POST['start_date'] == "" || strlen($_POST['start_date']) != 8)) 
         $errors[] = 'Please select a valid start date';
-    if ($_POST['location'] == null)
-        $errors[] = 'Please select a location (Portland or Bangor)';
+    //if ($_POST['location'] == null)
+      //  $errors[] = 'Please select a location (Portland or Bangor)';
     if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
         $errors[] = 'Please enter a first name';
     if ($_POST['last_name'] == null)
@@ -39,15 +39,25 @@ function validate_form($person) {
         $errors[] = "Sorry, you can't promote yourself to manager.";
     if (in_array('volunteer',$_POST['type']) || in_array('weekendmgr',$_POST['type']))
         if ($_POST['availability'] == null)
-        	$errors[] = 'Please enter Availability for at least one shift.';
+        	$errors[] = 'Please enter Availability for at least one day and time.';
     if ($person->get_phone1()==null && !valid_phone($_POST['phone1']))
         $errors[] = 'Enter a valid primary phone number (10 digits: ### ### ####)';
-    if ($_POST['phone2'] != "" && !valid_phone($_POST['phone2']))
-        $errors[] = 'Enter a valid alternate phone number (10 digits: ### ### ####)';
-    if (!valid_email($_POST['email']) && $_POST['email'] != null)
+    //if ($_POST['phone2'] != "" && !valid_phone($_POST['phone2']))
+       // $errors[] = 'Enter a valid alternate phone number (10 digits: ### ### ####)';
+    if (!valid_email($_POST['email']) && $_POST['email'] != null || $_POST['email'] == null )
         $errors[] = "Please enter a valid email";
-    if ($_POST['birthday'] !== "" && strlen($_POST['birthday']) != 8) 
-        $errors[] = 'Please select a valid birthday';
+    //if ($_POST['birthday'] !== "" && strlen($_POST['birthday']) != 8) 
+      //  $errors[] = 'Please select a valid birthday';
+    if ($_POST['computer'] == null)
+        $errors[] = 'Please select whether or not you have a computer';
+    if ($_POST['camera'] == null)
+        $errors[] = 'Please select whether or not you have a camera';
+    if ($_POST['transportation'] == null)
+        $errors[] = 'Please select whether or not you have reliable transportation';
+    if ($_POST['contact_name'] == null)
+        $errors[] = 'Please enter an emergency contact name';
+    if ($person->get_contact_num()==null && !valid_phone($_POST['contact_num']))
+        $errors[] = 'Enter a valid emergency contact number (10 digits: ### ### ####)';
     return $errors;
 }
 

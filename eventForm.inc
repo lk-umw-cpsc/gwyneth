@@ -63,7 +63,7 @@ if ($_SESSION['access_level'] == 0) {
 	</script>
     <?PHP 
     	$venues = array('portland'=>"Portland House");       
-        echo '<table><tr><td>Event Date: '. 
+        echo '<table><tr><td>Event Date <span style="font-size:x-small;color:FF0000">*</span>: '. 
 	             '</td><td colspan=2><input name="start_date" type="text" id="start_date" value="'.$event->get_start_date().'">';
 	   	foreach ($venues as $venue=>$venuename) {
 	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($event->get_venue()==$venue?' checked':'').'>');
@@ -73,11 +73,8 @@ if ($_SESSION['access_level'] == 0) {
     <fieldset>
         <legend>Event information:</legend>
     <?php
-        //if ($event->get_first_name()=="new")
-        //	echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="first_name" tabindex="1" value="'.$event->get_first_name().'">';
-        //else 
-        //	echo '<p>First Name: '.$event->get_first_name();
-    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Event Name<span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="event_name" tabindex="2" value="<?PHP echo($event->get_event_name()) ?>">
+
+    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Event Name <span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="event_name" tabindex="2" value="<?PHP echo($event->get_event_name()) ?>">
         
 
 </select>

@@ -117,7 +117,7 @@ foreach ($states as $st) {
         echo '<p>What is the best time to contact you: '. '<input class="form-control-sm" type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
         // radio for computer
         echo "<p>What is the best way to contact you? ";
-        echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
+        //echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
         echo '<p><input class="form-check-input" type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
 		    '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Email" '.($person->get_cMethod()=="Email"?"checked":"").'>Email'.
             '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Text" '.($person->get_cMethod()=="Text"?"checked":"").'>Text';
@@ -284,8 +284,8 @@ echo '<p>Emergency contact number<span style="font-size:x-small;color:FF0000">*<
 //echo '<p>Relation to emergency contact: '. '<input type="text" name="relation" tabindex="17" placeholder="Relative, Spouse, Friend, etc." '.$person->get_relation().'">';
 
 // dropdown for emergency contact relation
-echo ('<p>What is your relationship to the emergency contact:');
-echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
+echo ('<p>What is your relationship to the emergency contact<span style="font-size:x-small;color:FF0000">*</span>: ');
+//echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
 echo('<select class="form-select-sm" name="relation">');
 
 echo ('<option value="Relative"');
@@ -487,13 +487,14 @@ if ($_SESSION['access_level']==0)
 
             }
             
-            if ($_SESSION['access_level'] == 2) {
+            //admins cannot change another's password
+            /*if ($_SESSION['access_level'] == 2) {
                 echo "<fieldset class='row mb-3'>";
                 echo "<legend class='col-form-label col-sm-2 pt-0'>Change password: </legend>";
                 echo "Admins cannot change a volunteer's password. They can reset the password below. <br></br>";
                 echo "Admins can change their own password from the home page";
                 echo '</fieldset>';
-            }
+            }*/
 
         //echo '</fieldset>';
         //end change password
