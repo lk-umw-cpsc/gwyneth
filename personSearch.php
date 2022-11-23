@@ -104,8 +104,21 @@ session_cache_expire(30);
 				               $vol->get_first_name() . " " . $vol->get_last_name() . "</td><td>" .
 				               phone_edit($vol->get_phone1()) . "</td><td>" .
 				               $vol->get_email() . "</td><td>";
+				          // little algorithm added to trim venue off of availability when displayed in search
 				          foreach ($vol->get_availability() as $availableon) {
-				               echo ($availableon . ", ");
+				               $count = 0;
+				               $stop = 0;
+				               while (true){
+				                    if ($availableon[$count] == ":"){
+				                        $stop = $stop + 1;
+				                        if ($stop == 2){
+				                            break;
+				                        }
+				                    }
+				                    echo ($availableon[$count]);
+				                    $count = $count + 1;
+				               }
+				               echo (", ");
 				          }
 				          echo "</td></a></tr>";
 				       }
