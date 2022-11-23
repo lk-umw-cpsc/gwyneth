@@ -44,8 +44,7 @@
                                     <tr>
                                         <td>
                                             <p style="font-size :100px;"><b><center>Our Vision</center></b></p>
-                                            <p><i><center/>To create a Culture of Action where communities are educated, confident and empowered to save the lives of &nbsp;&nbsp;&nbsp;&nbsp;
-                                            individuals suffering from cardiac arrest.
+                                            <p><i><center/>To create a Culture of Action where communities are educated, confident and empowered to save the lives of individuals suffering from cardiac arrest.
 
                                         </i></p>
                                         </td>
