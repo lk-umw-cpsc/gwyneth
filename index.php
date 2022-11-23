@@ -209,14 +209,14 @@ session_cache_expire(30);
                             }
                         }
                         echo ('<br clear="all">');
-
+                    }
                         // give admin ability to change password even if it is not default
                         //echo '&nbsp&nbsp&nbsp&nbsp<strong>Would you like to change your password:</strong>';
                         if (md5($person->get_id()) != $person->get_password() && $_SESSION['access_level'] == 2) {
-
-                            echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
-                    echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
-                       echo('<br></br>');
+                            echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');
+                            //echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
+                            echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                            echo('<br></br>');
                             //if (!isset($_POST['_rp_submitted']))
                               //  echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
                             //else {
@@ -236,10 +236,10 @@ session_cache_expire(30);
                         }
                         
                         //echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
-                    //echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                     //echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
                       // echo('<br></br>');
 
-                    }
+                    //}
                 }
                 ?>
         </div>

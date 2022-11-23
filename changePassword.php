@@ -24,34 +24,28 @@ session_cache_expire(30);
                 <?PHP
                 include_once('database/dbPersons.php');
                 include_once('domain/Person.php');
-                include_once('database/dbLog.php');
-                include_once('domain/Shift.php');
-                include_once('database/dbShifts.php');
-                date_default_timezone_set('America/New_York');
-            //    fix_all_birthdays();
+                
+
                 if ($_SESSION['_id'] != "guest") {
                     $person = retrieve_person($_SESSION['_id']);
-                    //echo "<p>Welcome, " . $person->get_first_name() . ", to Homebase!";
+                    
                 }
-                else 
-                    //echo "<p>Welcome!";
-                //echo "   Today is " . date('l F j, Y') . ".<p>";
+                
                 ?>
 
-                <!-- your main page data goes here. This is the place to enter content -->
                 <p>
                     <?PHP
                     if ($_SESSION['access_level'] == 0)
-                        echo('<p>');
+                        echo('You do not have permission to view this page');
                     if ($person) {
 
 
-                        //APPLICANT CHECK
+                        //APPLICANT CHECK - do not have a password
                         if ($person->get_first_name() != 'guest' && $person->get_status() == 'applicant') {
                             echo('You do not have permission to view this page');
                         }
 
-                        //VOLUNTEER CHECK
+                        //VOLUNTEER CHECK - can change their password
                         if ($_SESSION['access_level'] == 1) {
                         	
 
@@ -73,25 +67,12 @@ session_cache_expire(30);
                                 
                                 echo('<br clear="all">');
                             }
-                            
-
-
-
-
-                            
-                            // link to personal profile for editing
-                            /*echo('<br><div class="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
-                                echo('</ul><p>Go <strong><a href="personEdit.php?id='.$person->get_id()
-                        	   .'">here</a></strong> to view or update your contact information.</p></div>');*/
-                            // link to personal log sheet
-                            /*echo('<br><div class="scheduleBox"><p><strong>Your Log Sheet:</strong><br /></p><ul>');
-                                echo('</ul><p>Go <strong><a href="volunteerLog.php?id='.$person->get_id()
-                        	   .'">here</a></strong> to view or enter your recent volunteering hours.</p></div>');*/
-              
+                                         
                         }
                         
+                        //MANAGER CHECK - can change their password
                         if ($_SESSION['access_level'] == 2) {
-                            //We have a manager authenticated
+                            
                             
                             if (md5($person->get_id()) == $person->get_password() || ['access_level'] > 0) {
                                 if (!isset($_POST['_rp_submitted']))
@@ -111,13 +92,8 @@ session_cache_expire(30);
                                 
                                 echo('<br clear="all">');
                             }
-
-
-                
                         	
-  
                         }
-    
 
                     }
                     ?>
