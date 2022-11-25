@@ -64,7 +64,6 @@ if ($id == 'new') {
                 else {
                     //in this case, the form has been submitted, so validate it
                     //******************************************************************************************
-                    //commenting out for now
                     $errors = validate_form($event);  //step one is validation.
                     // errors array lists problems on the form submitted
                     if ($errors) {

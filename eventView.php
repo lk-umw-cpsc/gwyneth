@@ -17,11 +17,17 @@
  //******************************
  // need to update access level stuff
  //**********************************************
-if ($_SESSION['access_level'] == 0) {
+include_once('database/dbEvents.php');
+include_once('domain/Event.php');
+include_once('database/dbApplicantScreenings.php');
+include_once('domain/ApplicantScreening.php');
+include_once('database/dbLog.php');
+if ($_SESSION['access_level'] == 2) {
     echo('<p><strong>Volunteer Service Application</strong><br />');
     echo('Please provide as much information as you can. ' . 
        '<br>When finished, hit <b>Submit</b> at the bottom of this page, and then <b>logout</b>.');
-} else if ($_SESSION['access_level'] == -1)
+       echo('<p>' . $event->get_description());
+} else if ($_SESSION['access_level'] == 1)
     if ($_SESSION['_id'] != $event->get_id()) { // delete this *******************
         echo("<p id=\"error\">You do not have sufficient permissions to edit this user.</p>");
         include('footer.inc');
@@ -42,15 +48,13 @@ if ($_SESSION['access_level'] == 0) {
 	        echo('Here you can edit, delete, or reset the password for a event in the database.' .
 	        '<br>When finished, hit <b>Submit</b> at the bottom of this page.');
 	    } 
-	    //else {
-		   // echo("<p id=\"error\">You do not have sufficient permissions to add a new event to the database.</p>");
-		   // include('footer.inc');
-		    //echo('</div></div></body></html>');
-		   // die();
-	   // }
-    if ($_SESSION['access_level']==2) {
+	    else {
+		    echo("<p id=\"error\">You do not have sufficient permissions to add a new event to the database.</p>");
+		    include('footer.inc');
+		    echo('</div></div></body></html>');
+		    die();
+	    }
     echo '<br> (<span style="font-size:x-small;color:FF0000">*</span> denotes required information).';
-    }
 ?>
 <form method="POST">
     <input type="hidden" name="old_id" value=<?PHP echo("\"" . $id . "\""); ?>>
@@ -64,33 +68,20 @@ if ($_SESSION['access_level'] == 0) {
 			})
 	</script>
     <?PHP 
-    	$venues = array('portland'=>"Portland House");
-        if ($_SESSION['access_level']==2) {
+    	$venues = array('portland'=>"Portland House");       
         echo '<table><tr><td>Event Date <span style="font-size:x-small;color:FF0000">*</span>: '. 
 	             '</td><td colspan=2><input name="start_date" type="text" id="start_date" value="'.$event->get_start_date().'">';
-        }
 	   	foreach ($venues as $venue=>$venuename) {
 	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($event->get_venue()==$venue?' checked':'').'>');
 	   	}
 	   	echo "</tr></table><br>"; 
     ?>
-    <?php
-    echo '<fieldset>';
-        '<legend>Event information:</legend>';
-        ?> 
+    <fieldset>
+        <legend>Event information:</legend>
     <?php
 
-    ?>  
+    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Event Name <span style="font-size:x-small;color:FF0000">*</span>: <input type="text" name="event_name" tabindex="2" value="<?PHP echo($event->get_event_name()) ?>">
         
-        <?php
-        if ($_SESSION['access_level']==2) {
-            echo('&nbsp;&nbsp;&nbsp;&nbspEvent Name <span style="font-size:x-small;color:FF0000">*</span>:<input type="text" name="event_name" tabindex="2" value="'. $event->get_event_name() . '"');
-        }
-        if ($_SESSION['access_level']==1) {
-            echo ('<h3 style="text-align:center" Event:>'  . $event->get_event_name() . '</h3>');
-            
-        }
-    ?>
 
 </select>
 <?php     
@@ -108,15 +99,7 @@ if ($_SESSION['access_level']==2) {
 	echo('<p>Event Description:<br />');
 	echo('<textarea name="description" rows="2" cols="75">');
 	echo($event->get_description().'</textarea>');
-    
-}
-
-if ($_SESSION['access_level']==1) {
-    echo('<br>');
-	echo('<p>Event Description: Please read before signing up<br />');
-    echo ('<p style="border-width:3px; border-style:solid; border-color:#0000FF.; padding: 1em;">' . $event->get_description() . '</p>');
-	
-
+    echo('<p>' . $event->get_description());
 }
 
 echo('<h4>need to add:</h4>');
@@ -124,6 +107,8 @@ echo('<h4>event hours/shift hours</h4>');
 echo('<h4>ability to upload pdf?</h4>');
 echo('<h4>ability to add video (just a url?)?</h4>');
 
+
+echo('<p>Event Description:<br />');
 
 echo '</fieldset>';
 echo '</fieldset>';
