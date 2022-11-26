@@ -227,7 +227,11 @@ if ($id == 'new') {
                         $result = remove_event($id);
                         if (!$result)
                             echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');
-                        else {
+//*******************************************************************************************
+//CLEAN UP THIS CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//. $first_name . should not be in ANY echo statements, field needs to be deleted anyway
+//********************************************************************************************
+                            /*else {
                             $newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type, 
                                         $type, $status, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $description, $backUpEventId, $pass);
@@ -238,6 +242,21 @@ if ($id == 'new') {
                             else
                             // this was creating errors w/ the a new id being created, fixed w/ backUpEventId variable and event_id instead of id
                                 echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $event_id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> to the database.</p>');
+                                //echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> in the database.</p>');
+                            //add_log_entry('<a href=\"eventEdit.php?id=' . $id . '\">' . $first_name . ' ' . $event_name . '</a>\'s Eventnel Edit Form has been changed.');
+                        }*/
+                        else {
+                            //Pass the old id into the new event instead of event_id, this prevents a new id being created
+                            $newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type, 
+                                        $type, $status, $availability, $schedule, $hours, 
+                                        $birthday, $start_date, $description, $id, $pass);
+                            $result = add_event($newevent);
+                            if (!$result)
+                                echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');
+                            //else echo("<p>You have successfully edited " .$first_name." ".$event_name. " in the database.</p>");
+                            else
+                            // this was creating errors w/ the a new id being created, fixed w/ backUpEventId variable and event_id instead of id
+                                echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> to the database.</p>');
                                 //echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> in the database.</p>');
                             //add_log_entry('<a href=\"eventEdit.php?id=' . $id . '\">' . $first_name . ' ' . $event_name . '</a>\'s Eventnel Edit Form has been changed.');
                         }
