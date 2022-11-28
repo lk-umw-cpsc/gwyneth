@@ -375,7 +375,7 @@ foreach ($types as $key => $value) {
     	echo $descriptions[$key].'<p>';
 }
 
-if ($_SESSION['access_level']==0)
+//if ($_SESSION['access_level']==0)
 	//echo '<p>House volunteer shifts are three hours and regularly-scheduled shifts can occur weekly, bi-weekly, 
        // or monthly (for weekend shifts). Volunteers may also work flex shifts, filling in as their schedule allows.';
 ?>

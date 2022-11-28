@@ -185,11 +185,15 @@ $descriptions = array('volunteer' => ' *insert job description here <p>',
         echo('<input type="hidden" name="hours" value="' . implode(',', $event->get_hours()) . '">');
         echo('<input type="hidden" name="password" value="' . $event->get_password() . ')">');
         echo('<input type="hidden" name="_submit_check" value="1"><p>');
-        if ($_SESSION['access_level'] == 0)
+        /*if ($_SESSION['access_level'] == 0)
             echo('By hitting <input type="submit" value="Submit" name="Submit Edits">, I understand the importance of this volunteer 
-            		commitment and have answered the application questions honestly and to the best of my knowledge.<br /><br />');
-        else
+            		commitment and have answered the application questions honestly and to the best of my knowledge.<br /><br />');*/
+        //else
+
+        // only managers can submit edits
+        if ($_SESSION['access_level'] == 2)
             echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
+        
         if ($id != 'new' && $_SESSION['access_level'] >= 2) {
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
             '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />');// .
