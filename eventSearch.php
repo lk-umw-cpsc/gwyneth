@@ -15,73 +15,37 @@ session_cache_expire(30);
 <html>
     <head>
         <title>
-            Search for People
+            Search for Events
         </title>
+        <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
         <link rel="stylesheet" href="styles.css" type="text/css" />
 		<link rel="stylesheet" href="lib/jquery-ui.css" />
 		
     </head>
-    <body>
-        <div id="container">
+    <body style="background-color: rgb(250, 249, 246);">
+        <div class="container-fluid" id="container">
             <?PHP include('header.php'); ?>
-            <div id="content">
+            <div class="container-fluid" id="content">
                 <?PHP
                 // display the search form
                 $area = $_GET['area'];
                 echo('<form method="post">');
                 echo('<p><strong>Search for events:</strong>');
-               // $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
-                //echo '<p>Type:<select name="s_type">' ;
-               // echo '<option value="" SELECTED></option>' ;
-               // foreach ($types as $type => $typename)
-                	//echo '<option value="'.$type.'">'.$typename.'</option>';
-                
-               // echo '</select>';
-               // echo('&nbsp;&nbsp;Status:<select name="s_status">' .
-                //'<option value="" SELECTED></option>' . '<option value="applicant">Applicant</option>' . '<option value="active">Active</option>' .
-                //'<option value="LOA">On Leave</option>' . '<option value="former">Former</option>' .
-               // '</select>');
+               
                 echo '<p>Event name (type a few letters): ';
                 echo '<input type="text" name="s_name">';
 
-               /* echo '<fieldset>
-						<legend>Availability: </legend>
-							<table><tr>
-								<td>Day (of week)</td>
-								<td>Shift</td>
-								</tr>';
-                echo "<tr>";
-                echo "<td>";
-                $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-                echo '<select name="s_day">' . '<option value=""></option>';
-                foreach ($days as $day) {
-                    echo '<option value="' . $day . '">' . $day . '</option>';
-                }
-                echo '</select>';
-                echo "</td><td>";
-                $shifts = array('9-12' => '9am-12pm', '12-3' => '12pm-3pm', '3-6' => '3pm-6pm',
-                    '6-9' => '6pm-9pm', 'night' => "Overnight");
-                echo '<select name="s_shift">' . '<option value=""></option>';
-                foreach ($shifts as $shiftno => $shiftname) {
-                    echo '<option value="' . $shiftno . '">' . $shiftname . '</option>';
-                }
-                echo '</select>';
-                echo "</tr>";
-                echo '</table></fieldset>';
-                */
-                echo('<p><input type="submit" name="Search" value="Search">');
+                echo('<p><input class="btn btn-success" type="submit" name="Search" value="Search">');
                 echo('</form></p>');
 
                 // if user hit "Search"  button, query the database and display the results
                 if ($_POST['Search']) {
-                    //$type = $_POST['s_type'];
                     $status = $_POST['s_status'];
                     $name = trim(str_replace('\'', '&#39;', htmlentities($_POST['s_name'])));
-                    // now go after the volunteers that fit the search criteria
+                    // now go after the events that fit the search criteria
                     include_once('database/dbEvents.php');
                     include_once('domain/Event.php');
                     $result = getonlythose_dbEvents($status, $name, $_POST['s_day'], $_POST['s_shift'], $_SESSION['venue']); //added s_venue
-                    //$result = getall_names($status, $type, $_SESSION['venue']);
                     echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ' . $status . ' ';
                     //if ($event_name != "")
                         //echo $type . "s";
@@ -95,15 +59,12 @@ session_cache_expire(30);
                     }
 				    if (sizeof($result) > 0) {
 				       echo ' (select one for more info).';
-				       echo '<div id="target" style="overflow: scroll; width: variable; height: 400px;">';
-				       echo '<p><table> <tr><td>Event Name</td></tr>';
+                       echo '<div class="overflow-auto" id="target" style="width: variable; height: 400px;">';
+				       echo '<p><table class="table table-info table-responsive table-striped-columns table-hover table-bordered"> <tr><td>Event Name</td><td>Event Date (YY-MM-DD)</td></tr>';
 				       foreach ($result as $vol) {
 				          echo "<tr><td><a href=eventEdit.php?id=" . 
 				               str_replace(" ","_",$vol->get_id()) . ">" .
-                               //$vol->get_first_name() . " " . $vol->get_last_name() . "</td><td>";
-				                $vol->get_event_name() . "</td><td>";
-				               //phone_edit($vol->get_phone1()) . "</td><td>" .
-				               //$vol->get_phone1type() . "</td><td>";
+				                $vol->get_event_name() . "</td><td>" . $vol->get_start_date();
 				          foreach ($vol->get_availability() as $availableon) {
 				               echo ($availableon . ", ");
 				          }
