@@ -19,20 +19,15 @@
 	private $venue;      // portland or bangor
 	private $first_name; // first name as a string
 	private $event_name;  // event name as a string
-	private $phone1;   // primary phone -- home, cell, or work
-	private $phone1type; // home, cell, or work
-	private $birthday;     // format: 64-03-12
-	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
 	private $status;     // a person may be an "applicant", "active", "LOA", or "former"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
 	private $hours;        // array of actual hours logged; e.g., 15-01-05:0930-1300:portland:3.5
-	private $description;        // description that only the manager can see and edit
+	private $description;   // description of the event
 	private $event_id;		// the unique id that is attached to each event, is then copied into id
-	private $password;     // password for calendar and database access: default = $id
 
 
-	function __construct($f, $en, $v, $p1, $p1t, $t, $st, $av, $sch, $hrs, $bd, $sd, $description, $ev, $pass) {
+	function __construct($f, $en, $v, $st, $av, $sch, $hrs, $sd, $description, $ev) {
 		//$this->id = $f . $p1;
 		$this->id = $ev;//$f . $p1;
 		//$this->id = uniqid();
@@ -40,15 +35,6 @@
 		$this->venue = $v;
 		$this->first_name = $f;
 		$this->event_name = $en;
-		//have to remove phone1, password, and first name all at the same time
-		$this->phone1 = $p1;
-		$this->phone1type = $p1t;
-		$this->birthday = $bd;
-		if ($t !== "")
-			$this->type = explode(',', $t);
-		else
-			$this->type = array();
-
 		$this->status = $st;
 		if ($av == "")
 			$this->availability = array();
@@ -64,10 +50,7 @@
 			$this->hours = array();
 		$this->description = $description;
 		$this->event_id = $ev;
-		if ($pass == "")
-			$this->password = md5($this->id);
-		else
-			$this->password = $pass;  // default password == md5($id)
+		
 	}
 
 	function get_id() {
@@ -89,26 +72,6 @@
 	function get_event_name() {
 		return $this->event_name;
 	}
-
-
-	function get_phone1() {
-		return $this->phone1;
-	}
-
-	function get_phone1type() {
-		return $this->phone1type;
-	}
-
-
-	function get_birthday() {
-		return $this->birthday;
-	}
-
-
-	function get_type() {
-		return $this->type;
-	}
-
 
 	function get_status() {
 		return $this->status;
@@ -142,8 +105,5 @@
 		return $this->event_id;
 	}
 
-	function get_password() {
-		return $this->password;
-	}
 }
 ?>

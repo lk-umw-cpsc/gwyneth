@@ -21,7 +21,7 @@ include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
-    $event = new Event('new', 'event', $_SESSION['venue'], null, null, null, "applicant", 
+    $event = new Event('new', 'event', $_SESSION['venue'],  
                     null, null, null, null, null, null, null, "");
 } else {
     $event = retrieve_event($id);
@@ -46,7 +46,6 @@ if ($id == 'new') {
 		<script src="lib/jquery-ui.js"></script>
 		<script>
 			$(function(){
-				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
@@ -77,21 +76,10 @@ if ($id == 'new') {
                         	  $postavail[] = $postday;
                           $availability = implode(',', $postavail);
                         }
-                        /*if ($_POST['isstudent']=="yes")  {
-                        	$position="student";
-                        	$cMethod = $_POST['nameofschool'];
-                        }
-                        else {
-                        	$position = $_POST['position'];
-                        	$cMethod = $_POST['cMethod'];
-                        }*/
-                        $event = new Event($event->get_first_name(), $_POST['event_name'], $_POST['location'], 
-                                        $event->get_phone1(), $_POST['phone1type'],  
-                        		         /*$_POST['contact_method'],*/
-                                         implode(',', $_POST['type']), 
+                        $event = new Event($event->get_first_name(), $_POST['event_name'], $_POST['location'],  
                                         $_POST['status'],  
                                         $availability, $_POST['schedule'], $_POST['hours'], 
-                                        $_POST['birthday'], $_POST['start_date'], 
+                                        $_POST['start_date'], 
                                         $_POST['description'], $_POST['event_id'], $_POST['old_pass']);
                         include('eventForm.inc');
                     }
@@ -108,7 +96,6 @@ if ($id == 'new') {
                  * process_form sanitizes data, concatenates needed data, and enters it all into a database
                  */
                 function process_form($id,$event) {
-                    //echo($_POST['first_name']);
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
                     if ($event->get_first_name()=="new")
                    		$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
@@ -116,25 +103,7 @@ if ($id == 'new') {
                     	$first_name = $event->get_first_name();
                     $event_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_name'])));
                     $location = $_POST['location'];
-                    if ($event->get_first_name()=="new") {
-                    	$phone1 = trim(str_replace(' ', '', htmlentities($_POST['phone1'])));
-                    	$clean_phone1 = preg_replace("/[^0-9]/", "", $phone1);
-                    	$phone1type = $_POST['phone1type'];
-                    }
-                    else {
-                    	$clean_phone1 = $event->get_phone1();
-                    	$phone1type = $event->get_phone1type();
-                    }
-                    $type = implode(',', $_POST['type']);
                     $status = $_POST['status'];
-                	/*if ($_POST['isstudent']=="yes")  {
-                        $position="student";
-                        $cMethod = $_POST['nameofschool'];
-                    }
-                    else {
-                        $position = $_POST['position'];
-                        $cMethod = $_POST['cMethod'];
-                    }*/
                     
                     if (!$_POST['availability'])
                           $availability = null;
@@ -144,7 +113,6 @@ if ($id == 'new') {
                     // these two are not visible for editing, so they go in and out unchanged
                     $schedule = $_POST['schedule'];
                     $hours = $_POST['hours'];
-                    $birthday = $_POST['birthday'];
                     $start_date = $_POST['start_date'];
                     $description = trim(str_replace('\\\'', '\'', htmlentities($_POST['description'])));
                     //$event_id = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_id'])));
@@ -157,45 +125,15 @@ if ($id == 'new') {
                         if (!$result)
                             echo('<p>Unable to delete. ' . $first_name . ' ' . $event_name . ' is not in the database. <br>Please report this error to the House Manager.');
                         else {
-                            //What if they're the event remaining manager account?
-                            if (strpos($type, 'manager') !== false) {
-                                //They're a manager, we need to check that they can be deleted
-                                $managers = getall_type('manager');
-                                if (!$managers || mysqli_num_rows($managers) <= 1 || $id=="Allen7037298111" || $id==$_SESSION['id'])
-                                    echo('<p class="error">You cannot remove this manager from the database.</p>');
-                                else {
-                                    $result = remove_event($id);
-                                    echo("<p>You have successfully removed " . $first_name . " " . $event_name . " from the database.</p>");
-                                    if ($id == $_SESSION['_id']) {
-                                        session_unset();
-                                        session_destroy();
-                                    }
-                                }
-                            } else {
                                 $result = remove_event($id);
                                 echo("<p>You have successfully removed " . $first_name . " " . $event_name . " from the database.</p>");
                                 if ($id == $_SESSION['_id']) {
                                     session_unset();
                                     session_destroy();
                                 }
-                            }
                         }
                     }
 
-                    // try to reset the event's password
-                    else if ($_POST['reset_pass'] == "RESET") {
-                        $id = $_POST['old_id'];
-                        $result = remove_event($id);
-                        $pass = $first_name . $clean_phone1;
-                        $newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type, 
-                                        $type, $status,  $availability, $schedule, $hours, 
-                                        $birthday, $start_date, $description, $event_id, "");
-                        $result = add_event($newevent);
-                        if (!$result)
-                            echo ('<p class="error">Unable to reset ' . $first_name . ' ' . $event_name . "'s password.. <br>Please report this error to the House Manager.");
-                        else
-                            echo("<p>You have successfully reset " . $first_name . " " . $event_name . "'s password.</p>");
-                    }
 
                     // try to add a new event to the database
                     else if ($_POST['old_id'] == 'new') {
@@ -204,11 +142,11 @@ if ($id == 'new') {
                         //check if there's already an entry
                         $dup = retrieve_event($id);
                         if ($dup)
-                            echo('<p class="error">Unable to add ' . $first_name . ' ' . $event_name . ' to the database. <br>Another event with the same name and phone is already there.');
+                            echo('<p class="error">Unable to add ' . $first_name . ' ' . $event_name . ' to the database. <br>Another event with the same info is already there.');
                         else {
-                        	$newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type,
-                                        $type, $status, $availability, $schedule, $hours, 
-                                        $birthday, $start_date, $description, $event_id, "");
+                        	$newevent = new Event($first_name, $event_name, $location, 
+                                        $status, $availability, $schedule, $hours, 
+                                        $start_date, $description, $event_id, "");
                             $result = add_event($newevent);
                             if (!$result)
                                 echo ('<p class="error">Unable to add " .$first_name." ".$event_name. " in the database. <br>Please report this error to the House Manager.');
@@ -247,9 +185,9 @@ if ($id == 'new') {
                         }*/
                         else {
                             //Pass the old id into the new event instead of event_id, this prevents a new id being created
-                            $newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type, 
-                                        $type, $status, $availability, $schedule, $hours, 
-                                        $birthday, $start_date, $description, $id, $pass);
+                            $newevent = new Event($first_name, $event_name, $location,  
+                                        $status, $availability, $schedule, $hours, 
+                                        $start_date, $description, $id, $pass);
                             $result = add_event($newevent);
                             if (!$result)
                                 echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');

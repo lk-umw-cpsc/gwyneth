@@ -37,9 +37,9 @@ if ($_SESSION['access_level'] == 0) {
 	        echo('Adding a new event to the database. ' .
 	        '<br>When finished, hit <b>Submit</b> at the bottom of this page.');
 	    } else {
-	        echo '<p><strong>Personnel Edit Form</strong>'.
+	        echo '<p><strong>Edit Form</strong>'.
 	        		'&nbsp;&nbsp;&nbsp;&nbsp;(View <strong><a href="volunteerLog.php?id='.$event->get_id().'">Log Sheet</a></strong>)<br>';
-	        echo('Here you can edit, delete, or reset the password for a event in the database.' .
+	        echo('Here you can edit and delete an event in the database.' .
 	        '<br>When finished, hit <b>Submit</b> at the bottom of this page.');
 	    } 
 	    //else {
@@ -54,11 +54,10 @@ if ($_SESSION['access_level'] == 0) {
 ?>
 <form method="POST">
     <input type="hidden" name="old_id" value=<?PHP echo("\"" . $id . "\""); ?>>
-    <input type="hidden" name="old_pass" value=<?PHP echo("\"" . $event->get_password() . "\""); ?>>
+    
     <input type="hidden" name="_form_submit" value="1">
     <script>
 			$(function(){
-				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#screening_status" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
@@ -153,27 +152,7 @@ else {
 	    echo (' SELECTED'); echo('>former</option>');
 }
 echo('</select>');*/
-// $st = implode(',', $event->get_type());
 
-// events need a type as it stands now, this now works to set the type to always be CHECKED
-$types = array('volunteer' => 'Volunteer');//, 'manager' => 'Manager');
-$descriptions = array('volunteer' => ' *insert job description here <p>', 
-		
-		'manager' => ' *insert job description here');
-//echo('<p>Position type:');
-// $ts = $types;
-//echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
-
-//foreach ($types as $key => $value) {
-    echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" style="display:none;" checked name="type[]" value=' .  $types[0]);
-    if (in_array($key,$event->get_type()) !== false)
-        echo(' CHECKED');
-    echo ('>' . $value );
-    if ($_SESSION['access_level']==0)
-    	echo $descriptions[$key].'<p>';
-//}
-
-//if ($_SESSION['access_level']==0)
 
 ?>
 
@@ -183,7 +162,7 @@ $descriptions = array('volunteer' => ' *insert job description here <p>',
 
         echo('<input type="hidden" name="schedule" value="' . implode(',', $event->get_schedule()) . '">');
         echo('<input type="hidden" name="hours" value="' . implode(',', $event->get_hours()) . '">');
-        echo('<input type="hidden" name="password" value="' . $event->get_password() . ')">');
+        
         echo('<input type="hidden" name="_submit_check" value="1"><p>');
         /*if ($_SESSION['access_level'] == 0)
             echo('By hitting <input type="submit" value="Submit" name="Submit Edits">, I understand the importance of this volunteer 
@@ -198,7 +177,7 @@ $descriptions = array('volunteer' => ' *insert job description here <p>',
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
             '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />');// .
             //'<input type="checkbox" name="reset_pass" value="RESET"> Check this box and then hit ' .
-            //'<input type="submit" value="Reset Password" name="Reset Password"> to reset this event\'s password.</p>');
+            
             
         }
         ?>
