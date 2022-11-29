@@ -17,10 +17,13 @@
  * this array is null (aka false) if there are no errors
  */
 
+ /* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ */
 
- //Whole file needs to updated, currently it is commented out in eventEdit, make event name, date required
+// only check for date and name
 function validate_form($event) {
-    if (($_POST['start_date'] == "" || strlen($_POST['start_date']) != 8)) 
+    if (($_POST['event_date'] == "" || strlen($_POST['event_date']) != 8)) 
         $errors[] = 'Please select a valid event date';
     if ($_POST['event_name'] == null)
         $errors[] = 'Please enter an event name';

@@ -7,10 +7,15 @@
  */
 /*
  * 	eventEdit.php
- *  oversees the editing of a event to be added, changed, or deleted from the database
+ *  oversees the editing of an event to be added, changed, or deleted from the database
  * 	@author Oliver Radwan, Xun Wang and Allen Tucker
  * 	@version 9/1/2008 revised 4/1/2012 revised 8/3/2015
  */
+
+/* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ */
+
 session_start();
 session_cache_expire(30);
 include_once('database/dbEvents.php');
@@ -21,8 +26,8 @@ include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
-    $event = new Event('new', 'event', $_SESSION['venue'],  
-                    null, null, null, null, null, null, null, "");
+    $event = new Event('event', $_SESSION['venue'],  
+                    null, null, null, "");
 } else {
     $event = retrieve_event($id);
     if (!$event) { // try again by changing blanks to _ in id
@@ -38,7 +43,7 @@ if ($id == 'new') {
 <html>
     <head>
         <title>
-            Editing <?PHP echo($event->get_first_name() . " " . $event->get_event_name()); ?>
+            Editing <?PHP echo($event->get_event_name()); ?>
         </title>
         <link rel="stylesheet" href="lib/jquery-ui.css" />
         <link rel="stylesheet" href="styles.css" type="text/css" />
@@ -62,25 +67,13 @@ if ($id == 'new') {
                     include('eventForm.inc');
                 else {
                     //in this case, the form has been submitted, so validate it
-                    //******************************************************************************************
                     $errors = validate_form($event);  //step one is validation.
                     // errors array lists problems on the form submitted
                     if ($errors) {
                         // display the errors and the form to fix
                         show_errors($errors);
-                        if (!$_POST['availability'])
-                          $availability = null;
-                        else {
-                          $postavail = array();
-                          foreach ($_POST['availability'] as $postday) 
-                        	  $postavail[] = $postday;
-                          $availability = implode(',', $postavail);
-                        }
-                        $event = new Event($event->get_first_name(), $_POST['event_name'], $_POST['location'],  
-                                        $_POST['status'],  
-                                        $availability, $_POST['schedule'], $_POST['hours'], 
-                                        $_POST['start_date'], 
-                                        $_POST['description'], $_POST['event_id'], $_POST['old_pass']);
+                        $event = new Event($event->get_event_name(), $_POST['location'],   
+                                        $_POST['event_date'], $_POST['description'], $_POST['event_id'], $_POST['old_pass']);
                         include('eventForm.inc');
                     }
                     // this was a successful form submission; update the database and exit
@@ -97,36 +90,23 @@ if ($id == 'new') {
                  */
                 function process_form($id,$event) {
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
-                    if ($event->get_first_name()=="new")
-                   		$first_name = trim(str_replace('\\\'', '', htmlentities(str_replace('&', 'and', $_POST['first_name']))));
-                    else
-                    	$first_name = $event->get_first_name();
                     $event_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_name'])));
                     $location = $_POST['location'];
-                    $status = $_POST['status'];
-                    
-                    if (!$_POST['availability'])
-                          $availability = null;
-                    else {
-                          $availability = implode(',', $_POST['availability']);
-                    }
                     // these two are not visible for editing, so they go in and out unchanged
-                    $schedule = $_POST['schedule'];
-                    $hours = $_POST['hours'];
-                    $start_date = $_POST['start_date'];
+                    $event_date = $_POST['event_date'];
                     $description = trim(str_replace('\\\'', '\'', htmlentities($_POST['description'])));
                     //$event_id = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_id'])));
-                    $event_id = uniqid();//$_POST['schedule'];
+                    $event_id = uniqid();
                     //used for url path in linking user back to edit form
                     $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
                     //step two: try to make the deletion, password change, addition, or change
                     if ($_POST['deleteMe'] == "DELETE") {
                         $result = retrieve_event($id);
                         if (!$result)
-                            echo('<p>Unable to delete. ' . $first_name . ' ' . $event_name . ' is not in the database. <br>Please report this error to the House Manager.');
+                            echo('<p>Unable to delete. ' . $event_name . ' is not in the database. <br>Please report this error to the House Manager.');
                         else {
                                 $result = remove_event($id);
-                                echo("<p>You have successfully removed " . $first_name . " " . $event_name . " from the database.</p>");
+                                echo("<p>You have successfully removed " . $event_name . " from the database.</p>");
                                 if ($id == $_SESSION['_id']) {
                                     session_unset();
                                     session_destroy();
@@ -142,61 +122,39 @@ if ($id == 'new') {
                         //check if there's already an entry
                         $dup = retrieve_event($id);
                         if ($dup)
-                            echo('<p class="error">Unable to add ' . $first_name . ' ' . $event_name . ' to the database. <br>Another event with the same info is already there.');
+                            echo('<p class="error">Unable to add ' . $event_name . ' to the database. <br>Another event with the same info is already there.');
                         else {
-                        	$newevent = new Event($first_name, $event_name, $location, 
-                                        $status, $availability, $schedule, $hours, 
-                                        $start_date, $description, $event_id, "");
+                        	$newevent = new Event($event_name, $location,  
+                                        $event_date, $description, $event_id, "");
                             $result = add_event($newevent);
                             if (!$result)
-                                echo ('<p class="error">Unable to add " .$first_name." ".$event_name. " in the database. <br>Please report this error to the House Manager.');
+                                echo ('<p class="error">Unable to add " .$event_name. " in the database. <br>Please report this error to the House Manager.');
                             else if ($_SESSION['access_level'] == 0)
                                 echo("<p>Your application has been successfully submitted.<br>  The House Manager will contact you soon.  Thank you!");
                             else
-                                echo('<p>You have successfully added <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> to the database.</p>');
+                                echo('<p>You have successfully added <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $event_name . ' </b></a> to the database.</p>');
                         }
                     }
 
                     // try to replace an existing event in the database by removing and adding
                     else {
-                        $backUpEventId = $event_id;
+                        
                         $id = $_POST['old_id'];
                         $pass = $_POST['old_pass'];
                         $result = remove_event($id);
                         if (!$result)
-                            echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');
-//*******************************************************************************************
-//CLEAN UP THIS CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//. $first_name . should not be in ANY echo statements, field needs to be deleted anyway
-//********************************************************************************************
-                            /*else {
-                            $newevent = new Event($first_name, $event_name, $location, $clean_phone1, $phone1type, 
-                                        $type, $status, $availability, $schedule, $hours, 
-                                        $birthday, $start_date, $description, $backUpEventId, $pass);
-                            $result = add_event($newevent);
-                            if (!$result)
-                                echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');
-                            //else echo("<p>You have successfully edited " .$first_name." ".$event_name. " in the database.</p>");
-                            else
-                            // this was creating errors w/ the a new id being created, fixed w/ backUpEventId variable and event_id instead of id
-                                echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $event_id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> to the database.</p>');
-                                //echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> in the database.</p>');
-                            //add_log_entry('<a href=\"eventEdit.php?id=' . $id . '\">' . $first_name . ' ' . $event_name . '</a>\'s Eventnel Edit Form has been changed.');
-                        }*/
+                            echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the House Manager.');
+
                         else {
                             //Pass the old id into the new event instead of event_id, this prevents a new id being created
-                            $newevent = new Event($first_name, $event_name, $location,  
-                                        $status, $availability, $schedule, $hours, 
-                                        $start_date, $description, $id, $pass);
+                            $newevent = new Event($event_name, $location,  
+                                        $event_date, $description, $id, $pass);
                             $result = add_event($newevent);
                             if (!$result)
-                                echo ('<p class="error">Unable to update ' . $first_name . ' ' . $event_name . '. <br>Please report this error to the House Manager.');
-                            //else echo("<p>You have successfully edited " .$first_name." ".$event_name. " in the database.</p>");
+                                echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the House Manager.');
+                            
                             else
-                            // this was creating errors w/ the a new id being created, fixed w/ backUpEventId variable and event_id instead of id
-                                echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> to the database.</p>');
-                                //echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $event_name . ' </b></a> in the database.</p>');
-                            //add_log_entry('<a href=\"eventEdit.php?id=' . $id . '\">' . $first_name . ' ' . $event_name . '</a>\'s Eventnel Edit Form has been changed.');
+                                echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $event_name . ' </b></a> to the database.</p>');
                         }
                     }
                 }

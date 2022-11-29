@@ -13,41 +13,25 @@
  * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
  * @version 3/28/2008, revised 7/1/2015
  */
+
+/* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ */
+
  class Event {
 	private $id;         // id (unique key) = event id
-	private $start_date; // format: 99-03-12
-	private $venue;      // portland or bangor
-	private $first_name; // first name as a string
+	private $event_date; // format: 99-03-12
+	private $venue;      // portland, leftover from the old two calendar system
 	private $event_name;  // event name as a string
-	private $status;     // a person may be an "applicant", "active", "LOA", or "former"
-	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
-	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
-	private $hours;        // array of actual hours logged; e.g., 15-01-05:0930-1300:portland:3.5
 	private $description;   // description of the event
-	private $event_id;		// the unique id that is attached to each event, is then copied into id
+	private $event_id;		// the unique id that is attached to each event, is then copied into id, used for editing events
 
 
-	function __construct($f, $en, $v, $st, $av, $sch, $hrs, $sd, $description, $ev) {
-		//$this->id = $f . $p1;
-		$this->id = $ev;//$f . $p1;
-		//$this->id = uniqid();
-		$this->start_date = $sd;
+	function __construct($en, $v, $sd, $description, $ev) {
+		$this->id = $ev;
+		$this->event_date = $sd;
 		$this->venue = $v;
-		$this->first_name = $f;
 		$this->event_name = $en;
-		$this->status = $st;
-		if ($av == "")
-			$this->availability = array();
-		else
-			$this->availability = explode(',', $av);
-		if ($sch !== "")
-			$this->schedule = explode(',', $sch);
-		else
-			$this->schedule = array();
-		if ($hrs !== "")
-			$this->hours = explode(',', $hrs);
-		else
-			$this->hours = array();
 		$this->description = $description;
 		$this->event_id = $ev;
 		
@@ -57,44 +41,16 @@
 		return $this->id;
 	}
 
-	function get_start_date() {
-		return $this->start_date;
+	function get_event_date() {
+		return $this->event_date;
 	}
 
 	function get_venue() {
 		return $this->venue;
 	}
 
-	function get_first_name() {
-		return $this->first_name;
-	}
-
 	function get_event_name() {
 		return $this->event_name;
-	}
-
-	function get_status() {
-		return $this->status;
-	}
-
-	function get_availability() {   // array of day:hours:venue
-		return $this->availability;
-	}
-
-	function set_availability($dayscolonhours) { // tack on the venue for each pair
-		$this->availability = array();
-		foreach($dayscolonhours as $dayhour) {
-			$dh = explode(":",$dayscolonhours);
-			$this->availability[] = $dh[0].":".$dh[1].":".$this->venue;
-		}
-	}
-
-	function get_schedule() {
-		return $this->schedule;
-	}
-
-	function get_hours() {
-		return $this->hours;
 	}
 
 	function get_description() {

@@ -13,25 +13,12 @@
  * 	@version 9/1/2008, revised 4/1/2012, revised 3/11/2015
  */
 
+/* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ */
 
- //******************************
- // need to update access level stuff
- //**********************************************
-if ($_SESSION['access_level'] == 0) {
-    echo('<p><strong>Volunteer Service Application</strong><br />');
-    echo('Please provide as much information as you can. ' . 
-       '<br>When finished, hit <b>Submit</b> at the bottom of this page, and then <b>logout</b>.');
-} else if ($_SESSION['access_level'] == -1)
-    if ($_SESSION['_id'] != $event->get_id()) { // delete this *******************
-        echo("<p id=\"error\">You do not have sufficient permissions to edit this user.</p>");
-        include('footer.inc');
-        echo('</div></div></body></html>');
-        die();
-    } else {
-        echo '<p><strong>Personnel Edit Form</strong>';
-        echo(' Here you can edit your own information in the database.' .
-        '<br>When finished, hit <b>Submit</b> at the bottom of this page.');
-    } else if ($_SESSION['access_level'] == 2)
+    // Only managers for adding and edit
+    if ($_SESSION['access_level'] == 2)
 	    if ($id == 'new') {
 	        echo('<p><strong>Event Page</strong><br />');
 	        echo('Adding a new event to the database. ' .
@@ -44,7 +31,6 @@ if ($_SESSION['access_level'] == 0) {
 	    } 
 	    //else {
 		   // echo("<p id=\"error\">You do not have sufficient permissions to add a new event to the database.</p>");
-		   // include('footer.inc');
 		    //echo('</div></div></body></html>');
 		   // die();
 	   // }
@@ -58,7 +44,7 @@ if ($_SESSION['access_level'] == 0) {
     <input type="hidden" name="_form_submit" value="1">
     <script>
 			$(function(){
-				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				$( "#event_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#screening_status" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 	</script>
@@ -66,7 +52,7 @@ if ($_SESSION['access_level'] == 0) {
     	$venues = array('portland'=>"Portland House");
         if ($_SESSION['access_level']==2) {
         echo '<table><tr><td>Event Date <span style="font-size:x-small;color:FF0000">*</span>: '. 
-	             '</td><td colspan=2><input name="start_date" type="text" id="start_date" value="'.$event->get_start_date().'">';
+	             '</td><td colspan=2><input name="event_date" type="text" id="event_date" value="'.$event->get_event_date().'">';
         }
 	   	foreach ($venues as $venue=>$venuename) {
 	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($event->get_venue()==$venue?' checked':'').'>');
@@ -101,7 +87,8 @@ if ($_SESSION['access_level'] == 0) {
 <script src="lib/jquery-ui.js"></script>
 </fieldset>
 
-<?php 		  
+<?php 	
+// managers can add an event description	  
 if ($_SESSION['access_level']==2) {
     echo('<br>');
 	echo('<p>Event Description:<br />');
@@ -110,6 +97,7 @@ if ($_SESSION['access_level']==2) {
     
 }
 
+// volunteers can view the event description
 if ($_SESSION['access_level']==1) {
     echo('<br>');
 	echo('<p>Event Description: Please read before signing up<br />');
@@ -127,32 +115,6 @@ echo('<h4>ability to add video (just a url?)?</h4>');
 echo '</fieldset>';
 echo '</fieldset>';
 
-// lots of functions use status, having this commented out will make it blank for events, maybe update
-
-/*echo ('<p>Status:');
-echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="status">');
-if ($_SESSION['access_level'] == 0) {
-	echo ('<option value="applicant"');
-    echo (' SELECTED'); 
-    echo('>applicant</option>');
-}
-else {
-	echo ('<option value="applicant"');
-	if ($event->get_status() == 'applicant')
-    	echo (' SELECTED'); 
-    echo('>applicant</option>'); echo ('<option value="active"');
-	if ($event->get_status() == 'active')
-	    echo (' SELECTED'); echo('>active</option>');
-	echo ('<option value="LOA"');
-	if ($event->get_status() == 'LOA')
-	    echo (' SELECTED'); echo('>on leave</option>');
-	echo ('<option value="former"');
-	if ($event->get_status() == 'former')
-	    echo (' SELECTED'); echo('>former</option>');
-}
-echo('</select>');*/
-
 
 ?>
 
@@ -160,14 +122,10 @@ echo('</select>');*/
         <?PHP
         
 
-        echo('<input type="hidden" name="schedule" value="' . implode(',', $event->get_schedule()) . '">');
-        echo('<input type="hidden" name="hours" value="' . implode(',', $event->get_hours()) . '">');
+
         
         echo('<input type="hidden" name="_submit_check" value="1"><p>');
-        /*if ($_SESSION['access_level'] == 0)
-            echo('By hitting <input type="submit" value="Submit" name="Submit Edits">, I understand the importance of this volunteer 
-            		commitment and have answered the application questions honestly and to the best of my knowledge.<br /><br />');*/
-        //else
+
 
         // only managers can submit edits
         if ($_SESSION['access_level'] == 2)
@@ -175,8 +133,8 @@ echo('</select>');*/
         
         if ($id != 'new' && $_SESSION['access_level'] >= 2) {
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
-            '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />');// .
-            //'<input type="checkbox" name="reset_pass" value="RESET"> Check this box and then hit ' .
+            '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />');
+            
             
             
         }

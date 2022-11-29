@@ -9,6 +9,10 @@
  * Modified by Xun Wang on Feb 25, 2015
  */
 
+/* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ */
+
 session_start();
 session_cache_expire(30);
 ?>
@@ -40,23 +44,15 @@ session_cache_expire(30);
 
                 // if user hit "Search"  button, query the database and display the results
                 if ($_POST['Search']) {
-                    $status = $_POST['s_status'];
                     $name = trim(str_replace('\'', '&#39;', htmlentities($_POST['s_name'])));
                     // now go after the events that fit the search criteria
                     include_once('database/dbEvents.php');
                     include_once('domain/Event.php');
-                    $result = getonlythose_dbEvents($status, $name, $_POST['s_day'], $_POST['s_shift'], $_SESSION['venue']); //added s_venue
-                    echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ' . $status . ' ';
-                    //if ($event_name != "")
-                        //echo $type . "s";
-                    
+                    $result = getonlythose_dbEvents($name, $_POST['s_day'], $_POST['s_shift'], $_SESSION['venue']); //added s_venue
+                    echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ';   
                         echo "events";
                     if ($name != "")
                         echo ' with name like "' . $name . '"';
-                    $availability = $_POST['s_day'] ." ". $_POST['s_shift'] ; //added s_venue 
-                    if ($availability != " ") {
-                        echo " with availability " . $availability;
-                    }
 				    if (sizeof($result) > 0) {
 				       echo ' (select one for more info).';
                        echo '<div class="overflow-auto" id="target" style="width: variable; height: 400px;">';
@@ -64,10 +60,7 @@ session_cache_expire(30);
 				       foreach ($result as $vol) {
 				          echo "<tr><td><a href=eventEdit.php?id=" . 
 				               str_replace(" ","_",$vol->get_id()) . ">" .
-				                $vol->get_event_name() . "</td><td>" . $vol->get_start_date();
-				          foreach ($vol->get_availability() as $availableon) {
-				               echo ($availableon . ", ");
-				          }
+				                $vol->get_event_name() . "</td><td>" . $vol->get_event_date();
 				          echo "</td></a></tr>";
 				       }
 				       echo '</table>';
