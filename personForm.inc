@@ -357,22 +357,45 @@ else {
 	    echo (' SELECTED'); echo('>former</option>');
 }
 echo('</select>');
-// $st = implode(',', $person->get_type());
-$types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
-$descriptions = array('volunteer' => ' *insert job description here <p>', 
-		
-		'manager' => ' *insert job description here');
-echo('<p>Position type:');
-// $ts = $types;
-echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
-
-foreach ($types as $key => $value) {
-    echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" name="type[]" value=' . $key);
-    if (in_array($key,$person->get_type()) !== false)
-        echo(' CHECKED');
-    echo ('>' . $value );
-    if ($_SESSION['access_level']==0)
-    	echo $descriptions[$key].'<p>';
+// only managers can see the manager position type
+if ($_SESSION['access_level'] == 2) {
+    // $st = implode(',', $person->get_type());
+    $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
+    $descriptions = array('volunteer' => ' *insert job description here <p>', 
+            'manager' => ' *insert job description here');
+    echo('<p>Position type:');
+    // $ts = $types;
+    echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
+    
+    foreach ($types as $key => $value) {
+        echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" name="type[]" value=' . $key);
+        if (in_array($key,$person->get_type()) !== false)
+            echo(' CHECKED');
+        echo ('>' . $value );
+        if ($_SESSION['access_level']==0)
+            echo $descriptions[$key].'<p>';
+    }
+}
+    
+// volunteers can only see the volunteer option
+if ($_SESSION['access_level'] <= 1) {
+        $types = array('volunteer' => 'Volunteer');
+        // keeping this here, can be used to add descriptions to the jobs, related lines commented out below
+        //$descriptions = array('volunteer' => ' *insert job description here <p>', 
+                
+                //'manager' => ' *insert job description here');
+        echo('<p>Position type:');
+        // $ts = $types;
+        echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
+        
+        foreach ($types as $key => $value) {
+            echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" checked name="type[]" value=' . $key);
+            if (in_array($key,$person->get_type()) !== false)
+                echo(' CHECKED');
+            echo ('>' . $value );
+            //if ($_SESSION['access_level']==0)
+               // echo $descriptions[$key].'<p>';
+        }
 }
 
 //if ($_SESSION['access_level']==0)
@@ -384,48 +407,29 @@ foreach ($types as $key => $value) {
         <legend class="col-sm-2 col-form-label col-form-label-lg">Availability:<span style="font-size:x-small;color:FF0000">*</span>  </legend>
         <span class="bigTable">
                 <?PHP
-                $shifts = array('9-12' => '9-12', '12-3' => '12-3', '3-6' => '3-6',
-                    '6-9' => '6-9', 'night' => "night");
-                $satshiftsportland = array('9-12'=>'10-1', '12-3' => '1-4', '3-6' => '',
-                    '6-9' => '', 'night' => "night");
-                $sunshiftsportland = array('9-12' => '9-12', '12-3' => '2-5', '3-6' => '',
-                    '6-9' => '5-9', 'night' => "");
-                $satshiftsbangor = array('9-12'=>'9-5', '12-3' => '', '3-6' => '',
-                    '6-9' => '', 'night' => "night");
-                $sunshiftsbangor = array('9-12' => '9-5', '12-3' => '', '3-6' => '',
-                    '6-9' => '5-9', 'night' => "");
-                if ($_SESSION['venue']=="portland") {
-                	$satshifts = $satshiftsportland;
-                	$sunshifts = $sunshiftsportland;
-                }
-                else {
-                	$satshifts = $satshiftsbangor;
-                	$sunshifts = $sunshiftsbangor;
-                }
-                $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
+            $shifts = array('9-12' => '9-12', '12-3' => '12-3', '3-6' => '3-6',
+                '6-9' => '6-9');
+            $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
                 echo "<table class='table'>";
-    			echo "<tr><td>Monday&nbsp;&nbsp;</td><td>Tuesday&nbsp;&nbsp;</td><td>Wednesday&nbsp;&nbsp;</td>".
-					"<td>Thursday&nbsp;&nbsp;</td><td>Friday&nbsp;&nbsp;</td><td>Saturday&nbsp;&nbsp;</td><td>Sunday</td></tr>";
-    			foreach ($shifts as $shift => $shiftvalue) {
-       				echo ('<tr>');
-       				foreach ($days as $day) {
-       			      if ($day=="Sat") 
-    	  					$shiftdisplay=$satshifts[$shift];
-       			      else if ($day=="Sun")
-    	  					$shiftdisplay=$sunshifts[$shift];
-    	  			  else $shiftdisplay=$shiftvalue;
-    	  			  if (($shift!="night" || $day=="Fri" || $day=="Sat") && $shiftdisplay!="") {
-       					$realkey = $day . ":". $shiftdisplay. ":". $person->get_venue();
-       	  				echo ('<td><input class="form-check-input" type="checkbox" name="availability[]" value="' . $realkey . '"');
-    	  				if (in_array($realkey, $person->get_availability())) echo(' CHECKED');
-    	  				echo ('>');
-    	  				echo " ".$shiftdisplay.'</td>';
-       			      }
-       				  else echo "<td></td>";
-       				}
-       				echo ('</tr>');
-    			}
-   		 		echo "</table><p>";
+                echo "<tr><td>Monday&nbsp;&nbsp;</td><td>Tuesday&nbsp;&nbsp;</td><td>Wednesday&nbsp;&nbsp;</td>".
+                "<td>Thursday&nbsp;&nbsp;</td><td>Friday&nbsp;&nbsp;</td><td>Saturday&nbsp;&nbsp;</td><td>Sunday</td></tr>";
+            foreach ($shifts as $shift => $shiftvalue) {
+                   echo ('<tr>');
+                   foreach ($days as $day) {
+                     $shiftdisplay=$shiftvalue;
+                    //some stuff here is redundant, left over from old version w/ weekends having different hours
+                    if (($shift!="night" || $day=="Fri" || $day=="Sat") && $shiftdisplay!="") {
+                       $realkey = $day . ":". $shiftdisplay. ":". $person->get_venue();
+                         echo ('<td><input class="form-check-input" type="checkbox" name="availability[]" value="' . $realkey . '"');
+                      if (in_array($realkey, $person->get_availability())) echo(' CHECKED');
+                      echo ('>');
+                      echo " ".$shiftdisplay.'</td>';
+                     }
+                     else echo "<td></td>";
+                   }
+                   echo ('</tr>');
+            }
+                echo "</table><p>";
     			?>
         </span>
     </fieldset>

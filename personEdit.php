@@ -21,6 +21,8 @@ include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
+    // for new applicants set the venue to portland so all their info saves, leftover from 2 calendar system, Gwyneth's Gift is working off of Portland
+    $_SESSION['venue']="portland"; 
     $person = new Person('new', 'applicant', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
                     null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
 } else {
@@ -191,27 +193,24 @@ if ($id == 'new') {
                     $notes = trim(str_replace('\\\'', '\'', htmlentities($_POST['notes'])));
                     //used for url path in linking user back to edit form
                     $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
-                    //step two: try to make the deletion, password change, addition, or change
+                    //step two: try to make the deletion, password change, addition, or change                    
                     if ($_POST['deleteMe'] == "DELETE") {
                         $result = retrieve_person($id);
                         if (!$result)
                             echo('<p>Unable to delete. ' . $first_name . ' ' . $last_name . ' is not in the database. <br>Please report this error to the House Manager.');
                         else {
-                            //What if they're the last remaining manager account?
+                            /*//What if they're the last remaining manager account?
                             if (strpos($type, 'manager') !== false) {
                                 //They're a manager, we need to check that they can be deleted
                                 $managers = getall_type('manager');
-                                if (!$managers || mysqli_num_rows($managers) <= 1 || $id=="Allen7037298111" || $id==$_SESSION['id'])
-                                    echo('<p class="error">You cannot remove this manager from the database.</p>');
-                                else {
-                                    $result = remove_person($id);
-                                    echo("<p>You have successfully removed " . $first_name . " " . $last_name . " from the database.</p>");
-                                    if ($id == $_SESSION['_id']) {
-                                        session_unset();
-                                        session_destroy();
-                                    }
-                                }
-                            } else {
+                                //if (!$managers || mysqli_num_rows($managers) <= 1 || $id=="Allen7037298111" || $id==$_SESSION['id'])
+                                if ($id=="Allen7037298111")
+                                    echo('<p class="error">You cannot remove this manager from the database.</p>');*/
+
+                            //We don't want to be able to delete all managers, hardcoding these two to be undeletable
+                            if($id == "Admin7037806282" || $id == "GwynethsGiftAdmin5403160356")
+                                echo('<p class="error">You cannot remove this manager from the database.</p>');
+                             else {
                                 $result = remove_person($id);
                                 echo("<p>You have successfully removed " . $first_name . " " . $last_name . " from the database.</p>");
                                 if ($id == $_SESSION['_id']) {
