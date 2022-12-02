@@ -28,6 +28,7 @@ include_once('domain/Shift.php');
 <html>
 <head>
 <title>Search for data objects</title>	
+<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
 <link rel="stylesheet" href="styles.css" type="text/css" />
 <link rel="stylesheet" href="lib/jquery-ui.css" />
 <script type="text/javascript" src="lib/jquery-1.9.1.js"></script>
@@ -97,7 +98,7 @@ $(function() {
 	  		<option value="shifts-staffed-vacant">Shifts/Vacancies</option>
 	  		<option value="emails">* Volunteer Emails</option>
 	  		<option value="volunteers">* Volunteer Contact Info</option>
-			<option value="information">* General Volunteer Info</option> <!-- added this report for full volunteer information -->
+			<option value="information">* General Volunteer Info</option> <!-- added this report for general volunteer information for Gwyneth's Gift -->
 			</select>
 		</td>
 		<td class = "search-description" valign="top">&nbsp;&nbsp; Date Range: 
@@ -112,7 +113,7 @@ $(function() {
 	</tr>
 	<tr>
 	<td valign="top">
-	To view report, click <input type="submit" value="Submit" id ="report-submit" class ="btn">
+	To view report, click <input class="btn btn-success btn-sm" type="submit" value="Submit" id ="report-submit" class ="btn">
 	</td></tr>
 	<tr>
 	<td>* To save the report, check here <input type="checkbox" name="export" value="export">, hit 'Submit', and

@@ -106,11 +106,15 @@ if ($_SESSION['access_level']==1) {
 
 }
 
+/*
 echo('<h4>need to add:</h4>');
 echo('<h4>event hours/shift hours</h4>');
 echo('<h4>ability to upload pdf?</h4>');
 echo('<h4>ability to add video (just a url?)?</h4>');
-
+echo('<h4>max number of volunteers</h4>');
+echo('<h4>ability to sign up</h4>');
+echo('<h4>ability remove remove yourself after signing up</h4>');
+*/
 
 echo '</fieldset>';
 echo '</fieldset>';
@@ -129,7 +133,8 @@ echo '</fieldset>';
 
         // only managers can submit edits
         if ($_SESSION['access_level'] == 2)
-            echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
+            //echo('Hit <input type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
+            echo('Hit <input class="btn btn-success" type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
         
         if ($id != 'new' && $_SESSION['access_level'] >= 2) {
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .

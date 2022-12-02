@@ -357,12 +357,12 @@ else {
 	    echo (' SELECTED'); echo('>former</option>');
 }
 echo('</select>');
-// only managers can see the manager position type
+
+
+// only managers can see the manager position type option
 if ($_SESSION['access_level'] == 2) {
     // $st = implode(',', $person->get_type());
     $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
-    $descriptions = array('volunteer' => ' *insert job description here <p>', 
-            'manager' => ' *insert job description here');
     echo('<p>Position type:');
     // $ts = $types;
     echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
@@ -372,8 +372,7 @@ if ($_SESSION['access_level'] == 2) {
         if (in_array($key,$person->get_type()) !== false)
             echo(' CHECKED');
         echo ('>' . $value );
-        if ($_SESSION['access_level']==0)
-            echo $descriptions[$key].'<p>';
+
     }
 }
     
@@ -381,14 +380,14 @@ if ($_SESSION['access_level'] == 2) {
 if ($_SESSION['access_level'] <= 1) {
         $types = array('volunteer' => 'Volunteer');
         // keeping this here, can be used to add descriptions to the jobs, related lines commented out below
-        //$descriptions = array('volunteer' => ' *insert job description here <p>', 
-                
+        //$descriptions = array('volunteer' => ' *insert job description here <p>',  
                 //'manager' => ' *insert job description here');
         echo('<p>Position type:');
         // $ts = $types;
         echo('<span style="font-size:x-small;color:FF0000">*</span><p>');
         
         foreach ($types as $key => $value) {
+            // set volunteer position to be checked automatically, will need to be changed if adding new position types
             echo ('&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="radio" checked name="type[]" value=' . $key);
             if (in_array($key,$person->get_type()) !== false)
                 echo(' CHECKED');
