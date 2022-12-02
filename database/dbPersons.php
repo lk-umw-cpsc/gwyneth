@@ -53,7 +53,6 @@ function add_person($person) {
                 $person->get_contact_num() . '","' .
                 $person->get_relation() . '","' .
                 $person->get_contact_time() . '","' .
-                //$person->get_contact_method() . '","' .
                 $person->get_cMethod() . '","' . 
                 $person->get_position() . '","' . 
                 $person->get_credithours() . '","' . 
@@ -63,8 +62,6 @@ function add_person($person) {
                 $person->get_specialties() . '","' . 
                 $person->get_convictions() . '","' . 
                 implode(',', $person->get_type()) . '","' .
-                $person->get_screening_type() . '","' .
-                implode(',', $person->get_screening_status()) . '","' .
                 $person->get_status() . '","' .
                 implode(',', $person->get_availability()) . '","' .
                 implode(',', $person->get_schedule()) . '","' .
@@ -211,10 +208,9 @@ function getall_volunteer_names() {
 
 function make_a_person($result_row) {
 	/*
-	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, 
-            $cn, $cpn, $ct, $cm, $rel, $ct, $cm, $t, $screening_type, $screening_status, $st, 
-            $emp, $pos, $hours, $comm, $mot, $spe, 
-    		$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
+	 ($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
+			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
+			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass)
 	 */
     $thePerson = new Person(
                     $result_row['first_name'],
@@ -237,10 +233,7 @@ function make_a_person($result_row) {
                     $result_row['contact_num'],
                     $result_row['relation'],
                     $result_row['contact_time'],
-                    //$result_row['contact_method'],
                     $result_row['type'],
-                    $result_row['screening_type'],
-                    $result_row['screening_status'],
                     $result_row['status'],
                     $result_row['cMethod'],  
                     $result_row['position'],

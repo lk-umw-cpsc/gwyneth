@@ -55,7 +55,7 @@ session_cache_expire(30);
                 if ($person) {
                     /*    
                     * Check type of person, and display home page based on that.
-                    * all: password check
+                    * admin: password check
                     * guests: show link to application form
                     * applicants: show status of application form
                     * Volunteers, subs: show upcoming schedule and log sheet
@@ -112,10 +112,7 @@ session_cache_expire(30);
                             }
                         }
 
-                        // link to personal profile for editing
-                        /*echo('<br><div class="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
-                             echo('</ul><p>Go <strong><a href="personEdit.php?id='.$person->get_id()
-                        	   .'">here</a></strong> to view or update your contact information.</p></div>');*/
+                        
                         // link to personal log sheet
                         /*echo('<br><div class="scheduleBox"><p><strong>Your Log Sheet:</strong><br /></p><ul>');
                              echo('</ul><p>Go <strong><a href="volunteerLog.php?id='.$person->get_id()
@@ -148,8 +145,8 @@ session_cache_expire(30);
                         .'">here</a></strong> to view or edit your account.</p></div>');
                         echo('<br></br>');
 
-                        //log box
-                        echo ('<div class="container-fluid" id="logBox"><p><strong>Recent Schedule Changes:</strong><br/>');
+                        //log box                                             used to be Recent Schedule Changes
+                        echo ('<div class="container-fluid" id="logBox"><p><strong>Notifications:</strong><br/>');
                         echo ('<table class="table border table-striped-columns table-hover table-bordered w-auto p-3" id="searchResults">');
                         echo ('
                             <theadx>
@@ -211,35 +208,13 @@ session_cache_expire(30);
                         echo ('<br clear="all">');
                     }
                         // give admin ability to change password even if it is not default
-                        //echo '&nbsp&nbsp&nbsp&nbsp<strong>Would you like to change your password:</strong>';
                         if (md5($person->get_id()) != $person->get_password() && $_SESSION['access_level'] == 2) {
-                            echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');
-                            //echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
+                            echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
                             echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
-                            echo('<br></br>');
-                            //if (!isset($_POST['_rp_submitted']))
-                              //  echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
-                            //else {
-                                //they've submitted
-                              //  if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
-                                //    echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                //else if (md5($_POST['_rp_old']) != $person->get_password())
-                                  //  echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                //else if ((md5($_POST['_rp_old']) == $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
-                                    //$newPass = md5($_POST['_rp_newa']);
-                                    //change_password($person->get_id(), $newPass);
-                                    //echo('Password has been updated');
-                            //    }
-                            //}
-                            
+                            echo('<br></br>');                          
                             echo('<br clear="all">');
                         }
                         
-                        //echo('<br><div class="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
-                     //echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
-                      // echo('<br></br>');
-
-                    //}
                 }
                 ?>
         </div>

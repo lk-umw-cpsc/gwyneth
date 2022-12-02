@@ -12,6 +12,10 @@
  * 	@author Oliver Radwan, Xun Wang and Allen Tucker
  * 	@version 9/1/2008, revised 4/1/2012, revised 3/11/2015
  */
+
+/*
+ * Modified for Gwyneth's Gift website, 2022
+ */
  
 echo('<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>');
 
@@ -56,7 +60,6 @@ if ($_SESSION['access_level'] == 0) {
 			$(function(){
 				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#screening_status" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 	</script>
     <?PHP 
@@ -105,32 +108,20 @@ foreach ($states as $st) {
         		echo '<input class="form-check-input" type="radio" name="phone1type" value="'.$pvalue.'"'.($person->get_phone1type()==$pvalue?' checked':'').'>'.$pvalue.' ';
         }
         else echo '<p>Primary Phone: '.phone_edit($person->get_phone1());
+
+        // Nice to have if a secondary phone is added back in
         //echo '<p>Secondary Phone: ';
         //echo '<input type="text" name="phone2" MAXLENGTH=12 tabindex="8" value="'.phone_edit($person->get_phone2()).'">';
         //foreach ($phonetypes as $pvalue)
         //	echo '<input type="radio" name="phone2type" value="'.$pvalue.'"'.($person->get_phone2type()==$pvalue?" checked":"").'>'.$pvalue.' ';
         
         echo '<p>Birth date: '. '<input class="form-control-sm" name="birthday" type="text" id="birthday" tabindex="8" value="'.$person->get_birthday().'">';
-        //if ($id=='new')
-        	//echo ' (Applicants younger than 18 should contact RMH for a separate application)';
         echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="email" tabindex="9" value="'.$person->get_email().'">';
         echo '<p>What is the best time to contact you: '. '<input class="form-control-sm" type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
-        // radio for computer
         echo "<p>What is the best way to contact you? ";
-        //echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
         echo '<p><input class="form-check-input" type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
 		    '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Email" '.($person->get_cMethod()=="Email"?"checked":"").'>Email'.
             '&nbsp;&nbsp;<input class="form-check-input" type="radio" name="cMethod" value="Text" '.($person->get_cMethod()=="Text"?"checked":"").'>Text';
-        //added for GG database
-        //echo '<h2>Added for GG database, needs editing + entered info does not save on the screen when going back to edit person</h2>';
-        //echo '<p>Shirt size: '. '<input type="text" name="shirt_size" tabindex="11" placeholder="S, M, L, XL, or XXL" '.$person->get_shirt_size().'">';
-        //echo '<p>Do you own a computer: '. '<input type="text" name="computer" tabindex="12" placeholder="Yes or No" '.$person->get_computer().'">';
-        //echo '<p>Do you own a camera: '. '<input type="text" name="camera" tabindex="13" placeholder="Yes or No" '.$person->get_camera().'">';
-        //echo '<p>Do you have reliable transportation: '. '<input type="text" name="transportation" tabindex="14" placeholder="Yes or No" '.$person->get_transportation().'">';
-        //echo '<p>Emergency contact name: '. '<input type="text" name="contact_name" tabindex="15" placeholder="Name" '.$person->get_contact_name().'">';
-        //echo '<p>Emergency contact number: '. '<input type="text" name="contact_num" tabindex="16" placeholder="Phone number" '.$person->get_contact_num().'">';
-        //echo '<p>Relation to emergency contact: '. '<input type="text" name="relation" tabindex="17" placeholder="Relative, Spouse, Friend, etc." '.$person->get_relation().'">';
-        //echo '<p>Do you have reliable transportation: '. '<input type="text" name="transportation" tabindex="14" placeholder="Yes or No" '.$person->get_transportation().'">';
 ?>
 <script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
@@ -143,48 +134,11 @@ if ($_SESSION['access_level']==2) {
 	echo($person->get_notes().'</textarea>');
 }
 
-/*echo '<fieldset> <legend>Employment:</legend>';
-echo '<p>Current Employer: <input type="text" name="employer" tabindex="1" size=30 value="'.$person->get_employer().'"> '.
-'Position: <input type="text" name="position" tabindex="2" size=30 value="'.$person->get_position().'">';*/
-
 
 echo '</fieldset>';
 
-/*echo '<fieldset> <legend>Students (18+ only):</legend>';
-echo '<p>Are you currently attending school? <input type="radio" name="isstudent" value="yes" '.($person->get_position()=="student"?"checked":"").'>yes'.
- 		'&nbsp;&nbsp;<input type="radio" name="isstudent" value="no" '.($person->get_position()!="student"?"checked":"").'>no';
-echo '&nbsp;&nbsp;&nbsp;&nbsp;Name of school: '.'<input type="text" name="nameofschool" size=30 value="'.($person->get_position()=="student"?$person->get_employer():"").'"> ';
-echo '<p>Will you be receiving academic credit for your volunteer work? ';
-echo '<input type="radio" name="academiccredit" value="yes" '.($person->get_credithours()!=""?"checked":"").'>yes'.
- 		'&nbsp;&nbsp;<input type="radio" name="academiccredit" value="no" '.($person->get_credithours()==""?"checked":"").'>no';
-echo '<br>If yes, number of hours required: ';
-echo '<input type="text" name="credithours" size=5 value="'.$person->get_credithours().'">';
-echo '</fieldset>';*/
 
 echo '<fieldset class="row mb-3"> <legend class="col-sm-2 col-form-label col-form-label-lg">Volunteer Information:</legend>';
-/*
-echo "<p>How did you hear about Gwyneth's Gift? ";
-echo '<p><input type="radio" name="howdidyouhear" value="internet" '.($person->get_howdidyouhear()=="internet"?"checked":"").'>Internet search or website'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="family" '.($person->get_howdidyouhear()=="family"?"checked":"").'>Family or friend'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="volunteer" '.($person->get_howdidyouhear()=="volunteer"?"checked":"").'>Current volunteer'.
-		'&nbsp;&nbsp;<input type="radio" name="howdidyouhear" value="other" '.($person->get_howdidyouhear()=="other"?"checked":"").'>other';*/
-//echo '<p>Can you make a commitment to volunteer at RMH for at least one year? <br>(one semester for college students): ';
-//echo '<input type="radio" name="commitment" value="yes" '.($person->get_commitment()=="yes"?"checked":"").'>yes'.
- 		//'&nbsp;&nbsp;<input type="radio" name="commitment" value="no" '.($person->get_commitment()!="yes"?"checked":"").'>no';
-//echo("<p>Why are you interested in volunteering at Gwyneth's Gift?<br />");
-//echo('<textarea name="motivation" rows="3" cols="75">');
-//echo($person->get_motivation());
-//echo('</textarea>');
-
-/*echo('<p>Please list special skills, hobbies, or training you would like us to know about:<br />');
-echo('<textarea name="specialties" rows="3" cols="75">');
-echo($person->get_specialties());
-echo('</textarea>');*/
-
-//echo('<p> testing dropdowns, radios :<br />');
-
-
-
 
 // dropdown for t shirt size
 echo ('<p>Shirt Size:');
@@ -216,43 +170,11 @@ echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
 echo '<p><input class="form-check-input" type="radio" name="computer" value="Yes" '.($person->get_computer()=="Yes"?"checked":"").'>Yes'.
 		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="computer" value="No" '.($person->get_computer()=="No"?"checked":"").'>No';
 
-// dropdown for computer - not in use
-/*
-echo ('<p>Do you own a computer:');
-echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="computer">');
-
-	echo ('<option value="No"');
-	if ($person->get_computer() == 'No')
-    	echo (' SELECTED'); 
-    echo('>No</option>'); // default
-    echo ('<option value="Yes"');
-	if ($person->get_computer() == 'Yes')
-	    echo (' SELECTED'); echo('>Yes</option>');
-echo('</select>');
-*/
-
 // radio for camera
 echo "<p>Do you own a camera? ";
 echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
 echo '<p><input class="form-check-input" type="radio" name="camera" value="Yes" '.($person->get_camera()=="Yes"?"checked":"").'>Yes'.
 		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="camera" value="No" '.($person->get_camera()=="No"?"checked":"").'>No';
-
-// dropdown for camera - not in use
-/*
-echo ('<p>Do you own a camera:');
-echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="camera">');
-
-	echo ('<option value="No"');
-	if ($person->get_camera() == 'No')
-    	echo (' SELECTED'); 
-    echo('>No</option>'); // default
-    echo ('<option value="Yes"');
-	if ($person->get_camera() == 'Yes')
-	    echo (' SELECTED'); echo('>Yes</option>');
-echo('</select>');
-*/
 
 // radio for transportation
 echo "<p>Do you have reliable transportation? ";
@@ -261,31 +183,13 @@ echo '<p><input class="form-check-input" type="radio" name="transportation" valu
 		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="transportation" value="No" '.($person->get_transportation()=="No"?"checked":"").'>No';
 
 
-        
-
-// dropdown for transportation - not used
-/*echo ('<p>Do you have reliable transportation:');
-echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
-echo('<select name="transportation">');
-
-	echo ('<option value="No"');
-	if ($person->get_transportation() == 'No')
-    	echo (' SELECTED'); 
-    echo('>No</option>'); // default
-    echo ('<option value="Yes"');
-	if ($person->get_transportation() == 'Yes')
-	    echo (' SELECTED'); echo('>Yes</option>');
-echo('</select>'); */
-
 echo('<p><b>Emergency contact information: </b>');
 
 echo '<p>Emergency contact name<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="contact_name" tabindex="1" value="'.$person->get_contact_name().'">';
 echo '<p>Emergency contact number<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="contact_num" tabindex="2" value=" '.$person->get_contact_num().'">';
-//echo '<p>Relation to emergency contact: '. '<input type="text" name="relation" tabindex="17" placeholder="Relative, Spouse, Friend, etc." '.$person->get_relation().'">';
 
 // dropdown for emergency contact relation
 echo ('<p>What is your relationship to the emergency contact<span style="font-size:x-small;color:FF0000">*</span>: ');
-//echo('<span style="font-size:x-small;color:FF0000">*</span>&nbsp;&nbsp;');
 echo('<select class="form-select-sm" name="relation">');
 
 echo ('<option value="Relative"');
@@ -308,8 +212,6 @@ if ($person->get_relation() == 'Other')
 echo('</select>');
 
 
-//echo '<fieldset> <legend>Volunteer Information:</legend>';
-
 echo "<p><b>How did you hear about Gwyneth's Gift? </b>";
 echo '<p><input class="form-check-input" type="radio" name="howdidyouhear" value="internet" '.($person->get_howdidyouhear()=="internet"?"checked":"").'>Internet search or website'.
 		'&nbsp;&nbsp;<input class="form-check-input" type="radio" name="howdidyouhear" value="family" '.($person->get_howdidyouhear()=="family"?"checked":"").'>Family or friend'.
@@ -321,16 +223,6 @@ echo('<p>Please list special skills or training you would like us to know about:
 echo('<textarea class="form-control-sm" name="specialties" rows="3" cols="75">');
 echo($person->get_specialties());
 echo('</textarea>');
-/*echo '<p>Have you ever been convicted of a felony? ';
-	echo '<input type="radio" name="convictions" value="yes" '.($person->get_convictions()=="yes"?"checked":"").'>yes'.
-	 		'&nbsp;&nbsp;<input type="radio" name="convictions" value="no" '.($person->get_position()!="yes"?"checked":"").'>no';*/
-//if ($_SESSION['access_level']==0) {
-//	echo '<p>All volunteer positions require a background check (separate form).'.
-//		 '<br> Please note: our facility is unable to accommodate court-ordered community service or probation-based hours.';
-//}
-
-
-
 
 echo '</fieldset>';
 
@@ -397,9 +289,6 @@ if ($_SESSION['access_level'] <= 1) {
         }
 }
 
-//if ($_SESSION['access_level']==0)
-	//echo '<p>House volunteer shifts are three hours and regularly-scheduled shifts can occur weekly, bi-weekly, 
-       // or monthly (for weekend shifts). Volunteers may also work flex shifts, filling in as their schedule allows.';
 ?>
 
     <fieldset class="row mb-3" id='availability'>
@@ -434,49 +323,6 @@ if ($_SESSION['access_level'] <= 1) {
     </fieldset>
     <p>
         <?PHP
-        /*if ($_SESSION['access_level']==2 && $person->get_status() == "applicant") {
-            echo "<fieldset>";
-            echo "<legend>Applicants only: </legend>";
-			if ($_SESSION['access_level'] == 2) {
-            	$screeningType = $person->get_screening_type();
-                $screening = retrieve_dbApplicantScreenings($screeningType);
-                $screenings = getall_ApplicantScreenings();
-                echo('<p> Screening Type:&nbsp; <select class="form-select" name="screening_type">');
-                if ($person->get_screening_type() == "")
-                    echo('<option value="" SELECTED></option>');
-                foreach ($screenings as $s) {
-                    if ($s->get_status() == "published") {
-                        $t = $s->get_type();
-                        if ($screeningType == $t) {
-                            echo('<option value ="' . $t . '" SELECTED>' . $t . '</option>');
-                        } else {
-                            echo('<option value ="' . $t . '"> ' . $t . '</option>');
-                        }
-                    }
-                }
-                echo('</select>&nbsp;');
-
-                // submit button that allows manager to associate person with applicant screening
-                //echo(' Hit <input type="submit" value="submit" name="Submit Edits"> to associate '.$person->get_first_name().' with this screening.<br><br>');
-
-                if ($screening) {
-                    $step_array = $screening->get_steps();
-                    $date_array = $person->get_screening_status();
-                    $step_count = count($step_array);
-                
-                echo("<p><table>");
-                echo('<tr><td>Completion Date</td> <td>Step</td></tr>');
-                for ($i = 0; $i < $step_count; $i++) {
-                    $j = $i + 1;
-                    echo "<tr><td>";
-                    echo('<tr><td><input type="text" id="screening_status" name="screening_status[]" value="'.$date_array[$i]. '" size="8" /></td>');
-                    echo('</td><td>' . $j . '. ' . $step_array[$i] . '</td></tr>');
-                }
-                echo('</table>');
-                }
-			}    
-            echo "</fieldset>";
-        }*/
 
         //change password - only volunteers here       
         if ($_SESSION['access_level'] == 1) {
@@ -488,19 +334,7 @@ if ($_SESSION['access_level'] <= 1) {
                 echo '</fieldset>';
             }
 
-            }
-            
-            //admins cannot change another's password
-            /*if ($_SESSION['access_level'] == 2) {
-                echo "<fieldset class='row mb-3'>";
-                echo "<legend class='col-form-label col-sm-2 pt-0'>Change password: </legend>";
-                echo "Admins cannot change a volunteer's password. They can reset the password below. <br></br>";
-                echo "Admins can change their own password from the home page";
-                echo '</fieldset>';
-            }*/
-
-        //echo '</fieldset>';
-        //end change password
+        }//end change password
 
         echo('<input type="hidden" name="schedule" value="' . implode(',', $person->get_schedule()) . '">');
         echo('<input type="hidden" name="hours" value="' . implode(',', $person->get_hours()) . '">');

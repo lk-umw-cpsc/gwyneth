@@ -24,7 +24,7 @@ include_once('dbinfo.php');
 include_once(dirname(__FILE__).'/../domain/Event.php');
 
 /*
- * add a event to dbEvents table: if already there, return false
+ * add an event to dbEvents table: if already there, return false
  */
 
 function add_event($event) {
@@ -51,7 +51,7 @@ function add_event($event) {
 }
 
 /*
- * remove a event from dbEvents table.  If already there, return false
+ * remove an event from dbEvents table.  If already there, return false
  */
 
 function remove_event($id) {
@@ -89,7 +89,7 @@ function retrieve_event($id) {
     return $theEvent;
 }
 
-
+// not in use, may be useful for future iterations in changing how events are edited (i.e. change the remove and create new event process)
 function update_event_date($id, $new_event_date) {
 	$con=connect();
 	$query = 'UPDATE dbEvents SET event_date = "' . $new_event_date . '" WHERE id = "' . $id . '"';
@@ -114,7 +114,7 @@ function make_an_event($result_row) {
 
 
 // retrieve only those events that match the criteria given in the arguments
-function getonlythose_dbEvents($name, $day, $shift, $venue) {
+function getonlythose_dbEvents($name, $day, $venue) {
    $con=connect();
    $query = "SELECT * FROM dbEvents WHERE event_name LIKE '%" . $event_name . "%'" .
            " AND event_name LIKE '%" . $name . "%'" .

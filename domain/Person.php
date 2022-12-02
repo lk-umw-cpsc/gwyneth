@@ -36,19 +36,16 @@
 	private $contact_name;   // emergency contact name
 	private $contact_num;   // emergency cont. phone number
 	private $relation;   // relation to emergency contact
-	private $contact_time; //best time to contact
-	//private $contact_method; //best method to contact (email, phone, text)
-	private $cMethod;    // current cMethod or school attending
+	private $contact_time; //best time to contact volunteer
+	private $cMethod;    // best contact method for volunteer (email, phone, text)
 	private $position;    // job title or "student"
 	private $credithours; // hours required if volunteering for academic credit; otherwise blank
 	private $howdidyouhear;  // about RMH; internet, family, friend, volunteer, other (explain)
 	private $commitment;  // App: "year" or "semester" (if student) or N/A (guest chef, events, or projects)
 	private $motivation;   // App: why interested in RMH?
-	private $specialties;  // App: special interests and hobbies related to RMH
+	private $specialties;  // special training or skills
 	private $convictions;  // App: ever convicted of a felony?  "yes" or blank
 	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
-	private $screening_type; // if status is "applicant", type of screening used for this applicant
-	private $screening_status; // array of dates showing completion of screening steps
 	private $status;     // a person may be an "applicant", "active", "LOA", or "former"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
@@ -58,7 +55,7 @@
 
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
-			$ct, /*$cm,*/ $t,$screening_type, $screening_status, $st, $emp, $pos, $credithours, $comm, $mot, $spe,
+			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
 		$this->id = $f . $p1;
 		$this->start_date = $sd;
@@ -83,8 +80,7 @@
 		$this->contact_num = $cpn;
 		$this->relation = $rel;
 		$this->contact_time = $ct;
-		//$this->contact_method = $cm;
-		$this->cMethod = $emp;
+		$this->cMethod = $cntm;
 		$this->position = $pos;
 		$this->credithours = $credithours;
 		$this->howdidyouhear = $hdyh;
@@ -96,11 +92,6 @@
 			$this->type = explode(',', $t);
 		else
 			$this->type = array();
-		$this->screening_type = $screening_type;
-		if ($screening_status !== "")
-			$this->screening_status = explode(',', $screening_status);
-		else
-			$this->screening_status = array();
 
 		$this->status = $st;
 		if ($av == "")
@@ -214,10 +205,6 @@
 		return $this->contact_time;
 	}
 
-	/*function get_contact_method) {
-		return $this->contact_method;
-	}*/
-
 	function get_cMethod() {
 		return $this->cMethod;
 	}
@@ -252,14 +239,6 @@
 
 	function get_type() {
 		return $this->type;
-	}
-
-	function get_screening_type() {
-		return $this->screening_type;
-	}
-
-	function get_screening_status() {
-		return $this->screening_status;
 	}
 
 	function get_status() {

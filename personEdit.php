@@ -15,8 +15,6 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
-include_once('database/dbApplicantScreenings.php');
-include_once('domain/ApplicantScreening.php');
 include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
@@ -24,7 +22,7 @@ if ($id == 'new') {
     // for new applicants set the venue to portland so all their availability info saves, leftover from 2 calendar system, Gwyneth's Gift is working off of Portland
     $_SESSION['venue']="portland"; 
     $person = new Person('new', 'applicant', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
-                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
+                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
 } else {
     $person = retrieve_person($id);
     if (!$person) { // try again by changing blanks to _ in id
@@ -53,7 +51,6 @@ if ($id == 'new') {
 				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 				$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#screening_status[]" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 		</script>
     </head>
@@ -83,19 +80,18 @@ if ($id == 'new') {
                         }
                         if ($_POST['isstudent']=="yes")  {
                         	$position="student";
-                        	$cMethod = $_POST['nameofschool'];
+                            //$employer = $_POST['nameofschool'];
                         }
                         else {
                         	$position = $_POST['position'];
-                        	$cMethod = $_POST['cMethod'];
+                            //$employer = $_POST['nameofschool'];
                         }
                         $person = new Person($person->get_first_name(), $_POST['last_name'], $_POST['location'], 
                         				$_POST['address'], $_POST['city'], $_POST['state'], $_POST['zip'],
                                         $person->get_phone1(), $_POST['phone1type'], $_POST['phone2'],$_POST['phone2type'], 
                         		        $_POST['email'], $_POST['shirt_size'], $_POST['computer'], $_POST['camera'], $_POST['transportation'],
-                                        $_POST['contact_name'],$_POST['contact_num'],$_POST['relation'], $_POST['contact_time'], /*$_POST['contact_method'],*/
+                                        $_POST['contact_name'],$_POST['contact_num'],$_POST['relation'], $_POST['contact_time'], 
                                          implode(',', $_POST['type']), 
-                        				$_POST['screening_type'], implode(',', $_POST['screening_status']),
                                         $_POST['status'], $cMethod, $position, $_POST['credithours'], 
                                         $_POST['commitment'], $_POST['motivation'], $_POST['specialties'], $_POST['convictions'], 
                                         $availability, $_POST['schedule'], $_POST['hours'], 
@@ -150,30 +146,16 @@ if ($id == 'new') {
                     $clean_contact_num = preg_replace("/[^0-9]/", "", $contact_num);
                     $relation = trim(htmlentities($_POST['relation']));
                     $contact_time= trim(htmlentities($_POST['contact_time']));
-                    //$contact_method = trim(htmlentities($_POST['contact_method']));
+                    $cMethod = trim(htmlentities($_POST['cMethod']));
                     $type = implode(',', $_POST['type']);
-                    $screening_type = $_POST['screening_type'];
-                    if ($screening_type!="") {
-                    	$screening = retrieve_dbApplicantScreenings($screening_type);
-                    	$step_array = $screening->get_steps();
-                    	$step_count = count($step_array);
-                    	$date_array = array();
-                    	for ($i = 0; $i < $step_count; $i++) {
-                        	$date_array[$i] = $_POST['screening_status'][$i];
-                        	if ($date_array[$i]!="" && $date_array[$i]!="--" && strlen($date_array[$i]) != 8) {
-                           	 	echo('<p>Completion Date for step: "' . $step_array[$i] . '" is in error, please enter mm-dd-yy.<br>');
-                        	}
-                    	}
-                    	$screening_status = implode(',', $date_array);
-                    }
                     $status = $_POST['status'];
                 	if ($_POST['isstudent']=="yes")  {
                         $position="student";
-                        $cMethod = $_POST['nameofschool'];
+                        //$employer = $_POST['nameofschool'];
                     }
                     else {
                         $position = $_POST['position'];
-                        $cMethod = $_POST['cMethod'];
+                        //$employer = $_POST['employer'];
                     }
                     $credithours = $_POST['credithours'];
                     $motivation = trim(str_replace('\\\'', '\'', htmlentities($_POST['motivation'])));
@@ -197,7 +179,7 @@ if ($id == 'new') {
                     if ($_POST['deleteMe'] == "DELETE") {
                         $result = retrieve_person($id);
                         if (!$result)
-                            echo('<p>Unable to delete. ' . $first_name . ' ' . $last_name . ' is not in the database. <br>Please report this error to the House Manager.');
+                            echo('<p>Unable to delete. ' . $first_name . ' ' . $last_name . ' is not in the database. <br>Please report this error to the Manager.');
                         else {
                             /*//What if they're the last remaining manager account?
                             if (strpos($type, 'manager') !== false) {
@@ -208,7 +190,7 @@ if ($id == 'new') {
                                     echo('<p class="error">You cannot remove this manager from the database.</p>');*/
 
                             //We don't want to be able to delete all managers, hardcoding these two to be undeletable
-                            if($id == "Admin7037806282" || $id == "GwynethsGiftAdmin5403160356")
+                            if($id == "Admin7037806282" || $id == "GwynethsGiftAdmin4678931290")
                                 echo('<p class="error">You cannot remove this manager from the database.</p>');
                              else {
                                 $result = remove_person($id);
@@ -227,13 +209,13 @@ if ($id == 'new') {
                         $result = remove_person($id);
                         $pass = $first_name . $clean_phone1;
                         $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time, /*$contact_method,*/
-                                        $type, $screening_type, $screening_status, $status, $cMethod, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time, 
+                                        $type, $status, $cMethod, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, "");
                         $result = add_person($newperson);
                         if (!$result)
-                            echo ('<p class="error">Unable to reset ' . $first_name . ' ' . $last_name . "'s password.. <br>Please report this error to the House Manager.");
+                            echo ('<p class="error">Unable to reset ' . $first_name . ' ' . $last_name . "'s password.. <br>Please report this error to the Manager.");
                         else
                             echo("<p>You have successfully reset " . $first_name . " " . $last_name . "'s password.</p>");
                     }
@@ -247,15 +229,15 @@ if ($id == 'new') {
                             echo('<p class="error">Unable to add ' . $first_name . ' ' . $last_name . ' to the database. <br>Another person with the same name and phone is already there.');
                         else {
                         	$newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time, /*$contact_method,*/
-                                        $type, $screening_type, $screening_status, $status, $cMethod, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time, 
+                                        $type, $status, $cMethod, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, "");
                             $result = add_person($newperson);
                             if (!$result)
-                                echo ('<p class="error">Unable to add " .$first_name." ".$last_name. " in the database. <br>Please report this error to the House Manager.');
+                                echo ('<p class="error">Unable to add " .$first_name." ".$last_name. " in the database. <br>Please report this error to the Manager.');
                             else if ($_SESSION['access_level'] == 0)
-                                echo("<p>Your application has been successfully submitted.<br>  The House Manager will contact you soon.  Thank you!");
+                                echo("<p>Your application has been successfully submitted.<br>  The Manager will contact you soon.  Thank you!");
                             else
                                 echo('<p>You have successfully added <a href="' . $path . 'personEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $last_name . ' </b></a> to the database.</p>');
                         }
@@ -267,16 +249,16 @@ if ($id == 'new') {
                         $pass = $_POST['old_pass'];
                         $result = remove_person($id);
                         if (!$result)
-                            echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the House Manager.');
+                            echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the Manager.');
                         else {
                             $newperson = new Person($first_name, $last_name, $location, $address, $city, $state, $zip, $clean_phone1, $phone1type, $clean_phone2,$phone2type,
-                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time,/* $contact_method,*/
-                                        $type, $screening_type, $screening_status, $status, $cMethod, $position, $credithours,
+                        				$email, $shirt_size, $computer, $camera, $transportation, $contact_name, $clean_contact_num, $relation, $contact_time,
+                                        $type, $status, $cMethod, $position, $credithours,
                                         $commitment, $motivation, $specialties, $convictions, $availability, $schedule, $hours, 
                                         $birthday, $start_date, $howdidyouhear, $notes, $pass);
                             $result = add_person($newperson);
                             if (!$result)
-                                echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the House Manager.');
+                                echo ('<p class="error">Unable to update ' . $first_name . ' ' . $last_name . '. <br>Please report this error to the Manager.');
                             //else echo("<p>You have successfully edited " .$first_name." ".$last_name. " in the database.</p>");
                             else
                                 echo('<p>You have successfully edited <a href="' . $path . 'personEdit.php?id=' . $id . '"><b>' . $first_name . ' ' . $last_name . ' </b></a> in the database.</p>');

@@ -48,7 +48,7 @@ session_cache_expire(30);
                     // now go after the events that fit the search criteria
                     include_once('database/dbEvents.php');
                     include_once('domain/Event.php');
-                    $result = getonlythose_dbEvents($name, $_POST['s_day'], $_POST['s_shift'], $_SESSION['venue']); //added s_venue
+                    $result = getonlythose_dbEvents($name, $_POST['s_day'], $_SESSION['venue']); 
                     echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ';   
                         echo "events";
                     if ($name != "")

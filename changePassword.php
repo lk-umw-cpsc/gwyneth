@@ -1,7 +1,9 @@
 <?php
-/*
-* this page allows volunteers to change their password
-*/
+/* 
+ * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
+ * This page allows volunteers and managers to change their password
+ */
+
 session_start();
 session_cache_expire(30);
 ?>
@@ -48,7 +50,6 @@ session_cache_expire(30);
                         //VOLUNTEER CHECK - can change their password
                         if ($_SESSION['access_level'] == 1) {
                         	
-
                                if (md5($person->get_id()) == $person->get_password() || ['access_level'] > 0) {
                                 if (!isset($_POST['_rp_submitted']))
                                     echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
@@ -72,7 +73,6 @@ session_cache_expire(30);
                         
                         //MANAGER CHECK - can change their password
                         if ($_SESSION['access_level'] == 2) {
-                            
                             
                             if (md5($person->get_id()) == $person->get_password() || ['access_level'] > 0) {
                                 if (!isset($_POST['_rp_submitted']))

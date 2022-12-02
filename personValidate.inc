@@ -19,8 +19,6 @@
 function validate_form($person) {
     if ($_POST['status']=='applicant' && ($_POST['start_date'] == "" || strlen($_POST['start_date']) != 8)) 
         $errors[] = 'Please select a valid start date';
-    //if ($_POST['location'] == null)
-      //  $errors[] = 'Please select a location (Portland or Bangor)';
     if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
         $errors[] = 'Please enter a first name';
     if ($_POST['last_name'] == null)
@@ -33,6 +31,8 @@ function validate_form($person) {
         $errors[] = 'Please enter a valid zip code (5 digits: #####)';
     if ($_SESSION['access_level'] == 0 && ($_POST['status'] == null))
         $_POST['status'] = 'applicant';
+    //this error check does not work, will result in blank screen if no type selected
+    //the bug only appears when managers add an account
     if ($_POST['type'] == null && $_SESSION['access_level'] >= 1)
         $errors[] = 'Please select a Position type';
     if ($_POST['type'] != null && $_SESSION['access_level'] <= 1 && in_array('manager', $_POST['type']))

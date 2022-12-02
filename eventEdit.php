@@ -103,7 +103,7 @@ if ($id == 'new') {
                     if ($_POST['deleteMe'] == "DELETE") {
                         $result = retrieve_event($id);
                         if (!$result)
-                            echo('<p>Unable to delete. ' . $event_name . ' is not in the database. <br>Please report this error to the House Manager.');
+                            echo('<p>Unable to delete. ' . $event_name . ' is not in the database. <br>Please report this error to the Manager.');
                         else {
                                 $result = remove_event($id);
                                 echo("<p>You have successfully removed " . $event_name . " from the database.</p>");
@@ -128,9 +128,9 @@ if ($id == 'new') {
                                         $event_date, $description, $event_id, "");
                             $result = add_event($newevent);
                             if (!$result)
-                                echo ('<p class="error">Unable to add " .$event_name. " in the database. <br>Please report this error to the House Manager.');
+                                echo ('<p class="error">Unable to add " .$event_name. " in the database. <br>Please report this error to the Manager.');
                             else if ($_SESSION['access_level'] == 0)
-                                echo("<p>Your application has been successfully submitted.<br>  The House Manager will contact you soon.  Thank you!");
+                                echo("<p>Your application has been successfully submitted.<br>  The Manager will contact you soon.  Thank you!");
                             else
                                 echo('<p>You have successfully added <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $event_name . ' </b></a> to the database.</p>');
                         }
@@ -143,7 +143,7 @@ if ($id == 'new') {
                         $pass = $_POST['old_pass'];
                         $result = remove_event($id);
                         if (!$result)
-                            echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the House Manager.');
+                            echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the Manager.');
 
                         else {
                             //Pass the old id into the new event instead of event_id, this prevents a new id being created
@@ -151,7 +151,7 @@ if ($id == 'new') {
                                         $event_date, $description, $id, $pass);
                             $result = add_event($newevent);
                             if (!$result)
-                                echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the House Manager.');
+                                echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the Manager.');
                             
                             else
                                 echo('<p>You have successfully edited <a href="' . $path . 'eventEdit.php?id=' . $id . '"><b>' . $event_name . ' </b></a> to the database.</p>');

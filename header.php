@@ -54,7 +54,7 @@
         $permission_array['calendar.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
-        $permission_array['personedit.php'] = 0;
+        $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
         $permission_array['viewschedule.php'] = 2;
         $permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;
@@ -113,7 +113,7 @@
 	            echo('<a class="navbar-brand">|</a>');
 	            echo('<a class="navbar-brand">Volunteers</a>');
                 echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
-			        <li class="nav-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); //remove after 'add,': <a href="viewScreenings.php?type=new">screenings</a>
+			        <li class="nav-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
 	            echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
 	        echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a></li><br>');
