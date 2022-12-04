@@ -20,12 +20,12 @@ session_cache_expire(30);
 	<ol>
 		<li><a href="?helpPage=rmhc-homebase/login.php">Signing in and out of the System</a>
 		</li>
-		<br>
+		<!--<br>
 		<ul>
 			<li><a href="?helpPage=rmhc-homebase/index.php">About your Personal Home Page</a></li>
 			<li><a href="?helpPage=rmhc-homebase/volunteerLog.php">Logging Your Hours (Volunteers Only)</a></li>
 		
-		</ul>
+		</ul>-->
 		<br>
 		<li><strong>Working with the Volunteer Database</strong> (Managers
 			Only)</li>
@@ -43,32 +43,31 @@ session_cache_expire(30);
 			<li><a href="?helpPage=rmhc-homebase/addWeek.php">Generating and publishing
 					new calendar weeks (Managers Only)
 					</a></li>
-			<li><strong>Editing a Shift on the Calendar</strong></li>
+			<li><strong>Editing Events on the Calendar</strong></li>
 			<p>
 			
 			
 			<ul>
-				<li><a href="?helpPage=rmhc-homebase/cancelShift.php">Canceling a Shift
-						</a></li>
-				<li><a href="help.php?helpPage=rmhc-homebase/addSlotToShift.php">Adding/removing a
-						slot (Managers Only)</a></li>
-				<li><a href="help.php?helpPage=rmhc-homebase/addPersonToShift.php">Adding/removing
+				<li><a href="?helpPage=rmhc-homebase/cancelShift.php">Creating an Event
+						(Managers Only)</a></li>
+				<li><a href="help.php?helpPage=rmhc-homebase/addSlotToShift.php">Searching for Events
+				</a></li>
+				<!--<li><a href="help.php?helpPage=rmhc-homebase/addPersonToShift.php">Adding/removing
 						a person from a shift</a></li>
 				<li><a href="help.php?helpPage=rmhc-homebase/subCallList.php">Using a Sub Call
-						List (Managers Only)</a></li>
+						List (Managers Only)</a></li>-->
 			</ul>
 			<p>
-			<li><a href="?helpPage=rmhc-homebase/addNotes.php">Adding notes</a></li>
+			<!--<li><a href="?helpPage=rmhc-homebase/addNotes.php">Adding notes</a></li>-->
 
 		</ul>
-		<br>
-		<li><a href="?helpPage=rmhc-homebase/viewSchedule.php">Working with the Master
+		<!--<li><a href="?helpPage=rmhc-homebase/viewSchedule.php">Working with the Master
 				Schedule</a> (Managers Only)</li>
-		<br>
+		<br>-->
 		<li><a href="?helpPage=rmhc-homebase/reports.php">Generating Reports</a> (Managers
 			Only)</li>
 		<br>
-		<li><a href="?helpPage=rmhc-homebase/dataExport.inc.php">Exporting Reports as CSVs (spreadsheet files)</a> (Managers Only)</li>
+		<!--<li><a href="?helpPage=rmhc-homebase/dataExport.inc.php">Exporting Reports as CSVs (spreadsheet files)</a> (Managers Only)</li>-->
 
 	</ol>
 	<p>
