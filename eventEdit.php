@@ -20,8 +20,6 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbEvents.php');
 include_once('domain/Event.php');
-include_once('database/dbApplicantScreenings.php');
-include_once('domain/ApplicantScreening.php');
 include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
@@ -99,7 +97,7 @@ if ($id == 'new') {
                     $event_id = uniqid();
                     //used for url path in linking user back to edit form
                     $path = strrev(substr(strrev($_SERVER['SCRIPT_NAME']), strpos(strrev($_SERVER['SCRIPT_NAME']), '/')));
-                    //step two: try to make the deletion, password change, addition, or change
+                    //step two: try to make the deletion, addition, or change
                     if ($_POST['deleteMe'] == "DELETE") {
                         $result = retrieve_event($id);
                         if (!$result)
