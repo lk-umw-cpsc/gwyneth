@@ -26,24 +26,25 @@
 <p>
 	<strong>How to Add People to the Database</strong>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
-	and select <B>add</B>, like this:<BR> <BR> <a
-		href="tutorial/screenshots/addpersonhelpstep1.png" class="image"
-		title="addpersonhelpstep1.png" horizontalalign="center"
-		target="tutorial/screenshots/addpersonhelpstep1.png">
+	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>Volunteers</B>
+	and select <B>Add</B>, like this:<BR> <BR> <a
+		href="tutorial/screenshots/addPersonStep1.JPG" class="image"
+		title="addPersonStep1.JPG" horizontalalign="center"
+		target="tutorial/screenshots/addPersonStep1.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/addpersonhelpstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/addpersonhelpstep1.png"
+		src="tutorial/screenshots/addPersonStep1.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/addPersonStep1.JPG"
 		border="1px" align="center"> </a>
 <p>
-	<B>Step 2:</B> You should now see a long form with information like
-	"First Name" and "Last Name". That form begins like this:<BR> <BR> <a
-		href="tutorial/screenshots/addpersonhelpstep2.png" class="image"
-		title="addpersonhelpstep2.png"
-		target="tutorial/screenshots/addpersonhelpstep2.png">
+	<B>Step 2:</B> You should now see a long form that says <strong>Volunteer Service Application</strong>
+	at the top and has fields like "Date", "First Name" and "Last Name".
+	The first couple lines of the form should look like this:<BR> <BR> <a
+		href="tutorial/screenshots/addPersonStep2.JPG" class="image"
+		title="addPersonStep2.JPG"
+		target="tutorial/screenshots/addPersonStep2.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/addpersonhelpstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/addpersonhelpstep2.png"
+		src="tutorial/screenshots/addPersonStep2.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/addPersonStep2.JPG"
 		border="1px" align="middle"> </a> <BR><BR> Now you can fill in these
 		fields with the correct information. <BR><BR>(NOTE:&nbsp All fields marked
 		by <font color="#FF0000">*</font> are required before a person can be
@@ -52,12 +53,12 @@
 
 <p>
 	<B>Step 3:</B> For date fields, a menu will pop up allowing you to select a date:<BR> <BR> <a
-		href="tutorial/screenshots/addpersonhelpstep3.png" class="image"
-		title="addpersonhelpstep3.png"
-		target="tutorial/screenshots/addpersonhelpstep3.png">
+		href="tutorial/screenshots/addPersonStep3.JPG" class="image"
+		title="addPersonStep3.JPG"
+		target="tutorial/screenshots/addPersonStep3.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/addpersonhelpstep3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/addpersonhelpstep3.png"
+		src="tutorial/screenshots/addPersonStep3.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/addPersonStep3.JPG"
 		border="1px" align="middle"> </a>
 </p>
 
@@ -65,15 +66,13 @@
 	<B>Step 4:</B> Beneath this form you should see a section marked <B>Availability</B>. 
 		Here you can highlight different shifts depending on the volunteer's 
 		availibility:<BR> <BR> <a
-		href="tutorial/screenshots/addpersonhelpstep4.png" class="image"
-		title="addpersonhelpstep4.png"
-		target="tutorial/screenshots/addpersonhelpstep4.png">
+		href="tutorial/screenshots/addPersonStep4.JPG" class="image"
+		title="addPersonStep4.JPG"
+		target="tutorial/screenshots/addPersonStep4.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/addpersonhelpstep4.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/addpersonhelpstep4.png"
-		border="1px" align="middle"> </a> <BR><BR> You can highlight multiple shifts at a time 
-		by clicking and dragging (<font color=#666666>Gray</font> or <font color=#0033ff>blue</font> 
-		shading indicates a shift is selected). NOTE: If a volunteer is availible 
+		src="tutorial/screenshots/addPersonStep4.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/addPersonStep4.JPG"
+		border="1px" align="middle"> </a> <BR><BR> NOTE: If a volunteer is availible
 		all weeks of the month it is easier to fill out only the shifts for odd and 
 		even than to select all of the shifts in the lower portion.
 </p>
@@ -81,12 +80,12 @@
 <p>
 	<B>Step 5:</B> When you're finished entering information, select the <B>Submit</B> button at the
 	bottom of the page, like this:<BR> <BR> <a
-		href="tutorial/screenshots/addpersonhelpstep5.png" class="image"
-		title="addpersonhelpstep5.png"
-		target="tutorial/screenshots/addpersonhelpstep5.png">
+		href="tutorial/screenshots/addPersonStep5.JPG" class="image"
+		title="addPersonStep5.JPG"
+		target="tutorial/screenshots/addPersonStep5.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/addpersonhelpstep5.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/addpersonhelpstep5.png"
+		src="tutorial/screenshots/addPersonStep5.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/addPersonStep5.JPG"
 		border="1px" align="middle"> </a>
 <p>
 	<B>Step 6:</B> If you make a mistake or omit a required field, <font

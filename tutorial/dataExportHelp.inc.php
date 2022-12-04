@@ -31,18 +31,18 @@
 From the reports page, you can export (download) some of these reports as CSVs for further processing
 using Excel or OpenOffice.  
 	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>reports</B>
-	, like this:<BR> <BR> <a href="tutorial/screenshots/reportsstep1.png"
-		class="image" title="reportsstep1.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep1.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep1.png" width="10%" rel="popover"
-		data-img="tutorial/screenshots/reportsstep1.png" border="1px"
+	, like this:<BR> <BR> <a href="tutorial/screenshots/reportsStep1.JPG"
+		class="image" title="reportsStep1.JPG" horizontalalign="center"
+		target="tutorial/screenshots/reportsStep1.JPG"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/reportsStep1.JPG" width="10%" rel="popover"
+		data-img="tutorial/screenshots/reportsStep1.JPG" border="1px"
 		align="center"> </a> <BR>
 	<BR>Click on it and you should see the following page: <BR>
-	<BR> <a href="tutorial/screenshots/reportsstep1-2.png" class="image"
-		title="reportsstep1-2.png" horizontalalign="center"
-		target="tutorial/screenshots/reportsstep1-2.png"> &nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/reportsstep1-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/reportsstep1-2.png"
+	<BR> <a href="tutorial/screenshots/reportsStep1-2.JPG" class="image"
+		title="reportsStep1-2.JPG" horizontalalign="center"
+		target="tutorial/screenshots/reportsStep1-2.JPG"> &nbsp&nbsp&nbsp&nbsp<img
+		src="tutorial/screenshots/reportsStep1-2.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/reportsStep1-2.JPG"
 		border="1px" align="center"> </a><br><br>
 	The three reports that can be downloaded are starred (*) in the menu on the left. 
 <p>

@@ -28,74 +28,75 @@
 <p>
 	<strong>Searching for People (and Phone Numbers)</strong>
 <p>
-	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>volunteers:</B>
-	and select <B>search</B>, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep1.png" class="image"
-		title="searchpersonstep1.png"
-		target="tutorial/screenshots/searchpersonstep1.png">
+	<B>Step 1:</B> On the navigation bar at the top of the page, find <B>Volunteers</B>
+	and select <B>Search</B>, like this:<BR> <BR> <a
+		href="tutorial/screenshots/searchPersonStep1.JPG" class="image"
+		title="searchPersonStep1.JPG"
+		target="tutorial/screenshots/searchPersonStep1.JPG">
 		&nbsp;&nbsp;&nbsp;&nbsp;<img
-		src="tutorial/screenshots/searchpersonstep1.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep1.png"
+		src="tutorial/screenshots/searchPersonStep1.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep1.JPG"
 		border="1px" align="middle"> </a>
 <p>
-	<B>Step 2:</B> You can enter any part of a person's first name or last
-	name as a search criterion. For example, a search for "ann" would
-	return <B>Ann</B>, <B>Ann</B>a, Di<B>ann</B>e, etc.
+	<B>Step 2:</B> From this page you can search for a person via their name, whether or
+	not they are a volunteer or manager, their status and their availability. When searching for someone
+	by name, you can use any part of a their first name or last name as a search criterion. For example,
+	a search for "ann" would return <B>Ann</B>, <B>Ann</B>a, Di<B>ann</B>e, etc.
 <p>
-	You can also search for all persons with a particular status, like
-	"Active" or "Applicant".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2.png" class="image"
-		title="searchpersonstep2.png" 
-		target="tutorial/screenshots/searchpersonstep2.png">
+	You can search for people of a particular type, such as
+	"Volunteer" or "Manager".<BR> <BR> <a
+		href="tutorial/screenshots/searchPersonStep2-1.png" class="image"
+		title="searchPersonStep2-1.png"
+		target="tutorial/screenshots/searchPersonStep2-1.png">
 		&nbsp;&nbsp;&nbsp;&nbsp;<img
-		src="tutorial/screenshots/searchpersonstep2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2.png"
+		src="tutorial/screenshots/searchPersonStep2-1.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep2-1.png"
 		border="1px" align="middle"> </a>
 <p>
-	Another option is to search for a particular type of people, like "Manager"
-	or "Meal Prep".<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-2.png" class="image"
-		title="searchpersonstep2-2.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-2.png">
+	You can also search for all people of a particular status, like "Applicant"
+	or "On Leave".<BR> <BR> <a
+		href="tutorial/screenshots/searchPersonStep2-2.png" class="image"
+		title="searchPersonStep2-2.png" horizontalalign="center"
+		target="tutorial/screenshots/searchPersonStep2-2.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-2.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-2.png"
+		src="tutorial/screenshots/searchPersonStep2-2.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep2-2.png"
 		border="1px" align="middle"> </a>
 </p>
 <p>
-	Yet another option is to search by availability. 
+	Lastly, you can search by availability.
 	Remember, you can always search with more than one criterion. <BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep2-3.png" class="image"
-		title="searchpersonstep2-3.png" horizontalalign="center"
-		target="tutorial/screenshots/searchpersonstep2-3.png">
+		href="tutorial/screenshots/searchPersonStep2-3.png" class="image"
+		title="searchPersonStep2-3.png" horizontalalign="center"
+		target="tutorial/screenshots/searchPersonStep2-3.png">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep2-3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep2-3.png"
+		src="tutorial/screenshots/searchPersonStep2-3.png" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep2-3.png"
 		border="1px" align="middle"> </a>
 </p>
 
 <p>
 	<B>Step 3:</B> After typing your criteria in the appropriate box,
 	click on the <B>Search</B> button, like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep3.png" class="image"
-		title="searchpersonstep3.png"
-		target="tutorial/screenshots/searchpersonstep3.png">
+		href="tutorial/screenshots/searchPersonStep3.JPG" class="image"
+		title="searchPersonStep3.JPG"
+		target="tutorial/screenshots/searchPersonStep3.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep3.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep3.png"
+		src="tutorial/screenshots/searchPersonStep3.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep3.JPG"
 		border="1px" align="middle"> </a>
 </p>
 <p>
 	<B>Step 4:</B> Now you will see a list of the names in the database
-	that match your search criteria, and their primary phone number and
-	availability will appear next to their name, 
+	that match your search criteria, along with their primary phone number,
+	email and availability.
 	like this:<BR> <BR> <a
-		href="tutorial/screenshots/searchpersonstep4.png" class="image"
-		title="searchpersonstep4.png"
-		target="tutorial/screenshots/searchpersonstep4.png">
+		href="tutorial/screenshots/searchPersonStep4.JPG" class="image"
+		title="searchPersonStep4.JPG"
+		target="tutorial/screenshots/searchPersonStep4.JPG">
 		&nbsp&nbsp&nbsp&nbsp<img
-		src="tutorial/screenshots/searchpersonstep4.png" width="10%"
-		rel="popover" data-img="tutorial/screenshots/searchpersonstep4.png"
+		src="tutorial/screenshots/searchPersonStep4.JPG" width="10%"
+		rel="popover" data-img="tutorial/screenshots/searchPersonStep4.JPG"
 		border="1px" align="middle"> </a>
 <p>
 	If you see the person you want to view or edit, then <B>click on</B>

@@ -29,9 +29,9 @@
 
 					//basic pages
 					$assocHelp['login.php']='login.inc.php';
-					$assocHelp['index.php']='index.inc.php';
-					$assocHelp['about.php']='index.inc.php';
-					$assocHelp['volunteerLog.php']='volunteerLogHelp.inc.php';
+					//$assocHelp['index.php']='index.inc.php';
+					//$assocHelp['about.php']='index.inc.php';
+					//$assocHelp['volunteerLog.php']='volunteerLogHelp.inc.php';
 
 					//person editing, searching
 					$assocHelp['personSearch.php']='searchPersonHelp.inc.php';
@@ -41,20 +41,20 @@
 					//calendar managing
 					$assocHelp['calendar.php']='manageCalendarHelp.inc.php';
 					$assocHelp['addWeek.php']='generateWeekHelp.inc.php';
-					$assocHelp['cancelShift.php']='cancelPersonShiftHelp.inc.php';
-					$assocHelp['addSlotToShift.php']='addSlotToShiftHelp.inc.php';
-					$assocHelp['addPersonToShift.php']='addPersonToShiftHelp.inc.php';
-					$assocHelp['subCallList.php']='subCallListHelp.inc.php';
-					$assocHelp['addNotes.php']='calendarNotesHelp.inc.php';
-					$assocHelp['navigateThroughWeeks.php']='navigateThroughWeeksHelp.inc.php';
+					$assocHelp['cancelShift.php']='createEvent.inc.php';
+					$assocHelp['addSlotToShift.php']='searchEvent.inc.php';
+					//$assocHelp['addPersonToShift.php']='addPersonToShiftHelp.inc.php';
+					//$assocHelp['subCallList.php']='subCallListHelp.inc.php';
+					//$assocHelp['addNotes.php']='calendarNotesHelp.inc.php';
+					//$assocHelp['navigateThroughWeeks.php']='navigateThroughWeeksHelp.inc.php';
 
 					// master schedule managing
-					$assocHelp['viewSchedule.php']='schedulingHelp.inc.php';
+					//$assocHelp['viewSchedule.php']='schedulingHelp.inc.php';
 
 					// other
-					$assocHelp['quickStartGuide.php']='quickStartGuideHelp.inc.php';
+					//$assocHelp['quickStartGuide.php']='quickStartGuideHelp.inc.php';
 					$assocHelp['reports.php']='reportsHelp.inc.php';
-					$assocHelp['dataExport.inc.php']='dataExportHelp.inc.php';
+					//$assocHelp['dataExport.inc.php']='dataExportHelp.inc.php';
 
 					// Now if we have an undefined array value for the key they've passed us,
 					// the page they're looking for help on doesn't have an associated help page.

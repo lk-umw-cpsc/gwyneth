@@ -17,13 +17,13 @@ session_cache_expire(30);
 	<div align="left">
 		<p>
 			<strong> Signing in and out of the System</strong>
-		
+		</p>
 		
 		<p>Access to Gwyneth's Gift Homebase requires a Username and a Password. The form
 			looks like this:
+		</p>
 		
-		
-		<p>
+		<p></p>
 		
 		
 		<table align="center">
@@ -41,14 +41,31 @@ session_cache_expire(30);
 			</tr>
 		</table>
 		<p>
-			If you are a <i>new applicant</i>, you can sign in with the Username
-			<strong>guest</strong> and no Password. Once you sign in you will be
-			able to fill out and submit an application form on-line.
-		
+			If you are a <i>new user</i>, you can sign in by using the Username
+			<strong>guest</strong> and leaving the Password field empty.
+		</p>
 		<p>
-			If you are a <i>volunteer or staff member</i>, your Username is your
+		    Once you sign in, the page will look something like this:
+		    <a
+            		href="tutorial/screenshots/guestLoginPage.JPG" class="image"
+            		title="guestLoginPage.JPG"
+            		target="tutorial/screenshots/guestLoginPage.JPG">
+            		&nbsp;&nbsp;&nbsp;&nbsp;<img
+            		src="tutorial/screenshots/guestLoginPage.JPG" width="10%"
+            		rel="popover" data-img="tutorial/screenshots/guestLoginPage.JPG"
+            		border="1px" align="middle"> </a>
+		</p>
+		<p>
+		    There will be a message prompting you to click the <strong>Apply</strong>
+		    link in the page banner. From there you will be able to fill out and
+		    submit an on-line form to create an account. Once you submit the form,
+		    you will have to wait for an admin to activate your account in order
+		    for you to log in.
+		</p>
+		<p>
+			If you are a <i>volunteer or admin</i> with an active account, your Username is your
 			first name followed by your phone number with no spaces.
-		
+		</p>
 		<ul>
 			<li>For example, if your first name is John and your phone number is
 				(401)-123-4567, your Username would be <strong>John4011234567</strong>.
@@ -63,12 +80,12 @@ session_cache_expire(30);
 				</p>
 				<p>At this point, you can retry entering your Username and Password
 					(if you think you may have mistyped them).
-
+                </p>
 		</ul>
 		<p>
-			Remember to <strong>logout</strong> when you are finished using
+			Remember to <strong>logout</strong> when you are finished using the Gwyneth's Gift
 			Homebase.
-
+        </p>
 </body>
 </html>
 

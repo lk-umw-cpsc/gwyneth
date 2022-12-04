@@ -1,13 +1,13 @@
 <?php
 /*
- * Copyright 2015 by Adrienne Beebe, Connor Hargus, Phuong Le, 
- * Xun Wang, and Allen Tucker. This program is part of RMHP-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
+ * Copyright 2015 by Adrienne Beebe, Connor Hargus, Phuong Le,
+ * Xun Wang, and Allen Tucker. This program is part of RMHP-Homebase, which is free
+ * software.  It comes with absolutely no warranty. You can redistribute and/or
+ * modify it under the terms of the GNU General Public License as published by the
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 ?>
-<!--<script src="lib/jquery-1.9.1.js"></script>
+<script src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script
 	src="lib/bootstrap/js/bootstrap.js"></script>
@@ -23,7 +23,7 @@
 	});
 </script>
 
-//Searching for an Event//
+<!--//Searching for an Event//-->
 
 <p>
 	<strong>How to Search for an Event</strong>
@@ -76,4 +76,4 @@
 <p>
 <p>
     Clicking on the name of an event will take you to a page where you can edit that event's information.
-</p>-->
+</p>
