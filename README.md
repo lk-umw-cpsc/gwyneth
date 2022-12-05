@@ -61,7 +61,7 @@ Now, to install Homebase:
 
      ![img2](https://user-images.githubusercontent.com/73240609/205687264-03868706-4e4d-4124-8058-7e72d092c401.png)
 
-     • Scroll to the bottom and hit Go
+     • Scroll to the bottom and hit **Go**
 
   4) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
      • Log into *yourgithubaccount*\
