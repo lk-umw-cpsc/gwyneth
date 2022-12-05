@@ -4,7 +4,7 @@ for Gwyneth's Gift Foundation, a local non-profit in Fredericksburg, VA.**
 **Credits**: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, Nolan
 McNair, Taylor Talmage, and Allen Tucker for the Ronald McDonald Houses in Maineand Rhode
 Island. Since then, it has been significantly upgraded by other student teams and is
-currently maintained by NPFI (https://npfi.org). The version of homebase contained within
+currently maintained by NPFI (https://npfi.org). The version of Homebase contained within
 this repository was built upon the NPFI legacy code, and its development was catered to the
 needs of Gwyneth's Gift Foundation staff members.
 
