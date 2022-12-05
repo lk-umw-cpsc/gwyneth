@@ -1,22 +1,22 @@
 Homebase is a web-based application that provides database and scheduling support
 for Gwyneth's Gift Foundation, a local non-profit in Fredericksburg, VA. 
 
-Credits: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, Nolan
+**Credits**: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, Nolan
 McNair, Taylor Talmage, and Allen Tucker for the Ronald McDonald Houses in Maineand Rhode
 Island. Since then, it has been significantly upgraded by other student teams and is
 currently maintained by NPFI (https://npfi.org). The version of homebase contained within
 this repository was built upon the NPFI legacy code, and its development was catered to the
 needs of Gwyneth's Gift Foundation staff members.
 
-License: GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
+**License**: GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
 
-Installation: Homebase runs on an Apache/MySQL/PHP MAMP-server. For details on
+**Installation**: Homebase runs on an Apache/MySQL/PHP MAMP-server. For details on
 installing and setting up a server for the project, visit the original Wiki
 (https://github.com/megandalster/homebasedemo2017/wiki/Setting-Up-a-MAMP-Server).
 
 Be sure your MAMP server is running before installing Homebase. Also, be sure you
 have your GitHub account ID and token. To obtain a GitHub token, you will need to
-verify your email, as follows:
+verify your email. Complete the following steps:
 
   1) Log into GitHub using your account ID and password.
 
