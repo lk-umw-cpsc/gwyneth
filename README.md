@@ -43,4 +43,8 @@ Now, to install Homebase,
      localhost with user = password = "homebasedb"
      • Select User Accounts --> New User
      • Fill in the boxes as shown (set password = homebasedb)
+
      ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
+
+     • Scroll to the bottom and hit Go
+     • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
