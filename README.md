@@ -49,19 +49,15 @@ verify your email, as follows:
   6) Click Generate token. Be sure to save a copy of your GitHub token in a safe place. 
      You will be using it often whenever you commit code to your team's repository
      
-Now, to install Homebase,
+Now, to install Homebase:
 
-  1) Download the database homebasedb.sql.
-
-  2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's
-     localhost with user = password = "homebasedb"
-
-     • Select User Accounts --> New User
-
-     • Fill in the boxes as shown (set password = homebasedb)
+  1) Download the database homebasedb.sql.\
+  2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
+     localhost with user = password = "homebasedb"\
+     • Select User Accounts --> New User\
+     • Fill in the boxes as shown (set password = homebasedb)\
 
      ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
 
-     • Scroll to the bottom and hit Go
-
-     • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
+     • Scroll to the bottom and hit Go\
+     • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.\
