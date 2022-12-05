@@ -43,7 +43,7 @@ verify your email. Complete the following steps:
      
 Now, to install Homebase:
 
-  1) Download the database file *homebasedb.sql* located in the sql folder at https://github.com/jbbuechler/GwynethsGift.\
+  1) Download the database file *homebasedb.sql* located in this repository's sql folder.\
      • Open the file on GitHub and select the **Raw** button.\
      • When the file is opened, select Ctrl-S on keyboard and select *Save as* to save the file locally.
 
