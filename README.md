@@ -1,5 +1,5 @@
-Homebase is a web-based application that provides database and scheduling support
-for Gwyneth's Gift Foundation, a local non-profit in Fredericksburg, VA. 
+**Homebase is a web-based application that provides database and scheduling support
+for Gwyneth's Gift Foundation, a local non-profit in Fredericksburg, VA.**
 
 **Credits**: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, Nolan
 McNair, Taylor Talmage, and Allen Tucker for the Ronald McDonald Houses in Maineand Rhode
@@ -23,7 +23,7 @@ verify your email. Complete the following steps:
   2) In the upper-right corner of any page, click your profile photo, then click Settings.
 
   3) In the "Access" section of the sidebar, click:\
-     • Emails. (if it does not say unverified then you have already verified your email)\
+     • Emails. (if it does not say *unverified*, then you have already verified your email)\
      • Under your email address, click Resend verification email.\
      • GitHub will send you an email with a link in it. After you click that link, you'll be
        taken to your GitHub dashboard and see a confirmation banner.
@@ -52,7 +52,7 @@ Now, to install Homebase:
 
      ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
 
-     • Scroll to the bottom and hit Go\
+     • Scroll to the bottom and hit **Go**\
      • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
 
   3) On your phpmyadmin page, import your downloaded database "homebasedb.sql" into your newly created database with the same name.\
