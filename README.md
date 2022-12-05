@@ -23,35 +23,27 @@ verify your email, as follows:
   2) In the upper-right corner of any page, click your profile photo, then click Settings.
 
   3) In the "Access" section of the sidebar, click:
-
-     • Emails. (if it does not say unverified then you have already verified your email)
-
-     • Under your email address, click Resend verification email.
-
+     • Emails. (if it does not say unverified then you have already verified your email)\
+     • Under your email address, click Resend verification email.\
      • GitHub will send you an email with a link in it. After you click that link, you'll be
-       taken to your GitHub dashboard and see a confirmation banner.
+       taken to your GitHub dashboard and see a confirmation banner.\
 
   4) In the upper-right corner of any page, click your profile photo, then click Settings
-
-     • In the left sidebar, click Developer settings.
-
-     • Now in the left sidebar, click Personal access tokens.
+     • In the left sidebar, click Developer settings.\
+     • Now in the left sidebar, click Personal access tokens.\
 
   5) Click Generate new token.
-
-     • Give your token a descriptive name.
-
-     • Select the Expiration drop-down menu, and click "no expiration date"
-
+     • Give your token a descriptive name.\
+     • Select the Expiration drop-down menu, and click "no expiration date"\
      • Select the scopes, or permissions, you'd like to grant this token.
-       (To use your token to access repositories from the command line, select repo.)
+       (To use your token to access repositories from the command line, select repo.)\
 
   6) Click Generate token. Be sure to save a copy of your GitHub token in a safe place. 
      You will be using it often whenever you commit code to your team's repository
      
 Now, to install Homebase:
 
-  1) Download the database homebasedb.sql.\
+  1) Download the database homebasedb.sql.
   2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
      localhost with user = password = "homebasedb"\
      • Select User Accounts --> New User\
