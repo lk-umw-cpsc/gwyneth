@@ -85,7 +85,7 @@ Now, to install Homebase:
      
   7) Login with Username = Password = Admin7037806282 to get full administrative access to Homebase on your server.
 
-Usage: Homebase can run stand-alone on a MAMP server such as this one, or it can be embedded in a Web page inside an "iFrame" such as the one shown at https://npfi.org/homebase-demo/.
+**Usage**: Homebase can run stand-alone on a MAMP server such as this one, or it can be embedded in a Web page inside an "iFrame" such as the one shown at https://npfi.org/homebase-demo/.
 
      
 
