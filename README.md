@@ -12,7 +12,7 @@ needs of Gwyneth's Gift Foundation staff members.
 
 **Installation**: Homebase runs on an Apache/MySQL/PHP MAMP-server. For details on
 installing and setting up a server for the project, visit the original Wiki
-(https://github.com/megandalster/homebasedemo2017/wiki/Setting-Up-a-MAMP-Server).
+at https://github.com/megandalster/homebasedemo2017/wiki/Setting-Up-a-MAMP-Server.
 
 Be sure your MAMP server is running before installing Homebase. Also, be sure you
 have your GitHub account ID and token. To obtain a GitHub token, you will need to
