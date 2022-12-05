@@ -67,16 +67,16 @@ Now, to install Homebase:
      • Log into *yourgithubaccount*\
      • On github, create or access the blank repository *yourteamsrepo*\
      • In a terminal window, execute the following commands:\
-         ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
-         ‣git clone https://github.com/jbbuechler/GwynethsGift\
-         ‣cd GwynethsGift\
-         ‣git push --mirror https://github.com/yourgithubaccount/yourteamsrepo\
-         (You will need to enter your GitHub account ID and token here, not your password.)
+         >‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
+         > ‣git clone https://github.com/jbbuechler/GwynethsGift\
+         > ‣cd GwynethsGift\
+         > ‣git push --mirror https://github.com/yourgithubaccount/yourteamsrepo\
+         > (You will need to enter your GitHub account ID and token here, not your password.)
 
   5) Each team member should then clone this mirror into their own local directory.\
      • In a terminal window, execute the following commands:\
-         ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
-         ‣git clone https://github.com/yourgithubaccount/yourteamsrepo
+         > ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
+         > ‣git clone https://github.com/yourgithubaccount/yourteamsrepo
 
   6) Each team member can then point their browser to http://localhost/yourteamsrepo/index.php.
      You should see the following Homebase login screen:
