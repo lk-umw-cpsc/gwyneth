@@ -50,7 +50,7 @@ Now, to install Homebase:
      • Select User Accounts --> New User.\
      • Fill in the boxes as shown. (set password = homebasedb)
 
-     ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
+     ![img1](./images/readme1.png)
 
      • Scroll to the bottom and hit **Go**.\
      • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
@@ -59,7 +59,7 @@ Now, to install Homebase:
      • Select "homebasedb" on the list of databases on the left.\
      • Select Import from the top menu, and choose the file homebasedb.sql from your Downloads as shown below:
 
-     ![img2](https://user-images.githubusercontent.com/73240609/205687264-03868706-4e4d-4124-8058-7e72d092c401.png)
+     ![img2](./images/readme2.png)
 
      • Scroll to the bottom and hit **Go**.
 
@@ -81,7 +81,7 @@ Now, to install Homebase:
   6) Each team member can then point their browser to http://localhost/yourteamsrepo/index.php.
      You should see the following Homebase login screen:
 
-     ![img3](https://user-images.githubusercontent.com/73240609/205692074-25078416-2dac-4935-8cec-3b1e8722c3ea.png)
+     ![img3](./images/readme3.png)
      
   7) Login with Username = Password = Admin7037806282 to get full administrative access to Homebase on your server.
 
