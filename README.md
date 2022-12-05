@@ -28,7 +28,7 @@ verify your email. Complete the following steps:
      • GitHub will send you an email with a link in it. After you click that link, you'll be
        taken to your GitHub dashboard and see a confirmation banner.
 
-  4) In the upper-right corner of any page, click your profile photo, then click Settings\
+  4) In the upper-right corner of any page, click your profile photo, then click Settings.\
      • In the left sidebar, click Developer settings.\
      • Now in the left sidebar, click Personal access tokens.
 
@@ -39,14 +39,14 @@ verify your email. Complete the following steps:
        (To use your token to access repositories from the command line, select repo.)
 
   6) Click Generate token. Be sure to save a copy of your GitHub token in a safe place. 
-     You will be using it often whenever you commit code to your team's repository
+     You will be using it often whenever you commit code to your team's repository.
      
 Now, to install Homebase:
 
   1) Download the database homebasedb.sql.
 
   2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
-     localhost with user = password = "homebasedb"\
+     localhost with user = password = "homebasedb".\
      • Select User Accounts --> New User\
      • Fill in the boxes as shown (set password = homebasedb)
 
@@ -61,11 +61,11 @@ Now, to install Homebase:
 
      ![img2](https://user-images.githubusercontent.com/73240609/205687264-03868706-4e4d-4124-8058-7e72d092c401.png)
 
-     • Scroll to the bottom and hit **Go**
+     • Scroll to the bottom and hit **Go**.
 
   4) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
-     • Log into *yourgithubaccount*\
-     • On github, create or access the blank repository *yourteamsrepo*\
+     • Log into *yourgithubaccount*.\
+     • On github, create or access the blank repository *yourteamsrepo*.\
      • In a terminal window, execute the following commands:
      > ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
        ‣git clone https://github.com/jbbuechler/GwynethsGift \
