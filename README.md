@@ -43,5 +43,4 @@ Now, to install Homebase,
      localhost with user = password = "homebasedb"
      • Select User Accounts --> New User
      • Fill in the boxes as shown (set password = homebasedb)
-     ![img](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
-     test2
+     ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
