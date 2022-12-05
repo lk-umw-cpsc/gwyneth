@@ -43,9 +43,11 @@ verify your email. Complete the following steps:
      
 Now, to install Homebase:
 
-  1) Locate and download the database file *homebasedb.sql* in the sql folder at https://github.com/jbbuechler/GwynethsGift.
+  1) Download the database file *homebasedb.sql* located in the sql folder at https://github.com/jbbuechler/GwynethsGift.\
+     • Open the file on GitHub and select the **Raw** button.\
+     • When the file is opened, select Ctrl-S on keyboard and select *Save as* to save the file locally.
 
-  2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
+  3) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
      localhost with user = password = "homebasedb".\
      • Select User Accounts --> New User.\
      • Fill in the boxes as shown. (set password = homebasedb)
@@ -55,7 +57,7 @@ Now, to install Homebase:
      • Scroll to the bottom and hit **Go**.\
      • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
 
-  3) On your phpmyadmin page, import your downloaded database "homebasedb.sql" into your newly created database with the same name.\
+  4) On your phpmyadmin page, import your downloaded database *homebasedb.sql* into your newly created database with the same name.\
      • Select "homebasedb" on the list of databases on the left.\
      • Select Import from the top menu, and choose the file homebasedb.sql from your Downloads as shown below:
 
@@ -63,7 +65,7 @@ Now, to install Homebase:
 
      • Scroll to the bottom and hit **Go**.
 
-  4) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
+  5) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
      • Log into *yourgithubaccount*.\
      • On github, create or access the blank repository *yourteamsrepo*.\
      • In a terminal window, execute the following commands:
@@ -73,17 +75,17 @@ Now, to install Homebase:
        ‣git push --mirror https://github.com/yourgithubaccount/yourteamsrepo \
        (You will need to enter your GitHub account ID and token here, not your password.)
 
-  5) Each team member should then clone this mirror into their own local directory.\
+  6) Each team member should then clone this mirror into their own local directory.\
      • In a terminal window, execute the following commands:
      > ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
        ‣git clone https://github.com/yourgithubaccount/yourteamsrepo
 
-  6) Each team member can then point their browser to http://localhost/yourteamsrepo/index.php.
+  7) Each team member can then point their browser to http://localhost/yourteamsrepo/index.php.
      You should see the following Homebase login screen:
 
      ![img3](./images/readme3.png)
      
-  7) Login with Username = Password = Admin7037806282 to get full administrative access to Homebase on your server.
+  8) Login with Username = Password = Admin7037806282 to get full administrative access to Homebase on your server.
 
 **Usage**: Homebase can run stand-alone on a MAMP server such as this one, or it can be embedded in a Web page inside an "iFrame" such as the one shown at https://npfi.org/homebase-demo/.
 
