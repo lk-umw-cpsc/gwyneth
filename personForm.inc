@@ -334,7 +334,23 @@ if ($_SESSION['access_level'] <= 1) {
                 echo '</fieldset>';
             }
 
+        }
+
+        //if you would like to add the ability for managers to change their own password but not other's on profile page
+        /*
+        if ($_SESSION['access_level'] == 2 && $_SESSION['_id'] == $person->get_id()) {
+            if ($id != 'new' ) { 
+
+                echo "<fieldset>";
+                echo "<legend>Change Password: </legend>";
+                echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                echo '</fieldset>';
+            }
+
         }//end change password
+        */
+
+        echo('<br>');
 
         echo('<input type="hidden" name="schedule" value="' . implode(',', $person->get_schedule()) . '">');
         echo('<input type="hidden" name="hours" value="' . implode(',', $person->get_hours()) . '">');
