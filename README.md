@@ -51,6 +51,7 @@ Now, to install Homebase:
      • Fill in the boxes as shown (set password = homebasedb)
 
      ![img1](https://user-images.githubusercontent.com/73240609/205680150-b4d99607-ba54-4f17-9f98-34d53092724b.png)
+
      • Scroll to the bottom and hit Go\
      • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
 
@@ -59,6 +60,7 @@ Now, to install Homebase:
      • Select Import from the top menu, and choose the file homebasedb.sql from your Downloads as shown below:
 
      ![img2](https://user-images.githubusercontent.com/73240609/205687264-03868706-4e4d-4124-8058-7e72d092c401.png)
+
      • Scroll to the bottom and hit Go
 
   4) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
