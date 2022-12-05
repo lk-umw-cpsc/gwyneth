@@ -20,7 +20,7 @@ session_start();
 session_cache_expire(30);
 include_once('database/dbEvents.php');
 include_once('domain/Event.php');
-include_once('database/dbLog.php');
+include_once('database/dbLog.php'); // can be used in later iterations
 $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
@@ -71,7 +71,7 @@ if ($id == 'new') {
                         // display the errors and the form to fix
                         show_errors($errors);
                         $event = new Event($event->get_event_name(), $_POST['location'],   
-                                        $_POST['event_date'], $_POST['description'], $_POST['event_id'], $_POST['old_pass']);
+                                        $_POST['event_date'], $_POST['description'], $_POST['event_id']);
                         include('eventForm.inc');
                     }
                     // this was a successful form submission; update the database and exit
@@ -89,8 +89,8 @@ if ($id == 'new') {
                 function process_form($id,$event) {
                     //step one: sanitize data by replacing HTML entities and escaping the ' character
                     $event_name = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_name'])));
+                    //location = venue? may be useful for adding to calendar
                     $location = $_POST['location'];
-                    // these two are not visible for editing, so they go in and out unchanged
                     $event_date = $_POST['event_date'];
                     $description = trim(str_replace('\\\'', '\'', htmlentities($_POST['description'])));
                     //$event_id = trim(str_replace('\\\'', '\'', htmlentities($_POST['event_id'])));
@@ -138,7 +138,6 @@ if ($id == 'new') {
                     else {
                         
                         $id = $_POST['old_id'];
-                        $pass = $_POST['old_pass'];
                         $result = remove_event($id);
                         if (!$result)
                             echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the Manager.');
@@ -146,7 +145,7 @@ if ($id == 'new') {
                         else {
                             //Pass the old id into the new event instead of event_id, this prevents a new id being created
                             $newevent = new Event($event_name, $location,  
-                                        $event_date, $description, $id, $pass);
+                                        $event_date, $description, $id);
                             $result = add_event($newevent);
                             if (!$result)
                                 echo ('<p class="error">Unable to update ' . $event_name . '. <br>Please report this error to the Manager.');

@@ -135,7 +135,7 @@ session_cache_expire(30);
                                 $thisRow['last_name'] . ', ' . $thisRow['first_name'] . '</a> / ' .
                                 $thisRow['start_date'] . '</li>');
                         }
-                        echo ('</ul></div><br>');
+                        echo ('</ul></div>'); //<br>'
                         //    }
                         mysqli_close($con);
                         
@@ -143,7 +143,59 @@ session_cache_expire(30);
                         echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Your Personal Profile:</strong><br /></p><ul>');  
                         echo('</ul><p>Go <strong><a href="personEdit.php?id='.$person->get_id()
                         .'">here</a></strong> to view or edit your account.</p></div>');
-                        echo('<br></br>');
+                        //echo('<br></br>');
+
+                            //DEFAULT PASSWORD CHECK
+                        if (md5($person->get_id()) == $person->get_password()) {
+                            echo ('<br>');
+                            if (!isset($_POST['_rp_submitted']))
+                                echo ('<p><div class="container-fluid">
+                                    <form method="post"><p><strong>We recommend that you change your password, which is currently default.</strong>
+                                    <table class="warningTable"><tr><td class="warningTable">Old Password:</td>
+                                    <td class="warningTable"><input class="form-control" type="password" name="_rp_old"></td>
+                                    </tr><tr><td class="warningTable">New password</td>
+                                    <td class="warningTable"><input class="form-control" type="password" name="_rp_newa"></td></tr>
+                                    <tr><td class="warningTable">New password<br/>(confirm)</td><td class="warningTable">
+                                    <input class="form-control" type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable">
+                                    <input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
+                            else {
+                                //they've submitted
+                                if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
+                                    echo ('<div class="warning">
+                                        <form method="post">
+                                        <p>Error with new password. Ensure passwords match.</p><br/>
+                                        <table class="warningTable">
+                                        <tr>
+                                        <td class="warningTable">Old Password:</td>
+                                        <td class="warningTable">
+                                        <input type="password" name="_rp_old">
+                                        </td></tr>
+                                        <tr>
+                                        <td class="warningTable">New password</td>
+                                        <td class="warningTable"><input type="password" name="_rp_newa"></td></tr>
+                                        <tr><td class="warningTable">New password<br/>(confirm)</td>
+                                        <td class="warningTable"><input type="password" name="_rp_newb"></td></tr>
+                                        <tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form>
+                                        </td></tr>
+                                        </table></div>');
+                                else if (md5($_POST['_rp_old']) != $person->get_password())
+                                    echo ('<div class="warning"><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
+                                else if ((md5($_POST['_rp_old']) == $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
+                                    $newPass = md5($_POST['_rp_newa']);
+                                    change_password($person->get_id(), $newPass);
+                                }
+                            }
+                            echo ('<br clear="all">');
+                        }
+                            // give admin ability to change password even if it is not default
+                            if (md5($person->get_id()) != $person->get_password() && $_SESSION['access_level'] == 2) {
+                                echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p>');  
+                                echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
+                                //echo('<br></br>');                          
+                                echo('<br clear="all">');
+                            }
+                        
+                    }
 
                         //log box                                             used to be Recent Schedule Changes
                         echo ('<div class="container-fluid" id="logBox"><p><strong>Notifications:</strong><br/>');
@@ -166,56 +218,7 @@ session_cache_expire(30);
                         }
                         echo ('</tbody></table><br><a href="' . $path . 'log.php">View full log</a></p></div><br>');
                     }
-                    //DEFAULT PASSWORD CHECK
-                    if (md5($person->get_id()) == $person->get_password()) {
-                        if (!isset($_POST['_rp_submitted']))
-                            echo ('<p><div class="container-fluid">
-                                <form method="post"><p><strong>We recommend that you change your password, which is currently default.</strong>
-                                <table class="warningTable"><tr><td class="warningTable">Old Password:</td>
-                                <td class="warningTable"><input class="form-control" type="password" name="_rp_old"></td>
-                                </tr><tr><td class="warningTable">New password</td>
-                                <td class="warningTable"><input class="form-control" type="password" name="_rp_newa"></td></tr>
-                                <tr><td class="warningTable">New password<br/>(confirm)</td><td class="warningTable">
-                                <input class="form-control" type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable">
-                                <input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
-                        else {
-                            //they've submitted
-                            if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
-                                echo ('<div class="warning">
-                                    <form method="post">
-                                    <p>Error with new password. Ensure passwords match.</p><br/>
-                                    <table class="warningTable">
-                                    <tr>
-                                    <td class="warningTable">Old Password:</td>
-                                    <td class="warningTable">
-                                    <input type="password" name="_rp_old">
-                                    </td></tr>
-                                    <tr>
-                                    <td class="warningTable">New password</td>
-                                    <td class="warningTable"><input type="password" name="_rp_newa"></td></tr>
-                                    <tr><td class="warningTable">New password<br/>(confirm)</td>
-                                    <td class="warningTable"><input type="password" name="_rp_newb"></td></tr>
-                                    <tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form>
-                                    </td></tr>
-                                    </table></div>');
-                            else if (md5($_POST['_rp_old']) != $person->get_password())
-                                echo ('<div class="warning"><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                            else if ((md5($_POST['_rp_old']) == $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
-                                $newPass = md5($_POST['_rp_newa']);
-                                change_password($person->get_id(), $newPass);
-                            }
-                        }
-                        echo ('<br clear="all">');
-                    }
-                        // give admin ability to change password even if it is not default
-                        if (md5($person->get_id()) != $person->get_password() && $_SESSION['access_level'] == 2) {
-                            echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p><ul>');  
-                            echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
-                            echo('<br></br>');                          
-                            echo('<br clear="all">');
-                        }
-                        
-                }
+                    
                 ?>
         </div>
         <?PHP include('footer.inc'); ?>
