@@ -43,7 +43,7 @@ verify your email. Complete the following steps:
      
 Now, to install Homebase:
 
-  1) Download the database homebasedb.sql.
+  1) Locate and download the database file *homebasedb.sql* in the sql folder at https://github.com/jbbuechler/GwynethsGift.
 
   2) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
      localhost with user = password = "homebasedb".\
