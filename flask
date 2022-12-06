@@ -1,3 +1,3 @@
 #!/bin/bash
 source .venv/bin/activate
-flask --app wsgi run
+flask -p 5001 --app wsgi run

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='style/nav.js') }}"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
+        <meta name="theme-color" content="#330033">
+        <title>étudamie</title>
+    </head>
+    <body>
+        <header>
+            <span class="logo">étudamie <img id="menu-button" src="{{ url_for('static', filename='images/menu.svg') }}"/></span>
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('account') }}">Account</a></li>
+                <li><a href="{{ url_for('logout') }}">Log out</a></li>
+            </ul>
+        </header>
+        <h1 class="logo">étudamie</h1>
+        <main>
+            <h4>Choose a study mode:</h4>
+            <a class="medium button" href="">Study Flash Cards</a>
+            <a class="medium button" href="">Conjugate Verbs</a>
+            <a class="medium button" href="">Practice Numbers</a>
+        </main>
+    </body>
+</html>

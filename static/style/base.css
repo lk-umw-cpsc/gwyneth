@@ -1,0 +1,238 @@
+/* Fonts & Colors */
+
+@font-face {
+    font-family: Poppins;
+    src: url(../fonts/Poppins-Regular.ttf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: Poppins;
+    src: url(../fonts/Poppins-SemiBold.ttf);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: Figtree;
+    src: url(../fonts/Figtree-VariableFont_wght.ttf) format("truetype-variations");
+    font-weight: 100 900;
+}
+
+@font-face {
+    font-family: ShadowsIntoLight;
+    src: url(../fonts/ShadowsIntoLightTwo-Regular.ttf) format("truetype-variations");
+    font-weight: 400;
+}
+
+.logo {
+    font-family: ShadowsIntoLight;
+    user-select: none;
+}
+
+.visible-flex {
+    display: flex;
+}
+
+html {
+    font-family: Poppins;
+    font-weight: 400;
+    font-size: 20px;
+    background-color: hsl(300, 100%, 10%);
+    /* background: linear-gradient(to bottom right, hsl(330, 100%, 20%), hsl(300, 100%, 10%)); */
+    background: radial-gradient(hsl(330, 100%, 20%), hsl(300, 100%, 10%));
+    color: white;
+    min-height: 100vh;
+    overscroll-behavior-y: none;
+}
+
+/* Headings, Links */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    height: fit-content;
+}
+
+h1.logo {
+    font-size: 4rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.75rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+h4 {
+    font-size: 1.25rem;
+}
+
+a:not(.button) {
+    transition: color 200ms;
+}
+
+/* Layout */
+
+
+/* Header */
+
+header a:hover {
+    color:hsl(30, 100%, 50%);
+}
+header {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    background-color: hsla(0, 0%, 0%, 25%);
+    width: 100%;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+    position: sticky;
+    gap: 1rem;
+}
+
+header > .logo {
+    font-size: 1rem;
+}
+
+header > ul {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    /* Credit https://codinhood.com/micro/10-dropdown-menu-animations-css-transform*/
+    animation: rotateMenu 400ms ease-in-out forwards;
+    transform-origin: top center;
+}
+
+@keyframes rotateMenu {
+    0% {
+        transform: rotateX(-90deg)
+    }
+    70% {
+        transform: rotateX(20deg) 
+    }
+    100% {
+        transform: rotateX(0deg) 
+    }
+}
+
+header > ul > li {
+    display: block;
+    list-style-type: none;
+    font-family: Figtree;
+    font-weight: 100;
+}
+
+#menu-button {
+    width: 1rem;
+    float: right;
+    filter: invert(1);
+    margin-top: 0.25rem;
+}
+
+@media only screen and (min-width: 428px) {
+    header {
+        flex-direction: row;
+        justify-content: center;
+    }
+    header > ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 0;
+        animation: none;
+    }
+    header > ul > li {
+        display: inline;
+    }
+    #menu-button {
+        display: none;
+    }
+}
+
+/* Form Controls */
+input {
+    border: none;
+}
+input[type=text], input[type=password] {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+a.button, input[type=submit] {
+    text-align: center;
+    padding: 0.5rem 1rem;
+    background-image: linear-gradient(to right, hsl(200, 100%, 35%), hsl(280, 100%, 35%));
+    border-radius: 0.5rem;
+    font-family: Figtree;
+    transition: filter 200ms;
+}
+
+a.button:hover, input[type=submit]:hover {
+    filter: brightness(1.5);
+    /* filter: hue-rotate(90deg); */
+}
+
+a.button:hover {
+    color: inherit;
+}
+
+/* Main Content */
+main, form {
+    margin: 0.5rem;
+    padding: 1.0rem;
+    border-radius: 1rem;
+    /* border: 1px solid hsl(315, 100%, 30%); */
+    /* box-shadow: 0px 0px 1rem hsla(0, 0%, 0%, 50%); */
+    background-color: hsla(0, 0%, 0%, 25%);
+    /* min-height: calc(100vh - 1rem); */
+    max-width: 35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+form a:not(.button), main a:not(.button) {
+    color: hsl(30, 100%, 50%);
+    /* font-weight: 600; */
+}
+
+form a:hover:not(.button), main a:not(.button) {
+    color:hsl(30, 100%, 75%);
+}
+
+form > p {
+    text-align: center;
+}
+
+body > h1, body > h4, main > h4, form > h4 {
+    text-align: center;
+}
+
+p {
+    font-family: Figtree;
+    font-weight: 100;
+}
+
+.big {
+    font-size: 2rem;
+}
+
+.medium {
+    font-size: 1.5rem;
+}
+
+@media only screen and (min-width: 428px) {
+    html {
+        font-size: 24px;
+    }
+    main, form {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

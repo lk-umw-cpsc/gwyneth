@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style/reset.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
+    </head>
+    <body>
+        <h1 class="logo">étudamie</h1>
+        <form method="post">
+            <h4>Log in</h4>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+            <input type="submit" value="Log in">
+            <p>Or <a href="{{ url_for('register') }}">create a new account</a>!</p>
+        </form>
+    </body>
+</html>
