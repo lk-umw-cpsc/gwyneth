@@ -1,0 +1,16 @@
+{% extends 'basictemplate.html' %}
+
+{% block title %}practice numbers{% endblock %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='scripts/numberspractice.js') }}"></script>
+{% endblock %}
+{% block main %}
+    <h1 class="logo">numbers</h1>
+    <main>
+        <h4 id="prompt-question"></h4>
+        <span class="biggest" id="prompt-number"></span>
+        <input type="text" id="user-input">
+        <button id="check">Check</button>
+    </main>
+{% endblock %}

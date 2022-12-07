@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
-app.loggedin = False
+app.loggedin = True
 
 @app.route('/')
 def home():
@@ -34,3 +34,23 @@ def account():
     if not app.loggedin:
         return redirect(url_for('login'))
     return "TBI"
+
+@app.route('/vocab')
+def vocab():
+    return 'TBI'
+
+@app.route('/verbs')
+def verbs():
+    return 'TBI'
+
+@app.route('/numbers')
+def numbers():
+    if not app.loggedin:
+        return redirect(url_for('login'))
+    return render_template('numbers.html')
+
+@app.route('/numbers/practice')
+def numbers_practice():
+    if not app.loggedin:
+        return redirect(url_for('login'))
+    return render_template('numberspractice.html')

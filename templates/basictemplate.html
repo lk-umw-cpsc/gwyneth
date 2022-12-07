@@ -7,23 +7,18 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
         <meta name="theme-color" content="#330033">
-        <title>étudamie</title>
+        <title>étudamie | {% block title %}{% endblock %}</title>
+        {% block head %}{% endblock %}
     </head>
     <body>
         <header>
             <span class="logo">étudamie <img id="menu-button" src="{{ url_for('static', filename='images/menu.svg') }}"/></span>
             <ul>
                 <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('account') }}">Account</a></li>
+                <!-- <li><a href="{{ url_for('account') }}">Account</a></li> -->
                 <li><a href="{{ url_for('logout') }}">Log out</a></li>
             </ul>
         </header>
-        <h1 class="logo">étudamie</h1>
-        <main>
-            <h4>Choose an activity</h4>
-            <a class="medium button" href="">Vocabulary</a>
-            <a class="medium button" href="">Verbs</a>
-            <a class="medium button" href="{{ url_for('numbers') }}">Numbers</a>
-        </main>
+        {% block main %}{% endblock %}
     </body>
 </html>

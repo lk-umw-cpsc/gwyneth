@@ -1,0 +1,11 @@
+{% extends 'basictemplate.html' %}
+{% block title %}numbers{% endblock %}
+
+{% block main %}
+    <h1 class="logo">numbers</h1>
+    <main>
+        <h4>Learn or practice?</h4>
+        <a class="medium button" href="">Learn</a>
+        <a class="medium button" href="{{ url_for('numbers_practice') }}">Practice</a>
+    </main>
+{% endblock %}

@@ -29,6 +29,22 @@
     user-select: none;
 }
 
+.medium {
+    font-size: 1.5rem;
+}
+
+.big {
+    font-size: 2rem;
+}
+
+.bigger {
+    font-size: 3rem;
+}
+
+.biggest {
+    font-size: 4rem;
+}
+
 .visible-flex {
     display: flex;
 }
@@ -69,6 +85,10 @@ h3 {
 
 h4 {
     font-size: 1.25rem;
+}
+
+h5 {
+    font-size: 1.125rem;
 }
 
 a:not(.button) {
@@ -129,10 +149,10 @@ header > ul > li {
 }
 
 #menu-button {
-    width: 1rem;
+    width: 1.5rem;
     float: right;
     filter: invert(1);
-    margin-top: 0.25rem;
+    /* margin-top: 0.25rem; */
 }
 
 @media only screen and (min-width: 428px) {
@@ -156,17 +176,17 @@ header > ul > li {
 }
 
 /* Form Controls */
-input {
+input, button {
     border: none;
 }
 input[type=text], input[type=password] {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
     background-color: white;
     color: black;
 }
 
-a.button, input[type=submit] {
+a.button, input[type=submit], button {
     text-align: center;
     padding: 0.5rem 1rem;
     background-image: linear-gradient(to right, hsl(200, 100%, 35%), hsl(280, 100%, 35%));
@@ -175,9 +195,8 @@ a.button, input[type=submit] {
     transition: filter 200ms;
 }
 
-a.button:hover, input[type=submit]:hover {
+a.button:hover, input[type=submit]:hover, button:hover {
     filter: brightness(1.5);
-    /* filter: hue-rotate(90deg); */
 }
 
 a.button:hover {
@@ -199,6 +218,11 @@ main, form {
     gap: 0.5rem;
 }
 
+main input[type=text] {
+    text-align: center;
+    font-size: 1.5rem;
+}
+
 form a:not(.button), main a:not(.button) {
     color: hsl(30, 100%, 50%);
     /* font-weight: 600; */
@@ -212,21 +236,13 @@ form > p {
     text-align: center;
 }
 
-body > h1, body > h4, main > h4, form > h4 {
+body > h1, body > h4, main > h4, form > h4, main > span, main > h5 {
     text-align: center;
 }
 
 p {
     font-family: Figtree;
     font-weight: 100;
-}
-
-.big {
-    font-size: 2rem;
-}
-
-.medium {
-    font-size: 1.5rem;
 }
 
 @media only screen and (min-width: 428px) {
