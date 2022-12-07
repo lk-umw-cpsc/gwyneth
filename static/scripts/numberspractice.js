@@ -48,7 +48,7 @@ function roll() {
         }
         promptNumber.html(choice);
     }
-    let length = prompt.html().length;
+    let length = promptNumber.html().length;
     if (length < 5) {
         promptNumber.attr('class', 'biggest');
     } else if (length < 13) {
