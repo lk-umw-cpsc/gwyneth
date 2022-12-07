@@ -3,6 +3,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    height: 4rem;
+    height: 5rem;
     flex: initial;
+}
+
+@media only screen and (max-width: 428px) {
+    .big {
+        font-size: 1.3rem;
+    }
 }

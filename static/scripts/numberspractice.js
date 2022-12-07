@@ -31,7 +31,8 @@ let numbers = [
     'cent', 'cent un', 'mille', 'un million', 'un milliard'];
 
 function roll() {
-    if (Math.random() > 0.5) {
+    // if (Math.random() > 0.5) {
+    if (true) {
         mode = MODE_TRANSLATE;
         promptQuestion.html('What number is this?');
         choice = Math.floor(Math.random() * numbers.length);
@@ -54,7 +55,7 @@ function roll() {
     let length = promptNumber.html().length;
     if (length < 5) {
         promptNumber.attr('class', 'biggest');
-    } else if (length < 13) {
+    } else if (length < 10) {
         promptNumber.attr('class', 'bigger');
     } else {
         promptNumber.attr('class', 'big');
