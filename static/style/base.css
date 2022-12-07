@@ -162,6 +162,8 @@ input {
 input[type=text], input[type=password] {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+    background-color: white;
+    color: black;
 }
 
 a.button, input[type=submit] {
