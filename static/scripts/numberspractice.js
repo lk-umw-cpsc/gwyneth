@@ -4,8 +4,12 @@ let promptNumber;
 
 let mode;
 let answer;
+let checkButton;
 const MODE_TRANSLATE = 0;
 const MODE_TYPE = 1;
+
+let incorrectAnswerSound;
+let correctAnswerSound;
 
 let numbers = [
     'zéro', 'un', 'deux', 'trois', 'quatre', 
@@ -62,17 +66,39 @@ function roll() {
 }
 
 function checkAnswer() {
-    let input = userInput.val().replace(/\s/g, '');
-    if (input == answer) {
-        roll();
+    let input = userInput.val().toLowerCase();
+    let inputNoSpaces = input.replace(/\s/g, '');
+    if (input == answer || inputNoSpaces == answer) {
+        correctAnswerSound.play();
         userInput.val('');
-        $(':root').addClass('correct').on('animationend', function(){$(this).removeClass('correct')});
-    } else {
-        $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect')});
+        $(':root').addClass('correct').on('animationend', correctAnimationEnded);
+        lockInterface();
+} else {
+        incorrectAnswerSound.play();
+        $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
     }
 }
 
+function lockInterface() {
+    userInput.prop('disabled', true);
+    checkButton.html('Good job!');
+}
+
+function unlockInterface() {
+    userInput.prop('disabled', false);
+    userInput.focus();
+    checkButton.html('Check');
+}
+
+function correctAnimationEnded() {
+    $(this).removeClass('correct').off('animationend');
+    unlockInterface();
+    roll();
+}
+
 $(function() {
+    incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
+    correctAnswerSound = new Audio('/static/sounds/correct.mp3');
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
@@ -81,6 +107,7 @@ $(function() {
     });
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
-    $('#check').click(checkAnswer);
+    checkButton  = $('#check');
+    checkButton.click(checkAnswer);
     roll();
 });

@@ -112,7 +112,7 @@
         --gradient-center: 330;
         --gradient-outer: 300, 100%, 10%;
     }
-    30%, 60% {
+    30%, 85% {
         --gradient-center: 359;
         --gradient-outer: 350;
         --button-left: 359;
