@@ -48,10 +48,13 @@ function roll() {
         }
         promptNumber.html(choice);
     }
-    if (promptNumber.html().length > 12) {
+    let length = prompt.html().length;
+    if (length < 5) {
+        promptNumber.attr('class', 'biggest');
+    } else if (length < 13) {
         promptNumber.attr('class', 'bigger');
     } else {
-        promptNumber.attr('class', 'biggest');
+        promptNumber.attr('class', 'big');
     }
 }
 
