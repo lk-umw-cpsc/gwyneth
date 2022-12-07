@@ -31,8 +31,7 @@ let numbers = [
     'cent', 'cent un', 'mille', 'un million', 'un milliard'];
 
 function roll() {
-    // if (Math.random() > 0.5) {
-    if (true) {
+    if (Math.random() > 0.5) {
         mode = MODE_TRANSLATE;
         promptQuestion.html('What number is this?');
         choice = Math.floor(Math.random() * numbers.length);
