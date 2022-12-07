@@ -4,12 +4,15 @@
 
 {% block head %}
 <script src="{{ url_for('static', filename='scripts/numberspractice.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/numberspractice.css')}}">
 {% endblock %}
 {% block main %}
     <h1 class="logo">numbers</h1>
     <main>
         <h4 id="prompt-question"></h4>
-        <span id="prompt-number"></span>
+        <div class="static-container">
+            <span id="prompt-number"></span>
+        </div>
         <input type="text" id="user-input">
         <button id="check" class="medium">Check</button>
     </main>

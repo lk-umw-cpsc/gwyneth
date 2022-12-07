@@ -36,11 +36,14 @@ function roll() {
         promptQuestion.html('What number is this?');
         choice = Math.floor(Math.random() * numbers.length);
         promptNumber.html(numbers[choice]);
+        if (choice > 101) {
+            choice = Math.pow(1000, choice - 101);
+        }
         answer = choice;
     } else {
         mode = MODE_TYPE;
         promptQuestion.html('Write in French:');
-        let choice = Math.floor(Math.random() * 104);
+        let choice = Math.floor(Math.random() * numbers.length);
         answer = numbers[choice];
         if (choice > 101) {
             choice = Math.pow(1000, choice - 101);
@@ -59,7 +62,7 @@ function roll() {
 }
 
 function checkAnswer() {
-    let input = userInput.val();
+    let input = userInput.val().replace(/\s/g, '');
     if (input == answer) {
         roll();
         userInput.val('');
