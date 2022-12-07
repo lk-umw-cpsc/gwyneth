@@ -66,6 +66,9 @@ function checkAnswer() {
     if (input == answer) {
         roll();
         userInput.val('');
+        $(':root').addClass('correct').on('animationend', function(){$(this).removeClass('correct')});
+    } else {
+        $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect')});
     }
 }
 

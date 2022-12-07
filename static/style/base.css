@@ -49,13 +49,84 @@
     display: flex;
 }
 
+@property --gradient-center {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 330;
+}
+@property --gradient-outer {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 300
+    ;
+}
+@property --button-left {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 200;
+}
+
+@property --button-right {
+    syntax: '<integer>';
+    inherits: true;
+    initial-value: 280;
+}
+
+:root {
+    --gradient-center: hsl(330, 100%, 20%);
+    --gradient-outer: hsl(300, 100%, 10%);
+    /* transition: all 200ms; */
+}
+
+:root.correct {
+    /* --gradient-center: hsl(120, 100%, 20%);
+    --gradient-outer: hsl(100, 100%, 10%); */
+    animation-name: correct-anim;
+    animation-duration: 1s;
+    /* animation-fill-mode: forwards; */
+}
+
+:root.incorrect {
+    /* --gradient-center: hsl(120, 100%, 20%);
+    --gradient-outer: hsl(100, 100%, 10%); */
+    animation-name: wrong-anim;
+    animation-duration: 1s;
+    /* animation-fill-mode: forwards; */
+}
+
+@keyframes correct-anim {
+    0%, 100% {
+        --gradient-center: 330;
+        --gradient-outer: 300, 100%, 10%;
+    }
+    30%, 60% {
+        --gradient-center: 120;
+        --gradient-outer: 100;
+        --button-left: 85;
+        --button-right: 115;
+    }
+}
+
+@keyframes wrong-anim {
+    0%, 100% {
+        --gradient-center: 330;
+        --gradient-outer: 300, 100%, 10%;
+    }
+    30%, 60% {
+        --gradient-center: 359;
+        --gradient-outer: 350;
+        --button-left: 359;
+        --button-right: 350;
+    }
+}
+
 html {
     font-family: Poppins;
     font-weight: 400;
     font-size: 20px;
     background-color: hsl(300, 100%, 10%);
     /* background: linear-gradient(to bottom right, hsl(330, 100%, 20%), hsl(300, 100%, 10%)); */
-    background: radial-gradient(hsl(330, 100%, 20%), hsl(300, 100%, 10%));
+    background: radial-gradient(hsl(var(--gradient-center), 100%, 20%), hsl(var(--gradient-outer), 100%, 10%));
     color: white;
     min-height: 100vh;
     overscroll-behavior-y: none;
@@ -103,6 +174,7 @@ a:not(.button) {
 header a:hover {
     color:hsl(30, 100%, 50%);
 }
+
 header {
     display: flex;
     flex-direction: column;
@@ -152,7 +224,6 @@ header > ul > li {
     width: 1.5rem;
     float: right;
     filter: invert(1);
-    /* margin-top: 0.25rem; */
 }
 
 @media only screen and (min-width: 428px) {
@@ -189,7 +260,7 @@ input[type=text], input[type=password] {
 a.button, input[type=submit], button {
     text-align: center;
     padding: 0.5rem 1rem;
-    background-image: linear-gradient(to right, hsl(200, 100%, 35%), hsl(280, 100%, 35%));
+    background-image: linear-gradient(to right, hsl(var(--button-left), 100%, 35%), hsl(var(--button-right), 100%, 35%));
     border-radius: 0.5rem;
     font-family: Figtree;
     transition: filter 200ms;
