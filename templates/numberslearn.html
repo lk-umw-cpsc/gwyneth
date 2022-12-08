@@ -1,15 +1,18 @@
 {% extends 'basictemplate.html' %}
 {% block title %}learn numbers{% endblock %}
 {% block head %}
-<script src="{{ url_for('static', filename='scripts/numberslearn.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts/numberslearn.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/numberslearn.css') }}">
 {% endblock %}
 {% block main %}
     <h1 class="logo">learn</h1>
     <main>
-        <h4>To say</h4>
-        <h1 id="term-english">0</h1>
-        <h4>in French, we say</h4>
-        <h1 id="term-french">zéro</h1>
+        <div>
+            <h4>To say</h4>
+            <h1 id="term-english">0</h1>
+            <h4>in French, we say</h4>
+            <h1 id="term-french">zéro</h1>
+        </div>
         <h4>You try!</h4>
         <input type="text" id="you-try" placeholder="zéro" required autocapitalize="off" autocomplete="off" autocorrect="off">
         <button id="got-it" class="medium" disabled>Got it!</button>
