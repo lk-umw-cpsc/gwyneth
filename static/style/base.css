@@ -269,8 +269,12 @@ a.button, input[type=submit], button {
     transition: filter 200ms;
 }
 
-a.button:hover, input[type=submit]:hover, button:hover {
+a.button:hover:not(:disabled), input[type=submit]:hover:not(:disabled), button:hover:not(:disabled) {
     filter: brightness(1.5);
+}
+
+a.button:disabled, input[type=submit]:disabled, button:disabled {
+    filter: grayscale(1);
 }
 
 a.button:hover {
