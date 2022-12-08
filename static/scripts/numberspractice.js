@@ -15,6 +15,10 @@ let remainingNumbers;
 let studiedPile = [];
 
 function roll() {
+    if (remainingNumbers.length == 0) {
+        // TO-DO: Ask user if they want to keep going
+        return;
+    }
     let number = remainingNumbers.pop();
     if (Math.random() > 0.5) {
         mode = MODE_TRANSLATE;
@@ -66,6 +70,17 @@ function correctAnimationEnded() {
     $(this).removeClass('correct').off('animationend');
     unlockInterface();
     roll();
+}
+
+function shuffleArray(arr) {
+    const length = arr.length;
+    const iters = length - 1;
+    for (let i = 0; i < iters; i++) {
+        r = Math.floor(Math.random() * (length - i)) + i;
+        let tmp = arr[i];
+        arr[i] = arr[r];
+        arr[r] = tmp;
+    }
 }
 
 function numbersFetched() {
