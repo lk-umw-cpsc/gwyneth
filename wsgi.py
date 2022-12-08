@@ -44,7 +44,7 @@ def numbers_practice():
         return redirect(url_for('login'))
     return render_template('numberspractice.html')
 
-@app.route('/numbers/fetch')
+@app.route('/numbers/fetch', methods=['POST'])
 def numbers_fetch():
     if not user_logged_in():
         return "ERROR - User not logged in"
