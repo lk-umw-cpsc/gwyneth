@@ -9,13 +9,41 @@ app.loggedin = False
 
 @app.route('/')
 def home():
-    if not app.loggedin:
+    if not user_logged_in():
         return redirect(url_for('login'))
     return render_template('home.html')
 
+@app.route('/vocab')
+def vocab():
+    return 'TBI'
+
+@app.route('/verbs')
+def verbs():
+    return 'TBI'
+
+# Numbers pages
+@app.route('/numbers')
+def numbers():
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    return render_template('numbers.html')
+
+@app.route('/numbers/learn')
+def numbers_learn():
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    return render_template('numberslearn.html')
+
+@app.route('/numbers/practice')
+def numbers_practice():
+    if not app.loggedin:
+        return redirect(url_for('login'))
+    return render_template('numberspractice.html')
+
+# User account- and login-related routes
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    if app.loggedin:
+    if user_logged_in():
         return redirect(url_for('home'))
     
     if request.method == 'POST':
@@ -29,6 +57,8 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if user_logged_in():
+        return redirect(url_for('home'))
     if request.method == 'POST':
         form = request.form
         email = form['email']
@@ -48,33 +78,9 @@ def logout():
 
 @app.route('/account')
 def account():
-    if not app.loggedin:
+    if not user_logged_in():
         return redirect(url_for('login'))
     return "TBI"
-
-@app.route('/vocab')
-def vocab():
-    return 'TBI'
-
-@app.route('/verbs')
-def verbs():
-    return 'TBI'
-
-@app.route('/numbers')
-def numbers():
-    if not app.loggedin:
-        return redirect(url_for('login'))
-    return render_template('numbers.html')
-
-@app.route('/numbers/practice')
-def numbers_practice():
-    if not app.loggedin:
-        return redirect(url_for('login'))
-    return render_template('numberspractice.html')
-
-# MariaDB utility
-def get_database():
-    return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
 
 # User creation, authentication, password hashing & salting utility
 def create_user(email, password, name):
@@ -117,9 +123,15 @@ def authenticate_user(email, password):
         return 0
     return 1
 
+def user_logged_in():
+    return app.loggedin
 
 def hash_password(password, salt):
     return hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000)
 
 def generate_password_salt():
     return os.urandom(32)
+
+# MariaDB utility
+def get_database():
+    return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
