@@ -84,7 +84,8 @@ function fetchFailed() {
 }
 
 function fetchNumbers() {
-    sendAJAXRequest(window.location.href, { learned: true }, numbersFetched, fetchFailed);
+    // window.location.href
+    sendAJAXRequest('/numbers/fetch', { learned: true }, numbersFetched, fetchFailed);
 }
 
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
