@@ -85,16 +85,16 @@
 :root.correct {
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
-    /* animation-name: correct-anim;
-    animation-duration: 1s; */
+    animation-name: correct-anim;
+    animation-duration: 1s;
     /* animation-fill-mode: forwards; */
 }
 
 :root.incorrect {
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
-    /* animation-name: wrong-anim;
-    animation-duration: 1s; */
+    animation-name: wrong-anim;
+    animation-duration: 1s;
     /* animation-fill-mode: forwards; */
 }
 
