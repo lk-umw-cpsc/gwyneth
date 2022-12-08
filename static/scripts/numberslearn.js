@@ -28,7 +28,7 @@ function nextNumber() {
     }
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
-    $('#term-english').html(currentNumber.french);
+    $('#term-french').html(currentNumber.french);
     $('#you-try').attr('placeholder', currentNumber.french).val('').focus();
 }
 
