@@ -117,22 +117,25 @@ def authenticate_user(email, password):
     cursor = connection.cursor()
     cursor.execute('select passwordHash, salt from user where email=?', (email,))
     user_entry = cursor.fetchone()
-    connection.close()
     if not user_entry:
+        connection.close()
         return 2
+
     stored_hash, salt_hex = user_entry
     salt = bytearray.fromhex(salt_hex)
     given_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000).hex()
-    if given_hash == stored_hash:
-        cursor.execute('select name, id, authorization, email from user where email=?', (email,))
-        name, id, authorization, email = cursor.fetchone()
+    if given_hash != stored_hash:
         connection.close()
-        session['userid'] = id
-        session['name'] = name
-        session['authorization'] = authorization
-        session['email'] = email
-        return 0
-    return 1
+        return 1
+    
+    cursor.execute('select name, id, authorization, email from user where email=?', (email,))
+    name, id, authorization, email = cursor.fetchone()
+    connection.close()
+    session['userid'] = id
+    session['name'] = name
+    session['authorization'] = authorization
+    session['email'] = email
+    return 0
 
 def user_logged_in():
     return 'userid' in session
