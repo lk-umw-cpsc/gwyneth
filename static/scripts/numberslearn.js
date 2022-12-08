@@ -29,7 +29,7 @@ function nextNumber() {
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
     $('#term-english').html(currentNumber.french);
-    $('#you-try').attr('placeholder', currentNumber.french);
+    $('#you-try').attr('placeholder', currentNumber.french).val('');
 }
 
 function fetchUnlearnedNumbers() {
