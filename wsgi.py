@@ -201,4 +201,6 @@ def get_user_known_numbers():
 def mark_number_as_learned(number):
     id = session['userid']
     connection = get_database()
-    connection.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
+    cursor = connection.cursor()
+    cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
+    connection.close()
