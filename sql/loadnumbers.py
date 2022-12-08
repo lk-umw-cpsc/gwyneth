@@ -34,7 +34,7 @@ numbers = [
     (100000, 'dix mille'),
     (100000, 'cent mille'),
     (1000000, 'un million'),
-    (1000000, 'un million un'),
+    (1000001, 'un million un'),
     (2000000, 'deux millions'),
     (2000001, 'deux millions un'),
     (100000000, 'un milliard'),
