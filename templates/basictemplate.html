@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style/reset.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='style/base.css') }}">
         <meta name="theme-color" content="#330033">
-        <title>étudamie | {% block title %}{% endblock %}</title>
+        <title>étudamie{% block title %}{% endblock %}</title>
         {% block head %}{% endblock %}
     </head>
     <body>
