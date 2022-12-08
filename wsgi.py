@@ -36,7 +36,8 @@ def numbers():
 def numbers_learn():
     if not user_logged_in():
         return redirect(url_for('login'))
-    return render_template('numberslearn.html')
+    return get_user_unlearned_numbers()
+    # return render_template('numberslearn.html')
 
 @app.route('/numbers/practice')
 def numbers_practice():
@@ -150,3 +151,13 @@ def generate_password_salt():
 # MariaDB utility
 def get_database():
     return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
+
+# Numbers related SQL functions
+def get_user_unlearned_numbers():
+    id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select base10, french from number where base10 not in (select base10 from userKnowsNumber where userid=?', (id,))
+    numbers = cursor.fetchall()
+    connection.close()
+    return f'{numbers}'
