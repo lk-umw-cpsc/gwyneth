@@ -7,7 +7,7 @@ create or replace table user (
     salt varchar(64) not null
 );
 
-create or replace table frenchnumber (
+create or replace table frenchNumber (
     base10 int primary key,
     french varchar(64)
 );
@@ -15,7 +15,7 @@ create or replace table frenchnumber (
 create or replace table userKnowsNumber {
     userid int,
     base10 int,
-    foreign key userid references user(id),
-    foreign key base10 references frenchnumber(base10),
+    foreign key (userid) references user(id),
+    foreign key (base10) references frenchNumber(base10),
     unique (userid, base10)
 };
