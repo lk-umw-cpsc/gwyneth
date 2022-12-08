@@ -87,7 +87,7 @@ def create_user(email, password, name):
     authorization = 0
     if email == 'lknight2@mail.umw.edu':
         authorization = 2
-    insert_user(email, name, hash_hex, salt_hex, authorization)
+    return insert_user(email, name, hash_hex, salt_hex, authorization)
 
 def insert_user(email, name, hash_hex, salt_hex, authorization):
     connection = get_database()
