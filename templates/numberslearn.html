@@ -1,6 +1,8 @@
 {% extends 'basictemplate.html' %}
 {% block title %}learn numbers{% endblock %}
-
+{% block head %}
+<script src="{{ url_for('static', filename='scripts/numberspractice.js') }}"></script>
+{% endblock %}
 {% block main %}
     <h1 class="logo">learn</h1>
     <main>
