@@ -1,0 +1,18 @@
+create or replace table user (
+    id int primary key,
+    name varchar(64) not null,
+    authorization tinyint default 1 not null,
+    email varchar(256) unique not null,
+    passwordHash varchar(64) not null,
+    salt varchar(64) not null
+);
+
+create or replace table number (
+    number int primary key,
+    french varchar(64)
+);
+
+create or replace table userKnowsNumber {
+    number int references number(number),
+    userid int references user(id)
+}

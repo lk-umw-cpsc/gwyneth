@@ -73,9 +73,11 @@
 }
 
 :root {
-    --gradient-center: hsl(330, 100%, 20%);
-    --gradient-outer: hsl(300, 100%, 10%);
+    /* --gradient-center: hsl(330, 100%, 20%);
+    --gradient-outer: hsl(300, 100%, 10%); */
     /* transition: all 200ms; */
+    --gradient-center: 330;
+    --gradient-outer: 300;
 }
 
 :root.correct {

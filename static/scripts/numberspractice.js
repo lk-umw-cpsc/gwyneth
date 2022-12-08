@@ -70,7 +70,6 @@ function checkAnswer() {
     let inputNoSpaces = input.replace(/\s/g, '');
     if (input == answer || inputNoSpaces == answer) {
         correctAnswerSound.play();
-        userInput.val('');
         $(':root').addClass('correct').on('animationend', correctAnimationEnded);
         lockInterface();
 } else {
@@ -85,6 +84,7 @@ function lockInterface() {
 }
 
 function unlockInterface() {
+    userInput.val('');
     userInput.prop('disabled', false);
     userInput.focus();
     checkButton.html('Check');
