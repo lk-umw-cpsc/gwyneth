@@ -47,13 +47,24 @@ def numbers_practice():
 @app.route('/numbers/fetch', methods=['POST'])
 def numbers_fetch():
     if not user_logged_in():
-        return "ERROR - User not logged in"
+        return 'INVALID REQUEST'
     data = request.get_json()
     if 'learned' not in data:
         return 'INVALID REQUEST'
     if data['learned']:
         return jsonify(numbers=get_user_known_numbers())
     return jsonify(numbers=get_user_unlearned_numbers())
+
+@app.route('/numbers/update', methods=['POST'])
+def numbers_update():
+    if not user_logged_in():
+        return "INVALID REQUEST"
+    data = request.get_json()
+    if 'number' not in data:
+        return 'INVALID REQUEST'
+    number = data['number']
+    mark_number_as_learned(number)
+    return jsonify(sucess=True)
 
 # User account- and login-related routes
 @app.route('/login', methods=['GET', 'POST'])
@@ -186,3 +197,8 @@ def get_user_known_numbers():
     for number, french in numbers:
         numbers_as_dicts.append({'number': number, 'french': french})
     return numbers_as_dicts
+
+def mark_number_as_learned(number):
+    id = session['userid']
+    connection = get_database()
+    connection.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
