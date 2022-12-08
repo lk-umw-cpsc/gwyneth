@@ -12,10 +12,10 @@ create or replace table frenchNumber (
     french varchar(64)
 );
 
-create or replace table userKnowsNumber {
+create or replace table userKnowsNumber (
     userid int,
     base10 int,
-    foreign key (userid) references user(id),
-    foreign key (base10) references frenchNumber(base10),
+    foreign key userid references user(id),
+    foreign key base10 references frenchNumber(base10),
     unique (userid, base10)
-};
+);
