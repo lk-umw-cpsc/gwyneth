@@ -26,7 +26,7 @@ function nextNumber() {
         // TO-DO: let user know they're out of numbers to learn...
         return;
     }
-    $('#got-it').prop('disabled', disable);
+    $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
     $('#term-french').html(currentNumber.french);
