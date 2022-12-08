@@ -56,7 +56,7 @@ def login():
         password = form['password']
         if authenticate_user(email, password) == 0:
             app.loggedin = True
-        return redirect(url_for('home'), welcome=1)
+        return redirect(url_for('home', welcome=1))
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
