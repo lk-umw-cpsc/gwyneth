@@ -1,9 +1,11 @@
 import hashlib
 import os
 import mariadb
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, session
 
 app = Flask(__name__)
+
+app.secret_key = b'B\xc8v\x08>\x0f\xdc\xce\xfe\xc8\x07\x84\xaeg\xb7`\xbb\x05q\xa0b\xc8U\xd3\x91\x95\xc0F\xfb\r\xfca'
 
 app.loggedin = False
 
@@ -11,7 +13,9 @@ app.loggedin = False
 def home():
     if not user_logged_in():
         return redirect(url_for('login'))
-    return render_template('home.html')
+    welcome = 'welcome' in request.args
+    name = session['name']
+    return render_template('home.html', welcome=welcome, name=name)
 
 @app.route('/vocab')
 def vocab():
@@ -52,7 +56,7 @@ def login():
         password = form['password']
         if authenticate_user(email, password) == 0:
             app.loggedin = True
-        return redirect(url_for('home'))
+        return redirect(url_for('home'), welcome=1)
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -120,11 +124,18 @@ def authenticate_user(email, password):
     salt = bytearray.fromhex(salt_hex)
     given_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000).hex()
     if given_hash == stored_hash:
+        cursor.execute('select name, id, authorization, email from user where email=?', (email,))
+        name, id, authorization, email = cursor.fetchone()
+        connection.close()
+        session['userid'] = id
+        session['name'] = name
+        session['authorization'] = authorization
+        session['email'] = email
         return 0
     return 1
 
 def user_logged_in():
-    return app.loggedin
+    return 'userid' in session
 
 def hash_password(password, salt):
     # using password-based key derivation with salt

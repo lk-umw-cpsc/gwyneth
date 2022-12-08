@@ -19,6 +19,9 @@
             </ul>
         </header>
         <h1 class="logo">étudamie</h1>
+        {% if welcome %}
+        <h4>Welcome back, {{ name }}!</h4>
+        {% endif %}
         <main>
             <h4>Choose an activity</h4>
             <a class="medium button" href="">Vocabulary</a>
