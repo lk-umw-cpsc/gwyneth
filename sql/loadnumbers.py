@@ -1,6 +1,6 @@
 import mariadb
 
-thing = [
+numbers = [
     'zéro', 'un', 'deux', 'trois', 'quatre', 
     'cinq', 'six', 'sept', 'huit', 'neuf', 
     'dix', 'onze', 'douze', 'treize', 'quatorze', 
@@ -26,5 +26,7 @@ thing = [
 
 connection = mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
 cursor = connection.cursor()
-for i, n in enumerate(thing):
-    cursor.execute('insert into numbers value (?, ?)', (i, n))
+for i, n in enumerate(numbers):
+    cursor.execute('insert into numbers values (?, ?)', (i, n))
+connection.commit()
+connection.close()
