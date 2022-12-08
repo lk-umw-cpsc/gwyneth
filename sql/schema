@@ -16,5 +16,6 @@ create or replace table userKnowsNumber {
     number int,
     userid int,
     foreign key number references number(number),
-    foreign key userid references user(id)
+    foreign key userid references user(id),
+    unique (number, userid)
 };
