@@ -15,4 +15,4 @@ create or replace table number (
 create or replace table userKnowsNumber {
     number int references number(number),
     userid int references user(id)
-}
+};
