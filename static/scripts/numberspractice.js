@@ -11,49 +11,21 @@ const MODE_TYPE = 1;
 let incorrectAnswerSound;
 let correctAnswerSound;
 
-let numbers = [
-    'zéro', 'un', 'deux', 'trois', 'quatre', 
-    'cinq', 'six', 'sept', 'huit', 'neuf', 
-    'dix', 'onze', 'douze', 'treize', 'quatorze', 
-    'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf',
-    'vingt', 'vingt et un', 'vingt-deux', 'vingt-trois', 'vingt-quatre', 
-    'vingt-cinq', 'vingt-six', 'vingt-sept', 'vingt-huit', 'vingt-neuf',
-    'trente', 'trente et un', 'trente-deux', 'trente-trois', 'trente-quatre',
-    'trente-cinq', 'trente-six', 'trente-sept', 'trente-huit', 'trente-neuf',
-    'quarante', 'quarante et un', 'quarante-deux', 'quarante-trois', 'quarante-quatre',
-    'quarante-cinq', 'quarante-six', 'quarante-sept', 'quarante-huit', 'quarante-neuf',
-    'cinquante', 'cinquante et un', 'cinquante-deux', 'cinquante-trois', 'cinquante-quatre',
-    'cinquante-cinq', 'cinquante-six', 'cinquante-sept', 'cinquante-huit', 'cinquante-neuf',
-    'soixante', 'soixante et un', 'soixante-deux', 'soixante-trois', 'soixante-quatre',
-    'soixante-cinq', 'soixante-six', 'soixante-sept', 'soixante-huit', 'soixante-neuf',
-    'soixante-dix', 'soixante et onze', 'soixante-douze', 'soixante-treize', 'soixante-quatorze',
-    'soixante-quinze', 'soixante-seize', 'soixante-dix-sept', 'soixante-dix-huit', 'soixante-dix-neuf',
-    'quatre-vingts', 'quatre-vingt-un', 'quatre-vingt-deux', 'quatre-vingt-trois', 'quatre-vingt-quatre',
-    'quatre-vingt-cinq', 'quatre-vingt-six', 'quatre-vingt-sept', 'quatre-vingt-huit', 'quatre-vingt-neuf',
-    'quatre-vingt-dix', 'quatre-vingt-onze', 'quatre-vingt-douze', 'quatre-vingt-treize', 'quatre-vingt-quatorze',
-    'quatre-vingt-quinze', 'quatre-vingt-seize', 'quatre-vingt-dix-sept', 'quatre-vingt-dix-huit', 'quatre-vingt-dix-neuf',
-    'cent', 'cent un', 'mille', 'un million', 'un milliard'];
+let remainingNumbers;
+let studiedPile = [];
 
 function roll() {
+    let number = remainingNumbers.pop();
     if (Math.random() > 0.5) {
         mode = MODE_TRANSLATE;
         promptQuestion.html('What number is this?');
-        choice = Math.floor(Math.random() * numbers.length);
-        promptNumber.html(numbers[choice]);
-        if (choice > 101) {
-            choice = Math.pow(1000, choice - 101);
-        }
-        answer = choice;
+        promptNumber.html(number.french);
+        answer = number.number;
     } else {
         mode = MODE_TYPE;
         promptQuestion.html('Write in French:');
-        let choice = Math.floor(Math.random() * numbers.length);
-        answer = numbers[choice];
-        if (choice > 101) {
-            choice = Math.pow(1000, choice - 101);
-            choice = choice.toLocaleString('fr-FR');
-        }
-        promptNumber.html(choice);
+        promptNumber.html(number.number)
+        answer = number.french;
     }
     let length = promptNumber.html().length;
     if (length < 5) {
@@ -72,7 +44,7 @@ function checkAnswer() {
         correctAnswerSound.play();
         $(':root').addClass('correct').on('animationend', correctAnimationEnded);
         lockInterface();
-} else {
+    } else {
         incorrectAnswerSound.play();
         $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
     }
@@ -96,6 +68,35 @@ function correctAnimationEnded() {
     roll();
 }
 
+function numbersFetched() {
+    let response = JSON.parse(this.responseText);
+    let numbers = response.numbers;
+    const length = numbers.length;
+    remainingNumbers = new Array(length);
+    for (let i = 0; i < length; i++) {
+        remainingNumbers.push(numbers[i]);
+    }
+    roll();
+}
+
+function fetchFailed() {
+    console.log("Fetch failed!");
+}
+
+function fetchNumbers() {
+    AJAXRequest(window.location.href, { learned: true }, numbersFetched, fetchFailed);
+}
+
+function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
+    var request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.setRequestHeader("Content-Type", "application/json");
+    request.onload = onSuccess;
+    request.onerror = onFailure;
+    request.send(JSON.stringify(requestData));
+    return false;
+}
+
 $(function() {
     incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
     correctAnswerSound = new Audio('/static/sounds/correct.mp3');
@@ -109,5 +110,6 @@ $(function() {
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
     checkButton.click(checkAnswer);
-    roll();
+
+    fetchNumbers();
 });

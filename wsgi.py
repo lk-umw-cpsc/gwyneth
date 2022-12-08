@@ -1,7 +1,7 @@
 import hashlib
 import os
 import mariadb
-from flask import Flask, render_template, redirect, url_for, request, session
+from flask import Flask, render_template, redirect, url_for, request, session, jsonify
 
 app = Flask(__name__)
 
@@ -36,14 +36,24 @@ def numbers():
 def numbers_learn():
     if not user_logged_in():
         return redirect(url_for('login'))
-    return get_user_unlearned_numbers()
-    # return render_template('numberslearn.html')
+    return render_template('numberslearn.html')
 
 @app.route('/numbers/practice')
 def numbers_practice():
-    if not app.loggedin:
+    if not user_logged_in():
         return redirect(url_for('login'))
     return render_template('numberspractice.html')
+
+@app.route('/numbers/fetch')
+def numbers_fetch():
+    if not user_logged_in():
+        return "ERROR - User not logged in"
+    data = request.get_json()
+    if 'learned' not in data:
+        return 'INVALID REQUEST'
+    if data['learned']:
+        return jsonify(numbers=get_user_known_numbers())
+    return jsonify(numbers=get_user_unlearned_numbers())
 
 # User account- and login-related routes
 @app.route('/login', methods=['GET', 'POST'])
@@ -160,4 +170,19 @@ def get_user_unlearned_numbers():
     cursor.execute('select base10, french from number where base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     connection.close()
-    return f'{numbers}'
+    numbers_as_dicts = []
+    for number, french in numbers:
+        numbers_as_dicts.append({'number': number, 'french': french})
+    return numbers_as_dicts
+
+def get_user_known_numbers():
+    id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select base10, french from number where base10 in (select base10 from userKnowsNumber where userid=?)', (id,))
+    numbers = cursor.fetchall()
+    connection.close()
+    numbers_as_dicts = []
+    for number, french in numbers:
+        numbers_as_dicts.append({'number': number, 'french': french})
+    return numbers_as_dicts
