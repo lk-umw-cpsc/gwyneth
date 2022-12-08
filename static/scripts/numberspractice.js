@@ -116,7 +116,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 
 $(function() {
     incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
-    correctAnswerSound = new Audio('/static/sounds/correct.mp3');
+    correctAnswerSound = new Audio('/static/sounds/correct.wav');
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
