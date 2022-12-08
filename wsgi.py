@@ -83,7 +83,8 @@ def insert_user(email, name, hash_hex, salt_hex, authorization):
     cursor = connection.cursor()
     try:
         cursor.execute('insert into user (email, name, passwordHash, salt, authorization) values (?, ?, ?, ?, ?)', (email, name, hash_hex, salt_hex, authorization))
-    except mariadb.Error:
+    except mariadb.Error as e:
+        print(e)
         return False
     return True
 
