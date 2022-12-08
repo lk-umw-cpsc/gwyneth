@@ -17,6 +17,10 @@ function numbersFetched() {
     nextNumber();
 }
 
+function fetchFailed() {
+    console.log("Fetch failed!");
+}
+
 function nextNumber() {
     if (numbers.length == 0) {
         // TO-DO: let user know they're out of numbers to learn...
@@ -29,7 +33,7 @@ function nextNumber() {
 }
 
 function fetchUnlearnedNumbers() {
-    sendAJAXRequest('/numbers/fetch', {'learned': false}, );
+    sendAJAXRequest('/numbers/fetch', {'learned': false}, numbersFetched, );
 }
 
 function checkUserEnteredFrench() {
@@ -37,7 +41,7 @@ function checkUserEnteredFrench() {
     let value = youTry.val();
     let placeholder = youTry.attr("placeholder");
     if (value == placeholder) {
-        nextNumber;
+        nextNumber();
     }
 }
 
