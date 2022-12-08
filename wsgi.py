@@ -157,7 +157,7 @@ def get_user_unlearned_numbers():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select base10, french from number where base10 not in (select base10 from userKnowsNumber where userid=?', (id,))
+    cursor.execute('select base10, french from number where base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     connection.close()
     return f'{numbers}'
