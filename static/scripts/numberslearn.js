@@ -14,6 +14,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 function numbersFetched() {
     let response = JSON.parse(this.responseText);
     numbers = response.numbers.reverse();
+    nextNumber();
 }
 
 function nextNumber() {
@@ -31,17 +32,29 @@ function fetchUnlearnedNumbers() {
     sendAJAXRequest('/numbers/fetch', {'learned': false}, );
 }
 
+function checkUserEnteredFrench() {
+    let youTry = $("#you-try")
+    let value = youTry.val();
+    let placeholder = youTry.attr("placeholder");
+    if (value == placeholder) {
+        nextNumber;
+    }
+}
+
 $(function() {
-    $('#you-try').on('input', function() {
+    let youTry = $('#you-try');
+    youTry.on('input', function() {
         let value = $(this).val();
         let placeholder = $(this).attr("placeholder");
         let disable = value != placeholder;
         $('#got-it').prop('disabled', disable);
     });
 
-    $('#you-try').click(function() {
-        nextNumber();
+    $('#you-try').keypress(function(e) {
+        if (e.which == 13) {
+            checkUserEnteredFrench();
+        }
     });
-
+    $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedNumbers();
 });
