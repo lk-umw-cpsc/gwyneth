@@ -133,7 +133,7 @@ html {
     background: radial-gradient(hsl(var(--gradient-center), 100%, 20%), hsl(var(--gradient-outer), 100%, 10%));
     color: white;
     min-height: 100vh;
-    overscroll-behavior-y: none;
+    /* overscroll-behavior-y: none; */
 }
 
 /* Headings, Links */
