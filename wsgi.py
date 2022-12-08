@@ -203,4 +203,5 @@ def mark_number_as_learned(number):
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
+    connection.commit()
     connection.close()
