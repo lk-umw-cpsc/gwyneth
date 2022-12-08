@@ -91,7 +91,7 @@ function numbersFetched() {
     for (let i = 0; i < length; i++) {
         remainingNumbers.push(numbers[i]);
     }
-    shuffleArray(remainingNumbers);
+    // shuffleArray(remainingNumbers);
     roll();
 }
 
