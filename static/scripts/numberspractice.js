@@ -15,6 +15,7 @@ let remainingNumbers;
 let studiedPile = [];
 
 function roll() {
+    console.log(remainingNumbers.length);
     if (remainingNumbers.length == 0) {
         // TO-DO: Ask user if they want to keep going
         return;
