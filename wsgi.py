@@ -5,7 +5,7 @@ from flask import Flask, render_template, redirect, url_for, request
 
 app = Flask(__name__)
 
-app.loggedin = True
+app.loggedin = False
 
 @app.route('/')
 def home():
@@ -19,16 +19,27 @@ def login():
         return redirect(url_for('home'))
     
     if request.method == 'POST':
-        app.loggedin = True
-        email = request.form['email']
-        password = request.form['password']
-        create_user(email, password, 'Lauren')
+        form = request.form
+        email = form['email']
+        password = form['password']
+        if authenticate_user(email, password) == 0:
+            app.loggedin = True
         return redirect(url_for('home'))
     return render_template("login.html")
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
-    return "TBI"
+    if request.method == 'POST':
+        form = request.form
+        email = form['email']
+        password = form['password']
+        name = form['name']
+        success = create_user(email, password, name)
+        if success:
+            return redirect(url_for('login', creationSuccess=1))
+        else:
+            return render_template('register.html', creationError=1)
+    return render_template('register.html')
 
 @app.route('/logout')
 def logout():
@@ -90,6 +101,22 @@ def insert_user(email, name, hash_hex, salt_hex, authorization):
     finally:
         connection.close()
     return True
+
+def authenticate_user(email, password):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select passwordHash, salt from user where email=?', (email,))
+    user_entry = cursor.fetchone()
+    connection.close()
+    if not user_entry:
+        return 2
+    stored_hash, salt_hex = user_entry
+    salt = bytearray.fromhex(salt_hex)
+    given_hash = hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000).hex()
+    if given_hash == stored_hash:
+        return 0
+    return 1
+
 
 def hash_password(password, salt):
     return hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000)
