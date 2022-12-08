@@ -1,3 +1,5 @@
+SET FOREIGN_KEY_CHECKS = 0;
+
 create or replace table user (
     id int primary key AUTO_INCREMENT,
     name varchar(64) not null,
@@ -19,3 +21,5 @@ create or replace table userKnowsNumber (
     foreign key (base10) references number(base10),
     unique (userid, base10)
 );
+
+SET FOREIGN_KEY_CHECKS = 1;
