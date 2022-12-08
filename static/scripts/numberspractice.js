@@ -15,7 +15,6 @@ let remainingNumbers;
 let studiedPile = [];
 
 function roll() {
-    console.log(remainingNumbers.length);
     if (remainingNumbers.length == 0) {
         // TO-DO: Ask user if they want to keep going
         return;
@@ -90,9 +89,9 @@ function numbersFetched() {
     const length = numbers.length;
     remainingNumbers = new Array(length);
     for (let i = 0; i < length; i++) {
-        remainingNumbers.push(numbers[i]);
+        remainingNumbers[i] = numbers[i];
     }
-    // shuffleArray(remainingNumbers);
+    shuffleArray(remainingNumbers);
     roll();
 }
 
