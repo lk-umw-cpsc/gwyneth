@@ -13,6 +13,8 @@ create or replace table number (
 );
 
 create or replace table userKnowsNumber {
-    number int references number(number),
-    userid int references user(id)
+    number int,
+    userid int,
+    foreign key number references number(number),
+    foreign key userid references user(id)
 };
