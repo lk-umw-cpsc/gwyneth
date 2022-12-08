@@ -41,7 +41,7 @@ function checkUserEnteredFrench() {
     let value = youTry.val();
     let placeholder = youTry.attr("placeholder");
     if (value == placeholder) {
-        nextNumber();
+        sendAJAXRequest('/numbers/update', {number: currentNumber.number}, nextNumber);
     }
 }
 
