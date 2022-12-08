@@ -31,7 +31,7 @@ numbers = [
     (1000, 'mille'),
     (1001, 'mille un'),
     (2000, 'deux mille'),
-    (100000, 'dix mille'),
+    (10000, 'dix mille'),
     (100000, 'cent mille'),
     (1000000, 'un million'),
     (1000001, 'un million un'),
