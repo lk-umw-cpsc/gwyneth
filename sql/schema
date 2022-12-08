@@ -1,5 +1,5 @@
 create or replace table user (
-    id int primary key,
+    id int primary key AUTO_INCREMENT,
     name varchar(64) not null,
     authorization tinyint default 1 not null,
     email varchar(256) unique not null,
