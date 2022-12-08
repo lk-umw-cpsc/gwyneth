@@ -27,6 +27,6 @@ numbers = [
 connection = mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
 cursor = connection.cursor()
 for i, n in enumerate(numbers):
-    cursor.execute('insert into numbers values (?, ?)', (i, n))
+    cursor.execute('insert into number values (?, ?)', (i, n))
 connection.commit()
 connection.close()
