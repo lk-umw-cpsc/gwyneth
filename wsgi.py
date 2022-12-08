@@ -77,7 +77,7 @@ def register():
 
 @app.route('/logout')
 def logout():
-    app.loggedin = False
+    session.clear()
     return redirect(url_for('login'))   
 
 @app.route('/account')
