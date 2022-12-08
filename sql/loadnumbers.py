@@ -24,7 +24,7 @@ thing = [
     'cent'
 ]
 
-connection = mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='tour')
+connection = mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
 cursor = connection.cursor()
 for i, n in enumerate(thing):
     cursor.execute('insert into numbers value (?, ?)', (i, n))
