@@ -45,12 +45,12 @@ function checkAnswer() {
     let input = userInput.val().toLowerCase();
     let inputNoSpaces = input.replace(/\s/g, '');
     if (input == answer || inputNoSpaces == answer) {
-        // correctAnswerSound.load();
+        correctAnswerSound.load();
         correctAnswerSound.play();
         $(':root').addClass('correct').on('animationend', correctAnimationEnded);
         lockInterface();
     } else {
-        // incorrectAnswerSound.load();
+        incorrectAnswerSound.load();
         incorrectAnswerSound.play();
         $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
     }
