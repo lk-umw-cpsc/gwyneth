@@ -127,6 +127,7 @@ def user_logged_in():
     return app.loggedin
 
 def hash_password(password, salt):
+    # using password-based key derivation with salt
     return hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000)
 
 def generate_password_salt():
