@@ -22,7 +22,7 @@ let rootElement;
 
 let currentNumber;
 
-let sound = navigator.userAgent.indexOf("Safari") == -1;
+let sound;
 
 function roll() {
     if (remainingNumbers.length == 0) {
@@ -164,8 +164,11 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 $(function() {
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
-    incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
-    correctAnswerSound = new Audio('/static/sounds/correct.wav');
+    sound = navigator.userAgent.indexOf("Safari") == -1;
+    if (sound) {
+        incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
+        correctAnswerSound = new Audio('/static/sounds/correct.wav');
+    }
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
