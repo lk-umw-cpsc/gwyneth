@@ -72,6 +72,8 @@
     initial-value: 280;
 }
 
+/* 110  for red */
+/* -125 for green */
 :root {
     /* --gradient-center: hsl(330, 100%, 20%);
     --gradient-outer: hsl(300, 100%, 10%); */
@@ -85,42 +87,50 @@
 :root.correct {
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
-    animation-name: correct-anim;
-    animation-duration: 1s;
     /* animation-fill-mode: forwards; */
 }
 
 :root.incorrect {
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
-    animation-name: wrong-anim;
-    animation-duration: 1s;
+    /* animation-name: wrong-anim; */
+    /* animation-duration: 1s; */
     /* animation-fill-mode: forwards; */
+}
+
+button.correct {
+    animation-name: correct-anim;
+    animation-duration: 1s;
+}
+
+button.incorrect {
+    animation-name: incorrect-anim;
+    animation-duration: 1s;
 }
 
 @keyframes correct-anim {
     0%, 100% {
-        --gradient-center: 330;
-        --gradient-outer: 300;
+        /* --gradient-center: 330;
+        --gradient-outer: 300; */
+        filter: none;
     }
     30%, 60% {
-        --gradient-center: 120;
-        --gradient-outer: 100;
-        --button-left: 85;
-        --button-right: 115;
+        filter: hue-rotate(-125deg);
     }
 }
 
 @keyframes wrong-anim {
     0%, 100% {
-        --gradient-center: 330;
-        --gradient-outer: 300;
+        /* --gradient-center: 330;
+        --gradient-outer: 300; */
+        filter: none;
     }
     30%, 85% {
-        --gradient-center: 359;
+        /* --gradient-center: 359;
         --gradient-outer: 350;
         --button-left: 359;
-        --button-right: 350;
+        --button-right: 350; */
+        filter: hue-rotate(110deg);
     }
 }
 

@@ -47,12 +47,12 @@ function checkAnswer() {
     if (input == answer || inputNoSpaces == answer) {
         // correctAnswerSound.load();
         // correctAnswerSound.play();
-        $(':root').addClass('correct').on('animationend', correctAnimationEnded);
+        checkButton.addClass('correct').on('animationend', correctAnimationEnded);
         lockInterface();
     } else {
         // incorrectAnswerSound.load();
         // incorrectAnswerSound.play();
-        $(':root').addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
+        checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
     }
 }
 
