@@ -89,6 +89,7 @@ function numbersFetched() {
     let response = JSON.parse(this.responseText);
     let numbers = response.numbers;
     const length = numbers.length;
+    console.log(length);
     remainingNumbers = new Array(length);
     for (let i = 0; i < length; i++) {
         remainingNumbers[i] = numbers[i];
