@@ -146,7 +146,7 @@ function fetchNumbers() {
 }
 
 function recordCorrect(number, correct) {
-    sendAJAXRequest('/numbers/update', { type: 'attempt', number: number, correct: correct});
+    sendAJAXRequest('/numbers/update', { type: 'attempt', number: number.number, correct: correct});
 }
 
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
