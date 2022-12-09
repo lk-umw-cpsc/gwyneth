@@ -94,6 +94,7 @@ function numbersFetched() {
         remainingNumbers[i] = numbers[i];
     }
     shuffleArray(remainingNumbers);
+    remainingNumbers.sort(compareDifficulty);
     roll();
 }
 
@@ -114,6 +115,10 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     request.onerror = onFailure;
     request.send(JSON.stringify(requestData));
     return false;
+}
+
+function compareDifficulty(a, b) {
+    return a.difficulty - b.difficulty;
 }
 
 $(function() {

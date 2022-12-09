@@ -190,12 +190,12 @@ def get_user_known_numbers():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select base10, french from number where base10 in (select base10 from userKnowsNumber where userid=?)', (id,))
+    cursor.execute('select base10, french, difficulty from number where base10 in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     connection.close()
     numbers_as_dicts = []
-    for number, french in numbers:
-        numbers_as_dicts.append({'number': number, 'french': french})
+    for number, french, difficulty in numbers:
+        numbers_as_dicts.append({'number': number, 'french': french, 'difficulty': difficulty})
     return numbers_as_dicts
 
 def mark_number_as_learned(number):
