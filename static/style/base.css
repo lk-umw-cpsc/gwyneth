@@ -85,6 +85,10 @@
 }
 
 :root.correct {
+    --gradient-center: 120;
+    --gradient-outer: 100;
+    --gradient-left: 350;
+    --gradient-right: 359;
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
     /* animation-fill-mode: forwards; */
@@ -96,16 +100,6 @@
     /* animation-name: wrong-anim; */
     /* animation-duration: 1s; */
     /* animation-fill-mode: forwards; */
-}
-
-button.correct {
-    animation-name: correct-anim;
-    animation-duration: 1s;
-}
-
-button.incorrect {
-    animation-name: incorrect-anim;
-    animation-duration: 1s;
 }
 
 @keyframes correct-anim {

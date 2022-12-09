@@ -13,6 +13,7 @@ let correctAnswerSound;
 
 let remainingNumbers;
 let studiedPile = [];
+let rootElement;
 
 function roll() {
     if (remainingNumbers.length == 0) {
@@ -47,12 +48,14 @@ function checkAnswer() {
     if (input == answer || inputNoSpaces == answer) {
         // correctAnswerSound.load();
         // correctAnswerSound.play();
-        checkButton.addClass('correct').on('animationend', correctAnimationEnded);
+        // checkButton.addClass('correct').on('animationend', correctAnimationEnded);
         lockInterface();
+        rootElement.addClass('correct');
     } else {
+        rootElement.addClass('incorrect');
         // incorrectAnswerSound.load();
         // incorrectAnswerSound.play();
-        checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
+        // checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
     }
 }
 
@@ -137,6 +140,6 @@ $(function() {
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
     checkButton.click(checkAnswer);
-
+    rootElement = $(':root');
     fetchNumbers();
 });
