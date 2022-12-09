@@ -164,7 +164,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 $(function() {
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
-    sound = navigator.userAgent.indexOf("Safari") == -1;
+    sound = navigator.userAgent.indexOf("Google Chrome") != -1;
     console.log(navigator.userAgent.indexOf("Safari"));
     if (sound) {
         incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
