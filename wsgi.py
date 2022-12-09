@@ -190,7 +190,7 @@ def get_user_known_numbers():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select base10, french from number as a, userKnowsNumber as b where a.base10=b.base10 and userid=?', (id,))
+    cursor.execute('select a.base10, french from number as a, userKnowsNumber as b where a.base10=b.base10 and userid=?', (id,))
     numbers = cursor.fetchall()
     connection.close()
     numbers_as_dicts = []
