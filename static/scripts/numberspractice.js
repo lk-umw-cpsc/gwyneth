@@ -76,18 +76,17 @@ function advance() {
 function changeUICorrect() {
     rootElement.addClass('correct');
     checkButton.html('Good job!');
-    userInput.prop('disabled', true);
-
+    lockInterface();
 }
 
 function changeUIIncorrect() {
     rootElement.addClass('incorrect');
-    promptQuestion.html(answer);
+    userInput.val('Answer: ' + answer);
+    checkButton.html('Next');
 }
 
 function lockInterface() {
     userInput.prop('disabled', true);
-    checkButton.html('Good job!');
 }
 
 function unlockInterface() {
@@ -95,12 +94,6 @@ function unlockInterface() {
     userInput.prop('disabled', false);
     userInput.focus();
     checkButton.html('Check');
-}
-
-function correctAnimationEnded() {
-    $(this).removeClass('correct').off('animationend');
-    unlockInterface();
-    roll();
 }
 
 function shuffleArray(arr) {
