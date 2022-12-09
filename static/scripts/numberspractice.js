@@ -162,6 +162,15 @@ $(function() {
             advance();
         }
     });
+    $(document).keypress(function(event) {
+        if (event.which == 13) {
+        var tag = event.target.tagName.toLowerCase();
+        if (tag == 'input' || state != STATE_VIEW_ANSWER) {
+            return;
+        }
+        advance();
+    }
+    });
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
