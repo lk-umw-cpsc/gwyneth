@@ -22,6 +22,8 @@ let rootElement;
 
 let currentNumber;
 
+let sound = navigator.userAgent.indexOf("Safari") == -1;
+
 function roll() {
     if (remainingNumbers.length == 0) {
         if (incorrectPile.length == 0) {
@@ -58,20 +60,20 @@ function advance() {
         let input = userInput.val().toLowerCase();
         let inputNoSpaces = input.replace(/\s/g, '');
         if (input == answer || inputNoSpaces == answer) {
-            correctAnswerSound.load();
-            correctAnswerSound.play();
-            // checkButton.addClass('correct').on('animationend', correctAnimationEnded);
-            // lockInterface();
-            // rootElement.addClass('correct');
+            if (sound) {
+                correctAnswerSound.load();
+                correctAnswerSound.play();
+            }
             changeUICorrect();
             recordCorrect(currentNumber, true);
         } else {
+            if (sound) {
+                incorrectAnswerSound.load();
+                incorrectAnswerSound.play();
+            }
             incorrectPile.push(currentNumber);
             recordCorrect(currentNumber, false);
             changeUIIncorrect();
-            incorrectAnswerSound.load();
-            incorrectAnswerSound.play();
-            // checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
         }
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
