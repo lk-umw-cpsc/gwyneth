@@ -82,6 +82,7 @@ function changeUICorrect() {
 function changeUIIncorrect() {
     rootElement.addClass('incorrect');
     userInput.val('Answer: ' + answer);
+    lockInterface();
     checkButton.html('Next');
 }
 
