@@ -72,12 +72,8 @@
     initial-value: 280;
 }
 
-/* 110  for red */
-/* -125 for green */
 :root {
-    /* --gradient-center: hsl(330, 100%, 20%);
-    --gradient-outer: hsl(300, 100%, 10%); */
-    /* transition: all 200ms; */
+    transition: all 200ms;
     --gradient-center: 330;
     --gradient-outer: 300;
     --button-left: 200;
@@ -87,14 +83,18 @@
 :root.correct {
     --gradient-center: 120;
     --gradient-outer: 100;
-    --gradient-left: 350;
-    --gradient-right: 359;
+    --button-left: 85;
+    --button-right: 115;
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
     /* animation-fill-mode: forwards; */
 }
 
 :root.incorrect {
+    --gradient-center: 359;
+    --gradient-outer: 350;
+    --button-left: 359;
+    --button-right: 350;
     /* --gradient-center: hsl(120, 100%, 20%);
     --gradient-outer: hsl(100, 100%, 10%); */
     /* animation-name: wrong-anim; */
