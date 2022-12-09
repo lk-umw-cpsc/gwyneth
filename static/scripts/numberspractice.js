@@ -8,6 +8,10 @@ let checkButton;
 const MODE_TRANSLATE = 0;
 const MODE_TYPE = 1;
 
+const STATE_PROMPT = 0;
+const STATE_VIEW_ANSWER = 1;
+let state = STATE_PROMPT;
+
 let incorrectAnswerSound;
 let correctAnswerSound;
 
@@ -42,21 +46,43 @@ function roll() {
     }
 }
 
-function checkAnswer() {
-    let input = userInput.val().toLowerCase();
-    let inputNoSpaces = input.replace(/\s/g, '');
-    if (input == answer || inputNoSpaces == answer) {
-        // correctAnswerSound.load();
-        // correctAnswerSound.play();
-        // checkButton.addClass('correct').on('animationend', correctAnimationEnded);
-        lockInterface();
-        rootElement.addClass('correct');
-    } else {
-        rootElement.addClass('incorrect');
-        // incorrectAnswerSound.load();
-        // incorrectAnswerSound.play();
-        // checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
+function advance() {
+    if (state == STATE_PROMPT) {
+        let input = userInput.val().toLowerCase();
+        let inputNoSpaces = input.replace(/\s/g, '');
+        if (input == answer || inputNoSpaces == answer) {
+            // correctAnswerSound.load();
+            // correctAnswerSound.play();
+            // checkButton.addClass('correct').on('animationend', correctAnimationEnded);
+            // lockInterface();
+            // rootElement.addClass('correct');
+            changeUICorrect();
+        } else {
+            changeUIIncorrect();
+            // incorrectAnswerSound.load();
+            // incorrectAnswerSound.play();
+            // checkButton.addClass('incorrect').on('animationend', function(){$(this).removeClass('incorrect').off('animationend')});
+        }
+        state = STATE_VIEW_ANSWER;
+    } else if (state == STATE_VIEW_ANSWER) {
+        roll();
+        unlockInterface();
+        rootElement.removeClass('incorrect');
+        rootElement.removeClass('correct');
+        state = STATE_PROMPT;
     }
+}
+
+function changeUICorrect() {
+    rootElement.addClass('correct');
+    checkButton.html('Good job!');
+    userInput.prop('disabled', true);
+
+}
+
+function changeUIIncorrect() {
+    rootElement.addClass('incorrect');
+    promptQuestion.html(answer);
 }
 
 function lockInterface() {
@@ -86,6 +112,10 @@ function shuffleArray(arr) {
         arr[i] = arr[r];
         arr[r] = tmp;
     }
+}
+
+function compareDifficulty(a, b) {
+    return a.difficulty - b.difficulty;
 }
 
 function numbersFetched() {
@@ -121,10 +151,6 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     return false;
 }
 
-function compareDifficulty(a, b) {
-    return a.difficulty - b.difficulty;
-}
-
 $(function() {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     const audioCtx = new AudioContext();
@@ -133,13 +159,13 @@ $(function() {
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
-            checkAnswer();
+            advance();
         }
     });
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
-    checkButton.click(checkAnswer);
+    checkButton.click(advance);
     rootElement = $(':root');
     fetchNumbers();
 });
