@@ -34,7 +34,7 @@ function nextNumber() {
 }
 
 function fetchUnlearnedNumbers() {
-    sendAJAXRequest('/numbers/fetch', {'learned': false}, numbersFetched, fetchFailed);
+    sendAJAXRequest('/numbers/fetch', {learned: false}, numbersFetched, fetchFailed);
 }
 
 function checkUserEnteredFrench() {
@@ -42,7 +42,7 @@ function checkUserEnteredFrench() {
     let value = youTry.val();
     let placeholder = youTry.attr("placeholder");
     if (value == placeholder) {
-        sendAJAXRequest('/numbers/update', {number: currentNumber.number}, nextNumber);
+        sendAJAXRequest('/numbers/update', {number: currentNumber.number, type: 'learned'}, nextNumber);
     }
 }
 

@@ -60,10 +60,18 @@ def numbers_update():
     if not user_logged_in():
         return "INVALID REQUEST"
     data = request.get_json()
-    if 'number' not in data:
+    if 'number' not in data or 'type' not in data:
         return 'INVALID REQUEST'
     number = data['number']
-    mark_number_as_learned(number)
+    if data['type'] == 'learned':
+        mark_number_as_learned(number)
+    elif data['type'] == 'attempt':
+        if 'correct' not in data:
+            return 'INVALID REQUEST'
+        correct = data['correct']
+        record_attempt(number, correct)
+    else:
+        return 'INVALID REQUEST'
     return jsonify(sucess=True)
 
 # User account- and login-related routes
@@ -203,5 +211,16 @@ def mark_number_as_learned(number):
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
+    connection.commit()
+    connection.close()
+
+def record_attempt(number, correct):
+    id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    if correct:
+        cursor.execute('update userKnowsNumber set difficulty = max(difficulty - 1, 0) where userid=? and number=?', (id, number))
+    else:
+        cursor.execute('update userKnowsNumber set difficulty = max(difficulty + 2, 7) where userid=? and number=?', (id, number))
     connection.commit()
     connection.close()

@@ -17,24 +17,31 @@ let correctAnswerSound;
 
 let remainingNumbers;
 let studiedPile = [];
+let incorrectPile = [];
 let rootElement;
+
+let currentNumber;
 
 function roll() {
     if (remainingNumbers.length == 0) {
-        // TO-DO: Ask user if they want to keep going
-        return;
+        if (incorrectPile.length == 0) {
+            // TO-DO: Take user back...
+            return;
+        }
+        remainingNumbers = incorrectPile;
+        incorrectPile = [];
     }
-    let number = remainingNumbers.pop();
+    currentNumber = remainingNumbers.pop();
     if (Math.random() > 0.5) {
         mode = MODE_TRANSLATE;
         promptQuestion.html('What number is this?');
-        promptNumber.html(number.french);
-        answer = number.number;
+        promptNumber.html(currentNumber.french);
+        answer = currentNumber.number;
     } else {
         mode = MODE_TYPE;
         promptQuestion.html('Write in French:');
-        promptNumber.html(number.number)
-        answer = number.french;
+        promptNumber.html(currentNumber.number)
+        answer = currentNumber.french;
     }
     let length = promptNumber.html().length;
     if (length < 5) {
@@ -57,7 +64,10 @@ function advance() {
             // lockInterface();
             // rootElement.addClass('correct');
             changeUICorrect();
+            recordCorrect(currentNumber, true);
         } else {
+            incorrectPile.push(currentNumber);
+            recordCorrect(currentNumber, false);
             changeUIIncorrect();
             // incorrectAnswerSound.load();
             // incorrectAnswerSound.play();
@@ -133,6 +143,10 @@ function fetchFailed() {
 function fetchNumbers() {
     // window.location.href
     sendAJAXRequest('/numbers/fetch', { learned: true }, numbersFetched, fetchFailed);
+}
+
+function recordCorrect(number, correct) {
+    sendAJAXRequest('/numbers/update', { type: 'attempt', number: number, correct: correct});
 }
 
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
