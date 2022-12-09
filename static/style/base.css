@@ -125,7 +125,7 @@ button.incorrect {
         --gradient-outer: 300; */
         filter: none;
     }
-    30%, 85% {
+    30%, 60% {
         /* --gradient-center: 359;
         --gradient-outer: 350;
         --button-left: 359;
