@@ -61,14 +61,12 @@ function advance() {
         let inputNoSpaces = input.replace(/\s/g, '');
         if (input == answer || inputNoSpaces == answer) {
             if (sound) {
-                correctAnswerSound.load();
                 correctAnswerSound.play();
             }
             changeUICorrect();
             recordCorrect(currentNumber, true);
         } else {
             if (sound) {
-                incorrectAnswerSound.load();
                 incorrectAnswerSound.play();
             }
             incorrectPile.push(currentNumber);
