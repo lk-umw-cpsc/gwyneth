@@ -219,10 +219,8 @@ def record_attempt(number, correct):
     connection = get_database()
     cursor = connection.cursor()
     if correct:
-        # cursor.execute('update userKnowsNumber set difficulty = max(difficulty - 1, 0) where userid=? and base10=?', (id, number))
-        cursor.execute('update userKnowsNumber set difficulty = difficulty - 1 where userid=? and base10=?', (id, number))
+        cursor.execute('update userKnowsNumber set difficulty = (case when difficulty > 0 then difficulty - 1 else 0 end) where userid=? and base10=?', (id, number))
     else:
-        # cursor.execute('update userKnowsNumber set difficulty = min(difficulty + 2, 7) where userid=? and base10=?', (id, number))
-        cursor.execute('update userKnowsNumber set difficulty = difficulty + 2 where userid=? and base10=?', (id, number))
+        cursor.execute('update userKnowsNumber set difficulty = (case when difficulty < 6 then difficulty + 2 else 7 end) where userid=? and base10=?', (id, number))
     connection.commit()
     connection.close()
