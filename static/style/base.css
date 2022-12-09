@@ -119,7 +119,7 @@ button.incorrect {
     }
 }
 
-@keyframes wrong-anim {
+@keyframes incorrect-anim {
     0%, 100% {
         /* --gradient-center: 330;
         --gradient-outer: 300; */
