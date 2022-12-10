@@ -15,7 +15,6 @@ let state = STATE_PROMPT;
 let incorrectAnswerSound;
 let correctAnswerSound;
 
-let remainingNumbersThisDifficulty = [];
 let remainingNumbers;
 let studiedPile = [];
 let incorrectPile = [];
@@ -27,13 +26,19 @@ let currentDifficulty;
 let sound;
 
 function roll() {
-    if (remainingNumbers.length == 0) {
-        if (incorrectPile.length == 0) {
-            // TO-DO: Take user back...
-            return;
+    if (remainingNumbers.length > 0) {
+        if (incorrectPile.length > 0 && currentNumber.difficulty > remainingNumbers[remainingNumbers.length - 1].difficulty) {
+            shuffleArray(incorrectPile);
+            remainingNumbers = remainingNumbers.concat(incorrectPile);
+            incorrectPile = [];
         }
+    } else if (incorrectPile.length > 0) {
+        shuffleArray(incorrectPile);
         remainingNumbers = incorrectPile;
         incorrectPile = [];
+    } else {
+        // we are out of numbers! do something!
+        return;
     }
     currentNumber = remainingNumbers.pop();
     if (Math.random() > 0.5) {
