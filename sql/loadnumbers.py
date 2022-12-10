@@ -126,9 +126,9 @@ connection = mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29
 cursor = connection.cursor()
 for i, n in enumerate(numbers):
     if i <= auto_fill_end:
-        i, french, english = n
-    else:
         french, english = n
-    cursor.execute('insert into number values (?, ?)', (i, french, english))
+    else:
+        i, french, english = n
+    cursor.execute('insert into number values (?, ?, ?)', (i, french, english))
 connection.commit()
 connection.close()
