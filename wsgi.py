@@ -87,12 +87,14 @@ def login():
     
     if request.method == 'POST':
         form = request.form
-        email = form['email']
+        email = form['email'].lower()
         password = form['password']
         result = authenticate_user(email, password)
         if result == 0:
             session['just logged in'] = 1
             return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error=True)
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -101,7 +103,9 @@ def register():
         return redirect(url_for('home'))
     if request.method == 'POST':
         form = request.form
-        email = form['email']
+        if 'email' not in form or 'password' not in form or 'name' not in form:
+            return 'INVALID REQUEST'
+        email = form['email'].lower()
         password = form['password']
         name = form['name']
         success = create_user(email, password, name)
