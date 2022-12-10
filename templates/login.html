@@ -11,7 +11,7 @@
         <form method="post">
             <h4>Log in</h4>
             {% if error %}
-            <h5>Login failed. Either no account exists with that email, or the password given was incorrect.</h5>
+            <div class="error-message">Login failed. Either no account exists with that email, or the password given was incorrect.</div>
             {% endif %}
             <label for="email">Email:</label>
             <input type="text" name="email" id="email" required>
