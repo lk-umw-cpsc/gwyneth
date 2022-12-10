@@ -25,7 +25,7 @@ let currentDifficulty;
 
 let sound;
 
-function roll() {
+function chooseAndDisplayNextPrompt() {
     if (remainingNumbers.length > 0) {
         if (incorrectPile.length > 0 && currentNumber.difficulty > remainingNumbers[remainingNumbers.length - 1].difficulty) {
             shuffleArray(incorrectPile);
@@ -62,7 +62,7 @@ function roll() {
     }
 }
 
-function advance() {
+function userSubmittedAnswer() {
     if (state == STATE_PROMPT) {
         let input = userInput.val().toLowerCase().trim();
         let correct;
@@ -87,7 +87,7 @@ function advance() {
         }
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
-        roll();
+        chooseAndDisplayNextPrompt();
         unlockInterface();
         rootElement.removeClass('incorrect');
         rootElement.removeClass('correct');
@@ -145,7 +145,7 @@ function numbersFetched() {
     }
     shuffleArray(remainingNumbers);
     remainingNumbers.sort(compareDifficulty);
-    roll();
+    chooseAndDisplayNextPrompt();
 }
 
 function fetchFailed() {
@@ -182,7 +182,7 @@ $(function() {
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
-            advance();
+            userSubmittedAnswer();
         }
     });
     $(document).keypress(function(event) {
@@ -191,13 +191,13 @@ $(function() {
             if (tag == 'input' || state != STATE_VIEW_ANSWER) {
                 return;
             }
-            advance();
+            userSubmittedAnswer();
         }
     });
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
-    checkButton.click(advance);
+    checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
     fetchNumbers();
 });
