@@ -341,9 +341,8 @@ p {
 
 .error-message {
     text-align: center;
-    padding: 0.75rem;
+    padding: 0.5rem;
     background-color: hsl(12, 100%, 25%);
     border: 1px solid hsl(12, 100%, 50%);
     border-radius: 1rem;
-    width: 100%;
 }
