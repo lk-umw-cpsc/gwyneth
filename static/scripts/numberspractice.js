@@ -62,7 +62,7 @@ function advance() {
         let input = userInput.val().toLowerCase();
         let correct;
         if (mode == MODE_TRANSLATE) {
-            correct = input == currentNumber.english || input == currentNumber.replaceAll('-', ' ') || input == currentNumber.number || input == currentNumber.number.toLocaleString('fr-FR');
+            correct = input == currentNumber.english || input == currentNumber.english.replaceAll('-', ' ') || input == currentNumber.number || input == currentNumber.number.toLocaleString('fr-FR');
         } else {
             correct = input == currentNumber.french;
         }
