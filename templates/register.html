@@ -10,6 +10,9 @@
         <h1 class="logo">étudamie</h1>
         <form method="post">
             <h4>Register</h4>
+            {% if creation_error %}
+            <div class="error-message">Account creation failed: an account with that email address already exists.</div>
+            {% endif %}
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" required>
             <label for="email">Email:</label>

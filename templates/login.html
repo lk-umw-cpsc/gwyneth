@@ -13,6 +13,9 @@
             {% if error %}
             <div class="error-message">Login failed. Either no account exists with that email, or the password given was incorrect.</div>
             {% endif %}
+            {% if creation_success %}
+            <div class="success-message">Account created successfully! Please log in.</div>
+            {% endif %}
             <label for="email">Email:</label>
             <input type="text" name="email" id="email" required>
             <label for="password">Password:</label>

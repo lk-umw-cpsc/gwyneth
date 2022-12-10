@@ -111,9 +111,9 @@ def register():
         success = create_user(email, password, name)
         if success:
             session['just registered'] = 1
-            return redirect(url_for('login', creationSuccess=1))
+            return redirect(url_for('login', creation_success=1))
         else:
-            return render_template('register.html', creationError=1)
+            return render_template('register.html', creation_error=1)
     return render_template('register.html')
 
 @app.route('/logout')
