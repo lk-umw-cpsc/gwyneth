@@ -5,8 +5,11 @@
 {% endblock %}
 {% block main %}
         <h1 class="logo">étudamie</h1>
-        {% if welcome %}
+        {% if login_welcome %}
         <h4>Welcome back, {{ name }}!</h4>
+        {% endif %}
+        {% if new_user_welcome %}
+        <h4>Welcome to étudamie, {{ name }}!</h4>
         {% endif %}
         <main>
             <h4>Choose an activity</h4>

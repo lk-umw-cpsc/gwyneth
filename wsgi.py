@@ -13,9 +13,14 @@ app.loggedin = False
 def home():
     if not user_logged_in():
         return redirect(url_for('login'))
-    welcome = 'welcome' in request.args
+    new_user_welcome = 'just registered' in session
+    login_welcome = not new_user_welcome and 'just logged in' in session
+    if 'just logged in' in session:
+        del session['just logged in']
+    if new_user_welcome:
+        del session['just registered']
     name = session['name']
-    return render_template('home.html', welcome=welcome, name=name)
+    return render_template('home.html', new_user_welcome=new_user_welcome, login_welcome=login_welcome)
 
 @app.route('/vocab')
 def vocab():
@@ -84,9 +89,10 @@ def login():
         form = request.form
         email = form['email']
         password = form['password']
-        if authenticate_user(email, password) == 0:
-            app.loggedin = True
-        return redirect(url_for('home', welcome=1))
+        result = authenticate_user(email, password) == 0
+        if result == 0:
+            session['just logged in'] = 1
+        return redirect(url_for('home'))
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -100,6 +106,7 @@ def register():
         name = form['name']
         success = create_user(email, password, name)
         if success:
+            session['just registered'] = 1
             return redirect(url_for('login', creationSuccess=1))
         else:
             return render_template('register.html', creationError=1)
