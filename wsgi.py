@@ -89,10 +89,10 @@ def login():
         form = request.form
         email = form['email']
         password = form['password']
-        result = authenticate_user(email, password) == 0
+        result = authenticate_user(email, password)
         if result == 0:
             session['just logged in'] = 1
-        return redirect(url_for('home'))
+            return redirect(url_for('home'))
     return render_template("login.html")
 
 @app.route('/register', methods=['GET', 'POST'])
