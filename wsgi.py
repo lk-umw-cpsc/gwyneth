@@ -208,24 +208,24 @@ def get_user_unlearned_numbers():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select base10, french from number where base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
+    cursor.execute('select base10, english, french from number where base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     connection.close()
     numbers_as_dicts = []
-    for number, french in numbers:
-        numbers_as_dicts.append({'number': number, 'french': french})
+    for number, english, french in numbers:
+        numbers_as_dicts.append({'number': number, 'english': english, 'french': french})
     return numbers_as_dicts
 
 def get_user_known_numbers():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select a.base10, french, difficulty from number as a, userKnowsNumber as b where a.base10=b.base10 and userid=?', (id,))
+    cursor.execute('select a.base10, french, english, difficulty from number as a, userKnowsNumber as b where a.base10=b.base10 and userid=?', (id,))
     numbers = cursor.fetchall()
     connection.close()
     numbers_as_dicts = []
-    for number, french, difficulty in numbers:
-        numbers_as_dicts.append({'number': number, 'french': french, 'difficulty': difficulty})
+    for number, french, english, difficulty in numbers:
+        numbers_as_dicts.append({'number': number, 'french': french, 'english': english, 'difficulty': difficulty})
     return numbers_as_dicts
 
 def mark_number_as_learned(number):
