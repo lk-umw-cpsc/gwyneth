@@ -59,7 +59,7 @@ function roll() {
 
 function advance() {
     if (state == STATE_PROMPT) {
-        let input = userInput.val().toLowerCase();
+        let input = userInput.val().toLowerCase().trim();
         let correct;
         if (mode == MODE_TRANSLATE) {
             correct = input == currentNumber.english || input == currentNumber.english.replaceAll('-', ' ') || input == currentNumber.number || input == currentNumber.number.toLocaleString('fr-FR');
