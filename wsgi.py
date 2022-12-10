@@ -20,7 +20,7 @@ def home():
     if new_user_welcome:
         del session['just registered']
     name = session['name']
-    return render_template('home.html', new_user_welcome=new_user_welcome, login_welcome=login_welcome)
+    return render_template('home.html', name=name, new_user_welcome=new_user_welcome, login_welcome=login_welcome)
 
 @app.route('/vocab')
 def vocab():

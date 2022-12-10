@@ -15,14 +15,31 @@ let state = STATE_PROMPT;
 let incorrectAnswerSound;
 let correctAnswerSound;
 
+let remainingNumbersThisDifficulty = [];
 let remainingNumbers;
 let studiedPile = [];
 let incorrectPile = [];
 let rootElement;
 
 let currentNumber;
+let currentDifficulty;
 
 let sound;
+
+let english = [
+    'zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
+    'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen',
+    'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five', 'twenty-six', 'twenty-seven', 'twenty-eight', 'twenty-nine',
+    'thirty', 'thirty-one', 'thirty-two', 'thirty-three', 'thirty-four', 'thirty-five', 'thirty-six', 'thirty-seven', 'thirty-eight', 'thirty-nine',
+    'forty', 'forty-one', 'forty-two', 'forty-three', 'forty-four', 'forty-five', 'forty-six', 'forty-seven', 'forty-eight', 'forty-nine',
+    'fifty', 'fifty-one', 'fifty-two', 'fifty-three', 'fifty-four', 'fifty-five', 'fifty-six', 'fifty-seven', 'fifty-eight', 'fifty-nine',
+    'sixty', 'sixty-one', 'sixty-two', 'sixty-three', 'sixty-four', 'sixty-five', 'sixty-six', 'sixty-seven', 'sixty-eight', 'sixty-nine',
+    'seventy', 'seventy-one', 'seventy-two', 'seventy-three', 'seventy-four', 'seventy-five', 'seventy-six', 'seventy-seven', 'seventy-eight', 'seventy-nine',
+    'eighty', 'eighty-one', 'eighty-two', 'eighty-three', 'eighty-four', 'eighty-five', 'eighty-six', 'eighty-seven', 'eighty-eight', 'eighty-nine',
+    'ninety', 'ninety-one', 'ninety-two', 'ninety-three', 'ninety-four', 'ninety-five', 'ninety-six', 'ninety-seven', 'ninety-eight', 'ninety-nine',
+    'one hundred', 'one hundred one', 'two hundred', 'two hundred one', 'one thousand', 'one thousand one', 'two thousand', 'ten thousand', 'one hundred thousand',
+    'one million', 'one million one', 'two million', 'two million one', 'one billion', 'one billion one', 'two billion', 'two billion one'
+];
 
 function roll() {
     if (remainingNumbers.length == 0) {
@@ -175,12 +192,12 @@ $(function() {
     });
     $(document).keypress(function(event) {
         if (event.which == 13) {
-        var tag = event.target.tagName.toLowerCase();
-        if (tag == 'input' || state != STATE_VIEW_ANSWER) {
-            return;
+            var tag = event.target.tagName.toLowerCase();
+            if (tag == 'input' || state != STATE_VIEW_ANSWER) {
+                return;
+            }
+            advance();
         }
-        advance();
-    }
     });
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
