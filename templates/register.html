@@ -14,11 +14,11 @@
             <div class="error-message">Account creation failed: an account with that email address already exists.</div>
             {% endif %}
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" required maxlength="64">
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
+            <input type="email" name="email" id="email" required maxlength="254">
             <label for="password">Password:</label>
-            <input type="password" name="password" id="password" required minlength="8">
+            <input type="password" name="password" id="password" required minlength="8" maxlength="1024">
             <input type="submit" value="Register">
             <p>Or <a href="{{ url_for('login') }}">log in</a> if you already have an account!</p>
         </form>

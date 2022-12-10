@@ -87,8 +87,12 @@ def login():
     
     if request.method == 'POST':
         form = request.form
+        if 'email' not in form or 'password' not in form:
+            return 'INVALID REQUEST'
         email = form['email'].lower()
         password = form['password']
+        if not email or not password or len(email) > 254 or len(password) < 8 or len(password) > 1024:
+            return 'INVALID REQUEST'
         result = authenticate_user(email, password)
         if result == 0:
             session['just logged in'] = 1
@@ -109,6 +113,9 @@ def register():
         email = form['email'].lower()
         password = form['password']
         name = form['name']
+        # to-do: add email validation here
+        if not name or not email or not password or len(name) > 64 or len(email) > 254 or len(password) < 8 or len(password) > 1024:
+            return 'INVALID REQUEST'
         success = create_user(email, password, name)
         if success:
             session['just registered'] = 1
@@ -179,12 +186,15 @@ def authenticate_user(email, password):
     session['email'] = email
     return 0
 
-def user_logged_in():
-    return 'userid' in session
-
 def hash_password(password, salt):
     # using password-based key derivation with salt
     return hashlib.pbkdf2_hmac('sha256', password.encode(), salt, 10000)
+
+def is_invalid_email(email):
+    pass
+
+def user_logged_in():
+    return 'userid' in session
 
 def generate_password_salt():
     return os.urandom(32)

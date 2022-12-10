@@ -11,8 +11,8 @@ create or replace table user (
 
 create or replace table number (
     base10 int primary key,
-    french varchar(64),
-    english varchar(64),
+    french varchar(256),
+    english varchar(256)
 );
 
 create or replace table userKnowsNumber (
