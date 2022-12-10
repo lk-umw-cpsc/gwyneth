@@ -95,7 +95,8 @@ def login():
             return redirect(url_for('home'))
         else:
             return render_template('login.html', error=True)
-    return render_template("login.html")
+    creation_success = 'creationSuccess' in request.args
+    return render_template("login.html", creation_success=creation_success)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -111,7 +112,7 @@ def register():
         success = create_user(email, password, name)
         if success:
             session['just registered'] = 1
-            return redirect(url_for('login', creation_success=1))
+            return redirect(url_for('login', creationSuccess=1))
         else:
             return render_template('register.html', creation_error=1)
     return render_template('register.html')
