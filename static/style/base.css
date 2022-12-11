@@ -234,7 +234,7 @@ header > ul > li {
     filter: invert(1);
 }
 
-@media only screen and (min-width: 428px) {
+@media only screen and (min-width: 429px) {
     header {
         flex-direction: row;
         justify-content: center;
