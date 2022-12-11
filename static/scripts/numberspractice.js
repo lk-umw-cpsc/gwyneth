@@ -16,7 +16,6 @@ let incorrectAnswerSound;
 let correctAnswerSound;
 
 let remainingNumbers;
-let studiedPile = [];
 let incorrectPile = [];
 let rootElement;
 
@@ -37,7 +36,8 @@ function chooseAndDisplayNextPrompt() {
         remainingNumbers = incorrectPile;
         incorrectPile = [];
     } else {
-        // we are out of numbers! do something!
+        $('#prompt-container').addClass('hidden');
+        $('#out-of-cards').removeClass('hidden');
         return;
     }
     currentNumber = remainingNumbers.pop();
@@ -134,6 +134,10 @@ function compareDifficulty(a, b) {
     return a.difficulty - b.difficulty;
 }
 
+function practiceAgainClicked() {
+    location.reload();
+}
+
 function numbersFetched() {
     let response = JSON.parse(this.responseText);
     let numbers = response.numbers;
@@ -199,5 +203,6 @@ $(function() {
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
+    $('#practice-again').click(practiceAgainClicked);
     fetchNumbers();
 });

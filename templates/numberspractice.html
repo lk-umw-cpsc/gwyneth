@@ -8,12 +8,18 @@
 {% endblock %}
 {% block main %}
     <h1 class="logo">numbers</h1>
-    <main>
+    <main id="prompt-container">
         <h4 id="prompt-question"></h4>
         <div class="static-container">
             <span id="prompt-number"></span>
         </div>
         <input type="text" id="user-input" autocapitalize="off" autocomplete="off" autocorrect="off">
         <button id="check" class="medium">Check</button>
+    </main>
+    <main id="out-of-cards" class="hidden">
+        <h4>That's all of them!</h4>
+        <p>You can <a href="{{ url_for('numbers_learn') }}">learn more numbers</a></p>
+        <h5>or</h5>
+        <button id="practice-again">Practice Again!</button>
     </main>
 {% endblock %}

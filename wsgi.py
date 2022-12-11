@@ -213,7 +213,7 @@ def get_user_unlearned_numbers():
     connection.close()
     numbers_as_dicts = []
     for number, english, french in numbers:
-        numbers_as_dicts.append({'number': number, 'english': english, 'french': french})
+        numbers_as_dicts.append({ 'number': number, 'english': english, 'french': french })
     return numbers_as_dicts
 
 def get_user_known_numbers():
