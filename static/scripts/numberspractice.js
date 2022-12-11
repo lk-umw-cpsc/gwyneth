@@ -203,6 +203,7 @@ $(function() {
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
+    $('#learn-more').click(function() { location.href = '/numbers/learn'; });
     $('#practice-again').click(practiceAgainClicked);
     fetchNumbers();
 });
