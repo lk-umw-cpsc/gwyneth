@@ -42,7 +42,7 @@ function nextNumber() {
     amountLearned++;
     $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
-    $('#term-english').html(currentNumber.number);
+    $('#term-english').html(currentNumber.number.toLocaleString('fr-FR'));
     $('#term-french').html(currentNumber.french);
     $('#you-try').attr('placeholder', currentNumber.french).val('').focus();
 }
