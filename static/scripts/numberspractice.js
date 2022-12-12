@@ -67,7 +67,7 @@ function userSubmittedAnswer() {
         let input = userInput.val().toLowerCase().trim();
         let correct;
         if (mode == MODE_TRANSLATE) {
-            correct = input == currentNumber.english || input == currentNumber.english.replaceAll('-', ' ') || input == currentNumber.number || input.replace(' ', '') == currentNumber.number;
+            correct = input == currentNumber.english || input == currentNumber.english.replaceAll('-', ' ') || input == currentNumber.number || input.replaceAll(' ', '') == currentNumber.number;
         } else {
             correct = input == currentNumber.french;
         }
