@@ -79,4 +79,9 @@ $(function() {
     $('#practice').click(function() { location.href = "/numbers/practice"; });
     $('#keep-going').click(nextNumber);
     $('#out-practice').click(function() { location.href = "/numbers/practice"; });
+    $('#review').click(function() { 
+        $('#out-of-numbers').addClass('hidden');
+        $('#learning-prompt').removeClass('hidden');
+        sendAJAXRequest('/numbers/fetch', {learned: true}, numbersFetched, fetchFailed);
+});
 });
