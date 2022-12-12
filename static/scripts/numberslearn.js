@@ -38,6 +38,7 @@ function nextNumber() {
             $('#learning-prompt').removeClass('hidden');
         }
     }
+    amountLearned++;
     $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
