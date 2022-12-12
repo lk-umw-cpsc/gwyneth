@@ -6,7 +6,7 @@
 {% endblock %}
 {% block main %}
     <h1 class="logo">learn</h1>
-    <main>
+    <main id="learning-prompt">
         <div>
             <h4>To say</h4>
             <h1 id="term-english">&nbsp;</h1>
@@ -16,5 +16,21 @@
         <h4>You try!</h4>
         <input type="text" id="you-try" placeholder="" required autocapitalize="off" autocomplete="off" autocorrect="off">
         <button id="got-it" class="medium" disabled>Got it!</button>
+    </main>
+    <main id="keep-going-prompt" class="hidden">
+        <h4>Wow, you're on a roll!</h4>
+        <p>That's 10 new terms!</p>
+        <p>You can either</p>
+        <button id="practice">Practice Those 10</button>
+        <p>or</p>
+        <button id="keep-going">Keep Going!</button>
+    </main>
+    <main id="out-of-numbers" class="hidden">
+        <h4>Look at you!</h4>
+        <p>That's all the numbers we have to teach you!</p>
+        <p>You can either</p>
+        <button>Review</button>
+        <p>or</p>
+        <button>Practice</button>
     </main>
 {% endblock %}

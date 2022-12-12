@@ -1,6 +1,8 @@
 let numbers;
 let currentNumber;
 
+let amountLearned = 0;
+
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     var request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -25,6 +27,17 @@ function nextNumber() {
     if (numbers.length == 0) {
         // TO-DO: let user know they're out of numbers to learn...
         return;
+    }
+    amountLearned++;
+    if (amountLearned % 10 == 0) {
+        if ($('#keep-going-prompt').attr('class') == 'hidden') {
+            $('#keep-going-prompt').removeClass('hidden');
+            $('#learning-prompt').addClass('hidden');
+            return;
+        } else {
+            $('#keep-going-prompt').addClass('hidden');
+            $('#learning-prompt').removeClass('hidden');
+        }
     }
     $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
@@ -62,4 +75,6 @@ $(function() {
     });
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedNumbers();
+    $('#practice').click(function() { location.href = "/numbers/practice"; });
+    $('#keep-going').click(advance);
 });
