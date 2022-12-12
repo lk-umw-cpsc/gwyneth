@@ -28,7 +28,6 @@ function nextNumber() {
         // TO-DO: let user know they're out of numbers to learn...
         return;
     }
-    amountLearned++;
     if (amountLearned % 10 == 0) {
         if ($('#keep-going-prompt').attr('class') == 'hidden') {
             $('#keep-going-prompt').removeClass('hidden');
@@ -39,6 +38,7 @@ function nextNumber() {
             $('#learning-prompt').removeClass('hidden');
         }
     }
+    amountLearned++;
     $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
@@ -76,5 +76,5 @@ $(function() {
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedNumbers();
     $('#practice').click(function() { location.href = "/numbers/practice"; });
-    $('#keep-going').click(advance);
+    $('#keep-going').click(nextNumber);
 });
