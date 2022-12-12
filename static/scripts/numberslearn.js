@@ -25,7 +25,8 @@ function fetchFailed() {
 
 function nextNumber() {
     if (numbers.length == 0) {
-        // TO-DO: let user know they're out of numbers to learn...
+        $('#out-of-numbers').removeClass('hidden');
+        $('#learning-prompt').addClass('hidden');
         return;
     }
     if (amountLearned && amountLearned % 10 == 0) {
@@ -77,4 +78,5 @@ $(function() {
     fetchUnlearnedNumbers();
     $('#practice').click(function() { location.href = "/numbers/practice"; });
     $('#keep-going').click(nextNumber);
+    $('#out-practice').click(function() { location.href = "/numbers/practice"; });
 });
