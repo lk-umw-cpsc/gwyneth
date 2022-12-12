@@ -28,7 +28,7 @@ function nextNumber() {
         // TO-DO: let user know they're out of numbers to learn...
         return;
     }
-    if (amountLearned % 10 == 0) {
+    if (amountLearned && amountLearned % 10 == 0) {
         if ($('#keep-going-prompt').attr('class') == 'hidden') {
             $('#keep-going-prompt').removeClass('hidden');
             $('#learning-prompt').addClass('hidden');
@@ -38,7 +38,6 @@ function nextNumber() {
             $('#learning-prompt').removeClass('hidden');
         }
     }
-    amountLearned++;
     $('#got-it').prop('disabled', true);
     currentNumber = numbers.pop();
     $('#term-english').html(currentNumber.number);
