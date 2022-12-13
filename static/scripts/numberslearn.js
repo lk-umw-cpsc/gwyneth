@@ -83,5 +83,5 @@ $(function() {
         $('#out-of-numbers').addClass('hidden');
         $('#learning-prompt').removeClass('hidden');
         sendAJAXRequest('/numbers/fetch', {learned: true}, numbersFetched, fetchFailed);
-});
+    });
 });
