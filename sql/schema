@@ -19,9 +19,54 @@ create or replace table userKnowsNumber (
     userid int,
     base10 int,
     difficulty int default 5,
-    foreign key (userid) references user(id),
-    foreign key (base10) references number(base10),
+    foreign key (userid) references user(id)
+    on delete cascade
+    on update cascade,
+    foreign key (base10) references number(base10)
+    on delete cascade
+    on update cascade,
     unique (userid, base10)
+);
+
+create or replace table term (
+    id int primary key AUTO_INCREMENT,
+    english varchar(128),
+    french varchar(128),
+    englishAlt varchar(256),
+    frenchAlt varchar(256),
+    gender int default 0
+);
+
+create or replace table category (
+    id int primary key AUTO_INCREMENT,
+    sortindex int default 0,
+    name varchar(256),
+    ischapter boolean
+);
+
+create or replace table termInCategory (
+    termid int,
+    categoryid int,
+    foreign key (termid) references term(id)
+    on delete cascade
+    on update cascade,
+    foreign key (categoryid) references category(id)
+    on delete cascade
+    on update cascade,
+    primary key (termid, categoryid)
+);
+
+create or replace table userKnowsTerm (
+    userid int,
+    termid int,
+    difficulty int default 5,
+    foreign key (userid) references user(id)
+    on delete cascade
+    on update cascade,
+    foreign key (termid) references term(id)
+    on delete cascade
+    on update cascade,
+    primary key (userid, termid)
 );
 
 SET FOREIGN_KEY_CHECKS = 1;

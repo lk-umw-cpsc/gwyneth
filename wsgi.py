@@ -75,6 +75,8 @@ def numbers_update():
             return 'INVALID REQUEST'
         correct = data['correct']
         record_attempt(number, correct)
+    elif data['type'] == 'learn all':
+        mark_all_numbers_as_learned()
     else:
         return 'INVALID REQUEST'
     return jsonify(sucess=True)
@@ -233,6 +235,17 @@ def mark_number_as_learned(number):
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
+    connection.commit()
+    connection.close()
+
+def mark_all_numbers_as_learned(number):
+    id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select base10 from number where number.base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
+    numbers = cursor.fetchall()
+    for number, in numbers:
+        cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
     connection.commit()
     connection.close()
 

@@ -138,18 +138,30 @@ function practiceAgainClicked() {
     location.reload();
 }
 
+function practiceAnywayClicked() {
+    $('#practice-anyway').prop('disabled', true);
+    sendAJAXRequest('/numbers/update', { type: 'learn all' }, function() {
+        location.reload();
+    });
+}
+
 function numbersFetched() {
     let response = JSON.parse(this.responseText);
     let numbers = response.numbers;
     const length = numbers.length;
-    console.log(length);
-    remainingNumbers = new Array(length);
-    for (let i = 0; i < length; i++) {
-        remainingNumbers[i] = numbers[i];
+    if (length == 0) {
+        // sendAJAXRequest('/numbers/update', { type: 'learn all' });
+        $('#prompt-container').addClass('hidden');
+        $('#none-learned').removeClass('hidden');
+    } else {
+        remainingNumbers = new Array(length);
+        for (let i = 0; i < length; i++) {
+            remainingNumbers[i] = numbers[i];
+        }
+        shuffleArray(remainingNumbers);
+        remainingNumbers.sort(compareDifficulty);
+        chooseAndDisplayNextPrompt();
     }
-    shuffleArray(remainingNumbers);
-    remainingNumbers.sort(compareDifficulty);
-    chooseAndDisplayNextPrompt();
 }
 
 function fetchFailed() {
@@ -204,6 +216,8 @@ $(function() {
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
     $('#learn-more').click(function() { location.href = '/numbers/learn'; });
+    $('#learn').click(function() { location.href = '/numbers/learn'; });
+    $('#practice-anyway').click(practiceAnywayClicked);
     $('#practice-again').click(practiceAgainClicked);
     fetchNumbers();
 });
