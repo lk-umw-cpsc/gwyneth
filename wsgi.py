@@ -67,7 +67,7 @@ def numbers_update():
     data = request.get_json()
     if 'type' not in data:
         return 'INVALID REQUEST'
-        
+
     update_type = data['type']
     if update_type == 'learn all':
         mark_all_numbers_as_learned()
@@ -251,7 +251,6 @@ def mark_all_numbers_as_learned():
     cursor.execute('select base10 from number where number.base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     for number, in numbers:
-        print(number)
         cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
     connection.commit()
     connection.close()
