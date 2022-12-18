@@ -1,8 +1,8 @@
 import mariadb
 
 round1 = [
-    ('an actor','un acteur','a male actor',None,1,['Professions', 'Art & Theater', 'Liaisons Ch. 7 Part 1']),
-    ('an actress','une actrice','a female actor',None,2,['Professions', 'Art & Theater', 'Liaisons Ch. 7 Part 1']),
+    ('an actor','un acteur','a male actor',None,1,['Professions', 'Art & Theatre', 'Liaisons Ch. 7 Part 1']),
+    ('an actress','une actrice','a female actor',None,2,['Professions', 'Art & Theatre', 'Liaisons Ch. 7 Part 1']),
     ('a police officer','un agent de police','a male police officer',None,1,['Professions', 'Liaisons Ch. 7 Part 1']),
     ('a female police officer','une agente de police','a police offer',None,2,['Professions', 'Liaisons Ch. 7 Part 1']),
     ('a social worker','un assistant social','a male social worker',None,1,['Professions', 'Liaisons Ch. 7 Part 1']),
