@@ -106,7 +106,7 @@ for category in cursor.fetchall():
     category_ids[name] = id 
 
 def category_create(category_name, cursor):
-    cursor.execute('insert into category values (default, ?, ?)', (category_name, category_name.startswith('Liaisons Ch')))
+    cursor.execute('insert into category (sortindex, name, ischapter) values (default, ?, ?)', (category_name, category_name.startswith('Liaisons Ch')))
     return cursor.lastrowid
 for entry in round1:
     # english, french, english alts, french alts, gender (0/1/2), [Categories]
