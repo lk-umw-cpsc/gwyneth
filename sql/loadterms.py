@@ -114,7 +114,7 @@ for entry in round1:
     ids = []
     for category in categories:
         if category not in category_ids:
-            cid = category_create(category)  
+            cid = category_create(category, cursor)  
             category_ids[category] = cid
         else:
             ids.append(category_ids[category])
