@@ -80,7 +80,7 @@ round1 = [
     ('a piece of paper','une feuille de papier',None,None,2,['Classroom/Office Objects', 'Liaisons Ch. P Part 2']),
     ('a clock','une horloge',None,None,2,['Classroom/Office Objects', 'Workplace', 'Time', 'Liaisons Ch. P Part 2']),
     ('a book','un livre',None,None,1,['Classroom/Office Objects', 'Art & Theatre', 'Liaisons Ch. P Part 2']),
-    ('a computer','un ordinateur',None,None,1,['Classroom/Office Objects', 'Technology,' 'Liaisons Ch. P Part 2']),
+    ('a computer','un ordinateur',None,None,1,['Classroom/Office Objects', 'Technology', 'Liaisons Ch. P Part 2']),
     ('a laptop','un ordinateur portable','a laptop computer',None,1,['Classroom/Office Objects', 'Technology', 'Liaisons Ch. P Part 2']),
     ('a door','une porte',None,None,2,['Classroom/Office Objects', 'Household', 'Liaisons Ch. P Part 2']),
     ('a waste basket','une poubelle','a trashcan',None,2,['Classroom/Office Objects', 'Household', 'Liaisons Ch. P Part 2']),
