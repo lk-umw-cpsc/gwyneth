@@ -105,14 +105,17 @@ for category in cursor.fetchall():
     id, name = category
     category_ids[name] = id 
 
+def category_create(category_name, cursor):
+    cursor.execute('insert into category values (default, ?, ?)', (category_name, category_name.startswith('Liaisons Ch')))
+    return cursor.lastrowid
 for entry in round1:
     # english, french, english alts, french alts, gender (0/1/2), [Categories]
     english, french, english_alts, french_alts, gender, categories = entry
     ids = []
     for category in categories:
         if category not in category_ids:
-            # add category...
-            pass    
+            cid = category_create(category)  
+            category_ids[category] = cid
         else:
             ids.append(category_ids[category])
     cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
