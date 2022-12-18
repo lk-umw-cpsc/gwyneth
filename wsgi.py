@@ -65,18 +65,24 @@ def numbers_update():
     if not user_logged_in():
         return "INVALID REQUEST"
     data = request.get_json()
-    if 'number' not in data or 'type' not in data:
+    if 'type' not in data:
+        return 'INVALID REQUEST'
+        
+    update_type = data['type']
+    if update_type == 'learn all':
+        mark_all_numbers_as_learned()
+        return jsonify(sucess=True)
+    
+    if 'number' not in data:
         return 'INVALID REQUEST'
     number = data['number']
-    if data['type'] == 'learned':
+    if update_type == 'learned':
         mark_number_as_learned(number)
-    elif data['type'] == 'attempt':
+    elif update_type == 'attempt':
         if 'correct' not in data:
             return 'INVALID REQUEST'
         correct = data['correct']
         record_attempt(number, correct)
-    elif data['type'] == 'learn all':
-        mark_all_numbers_as_learned()
     else:
         return 'INVALID REQUEST'
     return jsonify(sucess=True)
