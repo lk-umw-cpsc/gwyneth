@@ -238,13 +238,14 @@ def mark_number_as_learned(number):
     connection.commit()
     connection.close()
 
-def mark_all_numbers_as_learned(number):
+def mark_all_numbers_as_learned():
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('select base10 from number where number.base10 not in (select base10 from userKnowsNumber where userid=?)', (id,))
     numbers = cursor.fetchall()
     for number, in numbers:
+        print(number)
         cursor.execute('replace into userKnowsNumber values (?, ?, ?)', (id, number, 5))
     connection.commit()
     connection.close()
