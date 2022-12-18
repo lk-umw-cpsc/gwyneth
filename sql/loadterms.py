@@ -120,7 +120,7 @@ for entry in round1:
             ids.append(category_ids[category])
     cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
     term_id = cursor.lastrowid
-    for category, category_id in category_ids:
+    for category, category_id in category_ids.items():
         cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
 
 connection.commit()
