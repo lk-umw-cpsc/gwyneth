@@ -9,7 +9,7 @@
         <main>
             <h4>Choose a category</h4>
             {% for category in categories %}
-            <a class="medium button" href="{{ url_for('vocab_category_view', id=category['id']) }}">{{ category['name'] }}</a>
+            <a class="medium button" href="{{ category['id'] }}">{{ category['name'] }}</a>
             {% endfor %}
         </main>
 {% endblock %}
