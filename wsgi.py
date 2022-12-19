@@ -30,6 +30,13 @@ def vocab():
 def verbs():
     return 'TBI'
 
+# Vocab pages
+@app.route('/vocab/categories')
+def vocab_categories():
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    return render_template('vocabcategories.html', categories=get_categories())
+
 # Numbers pages
 @app.route('/numbers')
 def numbers():
@@ -210,6 +217,20 @@ def generate_password_salt():
 # MariaDB utility
 def get_database():
     return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
+
+# Vocab related SQL functions
+def get_categories():
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select id, name from category where ischapter=0')
+    categories = []
+    for id, name in cursor.fetchall():
+        category = {}
+        category['id'] = id
+        category['name'] = name
+        categories.append(category)
+    connection.close()
+    return categories 
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
