@@ -1,0 +1,37 @@
+{% extends 'basictemplate.html' %}
+{% block title %} - learn {{ category }}{% endblock %}
+{% block head %}
+    <!-- <script src="{{ url_for('static', filename='scripts/numberslearn.js') }}"></script> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/numberslearn.css') }}"> -->
+{% endblock %}
+{% block main %}
+    <h1 class="logo">learn</h1>
+    <main id="learning-prompt">
+        <div>
+            <h4>To say</h4>
+            <h1 id="term-english">&nbsp;</h1>
+            <h4>in French, we say</h4>
+            <h1 id="term-french">&nbsp;</h1>
+        </div>
+        <h4>You try!</h4>
+        <input type="text" id="you-try" placeholder="" required autocapitalize="off" autocomplete="off" autocorrect="off">
+        <button id="got-it" class="medium" disabled>Got it!</button>
+    </main>
+    <main id="keep-going-prompt" class="hidden">
+        <h4>Wow, you're on a roll!</h4>
+        <p>That's 10 new terms!</p>
+        <h5>You can either</h5>
+        <button id="practice" class="medium">Practice Those 10</button>
+        <p>or</p>
+        <button id="keep-going" class="medium">Keep Going!</button>
+    </main>
+    <main id="out-of-numbers" class="hidden">
+        <h4>Look at you!</h4>
+        <p>That's all the terms in this category that we have to teach you!</p>
+        <h5>You can either</h5>
+        <button id="review" class="medium">Review</button>
+        <p>or</p>
+        <button id="out-practice" class="medium">Practice</button>
+    </main>
+    <input type="hidden" id="category-id" value="{{ category_id }}">
+{% endblock %}

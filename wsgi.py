@@ -39,19 +39,21 @@ def vocab_categories():
 
 @app.route('/vocab/<int:category_id>')
 def vocab_category(category_id):
-    connection = get_database()
-    cursor = connection.cursor()
-    cursor.execute('select name from category where id=?', (category_id,))
-    result = cursor.fetchone()
-    if result == None:
+    name = get_category_name(category_id)
+    if not name:
         return 'INVALID REQUEST'
-    name, = result
-    connection.close()
     return render_template('vocab.html', category=name, category_id=category_id)
 
 @app.route('/vocab/<int:category_id>/learn')
 def vocab_learn(category_id):
-    return 'TBI'
+    name = get_category_name(category_id)
+    if not name:
+        return 'INVALID REQUEST'
+    return render_template('vocablearn.html', category=name, category_id=category_id)
+
+@app.route('/vocab/<int:category_id>/fetch')
+def vocab_learn(category_id):
+    return jsonify(get_terms_in_category(category_id))
 
 @app.route('/vocab/<int:category_id>/practice')
 def vocab_practice(category_id):
@@ -276,6 +278,17 @@ def get_terms_in_category(category_id):
         terms.append(term)
     connection.close()
     return terms
+
+def get_category_name(category_id):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select name from category where id=?', (category_id,))
+    result = cursor.fetchone()
+    if result == None:
+        return None
+    name, = result
+    connection.close()
+    return name
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
