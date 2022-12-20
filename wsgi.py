@@ -51,7 +51,7 @@ def vocab_learn(category_id):
         return 'INVALID REQUEST'
     return render_template('vocablearn.html', category=name, category_id=category_id)
 
-@app.route('/vocab/<int:category_id>/fetch')
+@app.route('/vocab/<int:category_id>/fetch', methods=['POST'])
 def vocab_fetch(category_id):
     return jsonify(get_terms_in_category(category_id))
 
