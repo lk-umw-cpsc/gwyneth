@@ -39,7 +39,15 @@ def vocab_categories():
 
 @app.route('/vocab/<int:category_id>')
 def vocab_category(category_id):
-    return get_terms_in_category(category_id)
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select name from category where id=?', (category_id,))
+    result = cursor.fetchone()
+    if result == None:
+        return 'INVALID REQUEST'
+    name, = result
+    connection.close()
+    return render_template('vocab.html', category=name, category_id=category_id)
 
 @app.route('/vocab/<int:category_id>/learn')
 def vocab_learn(category_id):
