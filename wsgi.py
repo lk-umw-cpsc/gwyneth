@@ -53,7 +53,7 @@ def vocab_learn(category_id):
 
 @app.route('/vocab/<int:category_id>/fetch', methods=['POST'])
 def vocab_fetch(category_id):
-    return jsonify(get_terms_in_category(category_id))
+    return jsonify(terms=get_terms_in_category(category_id))
 
 @app.route('/vocab/<int:category_id>/practice')
 def vocab_practice(category_id):

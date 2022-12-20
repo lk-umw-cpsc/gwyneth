@@ -17,7 +17,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 
 function termsFetched() {
     let response = JSON.parse(this.responseText);
-    terms = response.numbers.reverse();
+    terms = response.terms.reverse();
     nextTerm();
 }
 
