@@ -37,7 +37,7 @@ def vocab_categories():
         return redirect(url_for('login'))
     return render_template('vocabcategories.html', categories=get_categories())
 
-@app.route('vocab/<int:category_id>')
+@app.route('/vocab/<int:category_id>')
 def vocab_category(category_id):
     return get_terms_in_category(category_id)
 
