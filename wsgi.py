@@ -37,6 +37,10 @@ def vocab_categories():
         return redirect(url_for('login'))
     return render_template('vocabcategories.html', categories=get_categories())
 
+@app.route('vocab/<int:category_id>')
+def vocab_category(category_id):
+    return get_terms_in_category(category_id)
+
 # Numbers pages
 @app.route('/numbers')
 def numbers():
@@ -230,7 +234,32 @@ def get_categories():
         category['name'] = name
         categories.append(category)
     connection.close()
-    return categories 
+    return categories
+
+def get_terms_in_category(category_id):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select french, english, englishAlt, frenchAlt, id, gender from term where id in (select termid from termInCategory where categoryid=?)', (category_id,))
+    terms = []
+    for french, english, englishAlt, frenchAlt, id, gender in cursor.fetchall():
+        if gender == 1:
+            genderstr = 'm'
+        elif gender == 2:
+            genderstr = 'f'
+        else:
+            genderstr = 'n'
+
+        term = {
+            'french': french,
+            'english': english,
+            'englishAlts': englishAlt,
+            'frenchAlts': frenchAlt,
+            'id': id,
+            'gender': genderstr
+        }
+        terms.append(term)
+    connection.close()
+    return terms
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
