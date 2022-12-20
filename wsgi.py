@@ -52,7 +52,7 @@ def vocab_learn(category_id):
     return render_template('vocablearn.html', category=name, category_id=category_id)
 
 @app.route('/vocab/<int:category_id>/fetch')
-def vocab_learn(category_id):
+def vocab_fetch(category_id):
     return jsonify(get_terms_in_category(category_id))
 
 @app.route('/vocab/<int:category_id>/practice')
