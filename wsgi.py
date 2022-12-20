@@ -41,6 +41,14 @@ def vocab_categories():
 def vocab_category(category_id):
     return get_terms_in_category(category_id)
 
+@app.route('/vocab/<int:category_id>/learn')
+def vocab_learn(category_id):
+    return 'TBI'
+
+@app.route('/vocab/<int:category_id>/practice')
+def vocab_practice(category_id):
+    return 'TBI'
+
 # Numbers pages
 @app.route('/numbers')
 def numbers():
