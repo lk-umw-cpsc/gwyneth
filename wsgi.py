@@ -39,6 +39,8 @@ def vocab_categories():
 
 @app.route('/vocab/<int:category_id>')
 def vocab_category(category_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
     name = get_category_name(category_id)
     if not name:
         return 'INVALID REQUEST'
@@ -46,10 +48,21 @@ def vocab_category(category_id):
 
 @app.route('/vocab/<int:category_id>/learn')
 def vocab_learn(category_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
     name = get_category_name(category_id)
     if not name:
         return 'INVALID REQUEST'
     return render_template('vocablearn.html', category=name, category_id=category_id)
+
+@app.route('/vocab/<int:category_id>/practice')
+def vocab_practice(category_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    name = get_category_name(category_id)
+    if not name:
+        return 'INVALID REQUEST'
+    return render_template('vocabpractice.html', category=name, category_id=category_id)
 
 @app.route('/vocab/<int:category_id>/fetch', methods=['POST'])
 def vocab_fetch(category_id):
@@ -62,16 +75,12 @@ def vocab_fetch(category_id):
         return jsonify(terms=get_known_terms_in_category(category_id))
     return jsonify(terms=get_unlearned_terms_in_category(category_id))
 
-@app.route('/vocab/<int:category_id>/practice')
-def vocab_practice(category_id):
-    return 'TBI'
-
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
     if not user_logged_in():
         return 'INVALID REQUEST'
+
     args = request.get_json()
-    print(args)
     if 'term' not in args or 'type' not in args:
         return 'INVALID REQUEST'
     

@@ -1,12 +1,12 @@
 let userInput;
 let promptQuestion;
-let promptNumber;
+let promptTerm;
 
 let mode;
 let answer;
 let checkButton;
-const MODE_TRANSLATE = 0;
-const MODE_TYPE = 1;
+const MODE_TRANSLATE_TO_ENGLISH = 0;
+const MODE_TRANSLATE_TO_FRENCH = 1;
 
 const STATE_PROMPT = 0;
 const STATE_VIEW_ANSWER = 1;
@@ -42,23 +42,23 @@ function chooseAndDisplayNextPrompt() {
     }
     currentTerm = remainingTerms.pop();
     if (Math.random() > 0.5) {
-        mode = MODE_TRANSLATE;
-        promptQuestion.html('What number is this?');
-        promptNumber.html(currentTerm.french);
-        answer = currentTerm.number;
+        mode = MODE_TRANSLATE_TO_ENGLISH;
+        promptQuestion.html('Translate to English:');
+        promptTerm.html(currentTerm.french);
+        answer = currentTerm.english;
     } else {
-        mode = MODE_TYPE;
-        promptQuestion.html('Write in French:');
-        promptNumber.html(currentTerm.number.toLocaleString('fr-FR'));
+        mode = MODE_TRANSLATE_TO_FRENCH;
+        promptQuestion.html('Translate to French:');
+        promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
     }
-    let length = promptNumber.html().length;
+    let length = promptTerm.html().length;
     if (length < 5) {
-        promptNumber.attr('class', 'biggest');
+        promptTerm.attr('class', 'biggest');
     } else if (length < 10) {
-        promptNumber.attr('class', 'bigger');
+        promptTerm.attr('class', 'bigger');
     } else {
-        promptNumber.attr('class', 'big');
+        promptTerm.attr('class', 'big');
     }
 }
 
@@ -66,8 +66,8 @@ function userSubmittedAnswer() {
     if (state == STATE_PROMPT) {
         let input = userInput.val().toLowerCase().trim();
         let correct;
-        if (mode == MODE_TRANSLATE) {
-            correct = input == currentTerm.english || input == currentTerm.english.replaceAll('-', ' ') || input == currentTerm.number || input.replaceAll(' ', '') == currentTerm.number;
+        if (mode == MODE_TRANSLATE_TO_ENGLISH) {
+            correct = input == currentTerm.english;
         } else {
             correct = input == currentTerm.french;
         }
@@ -140,23 +140,22 @@ function practiceAgainClicked() {
 
 function practiceAnywayClicked() {
     $('#practice-anyway').prop('disabled', true);
-    sendAJAXRequest('/numbers/update', { type: 'learn all' }, function() {
+    sendAJAXRequest('/vocab/update', { type: 'learn all' }, function() {
         location.reload();
     });
 }
 
-function numbersFetched() {
+function termsFetched() {
     let response = JSON.parse(this.responseText);
-    let numbers = response.numbers;
+    let terms = response.terms;
     const length = numbers.length;
     if (length == 0) {
-        // sendAJAXRequest('/numbers/update', { type: 'learn all' });
         $('#prompt-container').addClass('hidden');
         $('#none-learned').removeClass('hidden');
     } else {
         remainingTerms = new Array(length);
         for (let i = 0; i < length; i++) {
-            remainingTerms[i] = numbers[i];
+            remainingTerms[i] = terms[i];
         }
         shuffleArray(remainingTerms);
         remainingTerms.sort(compareDifficulty);
@@ -168,13 +167,13 @@ function fetchFailed() {
     console.log("Fetch failed!");
 }
 
-function fetchNumbers() {
+function fetchTerms() {
     // window.location.href
-    sendAJAXRequest('/numbers/fetch', { learned: true }, numbersFetched, fetchFailed);
+    sendAJAXRequest('/vocab/fetch', { learned: true }, termsFetched, fetchFailed);
 }
 
 function recordCorrect(number, correct) {
-    sendAJAXRequest('/numbers/update', { type: 'attempt', number: number.number, correct: correct});
+    sendAJAXRequest('/vocab/update', { type: 'attempt', term: term.id, correct: correct});
 }
 
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
@@ -210,7 +209,7 @@ $(function() {
             userSubmittedAnswer();
         }
     });
-    promptNumber = $('#prompt-number');
+    promptTerm = $('#prompt-number');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
@@ -219,5 +218,5 @@ $(function() {
     $('#learn').click(function() { location.href = '/numbers/learn'; });
     $('#practice-anyway').click(practiceAnywayClicked);
     $('#practice-again').click(practiceAgainClicked);
-    fetchNumbers();
+    fetchTerms();
 });
