@@ -150,7 +150,7 @@ function practiceAnywayClicked() {
 function termsFetched() {
     let response = JSON.parse(this.responseText);
     let terms = response.terms;
-    const length = numbers.length;
+    const length = terms.length;
     if (length == 0) {
         $('#prompt-container').addClass('hidden');
         $('#none-learned').removeClass('hidden');
