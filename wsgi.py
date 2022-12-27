@@ -396,9 +396,9 @@ def record_term_attempt(term_id, correct):
     connection = get_database()
     cursor = connection.cursor()
     if correct:
-        cursor.execute('update userKnowsTerm set difficulty = (case when difficulty < 6 then difficulty + 2 else 7 end) where userid=? and termid=?', (term_id, user_id))
-    else:
         cursor.execute('update userKnowsTerm set difficulty = (case when difficulty > 0 then difficulty - 1 else 0 end) where userid=? and termid=?', (user_id, term_id))
+    else:
+        cursor.execute('update userKnowsTerm set difficulty = (case when difficulty < 6 then difficulty + 2 else 7 end) where userid=? and termid=?', (term_id, user_id))
     connection.commit()
     connection.close()
 
