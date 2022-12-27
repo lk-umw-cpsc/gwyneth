@@ -59,8 +59,7 @@ def vocab_fetch(category_id):
     if 'learned' not in args:
         return 'INVALID REQUEST'
     if args['learned']:
-        pass
-        # return jsonify(terms=get_known_terms_in_category(category_id))
+        return jsonify(terms=get_known_terms_in_category(category_id))
     return jsonify(terms=get_unlearned_terms_in_category(category_id))
 
 @app.route('/vocab/<int:category_id>/practice')
@@ -304,6 +303,33 @@ def get_all_terms_in_category(category_id):
             'frenchAlts': frenchAlt,
             'id': id,
             'gender': genderstr
+        }
+        terms.append(term)
+    connection.close()
+    return terms
+
+def get_known_terms_in_category(category_id):
+    user_id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select french, english, englishAlts, frenchAlts, id, gender, difficulty from term, userKnowsTerm where id = termid and userid = ? id in (select termid from termInCategory where categoryid=?) and id in (select termid from userKnowsTerm where userid=?)', (user_id, category_id, user_id))
+    terms = []
+    for id, english, french, englishAlt, frenchAlt, gender, difficulty in cursor.fetchall():
+        if gender == 1:
+            genderstr = 'm'
+        elif gender == 2:
+            genderstr = 'f'
+        else:
+            genderstr = 'n'
+
+        term = {
+            'french': french,
+            'english': english,
+            'englishAlts': englishAlt,
+            'frenchAlts': frenchAlt,
+            'id': id,
+            'gender': genderstr,
+            'difficulty': difficulty
         }
         terms.append(term)
     connection.close()

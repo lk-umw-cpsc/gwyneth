@@ -1,0 +1,34 @@
+{% extends 'basictemplate.html' %}
+
+{% block title %} - practice {{ category }}{% endblock %}
+
+{% block head %}
+<script src="{{ url_for('static', filename='scripts/numberspractice.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='style/numberspractice.css')}}">
+{% endblock %}
+{% block main %}
+    <h1 class="logo">{{category}}</h1>
+    <main id="prompt-container">
+        <h4 id="prompt-question"></h4>
+        <div class="static-container">
+            <span id="prompt-number"></span>
+        </div>
+        <input type="text" id="user-input" autocapitalize="off" autocomplete="off" autocorrect="off">
+        <button id="check" class="medium">Check</button>
+    </main>
+    <main id="none-learned" class="hidden">
+        <h4>Uhoh!</h4>
+        <p>You haven't learned any terms in this category yet using Étudamie.</p>
+        <h5>You can</h5>
+        <button id="learn" class="medium">Learn Some Terms</button>
+        <h5>or</h5>
+        <button id="practice-anyway" class="medium">Skip Learning & Practice</button>
+    </main>
+    <main id="out-of-cards" class="hidden">
+        <h4>That's all of them!</h4>
+        <h5>You can</h5>
+        <button id="learn-more" class="medium">Learn More Terms</button>
+        <h5>or</h5>
+        <button id="practice-again" class="medium">Practice Again!</button>
+    </main>
+{% endblock %}
