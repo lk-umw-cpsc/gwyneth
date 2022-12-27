@@ -47,6 +47,7 @@ function nextTerm() {
     $('#term-english').html(currentTerm.english);
     $('#term-french').html(currentTerm.french);
     $('#you-try').attr('placeholder', currentTerm.french).val('').focus();
+    console.log(currentTerm.gender);
     if (currentTerm.gender === 'm') {
         $('#term-english').addClass('masculine');
         $('#term-french').addClass('masculine');
