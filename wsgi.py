@@ -53,7 +53,15 @@ def vocab_learn(category_id):
 
 @app.route('/vocab/<int:category_id>/fetch', methods=['POST'])
 def vocab_fetch(category_id):
-    return jsonify(terms=get_terms_in_category(category_id))
+    if not user_logged_in():
+        return 'INVALID REQUEST'
+    args = request.get_json()
+    if 'learned' not in args:
+        return 'INVALID REQUEST'
+    if args['learned']:
+        pass
+        # return jsonify(terms=get_known_terms_in_category(category_id))
+    return jsonify(terms=get_unlearned_terms_in_category(category_id))
 
 @app.route('/vocab/<int:category_id>/practice')
 def vocab_practice(category_id):
@@ -61,25 +69,24 @@ def vocab_practice(category_id):
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
-    print('1')
     if not user_logged_in():
         return 'INVALID REQUEST'
-    print('2')
     args = request.get_json()
     print(args)
     if 'term' not in args or 'type' not in args:
         return 'INVALID REQUEST'
-    print('3')
     
     term_id = args['term']
     update_type = args['type']
     if update_type not in { 'learned', 'learn all', 'attempt' }:
         return 'INVALID REQUEST'
-    print('4')
+
     if update_type == 'learned':
         mark_term_as_learned(term_id)
-    print('5')
-
+    elif update_type == 'learn all':
+        pass
+    else:
+        pass
     return jsonify(success=True)
 
 # Numbers pages
@@ -277,12 +284,38 @@ def get_categories():
     connection.close()
     return categories
 
-def get_terms_in_category(category_id):
+def get_all_terms_in_category(category_id):
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('select french, english, englishAlt, frenchAlt, id, gender from term where id in (select termid from termInCategory where categoryid=?)', (category_id,))
     terms = []
     for french, english, englishAlt, frenchAlt, id, gender in cursor.fetchall():
+        if gender == 1:
+            genderstr = 'm'
+        elif gender == 2:
+            genderstr = 'f'
+        else:
+            genderstr = 'n'
+
+        term = {
+            'french': french,
+            'english': english,
+            'englishAlts': englishAlt,
+            'frenchAlts': frenchAlt,
+            'id': id,
+            'gender': genderstr
+        }
+        terms.append(term)
+    connection.close()
+    return terms
+
+def get_unlearned_terms_in_category(category_id):
+    user_id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select * from term where id in (select termid from termInCategory where categoryid=?) and id not in (select termid from userKnowsTerm where userid=?)', (category_id, user_id))
+    terms = []
+    for id, english, french, englishAlt, frenchAlt, gender in cursor.fetchall():
         if gender == 1:
             genderstr = 'm'
         elif gender == 2:
