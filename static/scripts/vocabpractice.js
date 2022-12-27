@@ -56,12 +56,15 @@ function chooseAndDisplayNextPrompt() {
     }
     console.log(currentTerm.gender);
     if (currentTerm.gender === 'm') {
+        console.log('a');
         promptTerm.addClass('masculine');
         promptTerm.removeClass('feminine');
     } else if (currentTerm.gender === 'f') {
+        console.log('b');
         promptTerm.removeClass('masculine');
         promptTerm.addClass('feminine');
     } else {
+        console.log('c');
         promptTerm.removeClass('masculine');
         promptTerm.removeClass('feminine');
     }
