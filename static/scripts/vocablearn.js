@@ -47,6 +47,22 @@ function nextTerm() {
     $('#term-english').html(currentTerm.english);
     $('#term-french').html(currentTerm.french);
     $('#you-try').attr('placeholder', currentTerm.french).val('').focus();
+    if (currentTerm.gender === 'm') {
+        $('#term-english').addClass('masculine');
+        $('#term-french').addClass('masculine');
+        $('#term-english').removeClass('feminine');
+        $('#term-french').removeClass('feminine');
+    } else if (currentTerm === 'f') {
+        $('#term-english').removeClass('masculine');
+        $('#term-french').removeClass('masculine');
+        $('#term-english').addClass('feminine');
+        $('#term-french').addClass('feminine');
+    } else {
+        $('#term-english').removeClass('masculine');
+        $('#term-french').removeClass('masculine');
+        $('#term-english').removeClass('feminine');
+        $('#term-french').removeClass('feminine');
+    }
 }
 
 function fetchUnlearnedTerms() {
