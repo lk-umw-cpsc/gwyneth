@@ -1,0 +1,34 @@
+! Vocabulary 1, Food & Shopping
+fruit, fruit, m, n
+abricot, apricot, m, y
+cerise, cherry, f, n
+champignon, mushroom, m, n
+chou-fleur, cauliflower, m, n
+courgette, zucchini, f, n
+fraise, strawberry, f, n
+haricot, bean, m, n
+légume, vegetable, m, n
+oignon, onion, m, y
+pêche, peach, f, n
+petit poi, pea, m, n
+poire, pear, f, n
+pomme, apple, f, n
+pomme de terre, potato, f, n
+salade, lettuce, f, n
+
+boulangerie, bakery, f, n
+gâteau, cake, m, n
+pain, bread, m, n
+pâtisserie, pastry, f, n
+pâtisserie, pastry shop, f, n
+
+produit, product, m, n
+bière, beer, f, n
+bière blonde, pale lager beer, f, n
+bière brune, dark beer, f, n
+boisson, drink, f, n
+gazeuse, gaseouse, f
+gazeux, gaseouse, m
+boisson gazeuse, soda, f, n
+café, coffee, m, n
+café, coffee shop, m, n

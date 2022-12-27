@@ -19,7 +19,7 @@ round1 = [
     ('a female cook','une cuisinière','a cook',None,2,['Professions', 'Liaisons Ch. 7 Part 1']),
     ('a dentist','un dentiste','a male dentist',None,1,['Professions', 'Liaisons Ch. 7 Part 1']),
     ('a female dentist','une dentiste','a dentist',None,2,['Professions', 'Liaisons Ch. 7 Part 1']),
-    ('an employee','un employé',None,None,1,['Professions', 'Liaisons Ch. 7 Part 1']),
+    ('an employee','un employé',None,None,1,['Professions', 'Workplace', 'Liaisons Ch. 7 Part 1']),
     ('a female employee','une employée','an employee',None,2,['Professions', 'Workplace', 'Liaisons Ch. 7 Part 1']),
     ('a teacher','un enseignant','an instructor, a male teacher, a male instructor',None,1,['Professions', 'School & Education', 'Liaisons Ch. 7 Part 1']),
     ('a female instructor','une enseignante','a female teacher, an instructor, a teacher',None,2,['Professions', 'School & Education', 'Liaisons Ch. 7 Part 1']),
