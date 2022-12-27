@@ -55,10 +55,10 @@ function chooseAndDisplayNextPrompt() {
         answer = currentTerm.french;
     }
     console.log(currentTerm.gender);
-    if (currentTerm.gender == 'm') {
+    if (currentTerm.gender === 'm') {
         promptTerm.addClass('masculine');
         promptTerm.removeClass('feminine');
-    } else if (currentTerm.gender == 'f') {
+    } else if (currentTerm.gender === 'f') {
         promptTerm.removeClass('masculine');
         promptTerm.addClass('feminine');
     } else {
