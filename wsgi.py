@@ -66,6 +66,7 @@ def vocab_update():
         return 'INVALID REQUEST'
     print('2')
     args = request.form
+    print(args)
     if 'term' not in args or 'type' not in args:
         return 'INVALID REQUEST'
     print('3')
