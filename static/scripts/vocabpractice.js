@@ -54,6 +54,16 @@ function chooseAndDisplayNextPrompt() {
         promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
     }
+    if (currentTerm.gender == 'm') {
+        promptTerm.addClass('masculine');
+        promptTerm.removeClass('feminine');
+    } else if (currentTerm.gender == 'f') {
+        promptTerm.removeClass('masculine');
+        promptTerm.addClass('feminine');
+    } else {
+        promptTerm.removeClass('masculine');
+        promptTerm.removeClass('feminine');
+    }
     let length = promptTerm.html().length;
     if (length < 5) {
         promptTerm.attr('class', 'biggest');
