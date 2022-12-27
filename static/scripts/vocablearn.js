@@ -53,7 +53,7 @@ function nextTerm() {
         $('#term-french').addClass('masculine');
         $('#term-english').removeClass('feminine');
         $('#term-french').removeClass('feminine');
-    } else if (currentTerm === 'f') {
+    } else if (currentTerm.gender === 'f') {
         $('#term-english').removeClass('masculine');
         $('#term-french').removeClass('masculine');
         $('#term-english').addClass('feminine');
