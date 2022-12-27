@@ -69,7 +69,7 @@ def vocab_update():
     
     term_id = args['term']
     update_type = args['type']
-    if update_type not in ('learn', 'learn all', 'attempt'):
+    if update_type not in ('learned', 'learn all', 'attempt'):
         return 'INVALID REQUEST'
     
     if update_type == 'learned':
