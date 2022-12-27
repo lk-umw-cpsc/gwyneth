@@ -174,7 +174,7 @@ function fetchTerms() {
     sendAJAXRequest('/vocab/' + categoryID + '/fetch', { learned: true }, termsFetched, fetchFailed);
 }
 
-function recordCorrect(number, correct) {
+function recordCorrect(term, correct) {
     sendAJAXRequest('/vocab/update', { type: 'attempt', term: term.id, correct: correct});
 }
 
