@@ -222,7 +222,7 @@ $(function() {
             userSubmittedAnswer();
         }
     });
-    promptTerm = $('#prompt-number');
+    promptTerm = $('#prompt-term');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
