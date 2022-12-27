@@ -94,7 +94,9 @@ def vocab_update():
     elif update_type == 'learn all':
         pass
     else:
-        pass
+        if 'correct' not in args:
+            return 'INVALID REQUEST'
+        record_term_attempt(term_id, args['correct'])
     return jsonify(success=True)
 
 # Numbers pages
@@ -149,7 +151,7 @@ def numbers_update():
         if 'correct' not in data:
             return 'INVALID REQUEST'
         correct = data['correct']
-        record_attempt(number, correct)
+        record_number_attempt(number, correct)
     else:
         return 'INVALID REQUEST'
     return jsonify(sucess=True)
@@ -389,6 +391,14 @@ def mark_term_as_learned(term_id):
     connection.commit()
     connection.close()
 
+def record_term_attempt(term_id, correct):
+    user_id = session['userid']
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('update userKnowsTerm set difficulty = (case when difficulty > 0 then difficulty - 1 else 0 end) where userid=? and termid=?', (user_id, term_id))
+    connection.commit()
+    connection.close()
+
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
     id = session['userid']
@@ -433,7 +443,7 @@ def mark_all_numbers_as_learned():
     connection.commit()
     connection.close()
 
-def record_attempt(number, correct):
+def record_number_attempt(number, correct):
     id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
