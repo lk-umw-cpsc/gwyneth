@@ -321,7 +321,7 @@ def get_known_terms_in_category(category_id):
     user_id = session['userid']
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('select french, english, englishAlt, frenchAlt, id, gender, difficulty from term, userKnowsTerm where id = termid and userid = ? and id in (select termid from termInCategory where categoryid=?) and id in (select termid from userKnowsTerm where userid=?)', (user_id, category_id, user_id))
+    cursor.execute('select id, english, french, englishAlt, frenchAlt, gender, difficulty from term, userKnowsTerm where id = termid and userid = ? and id in (select termid from termInCategory where categoryid=?) and id in (select termid from userKnowsTerm where userid=?)', (user_id, category_id, user_id))
     terms = []
     for id, english, french, englishAlt, frenchAlt, gender, difficulty in cursor.fetchall():
         if gender == 1:
