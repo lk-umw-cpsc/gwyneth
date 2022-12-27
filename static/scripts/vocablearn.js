@@ -59,7 +59,7 @@ function checkUserEnteredFrench() {
     let value = youTry.val();
     let placeholder = youTry.attr("placeholder");
     if (value == placeholder) {
-        sendAJAXRequest('/vocab/update', {term: currentTerm.id, type: 'learned'}, nextTerm);
+        sendAJAXRequest('/vocab/update', { term: currentTerm.id, type: 'learned' }, nextTerm);
     }
 }
 

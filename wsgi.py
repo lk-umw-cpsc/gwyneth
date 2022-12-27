@@ -59,6 +59,24 @@ def vocab_fetch(category_id):
 def vocab_practice(category_id):
     return 'TBI'
 
+@app.route('/vocab/update', methods=['POST'])
+def vocab_update():
+    if not user_logged_in():
+        return 'INVALID REQUEST'
+    args = request.form
+    if 'term' not in args or 'type' not in args:
+        return 'INVALID REQUEST'
+    
+    term_id = args['term']
+    type = args['type']
+    if type not in ('learn', 'learn all', 'attempt'):
+        return 'INVALID REQUEST'
+    
+    if type == 'learn':
+        mark_term_as_learned(term_id)
+
+    return jsonify(success=True)
+
 # Numbers pages
 @app.route('/numbers')
 def numbers():
@@ -289,6 +307,14 @@ def get_category_name(category_id):
     name, = result
     connection.close()
     return name
+
+def mark_term_as_learned(term_id):
+    connection = get_database()
+    cursor = connection.cursor()
+    user_id = session['userid']
+    cursor.execute('replace into userKnowsTerm values (?, ?, default)', (user_id, term_id))
+    connection.commit()
+    connection.close()
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
