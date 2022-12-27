@@ -61,19 +61,23 @@ def vocab_practice(category_id):
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
+    print('1')
     if not user_logged_in():
         return 'INVALID REQUEST'
+    print('2')
     args = request.form
     if 'term' not in args or 'type' not in args:
         return 'INVALID REQUEST'
+    print('3')
     
     term_id = args['term']
     update_type = args['type']
     if update_type not in { 'learned', 'learn all', 'attempt' }:
         return 'INVALID REQUEST'
-    
+    print('4')
     if update_type == 'learned':
         mark_term_as_learned(term_id)
+    print('5')
 
     return jsonify(success=True)
 
@@ -310,7 +314,6 @@ def get_category_name(category_id):
 
 def mark_term_as_learned(term_id):
     user_id = session['userid']
-    print('got here')
     connection = get_database()
     cursor = connection.cursor()
     cursor.execute('replace into userKnowsTerm values (?, ?, default)', (user_id, term_id))
