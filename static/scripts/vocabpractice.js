@@ -22,6 +22,8 @@ let rootElement;
 let currentTerm;
 let currentDifficulty;
 
+let categoryID;
+
 let sound;
 
 function chooseAndDisplayNextPrompt() {
@@ -169,7 +171,7 @@ function fetchFailed() {
 
 function fetchTerms() {
     // window.location.href
-    sendAJAXRequest('/vocab/fetch', { learned: true }, termsFetched, fetchFailed);
+    sendAJAXRequest('/vocab/' + categoryID + '/fetch', { learned: true }, termsFetched, fetchFailed);
 }
 
 function recordCorrect(number, correct) {
@@ -187,6 +189,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 }
 
 $(function() {
+    categoryID = $('#category-id').val();
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
     sound = navigator.userAgent.indexOf("Chrome") != -1;
