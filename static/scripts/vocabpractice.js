@@ -54,6 +54,7 @@ function chooseAndDisplayNextPrompt() {
         promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
     }
+    console.log(currentTerm.gender);
     if (currentTerm.gender == 'm') {
         promptTerm.addClass('masculine');
         promptTerm.removeClass('feminine');
