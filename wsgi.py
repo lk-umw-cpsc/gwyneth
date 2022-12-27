@@ -69,7 +69,7 @@ def vocab_update():
     
     term_id = args['term']
     update_type = args['type']
-    if update_type not in {'learned', 'learn all', 'attempt'}:
+    if update_type not in { 'learned', 'learn all', 'attempt' }:
         return 'INVALID REQUEST'
     
     if update_type == 'learned':
@@ -309,9 +309,10 @@ def get_category_name(category_id):
     return name
 
 def mark_term_as_learned(term_id):
+    user_id = session['userid']
+    print('got here')
     connection = get_database()
     cursor = connection.cursor()
-    user_id = session['userid']
     cursor.execute('replace into userKnowsTerm values (?, ?, default)', (user_id, term_id))
     connection.commit()
     connection.close()
