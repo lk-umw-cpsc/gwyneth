@@ -65,7 +65,7 @@ def vocab_update():
     if not user_logged_in():
         return 'INVALID REQUEST'
     print('2')
-    args = request.form
+    args = request.get_json()
     print(args)
     if 'term' not in args or 'type' not in args:
         return 'INVALID REQUEST'
