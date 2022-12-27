@@ -68,11 +68,11 @@ def vocab_update():
         return 'INVALID REQUEST'
     
     term_id = args['term']
-    type = args['type']
-    if type not in ('learn', 'learn all', 'attempt'):
+    update_type = args['type']
+    if update_type not in ('learn', 'learn all', 'attempt'):
         return 'INVALID REQUEST'
     
-    if type == 'learn':
+    if update_type == 'learned':
         mark_term_as_learned(term_id)
 
     return jsonify(success=True)
