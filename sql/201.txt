@@ -1,34 +1,166 @@
-! Vocabulary 1, Food & Shopping
-fruit, fruit, m, n
-abricot, apricot, m, y
-cerise, cherry, f, n
-champignon, mushroom, m, n
-chou-fleur, cauliflower, m, n
-courgette, zucchini, f, n
-fraise, strawberry, f, n
-haricot, bean, m, n
-légume, vegetable, m, n
-oignon, onion, m, y
-pêche, peach, f, n
-petit poi, pea, m, n
-poire, pear, f, n
-pomme, apple, f, n
-pomme de terre, potato, f, n
-salade, lettuce, f, n
+acheter, to buy, n
+acheter quelque chose sur un coup de tête, to buy something on impulse, n
+aimer bien, to like, n
+apporter, to bring, n
+avoir besoin de, to need, n
+coûter, to cost, n
+emporter, to take away, n
+emporter à, to take out, n
+faire des courses, to run errands, n
+faire des économies, to save money, n
+faire son marché, to go grocery shopping, n
+oublier, to forget, n
+payer, to pay, n
+payer en espèces/payer en liquide, to pay cash/to pay in cash/to pay with cash, n
+porter, to carry, n
 
-boulangerie, bakery, f, n
-gâteau, cake, m, n
-pain, bread, m, n
-pâtisserie, pastry, f, n
-pâtisserie, pastry shop, f, n
+les fruits, the fruits, m
+les légumes, the vegetables, m
+un abricot, an apricot, m
+des cerises, some cherries, f
+des champignons, some mushrooms, m
+un chou-fleur, a cauliflower, m
+une courgette, a zucchini, f
+des fraises, some strawberries, f
+des haricots, some beans, m
+un oignon, an onion, m
+une pêche, a peach, f
+des petits pois, some peas, m
+une poire, a pear, f
+un poivron, a pepper, m
+une pomme, an apple, f
+une pomme de terre, a potato, f
+une salade, a salad/lettuce leaves, f
 
-produit, product, m, n
-bière, beer, f, n
-bière blonde, pale lager beer, f, n
-bière brune, dark beer, f, n
-boisson, drink, f, n
-gazeuse, gaseouse, f
-gazeux, gaseouse, m
-boisson gazeuse, soda, f, n
-café, coffee, m, n
-café, coffee shop, m, n
+la boulangerie, the bakery, f
+la pâtisserie, the pastry shop/the pastry, f
+un gâteau, a cake, m
+du pain, some bread, m
+une pâtisserie, a pastry/a pastry shop, f
+
+les produits de base, the basic products, m
+de la bière, some beer, f
+de la bière blonde, some pale lager beer, f
+de la bière brune, some dark beer, f
+des boissons gazeuses, some sodas, f
+du café, some coffee, m
+de l'eau, some water, f
+de la farine, some flour, f
+de l'huile, some oil, f
+la nourriture, the food, f
+des pâtes, some pasta, f
+du sucre, some sugar, m
+du thon, some tuna, m
+du vin, some wine, m
+
+les produits laitiers, the dairy products, m
+du beurre, some butter, m
+du fromage, some cheese, m
+du bleu, some blue cheese, m
+du chèvre, some goat cheese, m
+du gruyère, some Swiss cheese, m
+du lait, some milk, m
+un yaourt, a yogurt, m
+
+la viande, the meat, f
+la volaille, the poultry, f
+du bœuf, some beef, m
+une côte de porc, a pork chop, f
+du jambon, some ham, m
+du poulet, some chicken, m
+
+les caractéristiques, the characteristics, f
+alimentaire, related to food, n
+bio/biologique, organic, n
+épais, thick, m
+épaisse, thick, f
+exploité, managed, m
+exploitée, managed, f
+frais, fresh, m
+fraîche, fresh, f
+industriel, industrial/factory produced, m
+industrielle, industrial/factory produced, f
+instantané, instant, m
+instantanée, instant, f
+mal entretenu, messy/poorly maintained, m
+mal entretenue, messy/poorly maintained, f
+nature, plain, n
+parfumé, flavored, m
+parfumée, flavored, f
+rôti, roasted, m
+rôtie, roasted, f
+surgelé, frozen, m
+surgelée, frozen, f
+vestimentaire, related to clothes, n
+
+les magasins, the stores, m
+un achat, a purchase, m
+des aliments, some food, m
+une allée, an aisle, f
+l'artisanat, the crafts/the craftsmanship, m
+une boucherie, a butcher shop, f
+un cabas, a tote bag/a handbasket, m
+la caisse, the cash register, f
+une carte bancaire, a cash card, f
+un centre commercial, a shopping center/a mall, m
+une chaîne, a chain/a chain store, f
+une charcuterie, a delicatessen shop, f
+un chariot, a shopping cart, m
+un choix, a choice, m
+le commerce, the business, m
+le commerce de détail, the retail business, m
+le commerce de proximité, the neighborhood store, m
+le consommateur, the consumer, m
+la consommatrice, the consumer, f
+la consommation, the consumption/the buying, f
+en ligne, online, n
+l'entrée libre, the free access, f
+une épicerie, a small grocery store, f
+un filet, a mesh bag, m
+une filiale, a branch store, f
+une fromagerie, a cheese shop, f
+une gamme, a range, f
+les produits de haute, high quality products, m
+les produits de basse, low quality products, m
+une grand surface, a large suburban store, f
+l'habillement, the clothing, m
+un magasin d'habillement, a clothing store/a clothes store, m
+l'hyperchoix, the huge selection, m
+un hypermarché, a supermarket/a large discount store, m
+la livraison, the delivery, f
+la livraison à domicile, the home delivery, f
+le marchandage, the bargaining, m
+un marché, an open-air market, m
+un maxidiscompte, a superdiscount, m
+la mode, the fashion, f
+la mondialisation, the globalization, f
+un panier, a basket, m
+un parking, a parking lot, m
+une pièce, a coin, f
+un prix, a price, m
+un produit, a product, m
+une promotion, a special offer/a promotion, f
+des provisions, some groceries, f
+la publicité, the advertisement/the advertising, f
+un rayon, a department in a store/a department, m
+un repas, a meal, m
+un sac, a bag/a sack, m
+un supermarché, a supermarket, m
+un traiteur, a caterer/a delicatessen, m
+
+les commerçants, the traders/the shopkeepers, m
+un boucher, a butcher, m
+une bouchère, a butcher, f
+un boulanger, a baker, m
+une boulangère, a baker, f
+un caissier, a cashier, m
+une caissière, a cashier, f
+un charcutier, a delicatessen owner, m
+une charcutière, a delicatessen owner, f
+un épicier, a grocer, m
+une épicière, a grocer, f
+un marchand, a merchant, m
+une marchande, a merchant, f
+un pâtissier, a pastry chef/a pastry shopkeeper, m
+une pâtissière, a pastry chef/a pastry shopkeeper, f
+un petit commerçant, a small shopkeeper, m
