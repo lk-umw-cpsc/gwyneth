@@ -227,8 +227,8 @@ $(function() {
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
-    $('#learn-more').click(function() { location.href = '/numbers/learn'; });
-    $('#learn').click(function() { location.href = '/numbers/learn'; });
+    $('#learn-more').click(function() { location.href = '/vocab/' + categoryID + '/learn'; });
+    $('#learn').click(function() { location.href = '/vocab/' + categoryID + '/learn'; });
     $('#practice-anyway').click(practiceAnywayClicked);
     $('#practice-again').click(practiceAgainClicked);
     fetchTerms();
