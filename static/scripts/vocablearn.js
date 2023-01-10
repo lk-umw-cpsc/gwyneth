@@ -1,3 +1,5 @@
+const LEARNING_CUTOFF = 15;
+
 let terms;
 let currentTerm;
 
@@ -31,7 +33,7 @@ function nextTerm() {
         $('#learning-prompt').addClass('hidden');
         return;
     }
-    if (amountLearned == 10) {
+    if (amountLearned == LEARNING_CUTOFF) {
         if ($('#keep-going-prompt').attr('class') == 'hidden') {
             $('#keep-going-prompt').removeClass('hidden');
             $('#learning-prompt').addClass('hidden');
