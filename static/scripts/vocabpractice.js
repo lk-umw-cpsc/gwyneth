@@ -79,9 +79,9 @@ function userSubmittedAnswer() {
         let input = userInput.val().toLowerCase().trim();
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
-            correct = input == currentTerm.english;
+            correct = input == currentTerm.english.toLowerCase();
         } else {
-            correct = input == currentTerm.french;
+            correct = input == currentTerm.french.toLowerCase();
         }
         if (correct) {
             if (sound) {
