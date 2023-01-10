@@ -34,7 +34,7 @@ with open(filename) as f:
         french_alts = '/'.join(french[1:]) if len(french) > 1 else None
         english_alts = '/'.join(english[1:]) if len(english) > 1 else None
         # english, french, english alts, french alts, gender (0/1/2), [Categories]
-        cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
+        cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english_actual, french_actual, english_alts, french_alts, gender))
         term_id = cursor.lastrowid
         cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
 
