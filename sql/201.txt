@@ -38,7 +38,6 @@ un gâteau, a cake, m
 du pain, some bread, m
 une pâtisserie, a pastry/a pastry shop, f
 
-les produits de base, the basic products, m
 de la bière, some beer, f
 de la bière blonde, some pale lager beer, f
 de la bière brune, some dark beer, f
@@ -91,11 +90,11 @@ rôti, roasted, m
 rôtie, roasted, f
 surgelé, frozen, m
 surgelée, frozen, f
-vestimentaire, related to clothes, n
+vestimentaire, related to clothes/clothing-related, n
 
 les magasins, the stores, m
 un achat, a purchase, m
-des aliments, some food, m
+des aliments, some foods, m
 une allée, an aisle, f
 l'artisanat, the crafts/the craftsmanship, m
 une boucherie, a butcher shop, f
@@ -120,13 +119,13 @@ un filet, a mesh bag, m
 une filiale, a branch store, f
 une fromagerie, a cheese shop, f
 une gamme, a range, f
-les produits de haute, high quality products, m
-les produits de basse, low quality products, m
-une grand surface, a large suburban store, f
+les produits de haute, the high quality products, m
+les produits de base, the low quality products, m
+une grande surface, a large suburban store, f
 l'habillement, the clothing, m
 un magasin d'habillement, a clothing store/a clothes store, m
 l'hyperchoix, the huge selection, m
-un hypermarché, a supermarket/a large discount store, m
+un hypermarché, a large discount store, m
 la livraison, the delivery, f
 la livraison à domicile, the home delivery, f
 le marchandage, the bargaining, m
