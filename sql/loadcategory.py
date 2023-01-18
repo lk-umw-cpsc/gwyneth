@@ -1,7 +1,7 @@
 import mariadb
+import sys
 
-category = "Vocab 1: Shopping & Food"
-filename = '201.txt'
+filename = sys.argv[1]
 
 def get_database():
     return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
@@ -13,9 +13,10 @@ def category_create(category_name, cursor):
     cursor.execute('insert into category (sortindex, name, ischapter) values (default, ?, ?)', (category_name, category_name.startswith('Liaisons Ch')))
     return cursor.lastrowid
 
-category_id = category_create(category, cursor)
-
 with open(filename) as f:
+    category = f.readline().strip()
+    category_id = category_create(category, cursor)
+
     for line in f:
         line = line.strip()
         if not line:
