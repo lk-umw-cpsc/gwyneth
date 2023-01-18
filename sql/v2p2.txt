@@ -1,4 +1,69 @@
 Vocab 2, Part 2: Activities
 
 les activités quotidiennes, the daily activities, f
-les activités personnelles
+les activités personnelles, the personal activities, f
+se coiffer, to fix one's hair, n
+se coucher, to go to bed, n
+se dépêcher, to hurry, n
+se détendre, to relax, n
+se doucher, to shower, n
+prendre une douche, to take a shower, n
+s'en aller, to leave, n
+être de retour, to be back, n
+être en retard, to be late, n
+s'habiller, to get dressed, n
+se laver, to wash oneself, n
+se lever, to get up, n
+se peigner, to comb one's hair, n
+se raser, to shave, n
+rentrer, to come back, n
+se réveiller, to wake up, n
+
+les conditions, the conditions, f
+avoir besoin de, to need, n
+avoir envie de, to feel like, n
+avoir faim, to be hungry, n
+avoir l'air, to seem, n
+avoir le trac, to be nervous, n
+avoir mal à la tête, to have a headache, n
+avoir peur/avoir le trac, to be afraid, n
+avoir raison, to be right, n
+avoir sommeil, to be sleepy, n
+
+les activités scolaires, the school activities, f
+bachoter, to prepare for an exam, n
+bouqiner, to read, n
+se débrouiller, to manage, n
+être reçu, to pass, m
+être reçue, to pass, f
+passer un examen, to take an exam, n
+présenter sa candidature, to be a candidate, n
+rater, to fail, n
+recevoir, to receive, n
+recevoir un diplôme, to graduate, n
+redoubler, to repeat, n
+réussir à, to succeed/to pass, n
+
+les expressions scolaires, the school expressions, f
+les expressions professionnelles, professional expressions, f
+les affaires, the business, f
+faire les affaires, to conduct business/to do business, n
+le baccalauréat/le bac, the French BA equivalent, m
+le bachotage, the studying before an exam, m
+un boulot, a job, m
+du boulot, some work, m
+un bouquin, a book, m
+une carrière, a career, f
+un cours, a course, a class
+un devoir, a written assignment, m
+un diplôme, a diploma, m
+une dissertation, an essay, f
+l'enseignement, the instruction, m
+une entreprise/une société, a business/a company, f
+un exposé, a classroom presentation, m
+la fac, the university, f
+la faculté, the university division, f
+le lycée, the highschool/the high school, m
+la première, the first year of lycée, f
+la seconde, the second year of lycée, f
+la terminale, the last year of lycée, f
