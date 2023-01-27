@@ -336,8 +336,8 @@ def get_known_terms_in_category(category_id):
         term = {
             'french': french,
             'english': english,
-            'englishAlts': englishAlt,
-            'frenchAlts': frenchAlt,
+            'englishAlts': [alt.strip() for alt in englishAlt.split(',')],
+            'frenchAlts': [alt.strip() for alt in frenchAlt.split(',')],
             'id': id,
             'gender': genderstr,
             'difficulty': difficulty
