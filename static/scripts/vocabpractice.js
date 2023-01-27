@@ -189,6 +189,8 @@ function termsFetched() {
         remainingTerms = new Array(length);
         for (let i = 0; i < length; i++) {
             remainingTerms[i] = terms[i];
+            terms[i].englishAlts = term[i].englishAlts.split('/');
+            terms[i].frenchAlts = term[i].frenchAlts.split('/');
         }
         shuffleArray(remainingTerms);
         remainingTerms.sort(compareDifficulty);
