@@ -13,7 +13,7 @@ une HLM/une habitation à loyer modéré, a subsidized housing/subsidized housin
 un immeuble collectif, a multi-family dwelling, m
 un locataire, a renter, m
 une locataire, a renter, f
-un logement social, a public housing, m
+un logement social, a public housing/public housing, m
 louer, to rent, n
 le loyer, the rent, m
 une maison individuelle, a single family house/a single family home/a single-family house/a single-family home, f
