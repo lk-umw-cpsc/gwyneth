@@ -1,0 +1,5 @@
+delete from userKnowsTerm;
+delete from term;
+delete from category;
+alter table term AUTO_INCREMENT=1;
+alter table category AUTO_INCREMENT=1;
