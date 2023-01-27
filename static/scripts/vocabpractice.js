@@ -81,7 +81,7 @@ function userSubmittedAnswer() {
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
             correct = input == currentTerm.english.toLowerCase();
             console.log(currentTerm.englishAlts);
-            if (!correct) {
+            if (!correct && currentTerm.englishAlts) {
                 for (let alt of currentTerm.englishAlts) {
                     console.log(alt);
                     alt = alt.toLowerCase();
@@ -93,7 +93,7 @@ function userSubmittedAnswer() {
             }
         } else {
             correct = input == currentTerm.french.toLowerCase();
-            if (!correct) {
+            if (!correct && currentTerm.frenchAlts) {
                 for (let alt of currentTerm.frenchAlts) {
                     alt = alt.toLowerCase();
                     console.log(alt);
