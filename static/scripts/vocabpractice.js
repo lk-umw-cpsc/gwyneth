@@ -80,8 +80,26 @@ function userSubmittedAnswer() {
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
             correct = input == currentTerm.english.toLowerCase();
+            if (!correct) {
+                for (let alt in currentTerm.englishAlts) {
+                    alt = alt.toLowerCase();
+                    if (input == alt) {
+                        correct = true;
+                        break;
+                    }
+                }
+            }
         } else {
             correct = input == currentTerm.french.toLowerCase();
+            if (!correct) {
+                for (let alt in currentTerm.frenchAlts) {
+                    alt = alt.toLowerCase();
+                    if (input == alt) {
+                        correct = true;
+                        break;
+                    }
+                }
+            }
         }
         if (correct) {
             if (sound) {
