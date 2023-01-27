@@ -80,6 +80,7 @@ function userSubmittedAnswer() {
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
             correct = input == currentTerm.english.toLowerCase();
+            console.log(currentTerm.englishAlts);
             if (!correct) {
                 for (let alt in currentTerm.englishAlts) {
                     console.log(alt);
