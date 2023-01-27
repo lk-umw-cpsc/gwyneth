@@ -82,7 +82,7 @@ function userSubmittedAnswer() {
             correct = input == currentTerm.english.toLowerCase();
             console.log(currentTerm.englishAlts);
             if (!correct) {
-                for (let alt in currentTerm.englishAlts) {
+                for (let alt of currentTerm.englishAlts) {
                     console.log(alt);
                     alt = alt.toLowerCase();
                     if (input == alt) {
