@@ -1,7 +1,7 @@
 Vocab 2, Part 1: Lifestyles
 les modes de vie, the lifestyles, m
 la banlieue, the suburbs, f
-la campagne, the countryside, f
+la campagne, the countryside/the country, f
 à la campagne, in the country, n
 une cité-dortoir, a bedroom community, f
 un colocataire, a roommate, m
@@ -9,14 +9,14 @@ une colocataire, a roommate, f
 le foyer, the home/the heart, m
 un grand ensemble, an apartment complex, m
 un habitant, an inhabitant/a resident, m
-une HLM/une habitation à loyer modéré, a subsidized housing, f
+une HLM/une habitation à loyer modéré, a subsidized housing/subsidized housing, f
 un immeuble collectif, a multi-family dwelling, m
 un locataire, a renter, m
 une locataire, a renter, f
 un logement social, a public housing, m
 louer, to rent, n
 le loyer, the rent, m
-une maison individuelle, a single family house, f
+une maison individuelle, a single family house/a single family home/a single-family house/a single-family home, f
 un ménage, a household, m
 un propriétaire, an owner, m
 une propriétaire, an owner, f
@@ -38,10 +38,10 @@ un internaute, an internet surfer, m
 une internaute, an internet surfer, f
 un livre numérique, an e-book, m
 le portable/le téléphone portable, the cellphone, m
-le fixe/le poste fixe, the land line, m
+le fixe/le poste fixe, the land line/the land-line/the landline, m
 un réseau, a network, m
-un texto/un SMS, a text message, m
+un texto/un SMS, a text message/a text, m
 surfer, to surf, n
-surfer sur Internet, to surf the Web, n
+surfer sur Internet, to surf the Web/to surf the internet, n
 télécharger, to upload or download, n
 le Web, the World Wide Web, m

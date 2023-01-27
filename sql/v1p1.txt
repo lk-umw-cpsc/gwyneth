@@ -1,0 +1,93 @@
+Vocab 1, Part 2: Groceries
+acheter, to buy, n
+acheter quelque chose sur un coup de tête, to buy something on impulse, n
+aimer bien, to like, n
+apporter, to bring, n
+avoir besoin de, to need, n
+coûter, to cost, n
+emporter, to take away, n
+à emporter, take out, n
+faire des courses, to run errands, n
+faire des économies, to save money, n
+faire son marché, to go grocery shopping, n
+oublier, to forget, n
+payer, to pay, n
+payer en espèces/payer en liquide, to pay cash/to pay in cash/to pay with cash, n
+porter, to carry, n
+
+les fruits, the fruits, m
+les légumes, the vegetables, m
+un abricot, an apricot, m
+des cerises, some cherries, f
+des champignons, some mushrooms, m
+un chou-fleur, a cauliflower, m
+une courgette, a zucchini, f
+des fraises, some strawberries, f
+des haricots, some beans, m
+un oignon, an onion, m
+une pêche, a peach, f
+des petits pois, some peas, m
+une poire, a pear, f
+un poivron, a pepper, m
+une pomme, an apple, f
+une pomme de terre, a potato, f
+une salade, a salad/lettuce leaves, f
+
+la boulangerie, the bakery, f
+la pâtisserie, the pastry shop/the pastry, f
+un gâteau, a cake, m
+du pain, some bread, m
+une pâtisserie, a pastry/a pastry shop, f
+
+de la bière, some beer, f
+de la bière blonde, some pale lager beer, f
+de la bière brune, some dark beer, f
+des boissons gazeuses, some sodas, f
+du café, some coffee, m
+de l'eau, some water, f
+de la farine, some flour, f
+de l'huile, some oil, f
+la nourriture, the food, f
+des pâtes, some pasta, f
+du sucre, some sugar, m
+du thon, some tuna, m
+du vin, some wine, m
+
+les produits laitiers, the dairy products, m
+du beurre, some butter, m
+du fromage, some cheese, m
+du bleu, some blue cheese, m
+du chèvre, some goat cheese, m
+du gruyère, some Swiss cheese, m
+du lait, some milk, m
+un yaourt, a yogurt, m
+
+la viande, the meat, f
+la volaille, the poultry, f
+du bœuf, some beef, m
+une côte de porc, a pork chop, f
+du jambon, some ham, m
+du poulet, some chicken, m
+
+les caractéristiques, the characteristics, f
+alimentaire, related to food, n
+bio/biologique, organic, n
+épais, thick, m
+épaisse, thick, f
+exploité, managed, m
+exploitée, managed, f
+frais, fresh, m
+fraîche, fresh, f
+industriel, industrial/factory produced, m
+industrielle, industrial/factory produced, f
+instantané, instant, m
+instantanée, instant, f
+mal entretenu, messy/poorly maintained, m
+mal entretenue, messy/poorly maintained, f
+nature, plain, n
+parfumé, flavored, m
+parfumée, flavored, f
+rôti, roasted, m
+rôtie, roasted, f
+surgelé, frozen, m
+surgelée, frozen, f

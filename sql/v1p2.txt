@@ -1,0 +1,73 @@
+Vocab 1, Part 2: Shopping
+les magasins, the stores, m
+vestimentaire, related to clothes/clothing-related, n
+un achat, a purchase, m
+des aliments, some foods, m
+une allée, an aisle, f
+l'artisanat, the crafts/the craftsmanship, m
+une boucherie, a butcher shop, f
+un cabas, a tote bag/a handbasket, m
+la caisse, the cash register, f
+une carte bancaire, a cash card, f
+un centre commercial, a shopping center/a mall, m
+une chaîne, a chain/a chain store, f
+une charcuterie, a delicatessen shop, f
+un chariot, a shopping cart, m
+un choix, a choice, m
+le commerce, the business, m
+le commerce de détail, the retail business, m
+le commerce de proximité, the neighborhood store, m
+le consommateur, the consumer, m
+la consommatrice, the consumer, f
+la consommation, the consumption/the buying, f
+en ligne, online, n
+l'entrée libre, the free access, f
+une épicerie, a small grocery store, f
+un filet, a mesh bag, m
+une filiale, a branch store, f
+une fromagerie, a cheese shop, f
+une gamme, a range, f
+les produits de haute, the high quality products, m
+les produits de base, the low quality products, m
+une grande surface, a large suburban store, f
+l'habillement, the clothing, m
+un magasin d'habillement, a clothing store/a clothes store, m
+l'hyperchoix, the huge selection, m
+un hypermarché, a large discount store, m
+la livraison, the delivery, f
+la livraison à domicile, the home delivery, f
+le marchandage, the bargaining, m
+un marché, an open-air market, m
+un maxidiscompte, a superdiscount, m
+la mode, the fashion, f
+la mondialisation, the globalization, f
+un panier, a basket, m
+un parking, a parking lot, m
+une pièce, a coin, f
+un prix, a price, m
+un produit, a product, m
+une promotion, a special offer/a promotion, f
+des provisions, some groceries, f
+la publicité, the advertisement/the advertising, f
+un rayon, a department in a store/a department, m
+un repas, a meal, m
+un sac, a bag/a sack, m
+un supermarché, a supermarket, m
+un traiteur, a caterer/a delicatessen, m
+
+les commerçants, the traders/the shopkeepers, m
+un boucher, a butcher, m
+une bouchère, a butcher, f
+un boulanger, a baker, m
+une boulangère, a baker, f
+un caissier, a cashier, m
+une caissière, a cashier, f
+un charcutier, a delicatessen owner, m
+une charcutière, a delicatessen owner, f
+un épicier, a grocer, m
+une épicière, a grocer, f
+un marchand, a merchant, m
+une marchande, a merchant, f
+un pâtissier, a pastry chef/a pastry shopkeeper, m
+une pâtissière, a pastry chef/a pastry shopkeeper, f
+un petit commerçant, a small shopkeeper, m
