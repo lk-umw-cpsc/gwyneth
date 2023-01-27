@@ -94,7 +94,7 @@ function userSubmittedAnswer() {
         } else {
             correct = input == currentTerm.french.toLowerCase();
             if (!correct) {
-                for (let alt in currentTerm.frenchAlts) {
+                for (let alt of currentTerm.frenchAlts) {
                     alt = alt.toLowerCase();
                     console.log(alt);
                     if (input == alt) {
