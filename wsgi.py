@@ -332,6 +332,10 @@ def get_known_terms_in_category(category_id):
             genderstr = 'f'
         else:
             genderstr = 'n'
+        if englishAlt:
+            englishAlt = [alt.strip() for alt in englishAlt.split('/')]
+        if frenchAlt:
+            frenchAlt = [alt.strip() for alt in frenchAlt.split('/')]
 
         term = {
             'french': french,
