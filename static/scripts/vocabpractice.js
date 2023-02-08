@@ -80,10 +80,8 @@ function userSubmittedAnswer() {
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
             correct = input == currentTerm.english.toLowerCase();
-            console.log(currentTerm.englishAlts);
             if (!correct && currentTerm.englishAlts) {
                 for (let alt of currentTerm.englishAlts) {
-                    console.log(alt);
                     alt = alt.toLowerCase();
                     if (input == alt) {
                         correct = true;
@@ -96,7 +94,6 @@ function userSubmittedAnswer() {
             if (!correct && currentTerm.frenchAlts) {
                 for (let alt of currentTerm.frenchAlts) {
                     alt = alt.toLowerCase();
-                    console.log(alt);
                     if (input == alt) {
                         correct = true;
                         break;
@@ -236,12 +233,9 @@ $(function() {
         }
     });
     $(document).keypress(function(event) {
-        console.log('a');
         if (event.which == 13 || event.charCode == 13) {
-            console.log('b');
             var tag = event.target.tagName.toLowerCase();
             if (tag == 'input' || state != STATE_VIEW_ANSWER) {
-                console.log('c');
                 return;
             }
             userSubmittedAnswer();
