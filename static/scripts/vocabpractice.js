@@ -142,6 +142,7 @@ function changeUIIncorrect() {
 }
 
 function lockInterface() {
+    userInput.blur();
     userInput.prop('disabled', true);
 }
 
