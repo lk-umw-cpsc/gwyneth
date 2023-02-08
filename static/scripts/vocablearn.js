@@ -1,4 +1,4 @@
-const LEARNING_CUTOFF = 15;
+const LEARNING_CUTOFF = 7;
 
 let terms;
 let currentTerm;
