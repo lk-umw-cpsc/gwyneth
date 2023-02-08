@@ -235,9 +235,12 @@ $(function() {
         }
     });
     $(document).keypress(function(event) {
+        console.log('a');
         if (event.which == 13 || event.charCode == 13) {
+            console.log('b');
             var tag = event.target.tagName.toLowerCase();
             if (tag == 'input' || state != STATE_VIEW_ANSWER) {
+                console.log('c');
                 return;
             }
             userSubmittedAnswer();
