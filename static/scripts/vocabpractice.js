@@ -235,7 +235,7 @@ $(function() {
         }
     });
     $(document).keypress(function(event) {
-        if (event.which == 13) {
+        if (event.which == 13 || event.charCode == 13) {
             var tag = event.target.tagName.toLowerCase();
             if (tag == 'input' || state != STATE_VIEW_ANSWER) {
                 return;
