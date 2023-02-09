@@ -1,7 +1,7 @@
 import hashlib
 import os
 import mariadb
-from flask import Flask, render_template, redirect, url_for, request, session, jsonify
+from flask import Flask, render_template, redirect, url_for, request, session, jsonify, abort
 
 app = Flask(__name__)
 
@@ -22,10 +22,6 @@ def home():
     name = session['name']
     return render_template('home.html', name=name, new_user_welcome=new_user_welcome, login_welcome=login_welcome)
 
-@app.route('/vocab')
-def vocab():
-    return 'TBI'
-
 @app.route('/verbs')
 def verbs():
     return 'TBI'
@@ -35,7 +31,24 @@ def verbs():
 def vocab_categories():
     if not user_logged_in():
         return redirect(url_for('login'))
-    return render_template('vocabcategories.html', categories=get_categories())
+    is_admin = session['authorization'] == 2
+    return render_template('vocabcategories.html', categories=get_categories(), is_admin=is_admin)
+
+@app.route('/vocab/categories/new', methods=['GET', 'POST'])
+def new_category():
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    if session['authorization'] < 2:
+        abort(404)
+    if request.method == 'GET':
+        return render_template('vocabcategories.html', categories=get_categories())
+    else:
+        form = request.form
+        if 'name' not in form:
+            return 'INVALID REQUEST'
+        name = form['name']
+        id = create_category(name)
+        return redirect(url_for('vocab_categories'))
 
 @app.route('/vocab/<int:category_id>')
 def vocab_category(category_id):
@@ -281,6 +294,14 @@ def get_database():
     return mariadb.connect(user='undertoe', password='vXXtbewgyyWHMXuqc5nmKN29zk9yaxiM5zJy4CfPf4x85j138hzvEpw9d42HpIp1', host='localhost', port=3306, database='etudamie')
 
 # Vocab related SQL functions
+def create_category(name):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('insert into category (sortindex, name, ischapter) values (default, ?, ?)', (name, False))
+    resulting_id = cursor.lastrowid
+    connection.close()
+    return resulting_id
+
 def get_categories():
     connection = get_database()
     cursor = connection.cursor()

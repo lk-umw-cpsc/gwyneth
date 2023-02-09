@@ -1,0 +1,16 @@
+{% extends 'basictemplate.html' %}
+{% block title %} - new category {{ category }}{% endblock %}
+{% block head %}
+    <!-- <script src="{{ url_for('static', filename='scripts/vocablearn.js') }}"></script> -->
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/learn.css') }}"> -->
+{% endblock %}
+{% block main %}
+    <h1 class="logo">new category</h1>
+    <main>
+        <form method="post">
+            <label>Category Name</label>
+            <input type="text" name="name" required>
+            <input type="submit" value="Create">
+        </form>
+    </main>
+{% endblock %}
