@@ -114,11 +114,25 @@ def vocab_fetch(category_id):
 def vocab_add_term(category_id):
     if not user_logged_in():
         return redirect(url_for('login'))
+    
+    name = get_category_name(category_id)
+    if not name:
+        abort(400)
     if request.method == 'GET':
-        name = get_category_name(category_id)
-        if not name:
-            abort(400)
         return render_template('newterm.html', category_id=category_id, category=name)
+    else:
+        form = request.form
+        if 'french' not in form or 'english' not in form or 'french-alts' not in form or 'english-alts' not in form or 'gender' not in form:
+            abort(400)
+        french = form['french']
+        english = form['english']
+        french_alts = form['french-alts']
+        english_alts = form['english-alts']
+        gender = form['gender']
+        gender_map = { 'n': 0, 'm': 1, 'f': 2}
+        gender = gender_map[gender]
+        create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
+        return render_template('newterm.html', category_id=category_id)
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
@@ -334,6 +348,16 @@ def create_category(name):
     connection.commit()
     connection.close()
     return resulting_id
+
+def create_term_in_category(category_id, french, english, french_alts, english_alts, gender):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
+    term_id = cursor.lastrowid
+    cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
+    connection.commit()
+    connection.close()
+    # to-do: make sure this didn't fail
 
 def rename_category(id, new_name):
     connection = get_database()
