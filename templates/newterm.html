@@ -1,0 +1,22 @@
+{% extends 'basictemplate.html' %}
+{% block title %}add term{% endblock %}
+
+{% block main %}
+    <h1 class="logo">add term</h1>
+    <main>
+        <h4 class="centered">Add Term to { category }</h4>
+        <form>
+            <label>French Main Answer</label>
+            <input type="text" name="french" required>
+            <label>English Main Answer</label>
+            <input type="text" name="english" required>
+            <label>French Alternate Answers</label>
+            <input type="text" name="french-alts" required>
+            <label>English Alternate Answers</label>
+            <input type="text" name="english-alts" required>
+            <label>Gender</label>
+            <input type="text" name="gender" required>
+            <input type="submit" value="Add Term">
+        </form>
+    </main>
+{% endblock %}

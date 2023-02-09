@@ -13,7 +13,7 @@
             <!-- <input type="hidden" name="id" value="{{ category_id }}" required> -->
             <input type="submit" value="Rename">
         </form>
-        <h4 class="centered">Terms <a href="/">+</a></h4>
+        <h4 class="centered">Terms <a href="{{ url_for('vocab_add_term', category_id=category_id) }}">+</a></h4>
         <table>
             <thead>
                 <tr>
@@ -27,7 +27,7 @@
                     <tr class="{% if term['gender'] == 'm' %}masculine{% elif term['gender'] == 'f' %}feminine{% endif %}">
                         <td>{{ term['french'] }}</td>
                         <td>{{ term['english'] }}</td>
-                        <td><a href="/">✏️</a></td>
+                        <td><a href="{{ url_for('edit_term', term_id=term['id']) }}">✏️</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

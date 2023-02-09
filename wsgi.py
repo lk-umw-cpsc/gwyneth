@@ -110,6 +110,16 @@ def vocab_fetch(category_id):
         return jsonify(terms=get_known_terms_in_category(category_id))
     return jsonify(terms=get_unlearned_terms_in_category(category_id))
 
+@app.route('/vocab/<int:category_id>/add', methods=['POST', 'GET'])
+def vocab_add_term(category_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    if request.method == 'GET':
+        name = get_category_name(category_id)
+        if not name:
+            abort(400)
+        return render_template('newterm.html', category_id=category_id, category=name)
+
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
     if not user_logged_in():
