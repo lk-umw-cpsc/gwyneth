@@ -212,7 +212,7 @@ def vocab_edit_term(term_id):
             pass
 
 @app.route('/vocab/term/<int:term_id>/speech')
-def fetch_audio(term_id):
+def fetch_term_audio(term_id):
     if not user_logged_in():
         return redirect(url_for('login'))
     term = get_term_by_id(term_id)
@@ -301,6 +301,16 @@ def numbers_update():
     else:
         return 'INVALID REQUEST'
     return jsonify(sucess=True)
+
+@app.route('/numbers/<int:number>/speech')
+def get_number_audio(number):
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    number = get_term_by_id(number)
+    if not number:
+        abort(404)
+    id = query_speech(number['french'])
+    return redirect(f'/static/sounds/speech/{id}.mp3')
 
 # User account- and login-related routes
 @app.route('/login', methods=['GET', 'POST'])
@@ -658,6 +668,21 @@ def get_user_known_numbers():
     for number, french, english, difficulty in numbers:
         numbers_as_dicts.append({'number': number, 'french': french, 'english': english, 'difficulty': difficulty})
     return numbers_as_dicts
+
+def get_number(number):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select base10, french, english from number where base10=?', (number,))
+    result = cursor.fetchone()
+    connection.close()
+    if not result:
+        return None
+    base10, french, english = result
+    return {
+        'number': number, 
+        'french': french, 
+        'english': english, 
+    }
 
 def mark_number_as_learned(number):
     id = session['userid']

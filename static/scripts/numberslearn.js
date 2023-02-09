@@ -60,6 +60,13 @@ function checkUserEnteredFrench() {
     }
 }
 
+function speak() {
+    if (!currentNumber.speech) {
+        currentNumber.speech = new Audio(generateSoundURL());
+    }
+    currentNumber.speech.play();
+}
+
 $(function() {
     let youTry = $('#you-try');
     youTry.on('input', function() {
@@ -68,6 +75,7 @@ $(function() {
         let disable = value != placeholder;
         $('#got-it').prop('disabled', disable);
     });
+    $("#speak-button").click(speak);
 
     $('#you-try').keypress(function(e) {
         if (e.which == 13) {

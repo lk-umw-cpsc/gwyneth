@@ -73,12 +73,8 @@ function nextTerm() {
 function speak() {
     if (!currentTerm.speech) {
         currentTerm.speech = new Audio(generateSoundURL());
-        // currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
-        // currentTerm.speech.lang = "fr-FR";
-        // currentTerm.speech.rate = 0.75;
     }
     currentTerm.speech.play();
-    // window.speechSynthesis.speak(currentTerm.speech);
 }
 
 function generateSoundURL() {
