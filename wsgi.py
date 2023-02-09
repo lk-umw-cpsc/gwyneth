@@ -705,9 +705,9 @@ def query_speech(phrase):
     cursor.execute(
         'insert into speech (words) values (?)', (phrase,)
     )
+    id = cursor.lastrowid
     connection.commit()
     connection.close()
-    id = cursor.lastrowid
 
     polly_client = boto3.client('polly')
 
