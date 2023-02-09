@@ -73,7 +73,8 @@ function nextTerm() {
 function speak() {
     if (!currentTerm.speech) {
         // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
-        currentTerm.speech = new SpeechSynthesisUtterance('Hello World');
+        currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
+        currentTerm.speech.lang = "fr-FR";
     }
     // currentTerm.speech.play();
     window.speechSynthesis.speak(currentTerm.speech);
