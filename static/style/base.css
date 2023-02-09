@@ -399,3 +399,7 @@ p {
         justify-content: flex-start;
     }
 }
+
+.emoji-button:hover {
+    filter: brightness(1.5)
+}
