@@ -382,7 +382,8 @@ p {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    gap: 1rem;   
+    gap: 1rem;
+    padding-left: 0.5rem;
 }
 
 .radio-choice {
