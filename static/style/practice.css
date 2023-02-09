@@ -25,5 +25,6 @@ main > p {
 }
 
 #speak-button.disabled {
+    cursor: default;
     filter: saturate(0);
 }
