@@ -49,12 +49,14 @@ function chooseAndDisplayNextPrompt() {
         promptTerm.html(currentTerm.french);
         answer = currentTerm.english;
         speakButton.removeClass('hidden');
+        speakButton.prop('disabled', false);
     } else {
         mode = MODE_TRANSLATE_TO_FRENCH;
         promptQuestion.html('Translate to French:');
         promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
-        speakButton.addClass('hidden');
+        // speakButton.addClass('hidden');
+        speakButton.prop('disabled', true);
     }
     let length = promptTerm.html().length;
     if (length < 5) {
@@ -117,7 +119,8 @@ function userSubmittedAnswer() {
             recordCorrect(currentTerm, false);
             changeUIIncorrect();
         }
-        speakButton.removeClass('hidden');
+        // speakButton.removeClass('hidden');
+        speakButton.prop('disabled', false);
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
         chooseAndDisplayNextPrompt();
