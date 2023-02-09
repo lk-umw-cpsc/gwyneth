@@ -7,7 +7,7 @@
 {% block main %}
         <h1 class="logo">Vocabulary</h1>
         <main>
-            <h4>Choose a category{% if is_admin %} <a href="{{ url_for('new_category') }}">+</a>{% endif %}</h4>
+            <h4>Choose a category{% if is_admin %} <a href="{{ url_for('vocab_new_category') }}">+</a>{% endif %}</h4>
             {% for category in categories %}
             <a class="medium button" href="{{ category['id'] }}">{{ category['name'] }}</a>
             {% endfor %}
