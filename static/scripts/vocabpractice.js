@@ -217,6 +217,16 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     return false;
 }
 
+function speak() {
+    if (!currentTerm.speech) {
+        // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
+        currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
+        currentTerm.speech.lang = "fr-FR";
+    }
+    // currentTerm.speech.play();
+    window.speechSynthesis.speak(currentTerm.speech);
+}
+
 $(function() {
     categoryID = $('#category-id').val();
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -241,6 +251,8 @@ $(function() {
             userSubmittedAnswer();
         }
     });
+    $("#speak-button").click(speak);
+
     promptTerm = $('#prompt-term');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');

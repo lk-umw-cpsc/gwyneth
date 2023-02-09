@@ -12,3 +12,11 @@ p {
 #term-english, #term-french {
     text-align: center;
 }
+
+#speak-button {
+    cursor: pointer;
+}
+
+#speak-button:hover {
+    filter: brightness(1.2);
+}
