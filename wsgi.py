@@ -183,7 +183,7 @@ def vocab_edit_term(term_id):
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
-        if 'category-form' in form:
+        if 'category-id' in form:
             try:
                 category_id = int(form['category-id'])
             except:
