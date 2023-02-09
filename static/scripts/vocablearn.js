@@ -118,7 +118,7 @@ $(function() {
     });
 
     $('#you-try').blur(function() {
-        userInput.focus();
+        $(this).focus();
     })
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedTerms();
