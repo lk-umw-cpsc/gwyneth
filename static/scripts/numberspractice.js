@@ -1,6 +1,7 @@
 let userInput;
 let promptQuestion;
 let promptNumber;
+let promptContainer;
 
 let mode;
 let answer;
@@ -57,11 +58,11 @@ function chooseAndDisplayNextPrompt() {
     }
     let length = promptNumber.html().length;
     if (length < 5) {
-        promptNumber.attr('class', 'biggest');
+        promptContainer.attr('class', 'biggest');
     } else if (length < 10) {
-        promptNumber.attr('class', 'bigger');
+        promptContainer.attr('class', 'bigger');
     } else {
-        promptNumber.attr('class', 'big');
+        promptContainer.attr('class', 'big');
     }
 }
 
@@ -232,6 +233,7 @@ $(function() {
 
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
+    promptContainer = $('#prompt-container');
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
