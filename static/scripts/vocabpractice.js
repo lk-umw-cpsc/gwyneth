@@ -48,7 +48,7 @@ function chooseAndDisplayNextPrompt() {
         promptQuestion.html('Translate to English:');
         promptTerm.html(currentTerm.french);
         answer = currentTerm.english;
-        speakButton.removeClass('hidden');
+        // speakButton.removeClass('hidden');
         speakButton.prop('disabled', false);
     } else {
         mode = MODE_TRANSLATE_TO_FRENCH;
