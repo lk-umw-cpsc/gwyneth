@@ -219,7 +219,7 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 
 function speak() {
     if (!currentTerm.speech) {
-        currentTerm.soundFile = new Audio(generateSoundURL());
+        currentTerm.speech = new Audio(generateSoundURL());
         // currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
         // currentTerm.speech.lang = "fr-FR";
         // currentTerm.speech.rate = 0.75;
