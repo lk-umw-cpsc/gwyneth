@@ -229,7 +229,7 @@ function speak() {
 }
 
 function generateSoundURL() {
-    return '/vocab/term/speech/' + currentTerm.id;
+    return '/vocab/term/' + currentTerm.id + '/speech';
 }
 
 $(function() {
