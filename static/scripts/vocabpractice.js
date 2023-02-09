@@ -117,9 +117,9 @@ function userSubmittedAnswer() {
             recordCorrect(currentTerm, false);
             changeUIIncorrect();
         }
+        speakButton.removeClass('hidden');
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
-        speakButton.removeClass('hidden');
         chooseAndDisplayNextPrompt();
         unlockInterface();
         rootElement.removeClass('incorrect');
