@@ -23,6 +23,7 @@ let currentNumber;
 let currentDifficulty;
 
 let sound;
+let speakButton;
 
 function chooseAndDisplayNextPrompt() {
     if (remainingNumbers.length > 0) {
@@ -46,11 +47,13 @@ function chooseAndDisplayNextPrompt() {
         promptQuestion.html('What number is this?');
         promptNumber.html(currentNumber.french);
         answer = currentNumber.number;
+        speakButton.removeClass('disabled');
     } else {
         mode = MODE_TYPE;
         promptQuestion.html('Write in French:');
         promptNumber.html(currentNumber.number.toLocaleString('fr-FR'));
         answer = currentNumber.french;
+        speakButton.addClass('disabled');
     }
     let length = promptNumber.html().length;
     if (length < 5) {
@@ -86,6 +89,7 @@ function userSubmittedAnswer() {
             changeUIIncorrect();
         }
         state = STATE_VIEW_ANSWER;
+        speakButton.removeClass('disabled');
     } else if (state == STATE_VIEW_ANSWER) {
         chooseAndDisplayNextPrompt();
         unlockInterface();
@@ -188,6 +192,17 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     return false;
 }
 
+function speak() {
+    if (!currentNumber.speech) {
+        currentNumber.speech = new Audio(generateSoundURL());
+    }
+    currentNumber.speech.play();
+}
+
+function generateSoundURL() {
+    return '/numbers/' + currentNumber.number + '/speech';
+}
+
 $(function() {
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
@@ -211,6 +226,10 @@ $(function() {
             userSubmittedAnswer();
         }
     });
+
+    speakButton = $("#speak-button");
+    speakButton.click(speak);
+
     promptNumber = $('#prompt-number');
     promptQuestion = $('#prompt-question');
     checkButton  = $('#check');
