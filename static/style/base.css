@@ -396,6 +396,6 @@ p {
 @media only screen and (min-width: 429px) {
     .radio-container {
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
     }
 }
