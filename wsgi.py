@@ -187,6 +187,7 @@ def vocab_edit_term(term_id):
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
+        # test success
         update_term_by_id(term_id, french, english, french_alts, english_alts, gender)
         return render_template('newterm.html', category_id=category_id)
 
