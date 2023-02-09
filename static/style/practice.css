@@ -23,3 +23,7 @@ main > p {
 #speak-button:hover {
     filter: brightness(1.2);
 }
+
+#speak-button.disabled {
+    filter: saturate(0);
+}
