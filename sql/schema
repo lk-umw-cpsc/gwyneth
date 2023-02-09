@@ -69,4 +69,9 @@ create or replace table userKnowsTerm (
     primary key (userid, termid)
 );
 
+create or replace table speech (
+    id int primary key AUTO_INCREMENT,
+    words varchar(256)
+);
+
 SET FOREIGN_KEY_CHECKS = 1;
