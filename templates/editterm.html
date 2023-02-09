@@ -1,34 +1,34 @@
 {% extends 'basictemplate.html' %}
-{% block title %} - add term{% endblock %}
+{% block title %} - edit term{% endblock %}
 {% block head %}
     <script src="{{ url_for('static', filename='scripts/termaddedit.js') }}"></script>
     <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/learn.css') }}"> -->
 {% endblock %}
 {% block main %}
-    <h1 class="logo">add term</h1>
+    <h1 class="logo">edit term</h1>
     <main>
-        <h4 class="centered">Add Term to '{{ category }}'</h4>
+        <h4 class="centered">Edit Term '{{ term['french'] }}'</h4>
         <form method="post">
             <label>French Main Answer</label>
-            <input type="text" id="french" name="french" required>
+            <input type="text" id="french" name="french" value="{{ term['french'] }}" required>
             <label>English Main Answer</label>
-            <input type="text" id="english" name="english" required>
+            <input type="text" id="english" name="english" value="{{ term['english'] }}" required>
             <label>French Alternate Answers</label>
-            <input type="text" id="french-alts" name="french-alts">
+            <input type="text" id="french-alts" name="french-alts" value="{{ term['french-alts'] }}">
             <label>English Alternate Answers</label>
-            <input type="text" id="english-alts" name="english-alts">
+            <input type="text" id="english-alts" name="english-alts" value="{{ term['english-alts'] }}">
             <label>Gender</label>
             <div class="radio-container">
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-neutral" value="n" required>
+                    <input type="radio" name="gender" id="gender-neutral" value="n" required {% if term['gender'] == 'n' %}selected{% endif %}>
                     <label for="gender-neutral">None</label>
                 </div>
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-masculine" value="m">
+                    <input type="radio" name="gender" id="gender-masculine" value="m" {% if term['gender'] == 'm' %}selected{% endif %}>
                     <label for="gender-masculine">Masculine</label>
                 </div>
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-feminine" value="f">
+                    <input type="radio" name="gender" id="gender-feminine" value="f" {% if term['gender'] == 'f' %}selected{% endif %}>
                     <label for="gender-feminine">Feminine</label>
                 </div>
             </div>

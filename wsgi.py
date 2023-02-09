@@ -137,6 +137,35 @@ def vocab_add_term(category_id):
         gender = gender_map[gender]
         create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
         return render_template('newterm.html', category_id=category_id)
+    
+@app.route('/vocab/term/<int:term_id>/edit', methods=['POST', 'GET'])
+def vocab_edit_term(term_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    
+    if request.method == 'GET':
+        term = get_term_by_id(term_id)
+        if not term:
+            abort(400)
+        return render_template('editterm.html', term=term)
+    else:
+        return
+        form = request.form
+        if 'french' not in form or 'english' not in form or 'french-alts' not in form or 'english-alts' not in form or 'gender' not in form:
+            abort(400)
+        french = form['french']
+        english = form['english']
+        french_alts = form['french-alts']
+        english_alts = form['english-alts']
+        if not french_alts:
+            french_alts = None
+        if not english_alts:
+            english_alts = None
+        gender = form['gender']
+        gender_map = { 'n': 0, 'm': 1, 'f': 2}
+        gender = gender_map[gender]
+        create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
+        return render_template('newterm.html', category_id=category_id)
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
@@ -500,6 +529,38 @@ def record_term_attempt(term_id, correct):
         cursor.execute('update userKnowsTerm set difficulty = (case when difficulty < 6 then difficulty + 2 else 7 end) where userid=? and termid=?', (user_id, term_id))
     connection.commit()
     connection.close()
+
+def get_term_by_id(id):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute('select id, english, french, englishAlt, frenchAlt, gender from term where id=?', (id,))
+    result = cursor.fetchone()
+    if not result:
+        return None
+    id, english, french, englishAlt, frenchAlt, gender = result
+    if gender == 1:
+        genderstr = 'm'
+    elif gender == 2:
+        genderstr = 'f'
+    else:
+        genderstr = 'n'
+    if englishAlt:
+        englishAlt = [alt.strip() for alt in englishAlt.split('/')]
+    if frenchAlt:
+        frenchAlt = [alt.strip() for alt in frenchAlt.split('/')]
+
+    term = {
+        'french': french,
+        'english': english,
+        'englishAlts': englishAlt,
+        'frenchAlts': frenchAlt,
+        'id': id,
+        'gender': genderstr
+    }
+    return term
+
+def update_term_by_id(id, french, english, french_alts, english_alts, gender):
+    pass
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
