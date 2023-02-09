@@ -56,11 +56,11 @@ function chooseAndDisplayNextPrompt() {
     }
     let length = promptTerm.html().length;
     if (length < 5) {
-        promptTerm.attr('class', 'biggest');
+        promptContainer.attr('class', 'biggest');
     } else if (length < 10) {
-        promptTerm.attr('class', 'bigger');
+        promptContainer.attr('class', 'bigger');
     } else {
-        promptTerm.attr('class', 'big');
+        promptContainer.attr('class', 'big');
     }
     if (currentTerm.gender === 'm') {
         promptTerm.addClass('masculine');
@@ -79,6 +79,7 @@ function userSubmittedAnswer() {
         let input = userInput.val().toLowerCase().trim();
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
+            speakButton.addClass('hidden');
             correct = input == currentTerm.english.toLowerCase();
             if (!correct && currentTerm.englishAlts) {
                 for (let alt of currentTerm.englishAlts) {
@@ -90,6 +91,7 @@ function userSubmittedAnswer() {
                 }
             }
         } else {
+            speakButton.removeClass('hidden');
             correct = input == currentTerm.french.toLowerCase();
             if (!correct && currentTerm.frenchAlts) {
                 for (let alt of currentTerm.frenchAlts) {
@@ -117,6 +119,7 @@ function userSubmittedAnswer() {
         }
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
+        speakButton.addClass('hidden');
         chooseAndDisplayNextPrompt();
         unlockInterface();
         rootElement.removeClass('incorrect');
@@ -257,10 +260,12 @@ $(function() {
             userSubmittedAnswer();
         }
     });
-    $("#speak-button").click(speak);
+    speakButton = $("#speak-button");
+    speakButton.click(speak);
 
     promptTerm = $('#prompt-term');
     promptQuestion = $('#prompt-question');
+    promptContainer = $('#prompt-container');
     checkButton  = $('#check');
     checkButton.click(userSubmittedAnswer);
     rootElement = $(':root');
