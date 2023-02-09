@@ -48,11 +48,13 @@ function chooseAndDisplayNextPrompt() {
         promptQuestion.html('Translate to English:');
         promptTerm.html(currentTerm.french);
         answer = currentTerm.english;
+        speakButton.removeClass('hidden');
     } else {
         mode = MODE_TRANSLATE_TO_FRENCH;
         promptQuestion.html('Translate to French:');
         promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
+        speakButton.addClass('hidden');
     }
     let length = promptTerm.html().length;
     if (length < 5) {
@@ -79,7 +81,6 @@ function userSubmittedAnswer() {
         let input = userInput.val().toLowerCase().trim();
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
-            speakButton.addClass('hidden');
             correct = input == currentTerm.english.toLowerCase();
             if (!correct && currentTerm.englishAlts) {
                 for (let alt of currentTerm.englishAlts) {
@@ -91,7 +92,6 @@ function userSubmittedAnswer() {
                 }
             }
         } else {
-            speakButton.removeClass('hidden');
             correct = input == currentTerm.french.toLowerCase();
             if (!correct && currentTerm.frenchAlts) {
                 for (let alt of currentTerm.frenchAlts) {
@@ -119,7 +119,7 @@ function userSubmittedAnswer() {
         }
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
-        speakButton.addClass('hidden');
+        speakButton.removeClass('hidden');
         chooseAndDisplayNextPrompt();
         unlockInterface();
         rootElement.removeClass('incorrect');
