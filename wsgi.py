@@ -153,7 +153,7 @@ def vocab_edit_term(term_id):
         args = request.args
         if 'categoryID' in args:
             try:
-                category_id = int('categoryID')
+                category_id = int(args['categoryID'])
             except:
                 abort(400)
         else:
