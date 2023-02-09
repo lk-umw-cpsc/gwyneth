@@ -320,7 +320,11 @@ form a:not(.button), main a:not(.button) {
     /* font-weight: 600; */
 }
 
-form a:hover:not(.button), main a:not(.button) {
+form a:hover:not(.button), main a:hover:not(.button) {
+    color:hsl(30, 100%, 75%);
+}
+
+main a:hover {
     color:hsl(30, 100%, 75%);
 }
 
