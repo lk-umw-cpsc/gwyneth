@@ -8,3 +8,7 @@ main > div {
 p {
     text-align: center;
 }
+
+#term-english, #term-french {
+    text-align: center;
+}
