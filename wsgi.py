@@ -306,7 +306,7 @@ def numbers_update():
 def get_number_audio(number):
     if not user_logged_in():
         return redirect(url_for('login'))
-    number = get_term_by_id(number)
+    number = get_number(number)
     if not number:
         abort(404)
     id = query_speech(number['french'])
