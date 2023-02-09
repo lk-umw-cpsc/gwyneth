@@ -194,6 +194,9 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 }
 
 function speak() {
+    if ($(this).hasClass('disabled')) {
+        return;
+    }
     if (!currentNumber.speech) {
         currentNumber.speech = new Audio(generateSoundURL());
     }
