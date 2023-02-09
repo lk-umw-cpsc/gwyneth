@@ -116,6 +116,10 @@ $(function() {
             checkUserEnteredFrench();
         }
     });
+
+    $('#you-try').blur(function() {
+        userInput.focus();
+    })
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedTerms();
     // ... category id?
@@ -127,5 +131,4 @@ $(function() {
         $('#learning-prompt').removeClass('hidden');
         sendAJAXRequest('/vocab/' + categoryID + '/fetch', {learned: true}, termsFetched, fetchFailed);
     });
-
 });
