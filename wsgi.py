@@ -167,11 +167,7 @@ def vocab_edit_term(term_id):
             term['englishAlts'] = '/'.join(term['englishAlts'])
         else:
             term['englishAlts'] = ''
-        if category_id > 0:
-            return redirect(url_for('vocab_edit_category', category_id=category_id))
-        else:
-            # return to terms list here
-            pass
+        return render_template('editterm.html', term=term, category_id=category_id)
     else:
         form = request.form
         if 'french' not in form or 'english' not in form or 'french-alts' not in form or 'english-alts' not in form or 'gender' not in form:
@@ -187,9 +183,20 @@ def vocab_edit_term(term_id):
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
-        # test success
-        update_term_by_id(term_id, french, english, french_alts, english_alts, gender)
-        return render_template('newterm.html', category_id=category_id)
+        if 'categoryID' in args:
+            try:
+                category_id = int(args['categoryID'])
+            except:
+                abort(400)
+        else:
+            category_id = -1
+
+        update_term_by_id(term_id, french, english, french_alts, english_alts, gender)            
+        if category_id > 0:
+            return redirect(url_for('vocab_edit_category', category_id=category_id))
+        else:
+            # return to terms list here
+            pass
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
