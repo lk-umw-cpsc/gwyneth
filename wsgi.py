@@ -591,7 +591,20 @@ def get_term_by_id(id):
     return term
 
 def update_term_by_id(id, french, english, french_alts, english_alts, gender):
-    pass
+    connection = get_database()
+    cursor = connection.cursor()
+    try:
+        cursor.execute(
+            'update term set french=?, english=?, frenchAlt=?, englishAlt=?, gender=? where id=?',
+            (french, english, french_alts, english_alts, gender, id)
+        )
+        connection.commit()
+        return True
+    except mariadb.Error as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
 
 # Numbers related SQL functions
 def get_user_unlearned_numbers():
