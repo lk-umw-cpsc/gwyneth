@@ -71,10 +71,12 @@ function nextTerm() {
 }
 
 function speak() {
-    if (!currentTerm.soundFile) {
-        currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
+    if (!currentTerm.speech) {
+        // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
+        currentTerm.speech = new SpeechSynthesisUtterance('Hello World');
     }
-    currentTerm.soundFile.play();
+    // currentTerm.speech.play();
+    window.speechSynthesis.speak(currentTerm.speech);
 }
 
 function generateSoundURL(french) {
