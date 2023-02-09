@@ -222,6 +222,7 @@ function speak() {
         // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
         currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
         currentTerm.speech.lang = "fr-FR";
+        currentTerm.speech.rate = 0.5;
     }
     // currentTerm.speech.play();
     window.speechSynthesis.speak(currentTerm.speech);
