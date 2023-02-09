@@ -128,6 +128,10 @@ def vocab_add_term(category_id):
         english = form['english']
         french_alts = form['french-alts']
         english_alts = form['english-alts']
+        if not french_alts:
+            french_alts = None
+        if not english_alts:
+            english_alts = None
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
