@@ -70,8 +70,15 @@ def vocab_edit_category(category_id):
             return 'INVALID REQUEST'
         return render_template('vocabeditcategory.html', category_id=category_id, category=name)
     else:
-
-        pass
+        form = request.form
+        if 'name' not in form or 'id' not in form:
+            abort(400)
+        category_name = form['name']
+        # category_id = form['id']
+        if rename_category(category_id, category_name):
+            return redirect(url_for('vocab_category', category_id=category_id))
+        else:
+            abort(500)
 
 @app.route('/vocab/<int:category_id>/learn')
 def vocab_learn(category_id):
@@ -316,6 +323,20 @@ def create_category(name):
     connection.commit()
     connection.close()
     return resulting_id
+
+def rename_category(id, new_name):
+    connection = get_database()
+    cursor = connection.cursor()
+    connection.close()
+    try:
+        cursor.execute('update category set name=? where id=?', (new_name, id))
+        connection.commit()
+    except mariadb.Error as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
+    return True
 
 def get_categories():
     connection = get_database()
