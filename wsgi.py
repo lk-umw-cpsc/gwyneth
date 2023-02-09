@@ -61,7 +61,7 @@ def vocab_category(category_id):
     return render_template('vocab.html', category=name, category_id=category_id, is_admin=is_admin)
 
 @app.route('/vocab/<int:category_id>/edit', methods=['GET','POST'])
-def vocab_category_edit(category_id):
+def vocab_edit_category(category_id):
     if not user_logged_in():
         return redirect(url_for('login'))
     if request.method == 'GET':
@@ -70,7 +70,7 @@ def vocab_category_edit(category_id):
             return 'INVALID REQUEST'
         return render_template('vocabeditcategory.html', category_id=category_id, category=name)
     else:
-        
+
         pass
 
 @app.route('/vocab/<int:category_id>/learn')
