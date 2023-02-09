@@ -22,5 +22,5 @@ p {
 }
 
 #speak-button.disabled {
-    filter: saturate(0);
+    filter: grayscale(1);
 }
