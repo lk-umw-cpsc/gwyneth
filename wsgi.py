@@ -140,10 +140,12 @@ def vocab_add_term(category_id):
             english_alts = None
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
-        gender = gender_map[gender]
-        create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
-
-        return render_template('newterm.html', category_id=category_id)
+        genderi = gender_map[gender]
+        id = create_term_in_category(category_id, french, english, french_alts, english_alts, genderi)
+        if id > 0:
+            return render_template('newterm.html', category_id=category_id, prev_french=french, prev_english=english, prev_gender=gender, prev_id=id)
+        else:
+            return 'similar term already exists' # make this prettier
     
 @app.route('/vocab/term/<int:term_id>/edit', methods=['POST', 'GET'])
 def vocab_edit_term(term_id):
@@ -431,10 +433,10 @@ def create_term_in_category(category_id, french, english, french_alts, english_a
         term_id = cursor.lastrowid
         cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
         connection.commit()
-        return True
+        return term_id
     except mariadb.Error as e:
         print(e)
-        return False
+        return -1
     finally:
         connection.close()
 

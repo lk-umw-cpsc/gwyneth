@@ -7,6 +7,15 @@
 {% block main %}
     <h1 class="logo">add term</h1>
     <main>
+        {% if prev_id %}
+            <div class="success-message">
+                Successfully added
+                <span {% if prev_gender=='m' %}class='masculine'{% elif prev_gender=='f' %}class='feminine'{% endif %}>
+                    {{ prev_french }} ({{ prev_english }})
+                </span>
+                <a href="{{ url_for('vocab_edit_term', term_id=prev_id, category_id=category_id) }}">✏️</a>
+            </div>
+        {% endif %}
         <h4 class="centered">Add Term to '{{ category }}'</h4>
         <form method="post">
             <label>French Main Answer</label>
