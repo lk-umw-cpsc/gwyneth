@@ -7,6 +7,8 @@ let amountLearned = 0;
 
 let categoryID;
 
+let currentSound;
+
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     var request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -68,6 +70,17 @@ function nextTerm() {
     }
 }
 
+function speak() {
+    if (!currentTerm.soundFile) {
+        currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
+    }
+    currentTerm.soundFile.play();
+}
+
+function generateSoundURL(french) {
+    return 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(french) + '&tl=fr&client=tw-ob';
+}
+
 function fetchUnlearnedTerms() {
     // ??? send category
     sendAJAXRequest('/vocab/' + categoryID + '/fetch', {learned: false}, termsFetched, fetchFailed);
@@ -91,6 +104,8 @@ $(function() {
         let disable = value != placeholder;
         $('#got-it').prop('disabled', disable);
     });
+
+    $("#speak-button").click(speak);
 
     $('#you-try').keypress(function(e) {
         if (e.which == 13) {
