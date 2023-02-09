@@ -1,19 +1,22 @@
 {% extends 'basictemplate.html' %}
 {% block title %} - add term{% endblock %}
-
+{% block head %}
+    <script src="{{ url_for('static', filename='scripts/termaddedit.js') }}"></script>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='style/learn.css') }}"> -->
+{% endblock %}
 {% block main %}
     <h1 class="logo">add term</h1>
     <main>
         <h4 class="centered">Add Term to '{{ category }}'</h4>
         <form method="post">
             <label>French Main Answer</label>
-            <input type="text" name="french" required>
+            <input type="text" id="french" name="french" required>
             <label>English Main Answer</label>
-            <input type="text" name="english" required>
+            <input type="text" id="english" name="english" required>
             <label>French Alternate Answers</label>
-            <input type="text" name="french-alts">
+            <input type="text" id="french-alts" name="french-alts">
             <label>English Alternate Answers</label>
-            <input type="text" name="english-alts">
+            <input type="text" id="english-alts" name="english-alts">
             <label>Gender</label>
             <div class="radio-container">
                 <div class="radio-choice">
