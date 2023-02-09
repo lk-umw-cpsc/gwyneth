@@ -23,16 +23,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="feminine">
-                    <td>une pomme</td>
-                    <td>an apple</td>
-                    <td><a href="/">✏️</a></td>
-                </tr>
-                <tr class="masculine">
-                    <td>un chat</td>
-                    <td>a cat</td>
-                    <td><a href="/">✏️</a></td>
-                </tr>
+                {% for term in terms %}
+                    <tr class="{% if term['gender'] == 'm' %}masculine{% elif term['gender'] == 'f' %}feminine{% endif %}">
+                        <td>{{ term['french'] }}</td>
+                        <td>{{ term['english'] }}</td>
+                        <td><a href="/">✏️</a></td>
+                    </tr>
+                {% endfor %}
             </tbody>
         </table>
     </main>

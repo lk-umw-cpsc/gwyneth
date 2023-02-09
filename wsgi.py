@@ -68,7 +68,8 @@ def vocab_edit_category(category_id):
         name = get_category_name(category_id)
         if not name:
             return 'INVALID REQUEST'
-        return render_template('vocabeditcategory.html', category_id=category_id, category=name)
+        terms = get_all_terms_in_category(category_id)
+        return render_template('vocabeditcategory.html', category_id=category_id, category=name, terms=terms)
     else:
         form = request.form
         if 'name' not in form or 'id' not in form:
