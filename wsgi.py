@@ -142,6 +142,7 @@ def vocab_add_term(category_id):
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
         create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
+
         return render_template('newterm.html', category_id=category_id)
     
 @app.route('/vocab/term/<int:term_id>/edit', methods=['POST', 'GET'])
@@ -425,12 +426,17 @@ def create_category(name):
 def create_term_in_category(category_id, french, english, french_alts, english_alts, gender):
     connection = get_database()
     cursor = connection.cursor()
-    cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
-    term_id = cursor.lastrowid
-    cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
-    connection.commit()
-    connection.close()
-    # to-do: make sure this didn't fail
+    try:
+        cursor.execute('insert into term (english, french, englishAlt, frenchAlt, gender) values (?, ?, ?, ?, ?)', (english, french, english_alts, french_alts, gender))
+        term_id = cursor.lastrowid
+        cursor.execute('insert into termInCategory (termid, categoryid) values (?, ?)', (term_id, category_id))
+        connection.commit()
+        return True
+    except mariadb.Error as e:
+        print(e)
+        return False
+    finally:
+        connection.close()
 
 def rename_category(id, new_name):
     connection = get_database()
