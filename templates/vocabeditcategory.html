@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/categoryedit.css') }}">
 {% endblock %}
 {% block main %}
-    <h1 class="logo">editing '{{ category }}'</h1>
+    <h1 class="logo">edit category</h1>
     <main>
+        <h4 class="centered">Editing '{{ category }}'</h4>
         <form method="post">
             <label>Category Name</label>
             <input type="text" name="name" value="{{ category }}" required>
-            <!-- <input type="hidden" name="id" value="{{ category_id }}" required> -->
             <input type="submit" value="Rename">
         </form>
         <h4 class="centered">Terms <a href="{{ url_for('vocab_add_term', category_id=category_id) }}">+</a></h4>
