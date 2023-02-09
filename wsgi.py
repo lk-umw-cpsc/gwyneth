@@ -89,7 +89,7 @@ def vocab_new_category():
             return 'INVALID REQUEST'
         name = form['name']
         id = create_category(name)
-        return redirect(url_for('vocab_categories'))
+        return redirect(url_for('vocab_edit_category', category_id=id))
 
 
 @app.route('/vocab/<int:category_id>/edit', methods=['GET','POST'])
