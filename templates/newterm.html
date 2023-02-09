@@ -1,5 +1,5 @@
 {% extends 'basictemplate.html' %}
-{% block title %}add term{% endblock %}
+{% block title %} - add term{% endblock %}
 
 {% block main %}
     <h1 class="logo">add term</h1>
@@ -15,7 +15,12 @@
             <label>English Alternate Answers</label>
             <input type="text" name="english-alts" required>
             <label>Gender</label>
-            <input type="text" name="gender" required>
+            <label for="gender-neutral">None</label>
+            <input type="radio" name="gender" id="gender-neutral" value="n">
+            <label for="gender-feminine">Female</label>
+            <input type="radio" name="gender" id="gender-feminine" value="f">
+            <label for="gender-male">Male</label>
+            <input type="radio" name="gender" id="gender-masculine" value="m">
             <input type="submit" value="Add Term">
         </form>
     </main>
