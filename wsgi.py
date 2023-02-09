@@ -54,10 +54,11 @@ def new_category():
 def vocab_category(category_id):
     if not user_logged_in():
         return redirect(url_for('login'))
+    is_admin = session['authorization'] == 2
     name = get_category_name(category_id)
     if not name:
         return 'INVALID REQUEST'
-    return render_template('vocab.html', category=name, category_id=category_id)
+    return render_template('vocab.html', category=name, category_id=category_id, is_admin=is_admin)
 
 @app.route('/vocab/<int:category_id>/learn')
 def vocab_learn(category_id):
