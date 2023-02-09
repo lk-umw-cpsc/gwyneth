@@ -72,17 +72,17 @@ function nextTerm() {
 
 function speak() {
     if (!currentTerm.speech) {
-        // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
-        currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
-        currentTerm.speech.lang = "fr-FR";
-        currentTerm.speech.rate = 0.75;
+        currentTerm.soundFile = new Audio(generateSoundURL());
+        // currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
+        // currentTerm.speech.lang = "fr-FR";
+        // currentTerm.speech.rate = 0.75;
     }
-    // currentTerm.speech.play();
-    window.speechSynthesis.speak(currentTerm.speech);
+    currentTerm.speech.play();
+    // window.speechSynthesis.speak(currentTerm.speech);
 }
 
-function generateSoundURL(french) {
-    return 'https://translate.google.com/translate_tts?ie=UTF-8&q=' + encodeURIComponent(french) + '&tl=fr&client=tw-ob';
+function generateSoundURL() {
+    return '/vocab/term/speech/' + currentTerm.id;
 }
 
 function fetchUnlearnedTerms() {

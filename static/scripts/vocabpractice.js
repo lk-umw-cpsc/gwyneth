@@ -219,13 +219,17 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 
 function speak() {
     if (!currentTerm.speech) {
-        // currentTerm.soundFile = new Audio(generateSoundURL(currentTerm.french));
-        currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
-        currentTerm.speech.lang = "fr-FR";
-        currentTerm.speech.rate = 0.75;
+        currentTerm.soundFile = new Audio(generateSoundURL());
+        // currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);
+        // currentTerm.speech.lang = "fr-FR";
+        // currentTerm.speech.rate = 0.75;
     }
-    // currentTerm.speech.play();
-    window.speechSynthesis.speak(currentTerm.speech);
+    currentTerm.speech.play();
+    // window.speechSynthesis.speak(currentTerm.speech);
+}
+
+function generateSoundURL() {
+    return '/vocab/term/speech/' + currentTerm.id;
 }
 
 $(function() {
