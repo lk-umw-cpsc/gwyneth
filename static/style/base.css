@@ -377,3 +377,17 @@ p {
 .hidden {
     display: none;
 }
+
+.radio-container { 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 2rem;   
+}
+
+.radio-choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+}
