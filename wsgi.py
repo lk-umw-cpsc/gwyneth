@@ -2,6 +2,7 @@ import hashlib
 import os
 import mariadb
 from flask import Flask, render_template, redirect, url_for, request, session, jsonify, abort
+import boto3
 
 app = Flask(__name__)
 
@@ -209,6 +210,16 @@ def vocab_edit_term(term_id):
         else:
             # handle case where term cannot be updated due to key constraint
             pass
+
+@app.route('/vocab/term/<int:term_id>/speech')
+def fetch_audio(term_id):
+    if not user_logged_in():
+        return redirect(url_for('login'))
+    term = get_term_by_id(term_id)
+    if not term:
+        abort(404)
+    id = query_speech(term['french'])
+    return redirect(f'/static/sounds/speech/{id}.mp3')
 
 @app.route('/vocab/update', methods=['POST'])
 def vocab_update():
@@ -677,3 +688,35 @@ def record_number_attempt(number, correct):
         cursor.execute('update userKnowsNumber set difficulty = (case when difficulty < 6 then difficulty + 2 else 7 end) where userid=? and base10=?', (id, number))
     connection.commit()
     connection.close()
+
+def query_speech(phrase):
+    connection = get_database()
+    cursor = connection.cursor()
+    cursor.execute(
+        'select id from speech where words=?',
+        (phrase,)
+    )
+    result = cursor.fetchone()
+    if result:
+        id, = result
+        connection.close()
+        return id
+
+    cursor.execute(
+        'insert into speech (words) values (?)', (phrase,)
+    )
+    id = cursor.lastrowid
+
+    polly_client = boto3.client('polly')
+
+    response = polly_client.synthesize_speech(VoiceId='Lea',
+        OutputFormat='mp3', 
+        Text = phrase,
+        Engine = 'standard',
+        LanguageCode='fr-FR')
+
+    file = open(f'static/sounds/speech/{id}.mp3', 'wb')
+    file.write(response['AudioStream'].read())
+    file.close()
+    return id
+    
