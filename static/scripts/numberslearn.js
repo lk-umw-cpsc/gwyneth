@@ -67,6 +67,10 @@ function speak() {
     currentNumber.speech.play();
 }
 
+function generateSoundURL() {
+    return '/numbers/' + currentNumber.number + '/speech';
+}
+
 $(function() {
     let youTry = $('#you-try');
     youTry.on('input', function() {
