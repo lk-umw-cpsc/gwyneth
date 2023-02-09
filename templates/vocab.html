@@ -4,7 +4,7 @@
 {% block main %}
     <h1 class="logo">{{ category }}</h1>
     <main>
-        <h4>Learn or practice?{% if is_admin %} <a href="{{ url_for('vocab_edit_category', category_id=) }}">✏️</a>{% endif %}</h4>
+        <h4>Learn or practice?{% if is_admin %} <a href="{{ url_for('vocab_edit_category', category_id=category_id) }}">✏️</a>{% endif %}</h4>
         <a class="medium button" href="{{ url_for('vocab_learn', category_id=category_id) }}">Learn</a>
         <a class="medium button" href="{{ url_for('vocab_practice', category_id=category_id) }}">Practice</a>
     </main>
