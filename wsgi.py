@@ -41,7 +41,7 @@ def new_category():
     if session['authorization'] < 2:
         abort(404)
     if request.method == 'GET':
-        return render_template('vocabcategories.html', categories=get_categories())
+        return render_template('newcategory.html', categories=get_categories())
     else:
         form = request.form
         if 'name' not in form:
