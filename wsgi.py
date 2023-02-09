@@ -147,6 +147,16 @@ def vocab_edit_term(term_id):
         term = get_term_by_id(term_id)
         if not term:
             abort(400)
+        # make alt answers form-friendly
+        if term['frenchAlts']:
+            term['frenchAlts'] = '/'.join(term['frenchAlts'])
+        else:
+            term['frenchAlts'] = ''
+            
+        if term['englishAlts']:
+            term['englishAlts'] = '/'.join(term['englishAlts'])
+        else:
+            term['englishAlts'] = ''
         return render_template('editterm.html', term=term)
     else:
         return
