@@ -183,9 +183,9 @@ def vocab_edit_term(term_id):
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
-        if 'categoryID' in args:
+        if 'category-form' in form:
             try:
-                category_id = int(args['categoryID'])
+                category_id = int(form['category-id'])
             except:
                 abort(400)
         else:
