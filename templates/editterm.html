@@ -20,15 +20,15 @@
             <label>Gender</label>
             <div class="radio-container">
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-neutral" value="n" required {% if term['gender'] == 'n' %}selected{% endif %}>
+                    <input type="radio" name="gender" id="gender-neutral" value="n" required {% if term['gender'] == 'n' %}checked{% endif %}>
                     <label for="gender-neutral">None</label>
                 </div>
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-masculine" value="m" {% if term['gender'] == 'm' %}selected{% endif %}>
+                    <input type="radio" name="gender" id="gender-masculine" value="m" {% if term['gender'] == 'm' %}checked{% endif %}>
                     <label for="gender-masculine">Masculine</label>
                 </div>
                 <div class="radio-choice">
-                    <input type="radio" name="gender" id="gender-feminine" value="f" {% if term['gender'] == 'f' %}selected{% endif %}>
+                    <input type="radio" name="gender" id="gender-feminine" value="f" {% if term['gender'] == 'f' %}checked{% endif %}>
                     <label for="gender-feminine">Feminine</label>
                 </div>
             </div>
