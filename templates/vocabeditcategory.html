@@ -27,7 +27,7 @@
                     <tr class="{% if term['gender'] == 'm' %}masculine{% elif term['gender'] == 'f' %}feminine{% endif %}">
                         <td>{{ term['french'] }}</td>
                         <td>{{ term['english'] }}</td>
-                        <td><a href="{{ url_for('vocab_edit_term', term_id=term['id']) }}">✏️</a></td>
+                        <td><a href="{{ url_for('vocab_edit_term', term_id=term['id'], categoryID=category_id) }}">✏️</a></td>
                     </tr>
                 {% endfor %}
             </tbody>

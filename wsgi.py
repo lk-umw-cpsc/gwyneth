@@ -114,7 +114,8 @@ def vocab_fetch(category_id):
 def vocab_add_term(category_id):
     if not user_logged_in():
         return redirect(url_for('login'))
-    
+    if session['authorization'] < 2:
+        abort(404)
     name = get_category_name(category_id)
     if not name:
         abort(400)
@@ -142,24 +143,36 @@ def vocab_add_term(category_id):
 def vocab_edit_term(term_id):
     if not user_logged_in():
         return redirect(url_for('login'))
-    
+    if session['authorization'] < 2:
+        abort(404)
     if request.method == 'GET':
         term = get_term_by_id(term_id)
         if not term:
             abort(400)
         # make alt answers form-friendly
+        args = request.args
+        if 'categoryID' in args:
+            try:
+                category_id = int('categoryID')
+            except:
+                abort(400)
+        else:
+            category_id = -1
         if term['frenchAlts']:
             term['frenchAlts'] = '/'.join(term['frenchAlts'])
         else:
             term['frenchAlts'] = ''
-            
+
         if term['englishAlts']:
             term['englishAlts'] = '/'.join(term['englishAlts'])
         else:
             term['englishAlts'] = ''
-        return render_template('editterm.html', term=term)
+        if category_id > 0:
+            return redirect(url_for('vocab_edit_category', category_id=category_id))
+        else:
+            # return to terms list here
+            pass
     else:
-        return
         form = request.form
         if 'french' not in form or 'english' not in form or 'french-alts' not in form or 'english-alts' not in form or 'gender' not in form:
             abort(400)
@@ -174,7 +187,7 @@ def vocab_edit_term(term_id):
         gender = form['gender']
         gender_map = { 'n': 0, 'm': 1, 'f': 2}
         gender = gender_map[gender]
-        create_term_in_category(category_id, french, english, french_alts, english_alts, gender)
+        update_term_by_id(term_id, french, english, french_alts, english_alts, gender)
         return render_template('newterm.html', category_id=category_id)
 
 @app.route('/vocab/update', methods=['POST'])
