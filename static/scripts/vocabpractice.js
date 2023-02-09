@@ -48,15 +48,13 @@ function chooseAndDisplayNextPrompt() {
         promptQuestion.html('Translate to English:');
         promptTerm.html(currentTerm.french);
         answer = currentTerm.english;
-        // speakButton.removeClass('hidden');
-        speakButton.prop('disabled', false);
+        speakButton.removeClass('disabled');
     } else {
         mode = MODE_TRANSLATE_TO_FRENCH;
         promptQuestion.html('Translate to French:');
         promptTerm.html(currentTerm.english);
         answer = currentTerm.french;
-        // speakButton.addClass('hidden');
-        speakButton.prop('disabled', true);
+        speakButton.addClass('disabled');
     }
     let length = promptTerm.html().length;
     if (length < 5) {
@@ -119,8 +117,7 @@ function userSubmittedAnswer() {
             recordCorrect(currentTerm, false);
             changeUIIncorrect();
         }
-        // speakButton.removeClass('hidden');
-        speakButton.prop('disabled', false);
+        speakButton.removeClass('disabled');
         state = STATE_VIEW_ANSWER;
     } else if (state == STATE_VIEW_ANSWER) {
         chooseAndDisplayNextPrompt();
@@ -224,6 +221,9 @@ function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
 }
 
 function speak() {
+    if ($(this).hasClass('disabled')) {
+        return;
+    }
     if (!currentTerm.speech) {
         currentTerm.speech = new Audio(generateSoundURL());
         // currentTerm.speech = new SpeechSynthesisUtterance(currentTerm.french);

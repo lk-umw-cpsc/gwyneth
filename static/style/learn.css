@@ -17,10 +17,10 @@ p {
     cursor: pointer;
 }
 
-#speak-button:hover:not(:disabled) {
+#speak-button:hover:not(.disabled) {
     filter: brightness(1.2);
 }
 
-#speak-button:disabled {
+#speak-button.disabled {
     filter: saturate(0);
 }
