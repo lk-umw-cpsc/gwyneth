@@ -299,6 +299,7 @@ def create_category(name):
     cursor = connection.cursor()
     cursor.execute('insert into category (sortindex, name, ischapter) values (default, ?, ?)', (name, False))
     resulting_id = cursor.lastrowid
+    connection.commit()
     connection.close()
     return resulting_id
 
