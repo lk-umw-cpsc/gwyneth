@@ -327,7 +327,6 @@ def create_category(name):
 def rename_category(id, new_name):
     connection = get_database()
     cursor = connection.cursor()
-    connection.close()
     try:
         cursor.execute('update category set name=? where id=?', (new_name, id))
         connection.commit()
