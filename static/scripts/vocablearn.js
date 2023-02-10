@@ -114,7 +114,7 @@ $(function() {
     });
 
     $('#you-try').blur(function() {
-        $(this).focus();
+        setTimeout(function(){ $('#you-try').focus() }, 20);
     });
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedTerms();
