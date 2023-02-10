@@ -114,8 +114,8 @@ $(function() {
     });
 
     $('#you-try').blur(function() {
-        $('#you-try').focus();
-    })
+        $(this).focus();
+    });
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedTerms();
     // ... category id?
