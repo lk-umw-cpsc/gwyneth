@@ -144,7 +144,7 @@ def vocab_add_term(category_id):
         genderi = gender_map[gender]
         id = create_term_in_category(category_id, french, english, french_alts, english_alts, genderi)
         if id > 0:
-            return render_template('newterm.html', category_id=category_id, prev_french=french, prev_english=english, prev_gender=gender, prev_id=id)
+            return render_template('newterm.html', category_id=category_id, category=name, prev_french=french, prev_english=english, prev_gender=gender, prev_id=id)
         else:
             return 'similar term already exists' # make this prettier
     
