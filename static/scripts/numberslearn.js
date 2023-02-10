@@ -86,6 +86,9 @@ $(function() {
             checkUserEnteredFrench();
         }
     });
+    $('#you-try').blur(function() {
+        setTimeout(function(){ $('#you-try').focus() }, 20);
+    });
     $('#got-it').click(checkUserEnteredFrench);
     fetchUnlearnedNumbers();
     $('#practice').click(function() { location.href = "/numbers/practice"; });

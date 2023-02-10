@@ -263,6 +263,15 @@ $(function() {
             userSubmittedAnswer();
         }
     });
+    
+    userInput.blur(function() {
+        setTimeout(function(){ 
+            if (!userInput.prop('disabled')) {
+                userInput.focus() 
+            }
+        }, 20);
+    });
+
     speakButton = $("#speak-button");
     speakButton.click(speak);
 
