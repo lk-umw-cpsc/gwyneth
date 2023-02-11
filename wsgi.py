@@ -205,8 +205,7 @@ def vocab_edit_term(term_id):
             if category_id > 0:
                 return redirect(url_for('vocab_edit_category', category_id=category_id))
             else:
-                # return to terms list here
-                pass
+                return redirect(url_for('vocab_categories'))
         else:
             # handle case where term cannot be updated due to key constraint
             pass
