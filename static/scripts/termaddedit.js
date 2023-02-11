@@ -7,4 +7,6 @@ $(function() {
             $('#gender-feminine').attr('checked', true);
         }
     });
+
+    $('#french').focus();
 });
