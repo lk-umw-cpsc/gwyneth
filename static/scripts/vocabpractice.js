@@ -78,7 +78,7 @@ function chooseAndDisplayNextPrompt() {
 
 function userSubmittedAnswer() {
     if (state == STATE_PROMPT) {
-        let input = userInput.val().toLowerCase().trim().replaceAll('’', "'");
+        let input = userInput.val().toLowerCase().trim().replaceAll('\u2018', "'").replaceAll('\u2019', "'");
         let correct;
         if (mode == MODE_TRANSLATE_TO_ENGLISH) {
             correct = input == currentTerm.english.toLowerCase();

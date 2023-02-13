@@ -88,7 +88,7 @@ function fetchUnlearnedTerms() {
 
 function checkUserEnteredFrench() {
     let youTry = $("#you-try")
-    let value = youTry.val().toLowerCase().trim().replaceAll('’', "'");;
+    let value = youTry.val().toLowerCase().trim().replaceAll('\u2018', "'").replaceAll('\u2019', "'");
     let placeholder = youTry.attr("placeholder");
     if (value == placeholder) {
         sendAJAXRequest('/vocab/update', { term: currentTerm.id, type: 'learned' }, nextTerm);
