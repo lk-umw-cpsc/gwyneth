@@ -133,6 +133,6 @@ $(function() {
         sendAJAXRequest('/vocab/' + categoryID + '/fetch', {learned: true}, termsFetched, fetchFailed);
     });
 
-    let chromeAgent = userAgentString.indexOf("Chrome") > -1;
-    safariUser = userAgentString.indexOf("Safari") > -1 && !chromeAgent;
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
+    safariUser = navigator.userAgent.indexOf("Safari") > -1 && !chromeAgent;
 });
