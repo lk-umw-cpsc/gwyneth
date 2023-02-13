@@ -9,6 +9,8 @@ let categoryID;
 
 let currentSound;
 
+let safariUser;
+
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     var request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -74,6 +76,9 @@ function speak() {
     if (!currentTerm.speech) {
         currentTerm.speech = new Audio(generateSoundURL());
     }
+    if (safariUser) {
+        currentTerm.speech.load();
+    }
     currentTerm.speech.play();
 }
 
@@ -127,4 +132,7 @@ $(function() {
         $('#learning-prompt').removeClass('hidden');
         sendAJAXRequest('/vocab/' + categoryID + '/fetch', {learned: true}, termsFetched, fetchFailed);
     });
+
+    let chromeAgent = userAgentString.indexOf("Chrome") > -1;
+    safariUser = userAgentString.indexOf("Safari") > -1 && !chromeAgent;
 });

@@ -3,6 +3,8 @@ let currentNumber;
 
 let amountLearned = 0;
 
+let safariUser;
+
 function sendAJAXRequest(url, requestData, onSuccess, onFailure) {
     var request = new XMLHttpRequest();
     request.open("POST", url, true);
@@ -64,6 +66,9 @@ function speak() {
     if (!currentNumber.speech) {
         currentNumber.speech = new Audio(generateSoundURL());
     }
+    if (safariUser) {
+        currentNumber.speech.load();
+    }
     currentNumber.speech.play();
 }
 
@@ -99,4 +104,7 @@ $(function() {
         $('#learning-prompt').removeClass('hidden');
         sendAJAXRequest('/numbers/fetch', {learned: true}, numbersFetched, fetchFailed);
     });
+
+    let chromeAgent = userAgentString.indexOf("Chrome") > -1;
+    safariUser = userAgentString.indexOf("Safari") > -1 && !chromeAgent;
 });
