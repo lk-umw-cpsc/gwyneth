@@ -9,7 +9,7 @@ p {
     text-align: center;
 }
 
-#term-english, #term-french {
+#term-english, #term-french, main > div > h1 {
     text-align: center;
 }
 
