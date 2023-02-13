@@ -99,7 +99,7 @@ $(function() {
     categoryID = $('#category-id').val();
     let youTry = $('#you-try');
     youTry.on('input', function() {
-        let value = $(this).val();
+        let value = $(this).val().trim().replaceAll('\u2018', "'").replaceAll('\u2019', "'");
         let placeholder = $(this).attr("placeholder");
         let disable = value != placeholder;
         $('#got-it').prop('disabled', disable);
