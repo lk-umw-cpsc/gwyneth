@@ -24,7 +24,9 @@ let currentDifficulty;
 
 let categoryID;
 
-let sound;
+let sound = true;
+
+let safariUser;
 
 function chooseAndDisplayNextPrompt() {
     if (remainingTerms.length > 0) {
@@ -105,12 +107,18 @@ function userSubmittedAnswer() {
         }
         if (correct) {
             if (sound) {
+                if (safariUser) {
+                    correctAnswerSound.load();
+                }
                 correctAnswerSound.play();
             }
             changeUICorrect();
             recordCorrect(currentTerm, true);
         } else {
             if (sound) {
+                if (safariUser) {
+                    incorrectAnswerSound.load();
+                }
                 incorrectAnswerSound.play();
             }
             incorrectPile.push(currentTerm);
@@ -230,6 +238,9 @@ function speak() {
         // currentTerm.speech.lang = "fr-FR";
         // currentTerm.speech.rate = 0.75;
     }
+    if (safariUser) {
+        currentTerm.speech.load();
+    }
     currentTerm.speech.play();
     // window.speechSynthesis.speak(currentTerm.speech);
 }
@@ -242,11 +253,9 @@ $(function() {
     categoryID = $('#category-id').val();
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
-    sound = navigator.userAgent.indexOf("Chrome") != -1;
-    if (sound) {
-        incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
-        correctAnswerSound = new Audio('/static/sounds/correct.wav');
-    }
+    incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
+    correctAnswerSound = new Audio('/static/sounds/correct.wav');
+
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
@@ -286,4 +295,7 @@ $(function() {
     $('#practice-anyway').click(practiceAnywayClicked);
     $('#practice-again').click(practiceAgainClicked);
     fetchTerms();
+
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
+    safariUser = navigator.userAgent.indexOf("Safari") > -1 && chromeAgent < 0;
 });

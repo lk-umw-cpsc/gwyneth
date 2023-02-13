@@ -23,8 +23,10 @@ let rootElement;
 let currentNumber;
 let currentDifficulty;
 
-let sound;
+let sound = true;
 let speakButton;
+
+let safariUser;
 
 function chooseAndDisplayNextPrompt() {
     if (remainingNumbers.length > 0) {
@@ -77,12 +79,18 @@ function userSubmittedAnswer() {
         }
         if (correct) {
             if (sound) {
+                if (safariUser) {
+                    correctAnswerSound.load();
+                }
                 correctAnswerSound.play();
             }
             changeUICorrect();
             recordCorrect(currentNumber, true);
         } else {
             if (sound) {
+                if (safariUser) {
+                    incorrectAnswerSound.load();
+                }
                 incorrectAnswerSound.play();
             }
             incorrectPile.push(currentNumber);
@@ -200,6 +208,9 @@ function speak() {
     if (!currentNumber.speech) {
         currentNumber.speech = new Audio(generateSoundURL());
     }
+    if (safariUser) {
+        currentNumber.speech.load();
+    }
     currentNumber.speech.play();
 }
 
@@ -210,11 +221,8 @@ function generateSoundURL() {
 $(function() {
     // const AudioContext = window.AudioContext || window.webkitAudioContext;
     // const audioCtx = new AudioContext();
-    sound = navigator.userAgent.indexOf("Chrome") != -1;
-    if (sound) {
-        incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
-        correctAnswerSound = new Audio('/static/sounds/correct.wav');
-    }
+    incorrectAnswerSound = new Audio('/static/sounds/incorrect.wav');
+    correctAnswerSound = new Audio('/static/sounds/correct.wav');
     userInput = $('#user-input');
     userInput.keypress(function(event) {
         if (event.which == 13) {
@@ -245,4 +253,7 @@ $(function() {
     $('#practice-anyway').click(practiceAnywayClicked);
     $('#practice-again').click(practiceAgainClicked);
     fetchNumbers();
+
+    let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
+    safariUser = navigator.userAgent.indexOf("Safari") > -1 && chromeAgent < 0;
 });
