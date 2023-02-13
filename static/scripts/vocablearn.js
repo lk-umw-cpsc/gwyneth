@@ -135,4 +135,5 @@ $(function() {
 
     let chromeAgent = navigator.userAgent.indexOf("Chrome") > -1;
     safariUser = navigator.userAgent.indexOf("Safari") > -1 && chromeAgent < 0;
+    console.log(safariUser);
 });
