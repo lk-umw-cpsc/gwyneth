@@ -10,6 +10,9 @@
     .conjugation-list > * {
         width: 50%;
     } */
+    h4 {
+        text-align: center;
+    }
 </style>
 {% endblock %}
 {% block main %}
@@ -27,7 +30,8 @@
         <form method="post">
             <label>Infinitive</label>
             <input type="text" id="french" name="french" required>
-
+            <label>English Translation</label>
+            <input type="text" id="english" name="english" required>
             <h5>Present Tense</h5>
             <label>Present Participle</label>
             <input type="text" id="present-participle" name="present-participle" required>
@@ -49,7 +53,10 @@
             <h5>Passé Composé</h5>
             <label>Past Participle</label>
             <input type="text" id="past-participle" name="past-participle" required>
+            <label>Takes Avoir</label>
             <input type="checkbox" id="takes-avoir" name="takes-avoir">
+            <label>Avoir English</label>
+            <label>Takes Être</label>
             <input type="checkbox" id="takes-etre" name="takes-etre">
 
             <h5>Conditional & Future</h5>
