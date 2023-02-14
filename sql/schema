@@ -74,4 +74,46 @@ create or replace table speech (
     words varchar(256)
 );
 
+create or replace table verb (
+    id int primary key AUTO_INCREMENT,
+    infinitive varchar(32) not null,
+    presentParticiple varchar(32) not null,
+    presentParticipleEnglish varchar(32) not null
+
+    pastParticiple varchar(32) not null,
+    pastParticipleEnglish varchar(32) not null,
+    passeAvoirEnglish varchar(32),
+    passeEtreEnglish varchar(32),
+
+    jePresent varchar(32) not null,
+    tuPresent varchar(32) not null,
+    ilPresent varchar(32) not null,
+    nousPresent varchar(32) not null,
+    vousPresent varchar(32) not null,
+    ilsPresent varchar(32) not null,
+
+    imperfectStem varchar(32) not null,
+    jeImperfect varchar(32) not null,
+    tuImperfect varchar(32) not null,
+    ilImperfect varchar(32) not null,
+    nousImperfect varchar(32) not null,
+    vousImperfect varchar(32) not null,
+    ilsImperfect varchar(32) not null,
+
+    conditionalFutureStem varchar(32) not null,
+    jeConditional varchar(32) not null,
+    tuConditional varchar(32) not null,
+    ilConditional varchar(32) not null,
+    nousConditional varchar(32) not null,
+    vousConditional varchar(32) not null,
+    ilsConditional varchar(32) not null,
+
+    jeFuture varchar(32) not null,
+    tuFuture varchar(32) not null,
+    ilFuture varchar(32) not null,
+    nousFuture varchar(32) not null,
+    vousFuture varchar(32) not null,
+    ilsFuture varchar(32) not null
+);
+
 SET FOREIGN_KEY_CHECKS = 1;

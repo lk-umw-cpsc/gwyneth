@@ -311,6 +311,10 @@ def get_number_audio(number):
     id = query_speech(number['french'])
     return redirect(f'/static/sounds/speech/{id}.mp3')
 
+@app.route('/verbs')
+def verb_form():
+    return render_template('verbs/add.html')
+
 # User account- and login-related routes
 @app.route('/login', methods=['GET', 'POST'])
 def login():

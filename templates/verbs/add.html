@@ -1,0 +1,61 @@
+{% extends '../basictemplate.html' %}
+{% block title %} - add verb{% endblock %}
+{% block head %}
+    <!-- <script src="{{ url_for('static', filename='scripts/termaddedit.js') }}"></script> -->
+<style>
+    .conjugation-list {
+        display: column;
+        width: 100%;
+    }
+    .conjugation-list > * {
+        width: 50%;
+    }
+</style>
+{% endblock %}
+{% block main %}
+    <h1 class="logo">add verb</h1>
+    <main>
+        {% if prev_id %}
+            <div class="success-message">
+                Successfully added
+                <span>{{ prev_french }} ({{ prev_english }})
+                </span>
+                <a href="{{ url_for('edit_verb', term_id=prev_id, categoryID=category_id) }}">✏️</a>
+            </div>
+        {% endif %}
+        <h4 class="centered">Add Verb to ' category '</h4>
+        <form method="post">
+            <label>Infinitive</label>
+            <input type="text" id="french" name="french" required>
+
+            <h5>Present Tense</h5>
+            <label>Present Participle</label>
+            <input type="text" id="present-participle" name="present-participle" required>
+            <div class="conjugation-list">
+                <label>Je</label>
+                <input type="text" id="je-present" name="je-present" required>
+                <label>Tu</label>
+                <input type="text" id="tu-present" name="tu-present" required>
+                <label>Il/elle/on</label>
+                <input type="text" id="il-present" name="il-present" required>
+                <label>Nous</label>
+                <input type="text" id="nous-present" name="nous-present" required>
+                <label>Vous</label>
+                <input type="text" id="vous-present" name="vous-present" required>
+                <label>Ils/elles</label>
+                <input type="text" id="ils-present" name="ils-present" required>
+            </div>
+
+            <h5>Passé Composé</h5>
+            <label>Past Participle</label>
+            <input type="text" id="past-participle" name="past-participle" required>
+            <input type="checkbox" id="takes-avoir" name="takes-avoir">
+            <input type="checkbox" id="takes-etre" name="takes-etre">
+
+            <h5>Conditional & Future</h5>
+            <input type="text" id="conditional-future-stem" name="conditional-future-stem">
+
+            <input type="submit" value="Add Term">
+        </form>
+    </main>
+{% endblock %}
