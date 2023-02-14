@@ -19,9 +19,9 @@ $(function() {
     $('#conditional-future-stem').on("input", function() {
         let value = $(this).val();
         console.log(2);
-        for (let pair in idsAndEndings) {
-            console.log(pair[0] + ' ' + pair[1]);
-            $(pair[0]).html(value + pair[1]);
+        for (let i = 0; i < idsAndEndings.length; i++) {
+            console.log(pair[i][0] + ' ' + pair[i][1]);
+            $(pair[i][0]).html(value + pair[i][1]);
         }
     });
 });
