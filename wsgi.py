@@ -23,10 +23,6 @@ def home():
     name = session['name']
     return render_template('home.html', name=name, new_user_welcome=new_user_welcome, login_welcome=login_welcome)
 
-@app.route('/verbs')
-def verbs():
-    return 'TBI'
-
 # Vocab pages
 @app.route('/vocab/categories')
 def vocab_categories():
