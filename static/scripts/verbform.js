@@ -20,8 +20,8 @@ $(function() {
         let value = $(this).val();
         console.log(2);
         for (let i = 0; i < idsAndEndings.length; i++) {
-            console.log(pair[i][0] + ' ' + pair[i][1]);
-            $(pair[i][0]).html(value + pair[i][1]);
+            console.log(idsAndEndings[i][0] + ' ' + idsAndEndings[i][1]);
+            $(idsAndEndings[i][0]).html(value + idsAndEndings[i][1]);
         }
     });
 });
