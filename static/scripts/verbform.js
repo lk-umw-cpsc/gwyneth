@@ -14,9 +14,13 @@ $(function() {
         [ '#vous-ftr', 'ez'],
         [ '#ils-ftr', 'ont']
     ];
+    console.log(1);
+
     $('#conditional-future-stem').on("input", function() {
         let value = $(this).val();
+        console.log(2);
         for (let pair in idsAndEndings) {
+            console.log(pair[0] + ' ' + pair[1]);
             $(pair[0]).html(value + pair[1]);
         }
     });
