@@ -68,6 +68,56 @@ header {
     font-weight: 300;
 }
 
+header ul > li, .navbar-brand {
+    font-size: 0.75rem;
+    list-style-type: none;
+}
+
+.navbar {
+    width: 100%;
+}
+
+.navbar ul {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.navbar img {
+    height: 3rem;
+}
+
+.navbar ul li a {
+    color: var(--main-color);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color .3s;
+}
+
+.navbar ul li a:hover {
+    color: var(--accent-color);
+}
+
+.navbar-toggler {
+    display: none;
+}
+
+header > nav > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+#vms-logo {
+    color: var(--main-color);
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-left: -1rem;
+    margin-right: 1rem;
+}
+
 /* Form Controls */
 
 input[type=text], input[type=password], select {

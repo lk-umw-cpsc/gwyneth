@@ -10,7 +10,7 @@
 ?>
 <!-- Begin Header -->
 
-<style type="text/css">
+<!-- <style type="text/css">
         /* Modify the background color */
         .navbar-custom {
             background-color: rgb(250, 249, 246);
@@ -21,7 +21,7 @@
         .navbar-custom .navbar-text {
             background-color: rgb(250, 249, 246);
         }
-</style>
+</style> -->
 
 <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/> -->
 <!-- <script src="lib\bootstrap\js\bootstrap.js"></script> -->
@@ -84,10 +84,8 @@
         else {
             echo('<nav class="navbar navbar-custom navbar-expand-lg bg-light">');
             echo('<div class="container-fluid">');
-            echo('<a class="navbar-brand" href="' . $path . 'index.php">
-            <img src="images/gwynethsgift.png">VMS
-            </a>');
-            echo('<a class="navbar-brand">Homebase</a>');
+            echo('<a class="navbar-brand" href="' . $path . 'index.php"><img src="images/gwynethsgift.png"></a>');
+            echo('<a class="navbar-brand" id="vms-logo">VMS</a>');
             echo('<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>');
         	echo('<div class="collapse navbar-collapse" id="navbarSupportedContent">');
             echo('<ul class="navbar-nav me-auto mb-2 mb-lg-0">');
