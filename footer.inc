@@ -1,6 +1,6 @@
 <!-- Begin Footer -->
 <br /><br />
-<div align="center">
+<!--<div align="center">
     <div align="center" style="border:dashed 1px #999; width:80%;">
 
         <p style="font-size:xx-small">Copyright &copy; 2008-2015 by Jerrick Hoang, Ivy Xing, Sam Roberts, James Cook, 
@@ -10,5 +10,5 @@
             <a href="http://www.gnu.org/licenses/gpl.html"> GNU General Public License</a>.
         </p>
     </div>
-</div>
+</div>-->
 <!-- End Footer -->

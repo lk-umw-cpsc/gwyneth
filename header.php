@@ -23,18 +23,18 @@
         }
 </style>
 
-<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>
-<script src="lib\bootstrap\js\bootstrap.js"></script>
+<!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/> -->
+<!-- <script src="lib\bootstrap\js\bootstrap.js"></script> -->
+<link rel="stylesheet" href="css/base.css" type="text/css" />
 
-<div class="d-flex justify-content-center" id="navigationLinks">
+<header>
 
     <?PHP
     //Log-in security
     //If they aren't logged in, display our log-in form.
+    $showing_login = false;
     if (!isset($_SESSION['logged_in'])) {
-    	
-        include('login_form.php');
-        die();
+        echo '<img src="images/gwynethsgift.png">VMS';
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -85,8 +85,8 @@
             echo('<nav class="navbar navbar-custom navbar-expand-lg bg-light">');
             echo('<div class="container-fluid">');
             echo('<a class="navbar-brand" href="' . $path . 'index.php">
-            <img src="images\gwynethsgift.png" alt="Gwyneth\'s Gift" width="203" height="63">
-          </a>');
+            <img src="images/gwynethsgift.png">VMS
+            </a>');
             echo('<a class="navbar-brand">Homebase</a>');
             echo('<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>');
         	echo('<div class="collapse navbar-collapse" id="navbarSupportedContent">');
@@ -122,5 +122,5 @@
         
     }
     ?>
-</div>
+</header>
 <!-- End Header -->

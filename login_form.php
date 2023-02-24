@@ -14,8 +14,8 @@
  * @version 3/28/2008, revised 7/1/2015
  */
 ?>
-
-<div id="content">
+<main>
+    <h1>Log in</h1>
     <?PHP
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
@@ -24,19 +24,23 @@
         echo "<script type=\"text/javascript\">window.location = \"index.php\";</script>";
     }
     if (!array_key_exists('_submit_check', $_POST)) {
-        echo('<div align="left"><p>Access to Homebase requires a Username and a Password. ' .
-        '<ul>'
-        );
-        echo('<li>If you are applying for a volunteer position, enter the Username \'guest\' and a blank Password. ');
-        echo('<li>If you are a volunteer logging in for the first time, both your Username and Password is your first name followed by your ten digit phone number. ');
-        echo('<li>After you have logged in, you can change your password. ');
+        // echo('<div align="left"><p>Access to Homebase requires a Username and a Password. ' .
+        // '<ul>'
+        // );
+        // echo('<li>If you are applying for a volunteer position, enter the Username \'guest\' and a blank Password. ');
+        // echo('<li>If you are a volunteer logging in for the first time, both your Username and Password is your first name followed by your ten digit phone number. ');
+        // echo('<li>After you have logged in, you can change your password. ');
         /*echo('<li>(If you are having difficulty logging in or have forgotten your Password, please contact either the
         		<a href="mailto:allen@npfi.org"><i>Portland House Manager</i></a>
         		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');*/
-        echo '</ul>';
-        echo('<p><table><form method="post"><input type="hidden" name="_submit_check" value="true"><tr><td>Username:</td>
-        		<td><input type="text" name="user" tabindex="1"></td></tr>
-        		<tr><td>Password:</td><td><input type="password" name="pass" tabindex="2"></td></tr><tr><td colspan="2" align="center"><input type="submit" name="Login" value="Login"></td></tr></table>');
+        // echo '</ul>';
+        echo('<form method="post">
+                <p>Welcome to our Volunteer Management System!</p>
+                <p>Please log in below.</p><input type="hidden" name="_submit_check" value="true"><label>Username:</label>
+        		<input type="text" name="user" tabindex="1">
+        		<label>Password:</label>
+                <input type="password" name="pass" tabindex="2">
+                <input type="submit" name="Login" value="Log in">');
     } else {
         //check if they logged in as a guest:
         if ($_POST['user'] == "guest" && $_POST['pass'] == "") {
@@ -93,8 +97,8 @@
         }
     }
     ?>
-    <?PHP include('footer.inc'); ?>
-</div>
-</div>
+    <p>Or <a href=".">create an account</a>.</p>
+</main>
+<?PHP include('footer.inc'); ?>
 </body>
 </html>

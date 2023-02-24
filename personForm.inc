@@ -16,8 +16,6 @@
 /*
  * Modified for Gwyneth's Gift website, 2022
  */
- 
-echo('<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/>');
 
 if ($_SESSION['access_level'] == 0) {
     echo('<p><strong>Volunteer Service Application</strong><br />');

@@ -17,7 +17,7 @@ session_cache_expire(30);
         <title>
             Search for People
         </title>
-        <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
+        <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
         <link rel="stylesheet" href="styles.css" type="text/css" />
 		<link rel="stylesheet" href="lib/jquery-ui.css" />
 		

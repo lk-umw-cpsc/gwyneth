@@ -18,7 +18,7 @@
 		<title>
 			About
 		</title>
-		<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
+		<!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
 	</head>
 	<body>
 		<div class="container-fluid">

@@ -28,9 +28,9 @@ include_once('domain/Shift.php');
 <html>
 <head>
 <title>Search for data objects</title>	
-<link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
+<!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
 <link rel="stylesheet" href="styles.css" type="text/css" />
-<link rel="stylesheet" href="lib/jquery-ui.css" />
+<!-- <link rel="stylesheet" href="lib/jquery-ui.css" /> -->
 <script type="text/javascript" src="lib/jquery-1.9.1.js"></script>
 <script src="lib/jquery-ui.js"></script>
 <script>

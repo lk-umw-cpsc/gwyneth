@@ -22,7 +22,7 @@ session_cache_expire(30);
         </title>
         <link rel="stylesheet" href="styles.css" type="text/css" />
         <link rel="stylesheet" href="calendar.css" type="text/css" />
-        <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" />
+        <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
     </head>
     <body style="background-color: rgb(250, 249, 246);">
         <div class="container-fluid" id="container">
