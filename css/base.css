@@ -20,6 +20,7 @@ html, body, header, main, footer, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, in
     font-family: inherit;
     font-weight: inherit;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 :root {
@@ -53,11 +54,11 @@ body {
 }
 
 header > img {
-    height: 4rem;
+    height: 5rem;
 }
 
 header {
-    font-size: 2rem;
+    font-size: 3rem;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -73,8 +74,13 @@ input[type=text], input[type=password], select {
     border: var(--text-field-border);
     border-radius: 0;
     padding: 0.5rem;
-    width: 20rem;
+    width: 100%;
     background-color: var(--page-background-color);
+    margin-bottom: 0.5rem;
+}
+
+input[type=text]:focus, input[type=password]:active, select:active {
+    outline: var(--text-field-border);
 }
 
 input[type=submit], button {
@@ -106,7 +112,7 @@ main > form {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 20rem;
+    width: 24rem;
     gap: 0.5rem;
 }
 
@@ -124,5 +130,19 @@ main {
 h1 {
     font-size: 1.5rem;
     font-weight: 500;
+    margin-bottom: 2rem;
+    background-color: var(--main-color);
+    color: var(--page-background-color);
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+main > p {
     margin-bottom: 1rem;
 }

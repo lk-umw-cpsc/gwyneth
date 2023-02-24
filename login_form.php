@@ -15,7 +15,8 @@
  */
 ?>
 <main>
-    <h1>Log in</h1>
+    <h1>Volunteer Management System</h1>
+    <p>Welcome! Please log in below.</p>
     <?PHP
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
@@ -35,8 +36,7 @@
         		or the <a href="mailto:allen@npfi.org"><i>Bangor House Manager</i></a>.) ');*/
         // echo '</ul>';
         echo('<form method="post">
-                <p>Welcome to our Volunteer Management System!</p>
-                <p>Please log in below.</p><input type="hidden" name="_submit_check" value="true"><label>Username:</label>
+                <input type="hidden" name="_submit_check" value="true"><label>Username:</label>
         		<input type="text" name="user" tabindex="1">
         		<label>Password:</label>
                 <input type="password" name="pass" tabindex="2">
@@ -97,7 +97,7 @@
         }
     }
     ?>
-    <p>Or <a href=".">create an account</a>.</p>
+    <p>Or <a href="register.php">register as a new volunteer</a>!</p>
 </main>
 <?PHP include('footer.inc'); ?>
 </body>
