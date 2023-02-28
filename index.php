@@ -16,16 +16,7 @@ error_reporting(E_ALL);
     <title>
         Gwyneth's Gift VMS
     </title>
-    <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
-    <style>
-        #appLink:visited {
-            color: gray;
-        }
-
-        li.list-custom {
-            background-color: rgb(250, 249, 246);
-        }
-    </style>
+    <?php require('universal.inc') ?>
 </head>
 
 <body>

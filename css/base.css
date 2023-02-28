@@ -13,7 +13,9 @@
 }
 
 /* Reset rules (spacing, font override) */
-html, body, header, main, footer, div, p, h1, h2, h3, h4, h5, h6, ul, ol, li, input, select, form, section, label {
+html, body, header, main, footer, div, 
+p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
+input, select, textarea, form, section, label {
     padding: 0;
     margin: 0;
     font-size: inherit;
@@ -57,7 +59,7 @@ header > img {
     height: 5rem;
 }
 
-header {
+nav {
     font-size: 3rem;
     display: flex;
     flex-direction: row;
@@ -68,33 +70,33 @@ header {
     font-weight: 300;
 }
 
-header ul > li, .navbar-brand {
+header ul > li, header span {
     font-size: 0.75rem;
     list-style-type: none;
 }
 
-.navbar {
+nav {
     width: 100%;
 }
 
-.navbar ul {
+nav ul {
     display: inline-flex;
     flex-direction: row;
     gap: 1.5rem;
 }
 
-.navbar img {
+nav img {
     height: 3rem;
 }
 
-.navbar ul li a {
+nav ul li a {
     color: var(--main-color);
     font-weight: 500;
     text-decoration: none;
     transition: color .3s;
 }
 
-.navbar ul li a:hover {
+nav ul li a:hover {
     color: var(--accent-color);
 }
 
@@ -102,25 +104,76 @@ header ul > li, .navbar-brand {
     display: none;
 }
 
-header > nav > div {
+span.logo {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 1rem;
+}
+
+#menu-toggle {
+    display: none;
+    height: 1.5rem;
+}
+
+/* header > nav {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 1rem;
+} */
+
+/* Header mobile rules */
+@media only screen and (max-width: 500px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        width: 100%;
+        padding-left: 1rem;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: left;
+        display: none;
+        margin-top: 1rem;
+        border-bottom: var(--standard-border);
+    }
+
+    nav ul li.sub-item {
+        margin-left: 1rem;
+    }
+
+    #menu-toggle {
+        display: inline;
+        filter: opacity(0.25);
+    }
+
+    .nav-divider {
+        display: none;
+        /* position: absolute; */
+    }
+
+    #nav-top {
+        justify-content: space-between;
+        align-items: center;
+        width: calc(100% - 2rem);
+        display: flex;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
 }
 
 #vms-logo {
     color: var(--main-color);
     font-weight: 300;
     font-size: 1.5rem;
-    margin-left: -1rem;
-    margin-right: 1rem;
 }
 
 /* Form Controls */
 
-input[type=text], input[type=password], select {
+input[type=text], input[type=password], select, textarea {
     border: var(--text-field-border);
     border-radius: 0;
     padding: 0.5rem;
@@ -129,7 +182,7 @@ input[type=text], input[type=password], select {
     margin-bottom: 0.5rem;
 }
 
-input[type=text]:focus, input[type=password]:active, select:active {
+input[type=text]:focus, input[type=password]:active, select:active, textarea:focus {
     outline: var(--text-field-border);
 }
 

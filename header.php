@@ -25,7 +25,6 @@
 
 <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/> -->
 <!-- <script src="lib\bootstrap\js\bootstrap.js"></script> -->
-<link rel="stylesheet" href="css/base.css" type="text/css" />
 
 <header>
 
@@ -34,7 +33,7 @@
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
     if (!isset($_SESSION['logged_in'])) {
-        echo '<img src="images/gwynethsgift.png">VMS';
+        echo '<nav><img src="images/gwynethsgift.png">VMS</nav>';
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -82,22 +81,19 @@
         	echo(' | <a href="' . $path . 'logout.php">Logout</a><br>');
         }
         else {
-            echo('<nav class="navbar navbar-custom navbar-expand-lg bg-light">');
-            echo('<div class="container-fluid">');
-            echo('<a class="navbar-brand" href="' . $path . 'index.php"><img src="images/gwynethsgift.png"></a>');
-            echo('<a class="navbar-brand" id="vms-logo">VMS</a>');
-            echo('<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>');
-        	echo('<div class="collapse navbar-collapse" id="navbarSupportedContent">');
-            echo('<ul class="navbar-nav me-auto mb-2 mb-lg-0">');
+            echo('<nav>');
+            echo('<span id="nav-top"><span class="logo"><a class="navbar-brand" href="' . $path . 'index.php"><img src="images/gwynethsgift.png"></a>');
+            echo('<a class="navbar-brand" id="vms-logo">VMS</a></span><img id="menu-toggle" src="images/menu.png"></span>');
+            echo('<ul>');
             //echo " <br><b>"."Gwyneth's Gift Homebase"."</b>|"; //changed: 'Homebase' to 'Gwyneth's Gift Homebase'
 	        if ($_SESSION['access_level'] >= 1) {
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'about.php">About</a></li>');
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">Help</a></li>');
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php?venue=portland'.''.'">Calendar</a></li>');
-                echo('<a class="navbar-brand">|</a>');
-                echo('<a class="navbar-brand">Events</a>');
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'eventSearch.php">Search</a></li>');
+                echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'index.php">Home</a></li>');
+                // echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'about.php">About</a></li>');
+                // echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">Help</a></li>');
+                echo('<span class="nav-divider">|</span>');
+                echo('<span class="navbar-brand">Events</span>');
+                echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php?venue=portland'.''.'">Calendar</a></li>');
+                echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'eventSearch.php">Search</a></li>');
                 //echo('<button type="button" class="btn btn-link"><a href="' . $path . 'index.php" class="link-primary">home</a></button>');
 	        	//echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'about.php">about</a></button>');
 	            //echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">help</a></button>');
@@ -107,15 +103,15 @@
 	        if ($_SESSION['access_level'] >= 2) {
 	            //echo('<br>master schedules: <a href="' . $path . 'viewSchedule.php?venue=portland'."".'">Portland, </a>');
 	            //echo('<a href="' . $path . 'viewSchedule.php?venue=bangor'."".'">Bangor</a>');
-	            echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'eventEdit.php?id=new">Add</a></li>');
-	            echo('<a class="navbar-brand">|</a>');
-	            echo('<a class="navbar-brand">Volunteers</a>');
-                echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
-			        <li class="nav-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
-	            echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
+	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'eventEdit.php?id=new">Add</a></li>');
+	            echo('<span class="nav-divider">|</span>');
+	            echo('<span class="navbar-brand">Volunteers</span>');
+                echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
+			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
+	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
-	        echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a></li><br>');
-            echo('</div></div></nav>');
+	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a></li><br>');
+            echo('</nav>');
         }
         
     }

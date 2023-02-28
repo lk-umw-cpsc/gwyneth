@@ -40,11 +40,10 @@ if ($id == 'new') {
         <title>
             Editing <?PHP echo($person->get_first_name() . " " . $person->get_last_name()); ?>
         </title>
-        <!-- <link rel="stylesheet" href="lib/jquery-ui.css" /> -->
-        <!-- <link rel="stylesheet" href="styles.css" type="text/css"/> -->
-        <!-- <script src="lib/jquery-1.9.1.js"></script> -->
-        <!-- <script src="lib\bootstrap\js\bootstrap.js"></script> -->
-		<!-- <script src="lib/jquery-ui.js"></script> -->
+        <link rel="stylesheet" href="lib/jquery-ui.css" />
+        <script src="lib/jquery-1.9.1.js"></script>
+		<script src="lib/jquery-ui.js"></script>
+        <link rel="stylesheet" href="css/person.css" />
 		<script>
 			$(function(){
 				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
@@ -52,6 +51,8 @@ if ($id == 'new') {
 				$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 		</script>
+        <?php require('universal.inc') ?>
+
     </head>
     <body>
         <div class="container-fluid" id="container">

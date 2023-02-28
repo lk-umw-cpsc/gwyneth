@@ -358,7 +358,7 @@ if ($_SESSION['access_level'] <= 1) {
             echo('By hitting <input type="submit" value="Submit" name="Submit Edits">, I understand the importance of this volunteer 
             		commitment and have answered the application questions honestly and to the best of my knowledge.<br /><br />');
         else
-            echo('Hit <input class="btn btn-success" type="submit" value="Submit" name="Submit Edits"> to submit these edits.<br /><br />');
+            echo('<input class="btn btn-success" type="submit" value="Submit" name="Submit Edits"><br /><br />');
         if ($id != 'new' && $_SESSION['access_level'] >= 2) {
             echo ('<input type="checkbox" name="deleteMe" value="DELETE"> Check this box and then hit ' .
             '<input type="submit" value="Delete" name="Delete Entry"> to delete this entry. <br />' .

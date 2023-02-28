@@ -53,6 +53,7 @@ if ($id == 'new') {
 				$( "#end_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 		</script>
+    <?php require('universal.inc') ?>
     </head>
     <body>
         <div id="container">

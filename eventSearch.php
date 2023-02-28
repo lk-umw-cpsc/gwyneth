@@ -24,6 +24,7 @@ session_cache_expire(30);
         <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
         <link rel="stylesheet" href="styles.css" type="text/css" />
 		<link rel="stylesheet" href="lib/jquery-ui.css" />
+        <?php require('universal.inc') ?>
 		
     </head>
     <body style="background-color: rgb(250, 249, 246);">
