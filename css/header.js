@@ -11,4 +11,8 @@ $(function() {
     $('.other-month').click(function() {
         document.location = 'calendar.php?month=' + $(this).data('month');
     });
+
+    $('#previous-month-button, #next-month-button').click(function() {
+        document.location = 'calendar.php?month=' + $(this).data('month');
+    });
 });

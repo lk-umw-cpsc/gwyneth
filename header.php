@@ -33,7 +33,7 @@
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
     if (!isset($_SESSION['logged_in'])) {
-        echo '<nav><span class="logo"><img src="images/gwynethsgift.png"><span id="vms-logo">VMS</span></span></nav>';
+        echo '<nav><span class="logo"><img src="images/gwynethsgift.png"><span id="vms-logo">VMS</span></span><ul>&nbsp;</ul></nav>';
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.

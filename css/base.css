@@ -58,6 +58,12 @@ table, td, tr, th {
 
 /* Page Sections */
 
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
 body {
     background-color: var(--page-background-color);
     color: var(--page-font-color);
@@ -109,10 +115,6 @@ nav ul li a:hover {
     color: var(--accent-color);
 }
 
-.navbar-toggler {
-    display: none;
-}
-
 span.logo {
     display: inline-flex;
     flex-direction: row;
@@ -126,8 +128,8 @@ span.logo {
 }
 
 nav {
-    position: fixed;
-    margin-top: -5rem;
+    /* position: fixed; */
+    /* margin-top: -5rem; */
     background-color: var(--page-background-color);
     /* box-shadow: 0px 3px 1rem var(--shadow-and-border-color); */
     border-bottom: 2px solid var(--shadow-and-border-color);
@@ -135,7 +137,7 @@ nav {
 }
 
 body {
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
 }
 
 #vms-logo {
@@ -159,7 +161,6 @@ body {
         align-items: left;
         display: none;
         margin-top: 1rem;
-        border-bottom: 2px solid #e8e8e8;
     }
 
     nav ul li.sub-item {
@@ -288,7 +289,7 @@ table#calendar {
     border-spacing: 0;
     width: calc(100% - 1rem);
     border-collapse: collapse;
-    margin: 0rem 0.5rem;
+    margin: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
 .calendar-week {
@@ -355,4 +356,10 @@ h1.calendar-header a {
 main.calendar-view th {
     text-align: center;
     font-weight: 400;
+}
+
+#previous-month-button, #next-month-button {
+    height: 2rem;
+    filter: invert();
+    cursor: pointer;
 }

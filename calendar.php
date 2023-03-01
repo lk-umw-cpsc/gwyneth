@@ -38,7 +38,11 @@
     <body>
         <?php require('header.php'); ?>
         <main class="calendar-view">
-            <h1 class='calendar-header'><a href="calendar.php?month=<?php echo date("Y-m", $previousMonth); ?>">&lt;</a><span>Events - <?php echo date('F Y', $month); ?></span><a href="calendar.php?month=<?php echo date("Y-m", $nextMonth); ?>">&gt;</a></h1>
+            <h1 class='calendar-header'>
+                <img id="previous-month-button" src="images/arrow-back.png" data-month="<?php echo date("Y-m", $previousMonth); ?>">
+                <span>Events - <?php echo date('F Y', $month); ?></span>
+                <img id="next-month-button" src="images/arrow-forward.png" data-month="<?php echo date("Y-m", $nextMonth); ?>">
+            </h1>
             <table id="calendar">
                 <thead>
                     <tr>
