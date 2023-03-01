@@ -12,12 +12,8 @@ session_cache_expire(30);
         <title>
             Change password
         </title>
-        <link rel="stylesheet" href="styles.css" type="text/css" />
-        <style>
-        	#appLink:visited {
-        		color: gray; 
-        	}
-        </style> 
+        <?php require('universal.inc'); ?>
+
     </head>
     <body>
         <div id="container">

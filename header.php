@@ -110,7 +110,7 @@
 			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
 	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
-	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Logout</a></li><br>');
+	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li><br>');
             echo('</nav>');
         }
         
