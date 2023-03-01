@@ -1,3 +1,14 @@
+/**
+
+CSS Handwritten by Lauren Knight
+Fonts and Icons used in the design are taken from
+Google's Fonts and Icons website.
+
+The design was inspired by the existing Gwyneth's Gift website,
+but no code was taken from there. All of the code below is original code.
+**/
+
+
 /* Create variable fonts for standard and italics versions of the fontface used by the org (Montserrat by Google) */
 @font-face {
     font-family: 'Montserrat';
@@ -302,6 +313,10 @@ table#calendar {
     height: 20vh;
     width: 14.25%;
     border: var(--light-border);
+}
+
+.calendar-day:hover:not(.other-month) {
+    outline: 2px solid var(--accent-color);
 }
 
 .calendar-day-wrapper {
