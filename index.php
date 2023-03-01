@@ -6,8 +6,6 @@
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
 session_start();
-ini_set("display_errors",1);
-error_reporting(E_ALL);
 //session_cache_expire(30);
 ?>
 <html>
@@ -33,6 +31,7 @@ error_reporting(E_ALL);
             include('login_form.php');
             die();
         }
+        echo "<main>";
         if ($_SESSION['_id'] != "guest") {
             $person = retrieve_person($_SESSION['_id']);
             echo ('<p class="text-center">Welcome, ' . $person->get_first_name() . ', to the Gwyneth\'s Gift Volunteer Management System!');
@@ -40,7 +39,6 @@ error_reporting(E_ALL);
             echo "<p>Welcome!";
         echo "   Today is " . date('l F j, Y') . ".<p>";
         ?>
-        
         <!-- your main page data goes here. This is the place to enter content -->
         <p>
             <?PHP
@@ -216,6 +214,7 @@ error_reporting(E_ALL);
                 
             ?>
     <?PHP include('footer.inc'); ?>
+    </main>
 </body>
 
 </html>

@@ -19,7 +19,7 @@
 		<title>
 			Log
 		</title>
-		<link rel="stylesheet" href="styles.css" type="text/css" />
+    	<?php require('universal.inc') ?>
 	</head>
 	<body>
 		<div id="container">

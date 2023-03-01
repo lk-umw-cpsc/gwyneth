@@ -14,7 +14,7 @@
  * @version 3/28/2008, revised 7/1/2015
  */
 ?>
-<main>
+<main class="login">
     <h1>Volunteer Management System</h1>
     <p>Welcome! Please log in below.</p>
     <?PHP
@@ -98,7 +98,7 @@
     }
     ?>
     <p>Or <a href="register.php">register as a new volunteer</a>!</p>
-</main>
 <?PHP include('footer.inc'); ?>
+</main>
 </body>
 </html>

@@ -27,7 +27,7 @@ session_cache_expire(30);
         <title>
             Logged out of RMH Homebase
         </title>
-        <link rel="stylesheet" href="styles.css" type="text/css" />
+        <?php require('universal.inc') ?>
     </head>
     <body>
         <div id="container">

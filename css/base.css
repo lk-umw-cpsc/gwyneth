@@ -30,6 +30,8 @@ input, select, textarea, form, section, label {
     --page-background-color: #ffffff;
     --page-font-color: #333333;
 
+    --shadow-and-border-color: #e8e8e8;
+
     --main-color: #2f4159;
     --accent-color: #f5c16e;
     --secondary-accent-color: #f6a4b5;
@@ -60,13 +62,13 @@ header > img {
 }
 
 nav {
-    font-size: 3rem;
+    font-size: 2rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     padding-top: 1rem;
-    padding-bottom: 2rem;
+    padding-bottom: 1rem;
     font-weight: 300;
 }
 
@@ -116,18 +118,30 @@ span.logo {
     height: 1.5rem;
 }
 
-/* header > nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-} */
+nav {
+    position: fixed;
+    margin-top: -5rem;
+    background-color: var(--page-background-color);
+    /* box-shadow: 0px 3px 1rem var(--shadow-and-border-color); */
+    border-bottom: 2px solid var(--shadow-and-border-color);
+    max-width: 100vw;
+}
+
+body {
+    margin-top: 5rem;
+}
+
+#vms-logo {
+    color: var(--main-color);
+    font-weight: 300;
+    font-size: 1.5rem;
+}
 
 /* Header mobile rules */
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 1079px) {
     nav {
         flex-direction: column;
+        background-color: var(--page-background-color);
     }
 
     nav ul {
@@ -138,7 +152,7 @@ span.logo {
         align-items: left;
         display: none;
         margin-top: 1rem;
-        border-bottom: var(--standard-border);
+        border-bottom: 2px solid #e8e8e8;
     }
 
     nav ul li.sub-item {
@@ -165,10 +179,10 @@ span.logo {
     }
 }
 
-#vms-logo {
-    color: var(--main-color);
-    font-weight: 300;
-    font-size: 1.5rem;
+/* Main Content */
+
+main:not(.login) {
+    padding: 1rem;
 }
 
 /* Form Controls */
@@ -210,24 +224,30 @@ label {
     text-align: left;
 }
 
-main > form {
+/* Login Form */
+main.login > form {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     width: 24rem;
+    max-width: calc(100vw - 2rem);
     gap: 0.5rem;
 }
 
-main > form > p {
+main.login > form > p {
     width: 100%;
     text-align: center;
 }
 
-main {
+main.login {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+main.login > p {
+    margin-bottom: 1rem;
 }
 
 h1 {
@@ -246,6 +266,29 @@ h2 {
     font-weight: 500;
 }
 
-main > p {
-    margin-bottom: 1rem;
+@media only screen and (max-width: 1079px) {
+    :root {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Calendar */
+table#calendar {
+    border-spacing: 0;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.calendar-week {
+    width: 100%;
+}
+
+.calendar-day {
+    height: 20vh;
+    width: 14.25%;
+    border: var(--standard-border);
 }
