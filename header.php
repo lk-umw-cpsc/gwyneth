@@ -8,24 +8,6 @@
  * 
  */
 ?>
-<!-- Begin Header -->
-
-<!-- <style type="text/css">
-        /* Modify the background color */
-        .navbar-custom {
-            background-color: rgb(250, 249, 246);
-        }
-        /* Modify brand and text color */
-         
-        .navbar-custom .navbar-brand,
-        .navbar-custom .navbar-text {
-            background-color: rgb(250, 249, 246);
-        }
-</style> -->
-
-<!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css"/> -->
-<!-- <script src="lib\bootstrap\js\bootstrap.js"></script> -->
-
 <header>
 
     <?PHP
@@ -50,6 +32,7 @@
         $permission_array['apply.php'] = 0;
         //pages volunteers can view
         $permission_array['help.php'] = 1;
+        $permission_array['dashboard.php'] = 1;
         $permission_array['calendar.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
@@ -110,8 +93,8 @@
 			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
 	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
-	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li><br>');
-            echo('</nav>');
+	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
+            echo '</ul></nav>';
         }
         
     }
