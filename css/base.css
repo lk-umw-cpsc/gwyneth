@@ -305,6 +305,11 @@ table#calendar {
     margin: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
+main.calendar-view th {
+    text-align: center;
+    font-weight: 400;
+}
+
 .calendar-week {
     width: 100%;
 }
@@ -326,7 +331,6 @@ table#calendar {
     flex-direction: column;
     padding-top: 0.5rem;
     gap: 1px;
-    overflow: hidden;
 }
 
 .calendar-day-number {
@@ -368,11 +372,7 @@ h1.calendar-header {
 h1.calendar-header a {
     color: white;
     text-decoration: none;
-}
-
-main.calendar-view th {
-    text-align: center;
-    font-weight: 400;
+    word-wrap: none;
 }
 
 #previous-month-button, #next-month-button {
