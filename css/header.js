@@ -7,4 +7,8 @@ $(function() {
             element.css('display', 'none');
         }
     });
+
+    $('.other-month').click(function() {
+        document.location = 'calendar.php?month=' + $(this).data('month');
+    });
 });

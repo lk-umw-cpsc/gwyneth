@@ -15,7 +15,8 @@
 /* Reset rules (spacing, font override) */
 html, body, header, main, footer, div, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
-input, select, textarea, form, section, label {
+input, select, textarea, form, section, label,
+table, td, tr, th {
     padding: 0;
     margin: 0;
     font-size: inherit;
@@ -29,6 +30,7 @@ input, select, textarea, form, section, label {
     /* CSS variables that will be used across the page */
     --page-background-color: #ffffff;
     --page-font-color: #333333;
+    --inactive-font-color: #b0b0b0;
 
     --shadow-and-border-color: #e8e8e8;
 
@@ -36,11 +38,16 @@ input, select, textarea, form, section, label {
     --accent-color: #f5c16e;
     --secondary-accent-color: #f6a4b5;
 
+    --calendar-event-color: #808080;
+    --calendar-event-color-hover: var(--main-color);
+    --calendar-today-border: 2px solid black;
+
     --button-font-color: white;
     --button-padding: 0.5rem 1.5rem;
     --button-border-radius: 0.25rem;
 
     --standard-border: 1px solid #333333;
+    --light-border: 1px solid var(--shadow-and-border-color);
     --text-field-border: 2px solid #e8e8e8;
 
     /* Global rules */
@@ -181,7 +188,7 @@ body {
 
 /* Main Content */
 
-main:not(.login) {
+main:not(.login):not(.calendar-view) {
     padding: 1rem;
 }
 
@@ -279,8 +286,9 @@ h2 {
 /* Calendar */
 table#calendar {
     border-spacing: 0;
-    width: 100%;
+    width: calc(100% - 1rem);
     border-collapse: collapse;
+    margin: 0rem 0.5rem;
 }
 
 .calendar-week {
@@ -290,5 +298,61 @@ table#calendar {
 .calendar-day {
     height: 20vh;
     width: 14.25%;
-    border: var(--standard-border);
+    border: var(--light-border);
+}
+
+.calendar-day-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.5rem;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.calendar-day-number {
+    padding-left: 0.5rem;
+}
+
+.calendar-event {
+    padding: 0.25rem 0.5rem;
+    text-decoration: none;
+    transition: background-color .2s;
+}
+
+.calendar-event:hover {
+    /* filter: brightness(1.2); */
+    background-color: var(--calendar-event-color-hover);
+}
+
+.calendar-event {
+    background-color: var(--calendar-event-color);
+    color: var(--button-font-color);
+}
+
+.other-month {
+    color: var(--inactive-font-color);
+    cursor: pointer;
+}
+
+.today {
+    border: var(--calendar-today-border);
+}
+
+h1.calendar-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1.calendar-header a {
+    color: white;
+    text-decoration: none;
+}
+
+main.calendar-view th {
+    text-align: center;
+    font-weight: 400;
 }
