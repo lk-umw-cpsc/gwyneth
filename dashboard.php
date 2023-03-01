@@ -8,7 +8,6 @@
     include_once('database/dbPersons.php');
     include_once('domain/Person.php');
     // Get date?
-    date('l F j, Y');
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
     }
@@ -22,6 +21,8 @@
         <?php require('header.php'); ?>
         <main class='login'>
             <h1>Dashboard</h1>
+            <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
+            <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <div id="dashboard">
                 <div class="dashboard-item" data-link="calendar.php">
                     <img src="images/view-calendar.svg">
