@@ -16,8 +16,8 @@
  * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
  */
 
-session_start();
 session_cache_expire(30);
+session_start();
 include_once('database/dbEvents.php');
 include_once('domain/Event.php');
 include_once('database/dbLog.php'); // can be used in later iterations

@@ -4,8 +4,8 @@
  * This page allows volunteers and managers to change their password
  */
 
-session_start();
 session_cache_expire(30);
+session_start();
 ?>
 <html>
     <head>

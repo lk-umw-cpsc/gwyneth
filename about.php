@@ -10,8 +10,8 @@
  * 
  */
 
-	session_start();
 	session_cache_expire(30);
+	session_start();
 ?>
 <html>
 	<head>

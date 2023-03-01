@@ -15,4 +15,11 @@ $(function() {
     $('#previous-month-button, #next-month-button').click(function() {
         document.location = 'calendar.php?month=' + $(this).data('month');
     });
+
+    $('.dashboard-item').click(function() {
+        let link = $(this).data('link');
+        if (link) {
+            document.location = link;
+        }
+    });
 });

@@ -1,6 +1,6 @@
 <?php
-    session_start();
     session_cache_expire(30);
+    session_start();
 
     date_default_timezone_set("America/New_York");
     // Redirect to current month
