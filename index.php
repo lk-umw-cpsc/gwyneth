@@ -139,7 +139,7 @@ session_start();
                     //echo('<br></br>');
 
                         //DEFAULT PASSWORD CHECK
-                    if (verify_password($person->get_id(), $person->get_password())) {
+                    if (password_verify($person->get_id(), $person->get_password())) {
                         echo ('<br>');
                         if (!isset($_POST['_rp_submitted']))
                             echo ('<p><div class="container-fluid">
