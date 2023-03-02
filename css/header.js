@@ -22,4 +22,24 @@ $(function() {
             document.location = link;
         }
     });
+
+    let numberChecked = 0;
+    $('div.availability-day > p > input[type=checkbox]').change(function() {
+        let checked = $(this).prop('checked');
+        let fields = $(this).parent().parent().children('input[type=text]');
+        fields.prop('disabled', !checked);
+        fields.prop('required', checked);
+        if (checked) {
+            numberChecked++;
+        } else {
+            numberChecked--;
+        }
+        // Force user to choose at least one day with availability
+        let noDaysChecked = numberChecked == 0;
+        $('div.availability-day > p > input[type=checkbox]').prop('required', noDaysChecked);
+    });
+
+    $('input').blur(function() {
+        $(this).addClass('visited');
+    });
 });
