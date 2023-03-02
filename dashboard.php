@@ -19,7 +19,7 @@
     </head>
     <body>
         <?php require('header.php'); ?>
-        <main class='login'>
+        <main class='dashboard'>
             <h1>Dashboard</h1>
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
@@ -39,7 +39,7 @@
                 ?>
                 <div class="dashboard-item" data-link="personEdit.php?id=<?php echo $person->get_id(); ?>">
                     <img src="images/manage-account.svg">
-                    <span>Manage Account</span>
+                    <span>Manage Profile</span>
                 </div>
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
