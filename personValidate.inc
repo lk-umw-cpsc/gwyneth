@@ -17,7 +17,7 @@
  * this array is null (aka false) if there are no errors
  */
 function validate_form($person) {
-    if ($_POST['status']=='applicant' && ($_POST['start_date'] == "" || strlen($_POST['start_date']) != 8)) 
+    if ($_POST['status']=='applicant' && ($_POST['start_date'] == "" || strlen($_POST['start_date']) != 10)) 
         $errors[] = 'Please select a valid start date';
     if ($person->get_first_name()=="new" && ($_POST['first_name'] == NULL || $_POST['first_name'] == 'new'))
         $errors[] = 'Please enter a first name';
