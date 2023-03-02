@@ -56,14 +56,16 @@ if ($_SESSION['access_level'] == 0) {
     <input type="hidden" name="_form_submit" value="1">
     <script>
 			$(function(){
-				$( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				// $( "#birthday" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				// $( "#start_date" ).datepicker({dateFormat: 'y-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 	</script>
     <?PHP 
     	$venues = array('portland'=>"Portland House");       
-        echo '<table class="table"><tr><td>Date: '. 
-	             '</td><td colspan=2><input class="form-control-sm" name="start_date" type="text" id="start_date" value="'.$person->get_start_date().'">';
+        echo '<table class="table"><tr><td>Start Date: '. 
+	             '</td><td colspan=2>
+                 <input type="date" name="start_date" id="start_date" value="' . date('Y-m-d') . '" min="' . date('Y-m-d') . '">
+                 <!--<input class="form-control-sm" name="start_date" type="text" id="start_date" value="'.$person->get_start_date().'">-->';
 	   	foreach ($venues as $venue=>$venuename) {
 	   		echo ('<td><input type="hidden" name="location" value="' .$venue.'"'. ($person->get_venue()==$venue?' checked':'').'>');
 	   	}
@@ -75,11 +77,11 @@ if ($_SESSION['access_level'] == 0) {
         if ($person->get_first_name()=="new")
         	echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'">';
         else 
-        	echo '<p>First Name: '.$person->get_first_name();
-    ?>  &nbsp;&nbsp;&nbsp;&nbsp;  Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="last_name" tabindex="2" value="<?PHP echo($person->get_last_name()) ?>">
+        	echo '<p>First Name: ' . $person->get_first_name();
+    ?>Last Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="last_name" tabindex="2" value="<?PHP echo($person->get_last_name()) ?>">
         <p>Address<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="address" tabindex="3" size=40 value="<?PHP echo($person->get_address()) ?>">
         <p>City<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="city" tabindex="4" value="<?PHP echo($person->get_city()) ?>">
-        State, Zip<span style="font-size:x-small;color:FF0000">*</span>:
+        State:<span style="font-size:x-small;color:FF0000">*</span>
             <select class="form-select-sm" name="state" tabindex="5">
 <?PHP
 $states = array("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA",
@@ -95,10 +97,11 @@ foreach ($states as $st) {
     echo ">" . $st . "</option>";
 }
 ?>
-</select>,
-<input class="form-control-sm" type="text" name="zip" size="5" tabindex="6" value="<?PHP echo($person->get_zip()) ?>">
+</select>
+
+<label for="">Zipcode:</label><input class="form-control-sm" type="text" name="zip" size="5" tabindex="6" value="<?PHP echo($person->get_zip()) ?>">
 <?php     
-        $phonetypes = array("home", "cell", "work");
+        $phonetypes = array("Home", "Cell", "Work");
         if ($person->get_first_name()=="new") {
         	echo '<p>Primary Phone<span style="font-size:x-small;color:FF0000">*</span>: ';
         	echo '<input class="form-control-sm" type="text" name="phone1" MAXLENGTH=12 tabindex="7" value="'.phone_edit($person->get_phone1()).'">';
@@ -113,8 +116,8 @@ foreach ($states as $st) {
         //foreach ($phonetypes as $pvalue)
         //	echo '<input type="radio" name="phone2type" value="'.$pvalue.'"'.($person->get_phone2type()==$pvalue?" checked":"").'>'.$pvalue.' ';
         
-        echo '<p>Birth date: '. '<input class="form-control-sm" name="birthday" type="text" id="birthday" tabindex="8" value="'.$person->get_birthday().'">';
-        echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="text" name="email" tabindex="9" value="'.$person->get_email().'">';
+        echo '<p>Birth date: <input type="date" id="birthday" name="birthday" value="' .$person->get_birthday() .'">';
+        echo '<p>Email address<span style="font-size:x-small;color:FF0000">*</span>: '. '<input class="form-control-sm" type="email" name="email" tabindex="9" value="'.$person->get_email().'">';
         echo '<p>What is the best time to contact you: '. '<input class="form-control-sm" type="text" name="contact_time" tabindex="10" value="'.$person->get_contact_time().'">';
         echo "<p>What is the best way to contact you? ";
         echo '<p><input class="form-check-input" type="radio" name="cMethod" value="Phone" '.($person->get_cMethod()=="Phone"?"checked":"").'>Phone'.
