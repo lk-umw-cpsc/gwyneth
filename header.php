@@ -30,10 +30,13 @@
         $permission_array['index.php'] = 0;
         $permission_array['about.php'] = 0;
         $permission_array['apply.php'] = 0;
+        $permission_array['logout.php'] = 0;
         //pages volunteers can view
         $permission_array['help.php'] = 1;
         $permission_array['dashboard.php'] = 1;
         $permission_array['calendar.php'] = 1;
+        $permission_array['eventsearch.php'] = 1;
+        $permission_array['changepassword.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -41,9 +44,7 @@
         $permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;
         $permission_array['reports.php'] = 2;
-        $permission_array['eventsearch.php'] = 1;
         $permission_array['eventedit.php'] = 2;
-        $permission_array['logout.php'] = 0;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strpos($_SERVER['PHP_SELF'],"/")+1));
