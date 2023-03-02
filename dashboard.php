@@ -19,6 +19,7 @@
 <html>
     <head>
         <?php require('universal.inc'); ?>
+        <title>Gwyneth's Gift VMS | Dashboard</title>
     </head>
     <body>
         <?php require('header.php'); ?>
