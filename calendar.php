@@ -3,6 +3,12 @@
     session_start();
 
     date_default_timezone_set("America/New_York");
+
+    // Ensure user is logged in
+    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+        header('Location: index.php');
+    }
+
     // Redirect to current month
     if (!isset($_GET['month'])) {
         header('Location: calendar.php?month=' . date("Y-m"));
