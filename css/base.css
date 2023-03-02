@@ -24,7 +24,7 @@ but no code was taken from there. All of the code below is original code.
 }
 
 /* Reset rules (spacing, font override) */
-html, body, header, main, footer, div, 
+html, body, header, main, footer, div, span, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 input, select, textarea, form, section, label,
 table, td, tr, th, form, fieldset {
@@ -62,6 +62,8 @@ table, td, tr, th, form, fieldset {
     --standard-border: 1px solid #333333;
     --light-border: 1px solid var(--shadow-and-border-color);
     --text-field-border: 2px solid #e8e8e8;
+
+    --error-color: red;
 
     /* Global rules */
     font-size: 18px;
@@ -208,7 +210,8 @@ main:not(.login):not(.calendar-view):not(.dashboard) {
 
 /* Form Controls */
 
-input[type=text], input[type=password], input[type=date], input[type=email], input[type=tel], select, textarea {
+input[type=text], input[type=password], input[type=date], input[type=email], 
+input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     border: var(--text-field-border);
     border-radius: 0;
     padding: 0.5rem;
@@ -218,7 +221,8 @@ input[type=text], input[type=password], input[type=date], input[type=email], inp
 }
 
 input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, 
-input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled {
+input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled,
+.pseudo-input-disabled {
     background-color: var(--inactive-background-color);
     color: var(--inactive-font-color);
 }
@@ -306,6 +310,16 @@ h2 {
     h1 {
         font-size: 1.25rem;
     }
+}
+
+/* General Use */
+.error {
+    color: var(--error-color);
+    font-size: .75rem;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Calendar */
