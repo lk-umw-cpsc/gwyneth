@@ -171,9 +171,9 @@ session_start();
                                     <tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form>
                                     </td></tr>
                                     </table></div>');
-                            else if (!verify_password($_POST['_rp_old'], $person->get_password()))
+                            else if (!password_verify($_POST['_rp_old'], $person->get_password()))
                                 echo ('<div class="warning"><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                            else if (verify_password($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
+                            else if (password_verify($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
                                 $newPass = password_hash($_POST['_rp_newa'], PASSWORD_BCRYPT);
                                 change_password($person->get_id(), $newPass);
                             }
@@ -182,7 +182,7 @@ session_start();
                     }
                         // give admin ability to change password even if it is not default
                         // The above comment appears to be lying based on the if statement...
-                        if (!verify_password($person->get_id(), $person->get_password()) && $_SESSION['access_level'] == 2) {
+                        if (!password_verify($person->get_id(), $person->get_password()) && $_SESSION['access_level'] == 2) {
                             echo('<br><div class="container-fluid" id="scheduleBox"><p><strong>Change Password:</strong><br /></p>');  
                             echo('<p>Click <strong><a href="changePassword.php">here</a></strong> to change your password</p>');
                             //echo('<br></br>');                          

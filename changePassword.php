@@ -46,16 +46,16 @@ session_start();
                         //VOLUNTEER CHECK - can change their password
                         if ($_SESSION['access_level'] == 1) {
                         	
-                               if (verify_password($person->get_id(), $person->get_password()) || ['access_level'] > 0) {
+                               if (password_verify($person->get_id(), $person->get_password()) || ['access_level'] > 0) {
                                 if (!isset($_POST['_rp_submitted']))
                                     echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
                                 else {
                                     //they've submitted
                                     if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
                                         echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (!verify_password($_POST['_rp_old'], $person->get_password()))
+                                    else if (!password_verify($_POST['_rp_old'], $person->get_password()))
                                         echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (verify_password($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
+                                    else if (password_verify($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
                                         $newPass = password_hash($_POST['_rp_newa'], PASSWORD_BCRYPT);
                                         change_password($person->get_id(), $newPass);
                                         echo('Password has been updated');
@@ -77,9 +77,9 @@ session_start();
                                     //they've submitted
                                     if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
                                         echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (!verify_password($_POST['_rp_old'], $person->get_password()))
+                                    else if (!password_verify($_POST['_rp_old'], $person->get_password()))
                                         echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (verify_password($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
+                                    else if (password_verify($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
                                         $newPass = password_hash($_POST['_rp_newa'], PASSWORD_BCRYPT);
                                         change_password($person->get_id(), $newPass);
                                         echo('Password has been updated');
