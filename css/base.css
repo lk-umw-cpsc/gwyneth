@@ -27,7 +27,7 @@ but no code was taken from there. All of the code below is original code.
 html, body, header, main, footer, div, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 input, select, textarea, form, section, label,
-table, td, tr, th {
+table, td, tr, th, form, fieldset {
     padding: 0;
     margin: 0;
     font-size: inherit;
@@ -42,7 +42,8 @@ table, td, tr, th {
     /* CSS variables that will be used across the page */
     --page-background-color: #ffffff;
     --page-font-color: #333333;
-    --inactive-font-color: #b0b0b0;
+    --inactive-font-color: #d0d0d0;
+    --inactive-background-color: #f0f0f0;
 
     --shadow-and-border-color: #e8e8e8;
 
@@ -52,7 +53,7 @@ table, td, tr, th {
 
     --calendar-event-color: #808080;
     --calendar-event-color-hover: var(--main-color);
-    --calendar-today-border: 2px solid black;
+    --calendar-today-border: 2px solid var(--secondary-accent-color);
 
     --button-font-color: white;
     --button-padding: 0.5rem 1.5rem;
@@ -201,13 +202,13 @@ body {
 
 /* Main Content */
 
-main:not(.login):not(.calendar-view) {
+main:not(.login):not(.calendar-view):not(.dashboard) {
     padding: 1rem;
 }
 
 /* Form Controls */
 
-input[type=text], input[type=password], select, textarea {
+input[type=text], input[type=password], input[type=date], input[type=email], input[type=tel], select, textarea {
     border: var(--text-field-border);
     border-radius: 0;
     padding: 0.5rem;
@@ -216,7 +217,13 @@ input[type=text], input[type=password], select, textarea {
     margin-bottom: 0.5rem;
 }
 
-input[type=text]:focus, input[type=password]:active, select:active, textarea:focus {
+input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, 
+input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled {
+    background-color: var(--inactive-background-color);
+    color: var(--inactive-font-color);
+}
+
+input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, select:active, textarea:focus {
     outline: var(--text-field-border);
 }
 
@@ -237,6 +244,10 @@ input[type=submit], button {
 input[type=submit]:hover, button:hover {
     background-color: var(--accent-color);
 }
+
+/* input.visited:invalid {
+    outline: 2px solid var(--secondary-accent-color);
+} */
 
 label {
     color: var(--main-color);
@@ -355,6 +366,7 @@ main.calendar-view th {
 
 .other-month {
     color: var(--inactive-font-color);
+    background-color: var(--inactive-background-color);
     cursor: pointer;
 }
 
@@ -381,13 +393,25 @@ h1.calendar-header a {
     cursor: pointer;
 }
 
+#month-jumper {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
 /* Dashboard */
+main.dashboard > p {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
 #dashboard {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    padding: 0 8rem;
+    padding: 0 8rem 4rem 8rem;
+    margin-top: 2rem;
     gap: 3rem;
     justify-content: center;
 }
@@ -431,5 +455,85 @@ h1.calendar-header a {
         width: 10rem;
         height: 10rem;
         font-size: 0.8rem;
+    }
+}
+
+/* Sign up form */
+form.signup-form {
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+
+form.signup-form > fieldset {
+    padding: 1.5rem;
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+}
+
+form.signup-form > fieldset > label {
+    margin-bottom: -.25rem;
+}
+
+form.signup-form textarea {
+    height: 7rem;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: 1rem;
+}
+
+.radio-group > label {
+    font-weight: 300;
+    width: fit-content;
+    margin-left: -.75rem;
+    color: var(--page-font-color);
+}
+
+.availability-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.availability-day {
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.availability-day-header {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+
+}
+
+.checkbox-grouping {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.checkbox-pair {
+    display: flex;
+    flex-direction: row;
+    gap: .25rem;
+    align-items: center;
+}
+
+.checkbox-grouping label {
+    font-weight: 300;
+}
+
+@media only screen and (max-width: 700px) {
+    .availability-day {
+        width: 100%;
     }
 }
