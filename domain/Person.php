@@ -108,9 +108,9 @@
 			$this->hours = array();
 		$this->notes = $notes;
 		if ($pass == "")
-			$this->password = md5($this->id);
+			$this->password = password_hash($this->id, PASSWORD_BCRYPT); // default password
 		else
-			$this->password = $pass;  // default password == md5($id)
+			$this->password = $pass;
 	}
 
 	function get_id() {
