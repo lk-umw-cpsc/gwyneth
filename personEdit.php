@@ -19,11 +19,13 @@ include_once('database/dbLog.php');
 $id = str_replace("_"," ",$_GET["id"]);
 
 if ($id == 'new') {
+    $newUser = true;
     // for new applicants set the venue to portland so all their availability info saves, leftover from 2 calendar system, Gwyneth's Gift is working off of Portland
-    $_SESSION['venue']="portland"; 
-    $person = new Person('new', 'applicant', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
+    $_SESSION['venue']="portland";
+    $person = new Person('', '', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
                     null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
 } else {
+    $newUser = false;
     $person = retrieve_person($id);
     if (!$person) { // try again by changing blanks to _ in id
         $id = str_replace(" ","_",$_GET["id"]);
@@ -38,7 +40,13 @@ if ($id == 'new') {
 <html>
     <head>
         <title>
-            Editing <?PHP echo($person->get_first_name() . " " . $person->get_last_name()); ?>
+            <?php
+                if ($newUser) {
+                    echo "Gwyneth's Gift VMS | Register";
+                } else {
+                    echo "Gwyneth's Gift VMS | Edit User Profile - " . $person->get_first_name() . " " . $person->get_last_name();
+                }
+            ?>
         </title>
         <link rel="stylesheet" href="lib/jquery-ui.css" />
         <script src="lib/jquery-1.9.1.js"></script>
@@ -60,7 +68,7 @@ if ($id == 'new') {
             <div class="container-fluid border border-dark" id="content">
                 <?PHP
                 include('personValidate.inc');
-                if ($_POST['_form_submit'] != 1) {
+                if (!isset($_POST['_form_submit'])) {
                     //in this case, the form has not been submitted, so show it
                     include('personForm.inc');
                 } else {
@@ -190,7 +198,7 @@ if ($id == 'new') {
                                     echo('<p class="error">You cannot remove this manager from the database.</p>');*/
 
                             //We don't want to be able to delete all managers, hardcoding these two to be undeletable
-                            if($id == "Admin7037806282" || $id == "GwynethsGiftAdmin4678931290")
+                            if($id == "vmsroot")
                                 echo('<p class="error">You cannot remove this manager from the database.</p>');
                              else {
                                 $result = remove_person($id);
