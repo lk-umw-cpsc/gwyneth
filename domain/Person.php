@@ -57,7 +57,7 @@
 	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
-		$this->id = $f . $p1;
+		$this->id = $e;
 		$this->start_date = $sd;
 		$this->venue = $v;
 		$this->first_name = $f;
