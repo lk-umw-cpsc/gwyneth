@@ -61,8 +61,8 @@ if ($id == 'new') {
             <div id="content">
                 <?PHP
                 include('eventValidate.inc');
-                if ($_POST['_form_submit'] != 1)
-                //in this case, the form has not been submitted, so show it
+                if (!isset($_POST['_form_submit']))
+                    //in this case, the form has not been submitted, so show it
                     include('eventForm.inc');
                 else {
                     //in this case, the form has been submitted, so validate it

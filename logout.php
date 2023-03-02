@@ -30,16 +30,14 @@ session_cache_expire(30);
         <?php require('universal.inc') ?>
     </head>
     <body>
-        <div id="container">
-            <?PHP include('header.php'); ?>
-            <div id="content">
+        <?PHP include('header.php'); ?>
+        <main>
                 <?PHP
                 session_unset();
                 session_write_close();
                 ?>
                 <p>You are now logged out of Homebase.</p>
                 <?PHP include('footer.inc'); ?>
-            </div>
-        </div>
+        </main>
     </body>
 </html>

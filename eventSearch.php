@@ -33,7 +33,11 @@ session_start();
             <div class="container-fluid" id="content">
                 <?PHP
                 // display the search form
-                $area = $_GET['area'];
+                if (isset($_GET['area'])) {
+                    $area = $_GET['area'];
+                } else {
+                    $area = '';
+                }
                 echo('<form method="post">');
                 echo('<p><strong>Search for events:</strong>');
                
@@ -44,7 +48,7 @@ session_start();
                 echo('</form></p>');
 
                 // if user hit "Search"  button, query the database and display the results
-                if ($_POST['Search']) {
+                if (isset($_POST['Search'])) {
                     $name = trim(str_replace('\'', '&#39;', htmlentities($_POST['s_name'])));
                     // now go after the events that fit the search criteria
                     include_once('database/dbEvents.php');

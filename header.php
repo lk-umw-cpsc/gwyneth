@@ -41,6 +41,9 @@
         $permission_array['addweek.php'] = 2;
         $permission_array['log.php'] = 2;
         $permission_array['reports.php'] = 2;
+        $permission_array['eventsearch.php'] = 1;
+        $permission_array['eventedit.php'] = 2;
+        $permission_array['logout.php'] = 0;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strpos($_SERVER['PHP_SELF'],"/")+1));
