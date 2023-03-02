@@ -1,3 +1,14 @@
+function scrollIntoView(element) {
+    if (element instanceof jQuery) {
+        element = element[0];
+    }
+    element.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+    });
+}
+
 $(function() {
     $('#menu-toggle').click(function() {
         let element = $('nav > ul');
@@ -41,5 +52,23 @@ $(function() {
 
     $('input').blur(function() {
         $(this).addClass('visited');
+    });
+
+    $('.signup-form #email').change(function() {
+        $('#email-dupe').html($(this).val());
+    });
+
+    $('#email-dupe').click(function() {
+        let element = $('.signup-form #email');
+        scrollIntoView(element);
+        element.focus();
+    });
+
+    $('#password-reenter').change(function() {
+        if ($(this).val() == $('#password').val()) {
+            $('#password-match-error').addClass('hidden');
+        } else {
+            $('#password-match-error').removeClass('hidden');
+        }
     });
 });
