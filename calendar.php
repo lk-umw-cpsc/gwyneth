@@ -34,15 +34,18 @@
 <html>
     <head>
         <?php require('universal.inc'); ?>
+        <script src="js/calendar.js"></script>
+        <title>Gwyneth's Gift VMS | Events Calendar</title>
     </head>
     <body>
         <?php require('header.php'); ?>
         <main class="calendar-view">
             <h1 class='calendar-header'>
                 <img id="previous-month-button" src="images/arrow-back.png" data-month="<?php echo date("Y-m", $previousMonth); ?>">
-                <span>Events - <?php echo date('F Y', $month); ?></span>
+                <span id="calendar-heading-month">Events - <?php echo date('F Y', $month); ?></span>
                 <img id="next-month-button" src="images/arrow-forward.png" data-month="<?php echo date("Y-m", $nextMonth); ?>">
             </h1>
+            <!-- <input type="date" id="month-jumper" value="<?php echo date('Y-m-d', $month); ?>" min="2023-01-01"> -->
             <table id="calendar">
                 <thead>
                     <tr>
