@@ -23,7 +23,7 @@
 
 // only check for date and name
 function validate_form($event) {
-    if (($_POST['event_date'] == "" || strlen($_POST['event_date']) != 8)) 
+    if (($_POST['event_date'] == "" || strlen($_POST['event_date']) != 10)) 
         $errors[] = 'Please select a valid event date';
     if ($_POST['event_name'] == null)
         $errors[] = 'Please enter an event name';
