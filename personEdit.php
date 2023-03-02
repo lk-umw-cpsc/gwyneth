@@ -46,9 +46,9 @@ if ($id == 'new') {
         <link rel="stylesheet" href="css/person.css" />
 		<script>
 			$(function(){
-				$( "#birthday" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#start_date" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
-				$( "#end_date" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				// $( "#birthday" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				// $( "#start_date" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
+				// $( "#end_date" ).datepicker({dateFormat: 'yy-mm-dd',changeMonth:true,changeYear:true,yearRange: "1920:+nn"});
 			})
 		</script>
         <?php require('universal.inc') ?>
@@ -64,7 +64,6 @@ if ($id == 'new') {
                     //in this case, the form has not been submitted, so show it
                     include('personForm.inc');
                 } else {
-                    echo "GOT HERE!";
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.
                     // errors array lists problems on the form submitted
