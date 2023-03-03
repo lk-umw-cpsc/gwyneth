@@ -473,6 +473,13 @@ main.dashboard > p {
 }
 
 /* Sign up form */
+
+@media only screen and (min-width: 1024px) {
+    main.signup-form {
+        margin: 0rem 8rem 4rem 8rem;
+    }
+}
+
 form.signup-form {
     display: flex;
     gap: 1rem;
