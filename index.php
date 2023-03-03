@@ -71,39 +71,39 @@ session_start();
                     echo('<br></br>');
 
                     // display upcoming schedule
-                    $shifts = selectScheduled_dbShifts($person->get_id());
+                    // $shifts = selectScheduled_dbShifts($person->get_id());
 
-                    $scheduled_shifts = array();
-                    foreach ($shifts as $shift) {
-                        $shift_month = get_shift_month($shift);
-                        $shift_day = get_shift_day($shift);
-                        $shift_year = get_shift_year($shift);
+                    // $scheduled_shifts = array();
+                    // foreach ($shifts as $shift) {
+                    //     $shift_month = get_shift_month($shift);
+                    //     $shift_day = get_shift_day($shift);
+                    //     $shift_year = get_shift_year($shift);
 
-                        $shift_time_s = get_shift_start($shift);
-                        $shift_time_e = get_shift_end($shift);
+                    //     $shift_time_s = get_shift_start($shift);
+                    //     $shift_time_e = get_shift_end($shift);
 
-                        $cur_month = date("m");
-                        $cur_day = date("d");
-                        $cur_year = date("y");
+                    //     $cur_month = date("m");
+                    //     $cur_day = date("d");
+                    //     $cur_year = date("y");
 
-                        if ($shift_year > $cur_year)
-                            $upcoming_shifts[] = $shift;
-                        else if ($shift_year == $cur_year) {
-                            if ($cur_month < $shift_month)
-                                $upcoming_shifts[] = $shift;
-                            else if ($shift_month == $cur_month) {
-                                if ($cur_day <= $shift_day) {
-                                    $upcoming_shifts[] = $shift;
-                                }
-                            }
-                        }
-                    }
-                    if ($upcoming_shifts) {
-                        echo ('<div class="container-fluid"><p><strong>Your Upcoming Schedule:</strong><br/></p><ul>');
-                        foreach ($upcoming_shifts as $tableId) {
-                            echo ('<li type="circle">' . get_shift_name_from_id($tableId)) . '</li>';
-                        }
-                    }
+                    //     if ($shift_year > $cur_year)
+                    //         $upcoming_shifts[] = $shift;
+                    //     else if ($shift_year == $cur_year) {
+                    //         if ($cur_month < $shift_month)
+                    //             $upcoming_shifts[] = $shift;
+                    //         else if ($shift_month == $cur_month) {
+                    //             if ($cur_day <= $shift_day) {
+                    //                 $upcoming_shifts[] = $shift;
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    // if ($upcoming_shifts) {
+                    //     echo ('<div class="container-fluid"><p><strong>Your Upcoming Schedule:</strong><br/></p><ul>');
+                    //     foreach ($upcoming_shifts as $tableId) {
+                    //         echo ('<li type="circle">' . get_shift_name_from_id($tableId)) . '</li>';
+                    //     }
+                    // }
 
                     
                     // link to personal log sheet
