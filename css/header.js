@@ -64,11 +64,29 @@ $(function() {
         element.focus();
     });
 
+    // Show password match error if passwords don't match
+    // as user clicks out of the password re-enter input
     $('#password-reenter').change(function() {
         if ($(this).val() == $('#password').val()) {
             $('#password-match-error').addClass('hidden');
         } else {
             $('#password-match-error').removeClass('hidden');
+        }
+    });
+
+    // Format phone number inputs to (XXX) XXX-XXXX format
+    $('input[type=tel]').blur(function() {
+        let raw = $(this).val();
+        let numbers = '';
+        for (let i = 0; i < raw.length; i++) {
+            let c = raw.charAt(i);
+            if (c >= '0' && c <= '9') {
+                numbers += c;
+            }
+        }
+        if (numbers.length == 10) {
+            let formattedPhoneNumber = '(' + numbers.slice(0, 3) + ') ' + numbers.slice(3, 6) + '-' + numbers.slice(6);
+            $(this).val(formattedPhoneNumber);
         }
     });
 });
