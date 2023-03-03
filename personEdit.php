@@ -13,6 +13,7 @@
  */
 session_start();
 session_cache_expire(30);
+
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
 include_once('database/dbLog.php');
@@ -23,7 +24,7 @@ if ($id == 'new') {
     // for new applicants set the venue to portland so all their availability info saves, leftover from 2 calendar system, Gwyneth's Gift is working off of Portland
     $_SESSION['venue']="portland";
     $person = new Person('', '', $_SESSION['venue'], null, null, null, null, null, null, null, null, null, "applicant", 
-                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "");
+                    null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, "", null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 } else {
     $newUser = false;
     $person = retrieve_person($id);
