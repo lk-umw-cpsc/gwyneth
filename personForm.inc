@@ -74,7 +74,7 @@ if ($_SESSION['access_level'] == 0) {
     <fieldset class="row mb-3">
         <legend class="col-sm-2 col-form-label col-form-label-lg">Personal Information:</legend>
     <?php
-        if ($person->get_first_name()=="new")
+        if ($newUser)
         	echo '<p>First Name<span style="font-size:x-small;color:FF0000">*</span>: <input class="form-control-sm" type="text" name="first_name" tabindex="1" value="'.$person->get_first_name().'">';
         else 
         	echo '<p>First Name: ' . $person->get_first_name();
@@ -102,13 +102,13 @@ foreach ($states as $st) {
 <label for="">Zipcode:</label><input class="form-control-sm" type="text" name="zip" size="5" tabindex="6" value="<?PHP echo($person->get_zip()) ?>">
 <?php     
         $phonetypes = array("Home", "Cell", "Work");
-        if ($person->get_first_name()=="new") {
+        if ($newUser) {
         	echo '<p>Primary Phone<span style="font-size:x-small;color:FF0000">*</span>: ';
         	echo '<input class="form-control-sm" type="text" name="phone1" MAXLENGTH=12 tabindex="7" value="'.phone_edit($person->get_phone1()).'">';
         	foreach ($phonetypes as $pvalue)
         		echo '<input class="form-check-input" type="radio" name="phone1type" value="'.$pvalue.'"'.($person->get_phone1type()==$pvalue?' checked':'').'>'.$pvalue.' ';
         }
-        else echo '<p>Primary Phone: '.phone_edit($person->get_phone1());
+        else echo '<p>Primary Phone: '.phone_edit($person->get_phone1()) . '</p>';
 
         // Nice to have if a secondary phone is added back in
         //echo '<p>Secondary Phone: ';
