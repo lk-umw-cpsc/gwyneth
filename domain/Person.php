@@ -52,11 +52,27 @@
 	private $hours;        // array of actual hours logged; e.g., 15-01-05:0930-1300:portland:3.5
 	private $notes;        // notes that only the manager can see and edit
 	private $password;     // password for calendar and database access: default = $id
-
+	// Volunteer availability start and end for each week day in 24h format, hh:mm
+	private $sundaysStart;
+	private $sundaysEnd;
+	private $mondaysStart;
+	private $mondaysEnd;
+	private $tuesdaysStart;
+	private $tuesdaysEnd;
+	private $wednesdaysStart;
+	private $wednesdaysEnd;
+	private $thursdaysStart;
+	private $thursdaysEnd;
+	private $fridaysStart;
+	private $fridaysEnd;
+	private $saturdaysStart;
+	private $saturdaysEnd;
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
-			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass) {
+			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass,
+			$suns, $sune, $mons, $mone, $tues, $tuee, $weds, $wede,
+			$thus, $thue, $fris, $frie, $sats, $sate) {
 		$this->id = $e;
 		$this->start_date = $sd;
 		$this->venue = $v;
@@ -111,6 +127,20 @@
 			$this->password = password_hash($this->id, PASSWORD_BCRYPT); // default password
 		else
 			$this->password = $pass;
+		$this->sundaysStart = $suns;
+		$this->sundaysEnd = $sune;
+		$this->mondaysStart = $mons;
+		$this->mondaysEnd = $mone;
+		$this->tuesdaysStart = $tues;
+		$this->tuesdaysEnd = $tuee;
+		$this->wednesdaysStart = $weds;
+		$this->wednesdaysEnd = $wede;
+		$this->thursdaysStart = $thus;
+		$this->thursdaysEnd = $thue;
+		$this->fridaysStart = $fris;
+		$this->fridaysEnd = $frie;
+		$this->saturdaysStart = $sats;
+		$this->saturdaysEnd = $sate;
 	}
 
 	function get_id() {
@@ -271,6 +301,62 @@
 
 	function get_password() {
 		return $this->password;
+	}
+
+	function get_sunday_availability_start() {
+		return $this->sundaysStart;
+	}
+
+	function get_sunday_availability_end() {
+		return $this->sundaysEnd;
+	}
+
+	function get_monday_availability_start() {
+		return $this->mondaysStart;
+	}
+
+	function get_monday_availability_end() {
+		return $this->mondaysEnd;
+	}
+
+	function get_tuesday_availability_start() {
+		return $this->tuesdaysStart;
+	}
+
+	function get_tuesday_availability_end() {
+		return $this->tuesdaysEnd;
+	}
+
+	function get_wednesday_availability_start() {
+		return $this->wednesdaysStart;
+	}
+
+	function get_wednesday_availability_end() {
+		return $this->wednesdaysEnd;
+	}
+
+	function get_thursday_availability_start() {
+		return $this->thursdaysStart;
+	}
+
+	function get_thursday_availability_end() {
+		return $this->thursdaysEnd;
+	}
+
+	function get_friday_availability_start() {
+		return $this->fridaysStart;
+	}
+
+	function get_friday_availability_end() {
+		return $this->fridaysEnd;
+	}
+
+	function get_saturday_availability_start() {
+		return $this->saturdaysStart;
+	}
+
+	function get_saturday_availability_end() {
+		return $this->saturdaysEnd;
 	}
 }
 ?>

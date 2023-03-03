@@ -30,45 +30,60 @@ function add_person($person) {
     //if there's no entry for this id, add it
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_query($con,'INSERT INTO dbPersons VALUES("' .
-                $person->get_id() . '","' .
-                $person->get_start_date() . '","' .
-                $person->get_venue() . '","' .
-                $person->get_first_name() . '","' .
-                $person->get_last_name() . '","' .
-                $person->get_address() . '","' .
-                $person->get_city() . '","' .
-                $person->get_state() . '","' .
-                $person->get_zip() . '","' .
-                $person->get_phone1() . '","' .
-                $person->get_phone1type() . '","' .
-                $person->get_phone2() . '","' .
-                $person->get_phone2type() . '","' .
-                $person->get_birthday() . '","' .
-                $person->get_email() . '","' .
-                $person->get_shirt_size() . '","' .
-                $person->get_computer() . '","' .
-                $person->get_camera() . '","' .
-                $person->get_transportation() . '","' .
-                $person->get_contact_name() . '","' .
-                $person->get_contact_num() . '","' .
-                $person->get_relation() . '","' .
-                $person->get_contact_time() . '","' .
-                $person->get_cMethod() . '","' . 
-                $person->get_position() . '","' . 
-                $person->get_credithours() . '","' . 
-                $person->get_howdidyouhear() . '","' . 
-                $person->get_commitment() . '","' . 
-                $person->get_motivation() . '","' . 
-                $person->get_specialties() . '","' . 
-                $person->get_convictions() . '","' . 
-                implode(',', $person->get_type()) . '","' .
-                $person->get_status() . '","' .
-                implode(',', $person->get_availability()) . '","' .
-                implode(',', $person->get_schedule()) . '","' .
-                implode(',', $person->get_hours()) . '","' .
-                $person->get_notes() . '","' .
-                $person->get_password() .
-                '");');							
+            $person->get_id() . '","' .
+            $person->get_start_date() . '","' .
+            $person->get_venue() . '","' .
+            $person->get_first_name() . '","' .
+            $person->get_last_name() . '","' .
+            $person->get_address() . '","' .
+            $person->get_city() . '","' .
+            $person->get_state() . '","' .
+            $person->get_zip() . '","' .
+            $person->get_phone1() . '","' .
+            $person->get_phone1type() . '","' .
+            $person->get_phone2() . '","' .
+            $person->get_phone2type() . '","' .
+            $person->get_birthday() . '","' .
+            $person->get_email() . '","' .
+            $person->get_shirt_size() . '","' .
+            $person->get_computer() . '","' .
+            $person->get_camera() . '","' .
+            $person->get_transportation() . '","' .
+            $person->get_contact_name() . '","' .
+            $person->get_contact_num() . '","' .
+            $person->get_relation() . '","' .
+            $person->get_contact_time() . '","' .
+            $person->get_cMethod() . '","' . 
+            $person->get_position() . '","' . 
+            $person->get_credithours() . '","' . 
+            $person->get_howdidyouhear() . '","' . 
+            $person->get_commitment() . '","' . 
+            $person->get_motivation() . '","' . 
+            $person->get_specialties() . '","' . 
+            $person->get_convictions() . '","' . 
+            implode(',', $person->get_type()) . '","' .
+            $person->get_status() . '","' .
+            implode(',', $person->get_availability()) . '","' .
+            implode(',', $person->get_schedule()) . '","' .
+            implode(',', $person->get_hours()) . '","' .
+            $person->get_notes() . '","' .
+            $person->get_password() . '","' .
+            $person->get_sunday_availability_start() . '","' .
+            $person->get_sunday_availability_end() . '","' .
+            $person->get_monday_availability_start() . '","' .
+            $person->get_monday_availability_end() . '","' .
+            $person->get_tuesday_availability_start() . '","' .
+            $person->get_tuesday_availability_end() . '","' .
+            $person->get_wednesday_availability_start() . '","' .
+            $person->get_wednesday_availability_end() . '","' .
+            $person->get_thursday_availability_start() . '","' .
+            $person->get_thursday_availability_end() . '","' .
+            $person->get_friday_availability_start() . '","' .
+            $person->get_friday_availability_end() . '","' .
+            $person->get_saturday_availability_start() . '","' .
+            $person->get_saturday_availability_end() . 
+            '");'
+        );							
         mysqli_close($con);
         return true;
     }
@@ -249,7 +264,22 @@ function make_a_person($result_row) {
                     $result_row['start_date'],
                     $result_row['howdidyouhear'],
                     $result_row['notes'],
-                    $result_row['password']);   
+                    $result_row['password'],
+                    $result_row['sundays_start'],
+                    $result_row['sundays_end'],
+                    $result_row['mondays_start'],
+                    $result_row['mondays_end'],
+                    $result_row['tuesdays_start'],
+                    $result_row['tuesdays_end'],
+                    $result_row['wednesdays_start'],
+                    $result_row['wednesdays_end'],
+                    $result_row['thursdays_start'],
+                    $result_row['thursdays_end'],
+                    $result_row['fridays_start'],
+                    $result_row['fridays_end'],
+                    $result_row['saturdays_start'],
+                    $result_row['saturdays_end'],
+                );   
     return $thePerson;
 }
 
