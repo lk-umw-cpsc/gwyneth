@@ -70,7 +70,6 @@
             <label for="phone"><em>* </em>Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-            <!-- Fix this -->
             <label><em>* </em>Phone Type</label>
             <div class="radio-group">
                 <?php $type = $person->get_phone1type(); ?>
@@ -82,7 +81,6 @@
             <label for="contact-when" required><em>* </em>Best Time to Reach You</label>
             <input type="text" id="contact-when" name="contact-when" value="<?php echo hsc($person->get_contact_time()); ?>" required placeholder="Ex. Evenings, Days">
 
-            <!-- Fix this -->
             <label><em>* </em>Preferred Contact Method</label>
             <div class="radio-group">
                 <?php $method = $person->get_cMethod(); ?>
