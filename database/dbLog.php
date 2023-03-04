@@ -86,6 +86,7 @@ function get_full_log() {
     $query = "SELECT * FROM dbLog WHERE venue=\"" .$_SESSION['venue']."\" ORDER BY time DESC";
     $result = mysqli_query($con,$query);
     mysqli_close($con);
+    $log = [];
     if (!$result) {
         die("error getting log");
     } else {
