@@ -15,7 +15,7 @@
 <html>
 <head>
         <?php require_once('universal.inc'); ?>
-        <title>Gwyneth's Gift VMS | Register <?php if ($loggedIn) echo ' New Volunteer' ?></title>
+        <title>Gwyneth's Gift VMS | Manage Profile</title>
 </head>
 <body>
     <?php
