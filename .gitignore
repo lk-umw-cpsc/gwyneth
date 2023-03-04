@@ -1,1 +1,4 @@
 .DS_Store
+stateextract.py
+.gitignore
+thing.py

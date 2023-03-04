@@ -41,7 +41,7 @@
                         </div>';
                 }
                 ?>
-                <div class="dashboard-item" data-link="personEdit.php?id=<?php echo $person->get_id(); ?>">
+                <div class="dashboard-item" data-link="editProfile.php">
                     <img src="images/manage-account.svg">
                     <span>Manage Profile</span>
                 </div>

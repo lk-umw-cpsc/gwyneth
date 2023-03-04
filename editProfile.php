@@ -1,39 +1,36 @@
 <?php
     // Author: Lauren Knight
-    // Description: Registration page for new volunteers
+    // Description: Profile edit page
     session_cache_expire(30);
     session_start();
 
-    require_once('include/input-validation.php');
-
-    $loggedIn = false;
-    if (isset($_SESSION['_id'])) {
-        $loggedIn = true;
+    if (!isset($_SESSION['_id'])) {
+        header('Location: index.php');
+        die();
     }
 
-    // if (isset($_SESSION['_id'])) {
-    //     header('Location: index.php');
-    // } else {
-    //     $_SESSION['logged_in'] = 1;
-    //     $_SESSION['access_level'] = 0;
-    //     $_SESSION['venue'] = "";
-    //     $_SESSION['type'] = "";
-    //     $_SESSION['_id'] = "guest";
-    //     header('Location: personEdit.php?id=new');
-    // }
+    require_once('include/input-validation.php');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <?php require_once('universal.inc'); ?>
-    <title>Gwyneth's Gift VMS | Register <?php if ($loggedIn) echo ' New Volunteer' ?></title>
+        <?php require_once('universal.inc'); ?>
+        <title>Gwyneth's Gift VMS | Register <?php if ($loggedIn) echo ' New Volunteer' ?></title>
 </head>
 <body>
     <?php
         require_once('header.php');
-        require_once('domain/Person.php');
-        require_once('database/dbPersons.php');
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            require_once('domain/Person.php');
+            require_once('database/dbPersons.php');
+
+            if ($_SESSION['access_level'] >= 2 && isset($_POST['id'])) {
+                $id = $_POST['id'];
+                // Check to see if user is a lower-level manager here
+            } else {
+                $id = $_SESSION['_id'];
+            }
+
             // make every submitted field SQL-safe except for password
             $ignoreList = array('password');
             $args = sanitize($_POST, $ignoreList);
@@ -47,7 +44,7 @@
                 'first-name', 'last-name', 'birthdate',
                 'address', 'city', 'state', 'zip', 
                 'email', 'phone', 'phone-type', 'contact-when', 'contact-method',
-                'start-date', 'shirt-size', 'password'
+                'shirt-size'
             );
             $errors = false;
             if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -107,11 +104,6 @@
             }
             $econtactRelation = $args['econtact-relation'];
 
-            $startDate = validateDate($args['start-date']);
-            if (!$startDate) {
-                $errors = true;
-                echo 'bad start date';
-            }
             $skills = '';
             if (isset($args['skills'])) {
                 $skills = $args['skills'];
@@ -124,9 +116,6 @@
                 $errors = true;
                 echo 'bad shirt size';
             }
-
-            // May want to enforce password requirements at this step
-            $password = password_hash($args['password'], PASSWORD_BCRYPT);
 
             $days = array('sundays', 'mondays', 'tuesdays', 'wednesdays', 'thursdays', 'fridays', 'saturdays');
             $availability = array();
@@ -202,27 +191,23 @@
                 echo '<p>Your form submission contained unexpected input.</p>';
                 die();
             }
-            // need to incorporate availability here
-            $newperson = new Person($first, $last, 'portland', 
-                $address, $city, $state, $zipcode,
-                $phone, $phoneType, null, null,
-                $email, $shirtSize, $hasComputer, $hasCamera, $hasTransportation, $econtactName, $econtactPhone, $econtactRelation, 
-                $contactWhen, 'volunteer', 'Active', $contactMethod, null, null,
-                null, null, $skills, null, '', '', '', 
-                $dateOfBirth, $startDate, null, null, $password,
+            
+            $result = update_person_profile($id,
+                $first, $last, $dateOfBirth, $address, $city, $state, $zipcode,
+                $email, $phone, $phoneType, $contactWhen, $contactMethod, 
+                $econtactName, $econtactPhone, $econtactRelation,
+                $skills, $hasComputer, $hasCamera, $hasTransportation, $shirtSize,
                 $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
                 $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
                 $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
                 $saturdaysStart, $saturdaysEnd
             );
-            $result = add_person($newperson);
-            if (!$result) {
-                echo '<p>That e-mail address is already in use.</p>';
-            } else {
-                echo '<p>Your registration was submitted successfully. You may now log in.</p>';
+            if ($result) {
+                echo "Profile updated successfully";
             }
+
         } else {
-            require_once('registrationForm.php'); 
+            require_once('profileEditForm.inc');
         }
     ?>
 </body>

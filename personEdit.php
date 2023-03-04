@@ -71,7 +71,8 @@ if ($id == 'new') {
                 include('personValidate.inc');
                 if (!isset($_POST['_form_submit'])) {
                     //in this case, the form has not been submitted, so show it
-                    include('personForm.inc');
+                    // include('personForm.inc');
+                    include('profileEditForm.inc');
                 } else {
                     //in this case, the form has been submitted, so validate it
                     $errors = validate_form($person);  //step one is validation.

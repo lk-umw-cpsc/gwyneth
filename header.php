@@ -15,7 +15,20 @@
     //If they aren't logged in, display our log-in form.
     $showing_login = false;
     if (!isset($_SESSION['logged_in'])) {
-        echo '<nav><span class="logo"><img src="images/gwynethsgift.png"><span id="vms-logo">VMS</span></span><ul>&nbsp;</ul></nav>';
+        echo '
+        <nav>
+            <span id="nav-top">
+                <span class="logo">
+                    <img src="images/gwynethsgift.png">
+                    <span id="vms-logo">VMS</span>
+                </span>
+                <img id="menu-toggle" src="images/menu.png">
+            </span>
+            <ul>
+                <li><a href="index.php">Log in</a></li>
+                <li><a href="register.php">Register</a></li>
+            </ul>
+        </nav>';
     } else if ($_SESSION['logged_in']) {
 
         /*         * Set our permission array.
@@ -31,12 +44,14 @@
         $permission_array['about.php'] = 0;
         $permission_array['apply.php'] = 0;
         $permission_array['logout.php'] = 0;
+        $permission_array['register.php'] = 0;
         //pages volunteers can view
         $permission_array['help.php'] = 1;
         $permission_array['dashboard.php'] = 1;
         $permission_array['calendar.php'] = 1;
         $permission_array['eventsearch.php'] = 1;
         $permission_array['changepassword.php'] = 1;
+        $permission_array['editprofile.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
         $permission_array['personedit.php'] = 0; // changed to 0 so that applicants can apply
@@ -94,7 +109,7 @@
 	            echo('<span class="nav-divider">|</span>');
 	            echo('<span class="navbar-brand">Volunteers</span>');
                 echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
-			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="personEdit.php?id=' . 'new' . '">Add</a></li>'); 
+			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="register.php">Add</a></li>'); 
 	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
 	        }
 	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');

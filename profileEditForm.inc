@@ -1,253 +1,259 @@
-<h1>Register to Volunteer</h1>
-<form class="signup-form" method="post">
-    <h2>Registration Form</h2>
-    <p>Please fill out each section of the following form if you would like to volunteer for the organization.</p>
-    <fieldset>
-        <legend>Personal Information</legend>
-        <p>The following information will help us identify you within our system.</p>
-        <label for="first-name">First Name</label>
-        <input type="text" id="first-name" name="first-name" value="<?php echo $person->get_first_name(); ?>" required placeholder="Enter your first name">
+<?php
+    require_once('domain/Person.php');
+    require_once('database/dbPersons.php');
+    require_once('include/output.php');
 
-        <label for="last-name">Last Name</label>
-        <input type="text" id="last-name" name="last-name" value="<?php echo $person->get_last_name(); ?>" required placeholder="Enter your last name">
+    if ($_SESSION['access_level'] >= 2 && isset($_GET['id'])) {
+        $id = $_GET['id'];
+        // Check to see if user is a lower-level manager here
+    } else {
+        $id = $_SESSION['_id'];
+    }
 
-        <label for="birthdate">Date of Birth</label>
-        <input type="date" id="birthdate" name="birthdate" value="<?php echo $person->get_birthday(); ?>" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
+    $person = retrieve_person($id);
+?>
+<h1>Manage Profile</h1>
+<main class="signup-form">
+    <form class="signup-form" method="post">
+        <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
+        <fieldset>
+            <legend>Personal Information</legend>
+            <p>The following information helps us identify you within our system.</p>
+            <label for="first-name"><em>* </em>First Name</label>
+            <input type="text" id="first-name" name="first-name" value="<?php echo hsc($person->get_first_name()); ?>" required placeholder="Enter your first name">
+
+            <label for="last-name"><em>* </em>Last Name</label>
+            <input type="text" id="last-name" name="last-name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
+
+            <label for="birthdate"><em>* </em>Date of Birth</label>
+            <input type="date" id="birthdate" name="birthdate" value="<?php echo hsc($person->get_birthday()); ?>" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
 
 
-        <label for="address">Street Address</label>
-        <input type="text" id="address" name="address" value="<?php echo $person->get_address(); ?>" required placeholder="Enter your street address">
+            <label for="address"><em>* </em>Street Address</label>
+            <input type="text" id="address" name="address" value="<?php echo hsc($person->get_address()); ?>" required placeholder="Enter your street address">
 
-        <label for="city">City</label>
-        <input type="text" id="city" name="city" value="<?php echo $person->get_city(); ?>" required placeholder="Enter your city">
+            <label for="city"><em>* </em>City</label>
+            <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
 
-        <label for="state">State</label>
-        <!-- Need to select this one...-->
-        <select id="state" name="state" required>
-            <option value="AL">Alabama</option>
-            <option value="AK">Alaska</option>
-            <option value="AZ">Arizona</option>
-            <option value="AR">Arkansas</option>
-            <option value="CA">California</option>
-            <option value="CO">Colorado</option>
-            <option value="CT">Connecticut</option>
-            <option value="DE">Delaware</option>
-            <option value="DC">District Of Columbia</option>
-            <option value="FL">Florida</option>
-            <option value="GA">Georgia</option>
-            <option value="HI">Hawaii</option>
-            <option value="ID">Idaho</option>
-            <option value="IL">Illinois</option>
-            <option value="IN">Indiana</option>
-            <option value="IA">Iowa</option>
-            <option value="KS">Kansas</option>
-            <option value="KY">Kentucky</option>
-            <option value="LA">Louisiana</option>
-            <option value="ME">Maine</option>
-            <option value="MD">Maryland</option>
-            <option value="MA">Massachusetts</option>
-            <option value="MI">Michigan</option>
-            <option value="MN">Minnesota</option>
-            <option value="MS">Mississippi</option>
-            <option value="MO">Missouri</option>
-            <option value="MT">Montana</option>
-            <option value="NE">Nebraska</option>
-            <option value="NV">Nevada</option>
-            <option value="NH">New Hampshire</option>
-            <option value="NJ">New Jersey</option>
-            <option value="NM">New Mexico</option>
-            <option value="NY">New York</option>
-            <option value="NC">North Carolina</option>
-            <option value="ND">North Dakota</option>
-            <option value="OH">Ohio</option>
-            <option value="OK">Oklahoma</option>
-            <option value="OR">Oregon</option>
-            <option value="PA">Pennsylvania</option>
-            <option value="RI">Rhode Island</option>
-            <option value="SC">South Carolina</option>
-            <option value="SD">South Dakota</option>
-            <option value="TN">Tennessee</option>
-            <option value="TX">Texas</option>
-            <option value="UT">Utah</option>
-            <option value="VT">Vermont</option>
-            <option value="VA" selected>Virginia</option>
-            <option value="WA">Washington</option>
-            <option value="WV">West Virginia</option>
-            <option value="WI">Wisconsin</option>
-            <option value="WY">Wyoming</option>
-        </select>
+            <label for="state"><em>* </em>State</label>
+            <!-- Need to select this one...-->
+            <select id="state" name="state" required>
+                <?php
+                    $state = $person->get_state();
+                    $states = array(
+                        'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+                    );
+                    $abbrevs = array(
+                        'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+                    );
+                    $length = count($states);
+                    for ($i = 0; $i < $length; $i++) {
+                        if ($abbrevs[$i] == $state) {
+                            echo '<option value="' . $abbrevs[$i] . '" selected>' . $states[$i] . '</option>';
+                        } else {
+                            echo '<option value="' . $abbrevs[$i] . '">' . $states[$i] . '</option>';
+                        }
+                    }
+                ?>
+            </select>
 
-        <label for="zip">Zip Code</label>
-        <input type="text" id="zip" name="zip" pattern="[0-9]{5}" title="5-digit zip code" value="<?php echo $person->get_zip(); ?>" required placeholder="Enter your 5-digit zip code">
-    </fieldset>
-    <fieldset>
-        <legend>Contact Information</legend>
-        <p>The following information will help us determine the best way to contact you regarding event coordination.</p>
-        <label for="email">E-mail</label>
-        <p>This will also serve as your username when logging in.</p>
-        <input type="email" id="email" name="email" value="<?php echo $person->get_email(); ?>" required placeholder="Enter your e-mail address">
+            <label for="zip"><em>* </em>Zip Code</label>
+            <input type="text" id="zip" name="zip" value="<?php echo hsc($person->get_zip()); ?>" pattern="[0-9]{5}" title="5-digit zip code" required placeholder="Enter your 5-digit zip code">
+        </fieldset>
+        <fieldset>
+            <legend>Contact Information</legend>
+            <p>The following information helps us determine the best way to contact you regarding event coordination.</p>
+            <label for="email"><em>* </em>E-mail</label>
+            <p>Updating your e-mail address does not change your login username.</p>
+            <input type="email" id="email" name="email" value="<?php echo hsc($person->get_email()); ?>" required placeholder="Enter your e-mail address">
 
-        <label for="phone">Phone Number</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<?php echo $person->get_phone1(); ?>" required placeholder="Ex. 555-555-5555">
+            <label for="phone"><em>* </em>Phone Number</label>
+            <input type="tel" id="phone" name="phone" value="<?php echo formatPhoneNumber($person->get_phone1()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Ex. (555) 555-5555">
 
-        <!-- Deal with phone type -->
-        <label>Phone Type</label>
-        <div class="radio-group">
-            <input type="radio" id="phonetype-cellphone" name="phonetype" value="cellphone" required><label for="phonetype-cellphone">Cell</label>
-            <input type="radio" id="phonetype-home" name="phonetype" value="home" required><label for="phonetype-home">Home</label>
-            <input type="radio" id="phonetype-work" name="phonetype" value="work" required><label for="phonetype-work">Work</label>
-        </div>
-
-        <label for="contact-when" required>Best Time to Reach You</label>
-        <input type="text" id="contact-when" name="contact-when" value="<?php echo $person->get_contact_time(); ?>" required placeholder="Ex. Evenings, Days">
-
-        <!-- Fix this -->
-        <label>Preferred Contact Method</label>
-        <div class="radio-group">
-            <input type="radio" id="method-phone" name="method" value="phone" required><label for="method-phone">Phone call</label>
-            <input type="radio" id="method-text" name="method" value="text" required><label for="method-text">Text</label>
-            <input type="radio" id="method-email" name="method" value="email" required><label for="method-email">E-mail</label>
-        </div>
-    </fieldset>
-    <fieldset>
-        <legend>Emergency Contact</legend>
-        <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
-        <label for="econtact-name" required>Contact Name</label>
-        <input type="text" id="econtact-name" name="econtact-name" value="<?php echo $person->get_contact_name(); ?>" required placeholder="Enter emergency contact name">
-
-        <label for="econtact-phone">Contact Phone Number</label>
-        <input type="tel" id="econtact-phone" name="econtact-phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="<?php echo $person->get_contact_num(); ?>" required placeholder="Enter emergency contact phone number. Ex. 555-555-5555">
-
-        <label for="econtact-name">Contact Relation to You</label>
-        <input type="text" id="econtact-relation" name="econtact-relation" value="<?php echo $person->get_relation(); ?>" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
-    </fieldset>
-    <fieldset>
-        <legend>Volunteer Information</legend>
-        <p>The following information will be used to help us determine your availability and skillset.</p>
-        <?php 
-            if ($newUser) {
-                echo '<label for="start-date">I will be available to volunteer starting</label>';
-                echo '<input type="date" id="start-date" name="start-date" value="' . date('Y-m-d') . '" min="' . date('Y-m-d') . '">';
-
-            }
-        ?>
-        <label>Availability</label>
-        <p>Enter the days and times you will be available to volunteer each week, starting from the date above.</p>
-        <div class="availability-container">
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-sundays" name="available-sundays" type="checkbox" required>
-                    <label for="available-sundays">Sundays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="sundays-start" name="sundays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="sundays-end" name="sundays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+            <!-- Fix this -->
+            <label><em>* </em>Phone Type</label>
+            <div class="radio-group">
+                <?php $type = $person->get_phone1type(); ?>
+                <input type="radio" id="phone-type-cellphone" name="phone-type" value="cellphone" <?php if ($type == 'cellphone') echo 'checked'; ?> required><label for="phone-type-cellphone">Cell</label>
+                <input type="radio" id="phone-type-home" name="phone-type" value="home" <?php if ($type == 'home') echo 'checked'; ?> required><label for="phone-type-home">Home</label>
+                <input type="radio" id="phone-type-work" name="phone-type" value="work" <?php if ($type == 'work') echo 'checked'; ?> required><label for="phone-type-work">Work</label>
             </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-mondays" name="available-mondays" type="checkbox" required>
-                    <label for="available-mondays">Mondays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="mondays-start" name="mondays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="mondays-end" name="mondays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-tuesdays" name="available-tuesdays" type="checkbox" required>
-                    <label for="available-tuesdays">Tuesdays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="tuesdays-start" name="tuesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="tuesdays-end" name="tuesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-wednesdays" name="available-wednesdays" type="checkbox" required>
-                    <label for="available-wednesdays">Wednesdays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="wednesdays-start" name="wednesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="wednesdays-end" name="wednesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-thursdays" name="available-thursdays" type="checkbox" required>
-                    <label for="available-thursdays">Thursdays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="thursdays-start" name="thursdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="thursdays-end" name="thursdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-fridays" name="available-fridays" type="checkbox" required>
-                    <label for="available-fridays">Fridays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="fridays-start" name="fridays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="fridays-end" name="fridays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-            <div class="availability-day">
-                <p class="availability-day-header">
-                    <input id="available-saturdays" name="available-saturdays" type="checkbox" required>
-                    <label for="available-saturdays">Saturdays</label>
-                </p>
-                <p>From</p>
-                <input type="text" id="saturdays-start" name="saturdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
-                <p>to</p>
-                <input type="text" id="saturdays-end" name="saturdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
-            </div>
-        </div>
 
-        <label for="skills">Skills</label>
-        <textarea id="skills" name="skills" placeholder="Please let us know about any special skills you may have, including proficiencies in non-English languages."></textarea>
+            <label for="contact-when" required><em>* </em>Best Time to Reach You</label>
+            <input type="text" id="contact-when" name="contact-when" value="<?php echo hsc($person->get_contact_time()); ?>" required placeholder="Ex. Evenings, Days">
 
-        <label>Additional Information</label>
-        <div class="checkbox-grouping">
-            <div class="checkbox-pair">
-                <input id="has-computer" name="has-computer" type="checkbox">
-                <label for="has-computer">I own a computer</label>
+            <!-- Fix this -->
+            <label><em>* </em>Preferred Contact Method</label>
+            <div class="radio-group">
+                <?php $method = $person->get_cMethod(); ?>
+                <input type="radio" id="method-phone" name="contact-method" value="phone" <?php if ($method == 'phone') echo 'checked'; ?> required><label for="method-phone">Phone call</label>
+                <input type="radio" id="method-text" name="contact-method" value="text" <?php if ($method == 'text') echo 'checked'; ?> required><label for="method-text">Text</label>
+                <input type="radio" id="method-email" name="contact-method" value="email" <?php if ($method == 'email') echo 'checked'; ?> required><label for="method-email">E-mail</label>
             </div>
-            <div class="checkbox-pair">
-                <input id="has-camera" name="has-camera" type="checkbox">
-                <label for="has-camera">I own a camera</label>
+        </fieldset>
+        <fieldset>
+            <legend>Emergency Contact</legend>
+            <p>Please provide us with someone to contact on your behalf in case of an emergency.</p>
+            <label for="econtact-name" required><em>* </em>Contact Name</label>
+            <input type="text" id="econtact-name" name="econtact-name" value="<?php echo hsc($person->get_contact_name()); ?>" required placeholder="Enter emergency contact name">
+
+            <label for="econtact-phone"><em>* </em>Contact Phone Number</label>
+            <input type="tel" id="econtact-phone" name="econtact-phone" value="<?php echo formatPhoneNumber($person->get_contact_num()); ?>" pattern="\([0-9]{3}\) [0-9]{3}-[0-9]{4}" required placeholder="Enter emergency contact phone number. Ex. (555) 555-5555">
+
+            <label for="econtact-name"><em>* </em>Contact Relation to You</label>
+            <input type="text" id="econtact-relation" name="econtact-relation" value="<?php echo hsc($person->get_relation()); ?>" required placeholder="Ex. Spouse, Mother, Father, Sister, Brother, Friend">
+        </fieldset>
+        <fieldset>
+            <legend>Volunteer Information</legend>
+            <p>The following information helps us determine your availability and skillset.</p>
+            
+            <label><em>* </em>Availability</label>
+            <p>Enter the days and times you will be available to volunteer each week, starting from the date above.</p>
+            <div class="availability-container">
+                <?php
+                    $start = $person->get_sunday_availability_start();    
+                    $end = $person->get_sunday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-sundays" name="available-sundays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-sundays">Sundays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="sundays-start" name="sundays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="sundays-end" name="sundays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="sundays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_monday_availability_start();    
+                    $end = $person->get_monday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-mondays" name="available-mondays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-mondays">Mondays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="mondays-start" name="mondays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="mondays-end" name="mondays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="mondays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_tuesday_availability_start();    
+                    $end = $person->get_tuesday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-tuesdays" name="available-tuesdays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-tuesdays">Tuesdays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="tuesdays-start" name="tuesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="tuesdays-end" name="tuesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="tuesdays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_wednesday_availability_start();    
+                    $end = $person->get_wednesday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-wednesdays" name="available-wednesdays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-wednesdays">Wednesdays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="wednesdays-start" name="wednesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="wednesdays-end" name="wednesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="wednesdays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_thursday_availability_start();    
+                    $end = $person->get_thursday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-thursdays" name="available-thursdays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-thursdays">Thursdays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="thursdays-start" name="thursdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="thursdays-end" name="thursdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="thursdays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_friday_availability_start();    
+                    $end = $person->get_friday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-fridays" name="available-fridays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-fridays">Fridays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="fridays-start" name="fridays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="fridays-end" name="fridays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="fridays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
+                <?php
+                    $start = $person->get_saturday_availability_start();    
+                    $end = $person->get_saturday_availability_end();    
+                    $day = $start && $end;
+                ?>
+                <div class="availability-day">
+                    <p class="availability-day-header">
+                        <input id="available-saturdays" name="available-saturdays" type="checkbox" <?php if ($day) echo 'checked'; ?>>
+                        <label for="available-saturdays">Saturdays</label>
+                    </p>
+                    <p><em class="hidden">* </em>From</p>
+                    <input type="text" id="saturdays-start" name="saturdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p><em class="hidden">* </em>to</p>
+                    <input type="text" id="saturdays-end" name="saturdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <p id="saturdays-range-error" class="hidden error">Start time must come before end time.</p>
+                </div>
             </div>
-            <div class="checkbox-pair">
-                <input id="has-transportation" name="has-transportation" type="checkbox">
-                <label for="has-transportation">I have access to reliable transportation</label>
+
+            <label for="skills">Skills</label>
+            <textarea id="skills" name="skills" placeholder="Please let us know about any special skills you may have, including proficiencies in non-English languages."><?php echo $person->get_specialties(); ?></textarea>
+
+            <label>Additional Information</label>
+            <div class="checkbox-grouping">
+                <div class="checkbox-pair">
+                    <input id="has-computer" name="has-computer" type="checkbox" <?php if ($person->get_computer()) echo 'checked'; ?>>
+                    <label for="has-computer">I own a computer</label>
+                </div>
+                <div class="checkbox-pair">
+                    <input id="has-camera" name="has-camera" type="checkbox" <?php if ($person->get_camera()) echo 'checked'; ?>>
+                    <label for="has-camera">I own a camera</label>
+                </div>
+                <div class="checkbox-pair">
+                    <input id="has-transportation" name="has-transportation" type="checkbox" <?php if ($person->get_transportation()) echo 'checked'; ?>>
+                    <label for="has-transportation">I have access to reliable transportation</label>
+                </div>
             </div>
-        </div>
 
-        <label for="shirt-size">T-shirt Size</label>
-        <select id="shirt-size" name="shirt-size" required>
-            <option>Small</option>
-            <option>Medium</option>
-            <option>Large</option>
-            <option>Extra Large</option>
-            <option>2X Large</option>
-        </select>
-    </fieldset>
-    <fieldset>
-        <legend>Login Credentials</legend>
-        <p>You will use the following information to log in to the VMS.</p>
-
-        <label for="email-relisting">E-mail Address</label>
-        <span id="email-dupe" class="pseudo-input">Enter your e-mail address above</span>
-
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter a strong password" required>
-
-        <label for="password-reenter">Re-enter Password</label>
-        <input type="password" id="password-reenter" name="password-reenter" placeholder="Re-enter Password" required>
-        <p id="password-match-error" class="error hidden">Passwords do not match!</p>
-    </fieldset>
-    <p>By pressing Submit below, you are agreeing to volunteer for the organization.</p>
-    <input type="submit" name="personForm" value="Submit">
-</form>
+            <label for="shirt-size">T-shirt Size</label>
+            <select id="shirt-size" name="shirt-size" required>
+                <?php $size = $person->get_shirt_size(); ?>
+                <option value="S" <?php if ($size == 'S') echo 'selected'; ?>>Small</option>
+                <option value="M" <?php if ($size == 'M') echo 'selected'; ?>>Medium</option>
+                <option value="L" <?php if ($size == 'L') echo 'selected'; ?>>Large</option>
+                <option value="XL" <?php if ($size == 'XL') echo 'selected'; ?>>Extra Large</option>
+                <option value="XXL" <?php if ($size == 'XXL') echo 'selected'; ?>>2X Large</option>
+            </select>
+        </fieldset>
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="submit" name="profile-edit-form" value="Update Profile">
+    </form>
+</main>

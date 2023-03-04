@@ -27,13 +27,14 @@ but no code was taken from there. All of the code below is original code.
 html, body, header, main, footer, div, span, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 input, select, textarea, form, section, label,
-table, td, tr, th, form, fieldset {
+table, td, tr, th, form, fieldset, em {
     padding: 0;
     margin: 0;
     font-size: inherit;
     font-family: inherit;
     font-weight: inherit;
     text-decoration: none;
+    font-style: normal;
     box-sizing: border-box;
     text-align: left;
 }
@@ -499,6 +500,10 @@ form.signup-form > fieldset > label {
 
 form.signup-form textarea {
     height: 7rem;
+}
+
+form.signup-form em {
+    color: var(--secondary-accent-color);
 }
 
 .radio-group {
