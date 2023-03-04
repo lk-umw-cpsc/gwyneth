@@ -104,7 +104,7 @@ session_cache_expire(30);
 				       echo '<p><table class="table table-info table-responsive table-striped-columns table-hover table-bordered"> <tr><td>Name</td><td>Phone</td>
 				                            <td>E-mail</td><td>Availability</td></tr>';
 				       foreach ($result as $vol) {
-				          echo "<tr><td><a href=personEdit.php?id=" . 
+				          echo "<tr><td><a href=editProfile.php?id=" . 
 				               str_replace(" ","_",$vol->get_id()) . ">" .
 				               $vol->get_first_name() . " " . $vol->get_last_name() . "</td><td>" .
 				               phone_edit($vol->get_phone1()) . "</td><td>" .
