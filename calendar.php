@@ -83,7 +83,7 @@
                             }
                             $events = '';
                             if ($day + $week * 7 == 14) {
-                                $events .= '<a class="calendar-event" href="'.'eventView.php?id=0001'.'">8a Event 1</a>';
+                                $events .= '<a class="calendar-event" href="#">8a Event 1</a>';
                             }
                             echo '
                             <td class="calendar-day' . $extraClasses . '" ' . $extraAttributes . '>
