@@ -10,9 +10,10 @@
 
       // check if user has reached this page
       // with an event ID
-      if (isset($_GET["event"])) {
-        echo '<title>'.$_GET["event"].' - Event View</title>';
+      if (isset($_GET["id"])) {
+        echo '<title>'.$_GET["id"].' - Event View</title>';
       } else {
+        header('Location: calendar.php');
         // TODO: If the event id is not in the url,
         // then the user will be redirected to
         // the calendar view
@@ -26,8 +27,8 @@
 
     // check if user has reached this page
     // with an event ID
-    if (isset($_GET["event"])) {
-		  echo '<h1>'.$_GET["event"].' - Event View: </h1>';
+    if (isset($_GET["id"])) {
+		  echo '<h1>'.$_GET["id"].' - Event View: </h1>';
     } else {
       echo '<h1>No Event ID - Event View:</h1>';
     }
