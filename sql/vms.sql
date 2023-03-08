@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 04, 2023 at 06:13 AM
+-- Generation Time: Mar 08, 2023 at 02:51 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -140,24 +140,28 @@ INSERT INTO `dbdates` (`id`, `shifts`, `mgr_notes`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dbevents`
+-- Table structure for table `dbEvents`
 --
 
-CREATE TABLE `dbevents` (
-  `id` text NOT NULL,
-  `event_date` text DEFAULT NULL,
-  `venue` text DEFAULT NULL,
-  `event_name` text DEFAULT NULL,
-  `description` text DEFAULT NULL,
-  `event_id` text DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+CREATE TABLE `dbEvents` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `abbrevName` text NOT NULL,
+  `date` char(10) NOT NULL,
+  `startTime` char(5) NOT NULL,
+  `endTime` char(5) NOT NULL,
+  `description` text NOT NULL,
+  `location` text NOT NULL,
+  `capacity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dbevents`
+-- Dumping data for table `dbEvents`
 --
 
-INSERT INTO `dbevents` (`id`, `event_date`, `venue`, `event_name`, `description`, `event_id`) VALUES
-('638553e3173c4', '22-11-05', 'portland', 'One Event', 'The event table has been completely cleared, here is one event though.', '638553e3173c4');
+INSERT INTO `dbEvents` (`id`, `name`, `abbrevName`, `date`, `startTime`, `endTime`, `description`, `location`, `capacity`) VALUES
+(1, 'Event Test 1', 'Event 1', '2023-03-06', '11:00', '14:00', 'This is a test event :)', '111 College Ave, Fredericksburg, VA 22401', 5),
+(2, 'Event 2', 'Event 2', '2023-03-06', '12:00', '15:00', 'On y va dude', '1234 Yolo Street\r\nSwagville, TX 54321', 10);
 
 -- --------------------------------------------------------
 
@@ -851,6 +855,12 @@ ALTER TABLE `dbdates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `dbEvents`
+--
+ALTER TABLE `dbEvents`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `dblog`
 --
 ALTER TABLE `dblog`
@@ -877,6 +887,12 @@ ALTER TABLE `dbweeks`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `dbEvents`
+--
+ALTER TABLE `dbEvents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `dblog`
