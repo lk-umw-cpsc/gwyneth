@@ -132,7 +132,8 @@ function getonlythose_dbEvents($name, $day, $venue) {
 
 function fetch_events($start_date, $end_date) {
     $connection = connect();
-
+    $start_date = mysqli_real_escape_string($connection, $start_date);
+    $end_date = mysqli_real_escape_string($connection, $end_date);
     $query = "select * from dbEvents
               where date >= '$start_date' and date <= '$end_date'";
     $result = mysqli_query($connection, $query);
