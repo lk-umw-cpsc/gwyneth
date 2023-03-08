@@ -1,4 +1,9 @@
 <?php 
+  // Ensure user is logged in
+  /*if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+      header('Location: login.php');
+      die();
+  }*/
 
 ?>
 
@@ -51,7 +56,16 @@
 		  echo '<p><center>Event Start Time: '.$event_startTime.'</center></p>';
 		  echo '<p><center>Event End Time: '.$event_endTime.'</center></p>';
 		  echo '<p><center>Event Location: '.$event_location.'</center></p>';
-		  echo '<p><center>Event Description: '.$event_description.'</center></p>';
+      echo '<br>';
+		  echo '
+        <p>
+          <center>Event Description: </center>
+          <div width="500px" height="500px" style="overflow-y: scroll;">
+            <center>'.
+              $event_description.
+           '</center>
+          </div>
+        </p>';
     ?>
     <br>
 	
