@@ -40,8 +40,8 @@
       // print_r($event_info);
       $event_name = $event_info[1];
       $event_date = date('F j, Y', strtotime($event_info[3]));
-      $event_startTime = $event_info[4];
-      $event_endTime = $event_info[5];
+      $event_startTime = date('g:i a', strtotime($event_info[4]));
+      $event_endTime = date('g:i a', strtotime($event_info[5]));
       $event_location = $event_info[7];
       $event_description = $event_info[6];
       
