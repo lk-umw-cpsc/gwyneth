@@ -32,7 +32,7 @@
         <main>
             <h1>Changing User Access Level</h1>
             <!-- Your code goes here. Be sure to wrap any form elements in a <form> tag -->
-            <div class="formWrapper">
+           
             <form class="modUser" style="background-color:#E6E6FA">
             <br>
             <label>
@@ -65,7 +65,6 @@
             <br>
             <input type="submit">
             </form>
-            </div>
             <p>You are <?php if (!$loggedIn) echo 'not '; ?>logged in.</p>
             <?php
                 if ($userID) {
