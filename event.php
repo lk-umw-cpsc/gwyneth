@@ -7,40 +7,53 @@
 	<head>
 		<?php
       require_once('universal.inc');
+      include_once('database/dbEvents.php');
 
       // check if user has reached this page
       // with an event ID
       if (isset($_GET["id"])) {
+        $id = $_GET["id"];
         echo '<title>'.$_GET["id"].' - Event</title>';
       } else {
         header('Location: calendar.php');
-        // TODO: If the event id is not in the url,
-        // then the user will be redirected to
-        // the calendar view
-		    echo '<title>No Event ID - Event</title>';
+        die();
       }
     ?>
 	</head>
 	
 	<body>
-		<?php require_once('header.php');
+		<?php
+      require_once('header.php');
 
-    // check if user has reached this page
-    // with an event ID
-    if (isset($_GET["id"])) {
-		  echo '<h1>'.$_GET["id"].' - Event: </h1>';
-    } else {
-      echo '<h1>No Event ID - Event:</h1>';
-    }
+      // grab event data using fetch_event_by_id() in dbEvents.php
+      $event_info = fetch_event_by_id($id);
+      if ($event_info == NULL) {
+        // TODO: Need to create error page for no event found
+        header('Location: calendar.php');
+        die();
+      }
+      // print_r($event_info);
+      $event_name = $event_info[1];
+      $event_date = $event_info[3];
+      $event_startTime = $event_info[4];
+      $event_endTime = $event_info[5];
+      $event_location = $event_info[7];
+      $event_description = $event_info[6];
+      
+		  echo '<h1>'.$id.' - Event: '.$event_name.'</h1>';
     ?>
-    <!-- TODO: will figure out another way to center
-               later -->
-		<p><center>Event Date(s): March 6th, 2023</center></p>
-		<p><center>Event Start Time: 2:00pm</center></p>
-		<p><center>Event End Time: 5:00pm</center></p>
-		<p><center>Event Location: 1234 Drive Dr.</center></p>
-		<p><center>Event Description: This is a description</center></p>
-		<br>
+
+    <?php
+      /* TODO: will figure out another way to center
+               later
+      */
+		  echo '<p><center>Event Date(s): '.$event_date.'</center></p>';
+		  echo '<p><center>Event Start Time: '.$event_startTime.'</center></p>';
+		  echo '<p><center>Event End Time: '.$event_endTime.'</center></p>';
+		  echo '<p><center>Event Location: '.$event_location.'</center></p>';
+		  echo '<p><center>Event Description: '.$event_description.'</center></p>';
+    ?>
+    <br>
 	
 		<body>
 			<h2>
