@@ -52,12 +52,13 @@
 		  echo '<h1>'.$id.' - Event: '.$event_name.'</h1>';
     ?>
 
+    <main>
     <?php
       /* TODO: will figure out another way to center
                later
       */
       echo '<div><center>';
-		  echo 'Event Date(s): '.$event_date.'<br>';
+		  echo 'Event Date: '.$event_date.'<br>';
 		  echo 'Event Start Time: '.$event_startTime.'<br>';
 		  echo 'Event End Time: '.$event_endTime.'<br>';
 		  echo 'Event Location: '.$event_location.'<br>';
@@ -72,61 +73,51 @@
           </div>
         </p>';
     ?>
-    <br>
 	
-		<body>
-			<h2>
-        <center>List of Volunteers for Event</center>
+			<h2 class="centered">
+        List of Volunteers for Event
       </h2>
       <!-- TODO: will figure out another way to center
                  later -->
-        <li>
-            <ul><center>&nbsp;Joe</center></ul>
-            <ul><center>&nbsp;Alice</center></ul>
-            <ul><center>&nbsp;Bob</center></ul>
-            <ul><center>&nbsp;Michelle</center></ul>
-       </li>
-		</body>
-    <br>
-		<body>
-			<h2>
-        <center>Access/Insert Training Materials</center>
+      <ul class="centered">
+            <li class="centered">Joe Doe</li>
+            <li class="centered">Alice Bob</li>
+            <li class="centered">Bob Looker</li>
+            <li class="centered">Michelle Hobbins</li>
+      </ul>
+
+			<h2 class="centered">
+        Access/Insert Training Materials
       </h2>	
-      <center>
+      <p class="centered">
         To be added
-      </center>
-		</body>
+      </p>
 		
     <!-- temporary breaks to separate headers -->
-    <br><br>
 
-		<body>
 			<h2>
         <center>Post-Event Media</center>
       </h2>	
-		</body>
 		
-		<center>		
-		<a href="calendar.php"> 
-				<button class = "block" style="width:200px;"><b>Go back to Calendar!</b></button>
+    <form method="POST">
+      <select>
+        <option value="jdoe@umw.edu">Doe, John</option>
+        <option value="abob@umw.edu">Alice, Bob</option>
+      </select>
+      <input type="submit" value="Assign Volunteer" />
+    </form>
+
+    <div>
+		<a href="calendar.php" class="button">
+				Go back to Calendar!
 		</a>
-		</center>
 		
-		<br>
-			
-		<center>
-		<a href="eventRegister.php"> 
-				<button class = "block" style="width:200px;"><b>Register for Event!</b></button>
-		</a>
-		</center>
-		
-		<br>
-			
-		<center>
-		<a href="eventRegister.php"> 
-				<button class = "block" style="width:200px;"><b>Register for Event! For Admin Use Only</b></button>
-		</a>
-		</center>
-		
+    <!-- Talk about doing volunteer registration on same page -->
+		<!-- <a href="eventRegister.php" class="button">
+				Register for Event!
+		</a> -->
+
+    </div>
+		</main>
 	</body>
 </html>
