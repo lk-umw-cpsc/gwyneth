@@ -29,8 +29,9 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
+        <h1>Create Event</h1>
         <main class="date">
-            <h1>Create Event</h1>
+            <h2>New Event Form</h2>
             <form>
                 <label for="name"> Event Name </label>
                 <input type="text" id="name" name="name" required placeholder="Enter a name"> 
@@ -48,6 +49,7 @@
                 <input type="text" id="location" name="location" required placeholder="Enter event location">
                 <label for="name"> Event Capacity </label>
                 <input type="text" id="capacity" name="capacity" required placeholder="Enter event capactity">   
+                <input type="submit" value="Create Event">
             </form>
         </main>
     </body>

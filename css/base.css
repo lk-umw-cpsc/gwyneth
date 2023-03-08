@@ -27,7 +27,7 @@ but no code was taken from there. All of the code below is original code.
 html, body, header, main, footer, div, span, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 input, select, textarea, form, section, label,
-table, td, tr, th, form, fieldset, em, button {
+table, td, tr, th, form, fieldset, em, button, a {
     padding: 0;
     margin: 0;
     font-size: inherit;
@@ -323,6 +323,10 @@ h2 {
     display: none;
 }
 
+.centered {
+    text-align: center;
+}
+
 /* Calendar */
 table#calendar {
     border-spacing: 0;
@@ -565,11 +569,21 @@ form.signup-form em {
 }
 
 /* Day view */
-div.event {
+fieldset.event {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
+    padding: 1rem;
+}
+
+main.date {
+    gap: 0.5rem;
+}
+
+main.date p.none-scheduled {
+    padding: 4rem 0;
+    text-align: center;
 }
 
 @media only screen and (min-width: 1024px) {

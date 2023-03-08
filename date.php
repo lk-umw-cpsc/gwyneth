@@ -19,6 +19,17 @@
         header('Location: login.php');
         die();
     }
+    if (!isset($_GET['date'])) {
+        header('Location: calendar.php');
+        die();
+    }
+    $date = $_GET['date'];
+    $datePattern = '/\n{4}-\n{2}-\n{2}/';
+    $timeStamp = strtotime($date);
+    if (!preg_match($datePattern, $date) || !$timeStamp) {
+        // header('Location: calendar.php');
+        // die();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,19 +39,38 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
+        <h1>View Day</h1>
         <main class="date">
-            <h1>View Day</h1>
+            <h2 class="centered">Events for <?php echo date('l, F j, Y') ?></h2>
             <!-- Loop -->
-            <div class="event">
-                <span>Event 1</span>
-                <span>8:00am</span>
-                <span>10:00am</span>
-                <span>This is the description.</span>
-                <span>12345 Test st. Fredericksburg, VA 22401</span>
-            </div>
-            <button>
-                Create New Event
-            </button>
+            <?php
+                require('database/dbEvents.php');
+                require('include/output.php');
+                $events = fetch_events_on_date($date);
+                if ($events) {
+                    foreach ($events as $event) {
+                        echo '
+
+                            <fieldset class="event">
+                                <legend>' . $event['name'] . '</legend>
+                                <span>' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
+                                <span>' . $event['description'] . '</span>
+                                <span>' . $event['location'] . '</span>
+                            </fieldset>
+                        ';
+                    }
+                } else {
+                    echo '<p class="none-scheduled">There are no events scheduled on this day</p>';
+                }
+            ?>
+            <?php
+            if ($accessLevel >= 2) {
+                echo '
+                    <a class="button" href="addEvent.php">
+                        Create New Event
+                    </a>';
+            }
+            ?>
         </main>
     </body>
 </html>
