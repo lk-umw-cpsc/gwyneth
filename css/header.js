@@ -180,4 +180,15 @@ $(function() {
             event.preventDefault();
         }
     });
+    $('form#new-event-form').submit(function(e) {
+        let start = $('#start-time').val();
+        let end = $('#end-time').val();
+        if (!validateTimeRange(start, end)) {
+            scrollIntoView($('#start-time'));
+            $('#date-range-error').removeClass('hidden');
+            e.preventDefault();
+        } else {
+            $('#date-range-error').addClass('hidden');
+        }
+    });
 });

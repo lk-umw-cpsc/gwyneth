@@ -455,6 +455,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);
+        mysqli_commit($connection);
         mysqli_close($connection);
         return $result;
     }
