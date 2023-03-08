@@ -39,7 +39,7 @@
       }
       // print_r($event_info);
       $event_name = $event_info[1];
-      $event_date = $event_info[3];
+      $event_date = date('F j, Y', strtotime($event_info[3]));
       $event_startTime = $event_info[4];
       $event_endTime = $event_info[5];
       $event_location = $event_info[7];
@@ -52,11 +52,12 @@
       /* TODO: will figure out another way to center
                later
       */
-		  echo '<p><center>Event Date(s): '.$event_date.'</center></p>';
-		  echo '<p><center>Event Start Time: '.$event_startTime.'</center></p>';
-		  echo '<p><center>Event End Time: '.$event_endTime.'</center></p>';
-		  echo '<p><center>Event Location: '.$event_location.'</center></p>';
-      echo '<br>';
+      echo '<div><center>';
+		  echo 'Event Date(s): '.$event_date.'<br>';
+		  echo 'Event Start Time: '.$event_startTime.'<br>';
+		  echo 'Event End Time: '.$event_endTime.'<br>';
+		  echo 'Event Location: '.$event_location.'<br>';
+      echo '</div></center><br>';
 		  echo '
         <p>
           <center>Event Description: </center>
