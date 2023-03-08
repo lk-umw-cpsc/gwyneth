@@ -6,12 +6,14 @@
 
     // Ensure user is logged in
     if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
-        header('Location: index.php');
+        header('Location: login.php');
+        die();
     }
 
     // Redirect to current month
     if (!isset($_GET['month'])) {
         header('Location: calendar.php?month=' . date("Y-m"));
+        die();
     }
 
     $today = strtotime(date("Y-m-d"));
@@ -35,6 +37,7 @@
     while (date('w', $calendarStart) > 0) {
         $calendarStart = strtotime(date('Y-m-d', $calendarStart) . ' -1 day');
     }
+    $calendarEnd = strtotime(date('Y-m-d', $calendarStart) . ' +34 day');
 ?>
 <!DOCTYPE html>
 <html>
@@ -67,6 +70,10 @@
                 <tbody>
                 <?php
                     $date = $calendarStart;
+                    $start = date('Y-m-d', $calendarStart);
+                    $end = date('Y-m-d', $calendarEnd);
+                    require_once('database/dbEvents.php');
+                    $events = fetch_events_in_date_range($start, $end);
                     for ($week = 0; $week < 5; $week++) {
                         echo '
                             <tr class="calendar-week">
@@ -81,15 +88,18 @@
                                 $extraClasses .= ' other-month';
                                 $extraAttributes .= ' data-month="' . date('Y-m', $date) . '"';
                             }
-                            $events = '';
-                            if ($day + $week * 7 == 14) {
-                                $events .= '<a class="calendar-event" href="#">8a Event 1</a>';
+                            $eventsStr = '';
+                            $e = date('Y-m-d', $date);
+                            if (isset($events[$e])) {
+                                $dayEvents = $events[$e];
+                                foreach ($dayEvents as $info) {
+                                    $eventsStr .= '<a class="calendar-event" href="event.php?id=' . $info['id'] . '">' . $info['abbrevName'] .  '</a>';
+                                }
                             }
-                            echo '
-                            <td class="calendar-day' . $extraClasses . '" ' . $extraAttributes . '>
+                            echo '<td class="calendar-day' . $extraClasses . '" ' . $extraAttributes . ' data-date="' . date('Y-m-d', $date) . '">
                                 <div class="calendar-day-wrapper">
                                     <p class="calendar-day-number">' . date('j', $date) . '</p>
-                                    ' . $events . '
+                                    ' . $eventsStr . '
                                 </div>
                             </td>';
                             $date = strtotime(date('Y-m-d', $date) . ' +1 day');

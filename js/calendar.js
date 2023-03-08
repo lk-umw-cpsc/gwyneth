@@ -8,13 +8,16 @@ $(function() {
     });
 
     // Change to selected date when user chooses a new month
-    let startingMonth = $('#month-jumper').val();
-    startingMonth = startingMonth.substring(0, startingMonth.length - 3);
+    // let startingMonth = $('#month-jumper').val();
+    // startingMonth = startingMonth.substring(0, startingMonth.length - 3);
     $('#month-jumper').change(function() {
         let value = $(this).val();
         value = value.substring(0, value.length - 3);
         if (value != startingMonth) {
             document.location = 'calendar.php?month=' + value;
         }
+    });
+    $('.calendar-day').click(function() {
+        document.location = 'date.php?date=' + $(this).data('date');
     });
 });

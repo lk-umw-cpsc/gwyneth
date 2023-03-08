@@ -130,4 +130,65 @@ function getonlythose_dbEvents($name, $day, $venue) {
    return $theEvents;
 }
 
+function fetch_events_in_date_range($start_date, $end_date) {
+    $connection = connect();
+    $start_date = mysqli_real_escape_string($connection, $start_date);
+    $end_date = mysqli_real_escape_string($connection, $end_date);
+    $query = "select * from dbEvents
+              where date >= '$start_date' and date <= '$end_date'
+              order by startTime asc";
+    $result = mysqli_query($connection, $query);
+    if (!$result) {
+        mysqli_close($connection);
+        return null;
+    }
+    require_once('include/output.php');
+    $events = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $key = $result_row['date'];
+        if (isset($events[$key])) {
+            $events[$key] []= hsc($result_row);
+        } else {
+            $events[$key] = array(hsc($result_row));
+        }
+    }
+    mysqli_close($connection);
+    return $events;
+}
+
+function fetch_events_on_date($date) {
+    $connection = connect();
+    $date = mysqli_real_escape_string($connection, $date);
+    $query = "select * from dbEvents
+              where date = '$date' order by startTime asc";
+    $results = mysqli_query($connection, $query);
+    if (!$results) {
+        mysqli_close($connection);
+        return null;
+    }
+    require_once('include/output.php');
+    $events = [];
+    foreach ($results as $row) {
+        $events []= hsc($row);
+    }
+    mysqli_close($connection);
+    return $events;
+}
+
+function fetch_event_by_id($id) {
+    $connection = connect();
+    $id = mysqli_real_escape_string($connection, $id);
+    $query = "select * from dbEvents where id = '$id'";
+    $result = mysqli_query($connection, $query);
+    $event = mysqli_fetch_row($result);
+    if ($event) {
+        require_once('include/output.php');
+        $event = hsc($event);
+        mysqli_close($connection);
+        return $event;
+    }
+    mysqli_close($connection);
+    return null;
+}
+
 ?>
