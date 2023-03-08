@@ -130,4 +130,36 @@ function getonlythose_dbEvents($name, $day, $venue) {
    return $theEvents;
 }
 
+function fetch_events($start_date, $end_date) {
+    $connection = connect();
+
+    $query = "select * from dbEvents
+              where date >= '$start_date' and date <= '$end_date'";
+    $result = mysqli_query($connection, $query);
+    $events = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $key = $result_row['date'];
+        if (isset($events[$key])) {
+            $events[$key] []= $result_row;
+        } else {
+            $events[$key] = array($result_row);
+        }
+    }
+    mysqli_close($connection);
+    return $events;
+}
+
+function fetch_event_by_id($id) {
+    $connection = connect();
+
+    $query = "select * from dbEvents where id=" . $id;
+    $result = mysqli_query($connection, $query);
+    $event = mysqli_fetch_row($result);
+    if ($event) {
+        require_once('include/output.php');
+        return hsc($event);
+    }
+    return null;
+}
+
 ?>
