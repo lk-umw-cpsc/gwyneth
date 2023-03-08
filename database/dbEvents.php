@@ -160,7 +160,7 @@ function fetch_event_by_id($id) {
         require_once('include/output.php');
         $event = hsc($event);
         mysqli_close($connection);
-        return ;
+        return $event;
     }
     mysqli_close($connection);
     return null;
