@@ -191,4 +191,24 @@ function fetch_event_by_id($id) {
     return null;
 }
 
+function create_event($event) {
+    $connection = connect();
+    $name = $event["name"];
+    $abbrevName = $event["abbrev-name"];
+    $date = $event["date"];
+    $startTime = $event["start-time"];
+    $endTime = $event["end-time"];
+    $description = $event["description"];
+    $location = $event["location"];
+    $capacity = $event["capacity"];
+    $query = "
+        insert into dbEvents (name, abbrevName, date, startTime, endTime, description, location, capacity)
+        values ('$name', '$abbrevName', '$date', '$startTime', '$endTime', '$description', '$location', '$capacity')
+    ";
+    $result = mysqli_query($connection, $query);
+    mysqli_commit($connection);
+    mysqli_close($connection);
+    return $result;
+}
+
 ?>
