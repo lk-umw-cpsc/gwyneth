@@ -151,14 +151,17 @@ function fetch_events($start_date, $end_date) {
 
 function fetch_event_by_id($id) {
     $connection = connect();
-
+    $id = mysqli_real_escape_string($connection, $id);
     $query = "select * from dbEvents where id='$id'";
     $result = mysqli_query($connection, $query);
     $event = mysqli_fetch_row($result);
     if ($event) {
         require_once('include/output.php');
-        return hsc($event);
+        $event = hsc($event);
+        mysqli_close($connection);
+        return ;
     }
+    mysqli_close($connection);
     return null;
 }
 
