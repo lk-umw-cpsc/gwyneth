@@ -37,6 +37,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     font-style: normal;
     box-sizing: border-box;
     text-align: left;
+    list-style-type: none;
 }
 
 :root {
@@ -325,6 +326,10 @@ h2 {
 
 .centered {
     text-align: center;
+}
+
+.button {
+    display: inline-block;
 }
 
 /* Calendar */

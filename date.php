@@ -5,6 +5,7 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
+    date_default_timezone_set("America/New_York");
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -24,11 +25,11 @@
         die();
     }
     $date = $_GET['date'];
-    $datePattern = '/\n{4}-\n{2}-\n{2}/';
+    $datePattern = '/[0-9]{4}-[0-9]{2}-[0-9]{2}/';
     $timeStamp = strtotime($date);
     if (!preg_match($datePattern, $date) || !$timeStamp) {
-        // header('Location: calendar.php');
-        // die();
+        header('Location: calendar.php');
+        die();
     }
 ?>
 <!DOCTYPE html>
@@ -41,7 +42,7 @@
         <?php require_once('header.php') ?>
         <h1>View Day</h1>
         <main class="date">
-            <h2 class="centered">Events for <?php echo date('l, F j, Y') ?></h2>
+            <h2 class="centered">Events for <?php echo date('l, F j, Y', $timeStamp) ?></h2>
             <!-- Loop -->
             <?php
                 require('database/dbEvents.php');
@@ -84,7 +85,7 @@
             <?php
             if ($accessLevel >= 2) {
                 echo '
-                    <a class="button" href="addEvent.php">
+                    <a class="button" href="addEvent.php?date=' . $date . '">
                         Create New Event
                     </a>';
             }
