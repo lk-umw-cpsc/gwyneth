@@ -49,15 +49,33 @@
                 $events = fetch_events_on_date($date);
                 if ($events) {
                     foreach ($events as $event) {
-                        echo '
+                        // echo '
 
-                            <fieldset class="event">
-                                <legend>' . $event['name'] . '</legend>
-                                <span>' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
-                                <span>' . $event['description'] . '</span>
-                                <span>' . $event['location'] . '</span>
-                            </fieldset>
-                        ';
+                        //     <fieldset class="event">
+                        //         <legend>' . $event['name'] . '</legend>
+                        //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
+                        //         <span>Description: ' . $event['description'] . '</span>
+                        //         <span>Location:' . $event['location'] . '</span>
+                        //     </fieldset>
+                        // ';
+                        echo "
+                            <table class='event'>
+                             <thead>
+                              <tr>
+                               <th colspan='2'>" . $event['name'] . "</th>
+                              </tr>
+                             </thead>
+                             <tbody>
+                              <tr><td>Time</td><td>" . $event['startTime'] . " - " . $event['endTime'] . "</td></tr>
+                              <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                              <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                              </tbody>
+                              </table>
+                    
+    
+                              ";
+
+                        
                     }
                 } else {
                     echo '<p class="none-scheduled">There are no events scheduled on this day</p>';

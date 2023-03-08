@@ -578,7 +578,7 @@ fieldset.event {
 }
 
 main.date {
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 main.date p.none-scheduled {
@@ -599,4 +599,23 @@ main.date p.none-scheduled {
     main.date > span {
         text-align: left;
     }
+}
+
+table.event td:first-of-type {
+    width: 1px;
+    white-space: nowrap;
+}
+
+table.event td {
+    padding: 0.25rem;
+}
+
+table.event th {
+    background-color: var(--main-color);
+    color: var(--button-font-color);
+    padding: .25rem;
+}
+
+table.event {
+    border: var(--standard-border);
 }
