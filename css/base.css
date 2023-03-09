@@ -38,6 +38,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     box-sizing: border-box;
     text-align: left;
     list-style-type: none;
+    border-spacing: 0;
 }
 
 :root {
@@ -46,6 +47,7 @@ table, td, tr, th, form, fieldset, em, button, a {
     --page-font-color: #333333;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: #f0f0f0;
+    --standout-background: #fafafa;
 
     --shadow-and-border-color: #e8e8e8;
 
@@ -584,6 +586,7 @@ fieldset.event {
 
 main.date {
     gap: 1rem;
+    margin-bottom: 4rem;
 }
 
 main.date p.none-scheduled {
@@ -612,15 +615,25 @@ table.event td:first-of-type {
 }
 
 table.event td {
-    padding: 0.25rem;
+    padding: 0.5rem 1rem;
 }
 
 table.event th {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
     background-color: var(--main-color);
     color: var(--button-font-color);
-    padding: .25rem;
+    padding: 1rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+table.event tr:first-of-type > td {
+    padding-top: 1rem;
 }
 
 table.event {
-    border: var(--standard-border);
+    border-bottom: 3px solid var(--shadow-and-border-color);
+    padding-bottom: 1rem;
+    background-color: var(--standout-background);
 }

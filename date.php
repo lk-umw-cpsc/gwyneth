@@ -42,7 +42,7 @@
         <?php require_once('header.php') ?>
         <h1>View Day</h1>
         <main class="date">
-            <h2 class="centered">Events for <?php echo date('l, F j, Y', $timeStamp) ?></h2>
+            <h2>Events for <?php echo date('l, F j, Y', $timeStamp) ?></h2>
             <!-- Loop -->
             <?php
                 require('database/dbEvents.php');
@@ -63,13 +63,13 @@
                             <table class='event'>
                              <thead>
                               <tr>
-                               <th colspan='2'>" . $event['name'] . "</th>
+                               <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
                               </tr>
                              </thead>
                              <tbody>
-                              <tr><td>Time</td><td>" . $event['startTime'] . " - " . $event['endTime'] . "</td></tr>
-                              <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                              <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
                               <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                              <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
                               </tbody>
                               </table>
                     

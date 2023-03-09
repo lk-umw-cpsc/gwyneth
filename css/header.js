@@ -191,4 +191,12 @@ $(function() {
             $('#date-range-error').addClass('hidden');
         }
     });
+
+    /* date.php */
+    $('table.event th').click(function() {
+        let id = $(this).data('event-id');
+        if (id) {
+            document.location = 'event.php?id=' + id;
+        }
+    });
 });
