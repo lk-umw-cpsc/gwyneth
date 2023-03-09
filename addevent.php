@@ -17,7 +17,7 @@
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
-    }
+    } 
     // Require admin privileges
     if ($accessLevel < 2) {
         header('Location: login.php');
