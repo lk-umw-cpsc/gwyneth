@@ -35,7 +35,7 @@
                 <?php
                     if ($_SESSION['access_level'] >= 2) {
                         echo '
-                            <div class="dashboard-item" data-link="addevent.php">
+                            <div class="dashboard-item" data-link="addEvent.php">
                                 <img src="images/new-event.svg">
                                 <span>New Event</span>
                             </div>';

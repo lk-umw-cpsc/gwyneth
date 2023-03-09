@@ -55,61 +55,63 @@
                 <img id="next-month-button" src="images/arrow-forward.png" data-month="<?php echo date("Y-m", $nextMonth); ?>">
             </h1>
             <!-- <input type="date" id="month-jumper" value="<?php echo date('Y-m-d', $month); ?>" min="2023-01-01"> -->
-            <table id="calendar">
-                <thead>
-                    <tr>
-                        <th>Sunday</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <?php
-                    $date = $calendarStart;
-                    $start = date('Y-m-d', $calendarStart);
-                    $end = date('Y-m-d', $calendarEnd);
-                    require_once('database/dbEvents.php');
-                    $events = fetch_events_in_date_range($start, $end);
-                    for ($week = 0; $week < 5; $week++) {
-                        echo '
-                            <tr class="calendar-week">
-                        ';
-                        for ($day = 0; $day < 7; $day++) {
-                            $extraAttributes = '';
-                            $extraClasses = '';
-                            if ($date == $today) {
-                                $extraClasses = ' today';
-                            }
-                            if (date('m', $date) != date('m', $month)) {
-                                $extraClasses .= ' other-month';
-                                $extraAttributes .= ' data-month="' . date('Y-m', $date) . '"';
-                            }
-                            $eventsStr = '';
-                            $e = date('Y-m-d', $date);
-                            if (isset($events[$e])) {
-                                $dayEvents = $events[$e];
-                                foreach ($dayEvents as $info) {
-                                    $eventsStr .= '<a class="calendar-event" href="event.php?id=' . $info['id'] . '">' . $info['abbrevName'] .  '</a>';
+            <div id="table-wrapper">
+                <table id="calendar">
+                    <thead>
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        $date = $calendarStart;
+                        $start = date('Y-m-d', $calendarStart);
+                        $end = date('Y-m-d', $calendarEnd);
+                        require_once('database/dbEvents.php');
+                        $events = fetch_events_in_date_range($start, $end);
+                        for ($week = 0; $week < 5; $week++) {
+                            echo '
+                                <tr class="calendar-week">
+                            ';
+                            for ($day = 0; $day < 7; $day++) {
+                                $extraAttributes = '';
+                                $extraClasses = '';
+                                if ($date == $today) {
+                                    $extraClasses = ' today';
                                 }
+                                if (date('m', $date) != date('m', $month)) {
+                                    $extraClasses .= ' other-month';
+                                    $extraAttributes .= ' data-month="' . date('Y-m', $date) . '"';
+                                }
+                                $eventsStr = '';
+                                $e = date('Y-m-d', $date);
+                                if (isset($events[$e])) {
+                                    $dayEvents = $events[$e];
+                                    foreach ($dayEvents as $info) {
+                                        $eventsStr .= '<a class="calendar-event" href="event.php?id=' . $info['id'] . '">' . $info['abbrevName'] .  '</a>';
+                                    }
+                                }
+                                echo '<td class="calendar-day' . $extraClasses . '" ' . $extraAttributes . ' data-date="' . date('Y-m-d', $date) . '">
+                                    <div class="calendar-day-wrapper">
+                                        <p class="calendar-day-number">' . date('j', $date) . '</p>
+                                        ' . $eventsStr . '
+                                    </div>
+                                </td>';
+                                $date = strtotime(date('Y-m-d', $date) . ' +1 day');
                             }
-                            echo '<td class="calendar-day' . $extraClasses . '" ' . $extraAttributes . ' data-date="' . date('Y-m-d', $date) . '">
-                                <div class="calendar-day-wrapper">
-                                    <p class="calendar-day-number">' . date('j', $date) . '</p>
-                                    ' . $eventsStr . '
-                                </div>
-                            </td>';
-                            $date = strtotime(date('Y-m-d', $date) . ' +1 day');
+                            echo '
+                                </tr>';
                         }
-                        echo '
-                            </tr>';
-                    }
-                ?>
-                </tbody>
-            </table>
+                    ?>
+                    </tbody>
+                </table>
+            </div>
             <!-- <table id="calendar">
                 <tr class="calendar-week">
                     <td class="calendar-day other-month">
