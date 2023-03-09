@@ -55,6 +55,16 @@
             }
         }
     }
+    $date = null;
+    if (isset($_GET['date'])) {
+        $date = $_GET['date'];
+        $datePattern = '/[0-9]{4}-[0-9]{2}-[0-9]{2}/';
+        $timeStamp = strtotime($date);
+        if (!preg_match($datePattern, $date) || !$timeStamp) {
+            header('Location: calendar.php');
+            die();
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -73,7 +83,7 @@
                 <label for="name">Abbreviated Name</label>
                 <input type="text" id="abbrev-name" name="abbrev-name" required placeholder="Enter name that will appear on calendar">
                 <label for="name">Date </label>
-                <input type="date" id="date" name="date" min="<?php echo date('Y-m-d'); ?>" required>
+                <input type="date" id="date" name="date" <?php if ($date) echo 'value="' . $date . '"'; ?> min="<?php echo date('Y-m-d'); ?>" required>
                 <label for="name">Start Time </label>
                 <input type="text" id="start-time" name="start-time" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" required placeholder="Enter start time. Ex. 12:00PM">
                 <label for="name">End Time </label>
