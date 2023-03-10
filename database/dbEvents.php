@@ -98,6 +98,15 @@ function update_event_date($id, $new_event_date) {
 	return $result;
 }
 
+// update event volunteer list
+function update_event_volunteer_list($id, $event_volunteer_list) {
+	$con=connect();
+	$query = 'UPDATE dbEvents SET persons = "' . $event_volunteer_list. '" WHERE id = "' . $id . '"';
+	$result = mysqli_query($con,$query);
+	mysqli_close($con);
+	return $result;
+}
+
 
 function make_an_event($result_row) {
 	/*

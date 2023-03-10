@@ -204,6 +204,29 @@ function getall_dbPersons($name_from, $name_to, $venue) {
     return $thePersons;
 }
 
+/*
+  @return all rows from dbPersons
+
+*/
+function getall_volunteers() {
+    $con=connect();
+    $query = 'SELECT * FROM dbPersons WHERE id != "vmsroot"';
+    $result = mysqli_query($con,$query);
+    if ($result == null || mysqli_num_rows($result) == 0) {
+        mysqli_close($con);
+        return false;
+    }
+    $result = mysqli_query($con,$query);
+    $thePersons = array();
+    while ($result_row = mysqli_fetch_assoc($result)) {
+        $thePerson = make_a_person($result_row);
+        $thePersons[] = $thePerson;
+    }
+
+    return $thePersons;
+}
+
+
 function getall_volunteer_names() {
 	$con=connect();
 	$query = "SELECT first_name, last_name FROM dbPersons ORDER BY last_name,first_name";
