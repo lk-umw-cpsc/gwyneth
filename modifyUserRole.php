@@ -15,6 +15,7 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+ 
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,35 +33,52 @@
         <main>
             <h1>Changing User Access Level</h1>
             <!-- Your code goes here. Be sure to wrap any form elements in a <form> tag -->
-           
+            <?php 
+                if ($_SERVER["REQUEST_METHOD"] == "GET") {
+                    require_once('domain/Person.php');
+                    require_once('database/dbPersons.php');
+                    $id = $_GET['id'];
+                    $thePerson = retrieve_person($id);   
+                }
+            ?>
             <form class="modUser" style="background-color:#E6E6FA">
             <br>
             <label>
-                First Name: <input type="text" placeholder="First Name" name="firstName" required> 
+                First Name: <?php echo $thePerson->get_first_name(); ?> 
             </label>
             <br>
             <label>
-                Last Name: <input type="text" placeholder="Last Name" name="lastName" required>
+                Last Name:  <?php echo $thePerson->get_last_name(); ?> 
             </label>
             <br>
             <label>
-                Select User:
-            <select>
+                Select User: <?php echo implode(" ",$thePerson->get_type()); ?>
+            <!-- <select>  This drop down is redundent
                 <option></option>
                 <option value="admin">Admin</option>
                 <option value="superAdmin">Super Admin</option>
                 <option value="volunteer">Volunteer</option>
             </select>
+            -->
             </label>
+            <br>
             <label>
                 Status: 
             <br>
-            <input type="radio" name="statsRadio" id = "promo" value="promote">
-            <label for="promo">Promote</label><br>
-            <input type="radio" name="statsRadio" id = "dem" value="demote">
-            <label for="demote">Demote</label><br>
-            <input type="radio" name="statsRadio" id = "notActive" value="inactive">
-            <label for="notActive">Inactive</label><br>
+            <?php 
+            // here I used a simple if else to check if the 'type' is volunteer then only show 'inactive' radio botton
+            // if it admin or super admin it will show the other radio bottons
+                if(implode(" ",$thePerson->get_type()) == "volunteer"){
+                    echo "<input type='radio' name='statsRadio' id = 'notActive' value='inactive'>";
+                    echo '<label for="notActive">Inactive</label><br>';
+
+                }else{
+                    echo '<input type="radio" name="statsRadio" id = "promo" value="promote">';
+                    echo '<label for="promo">Promote</label><br>';
+                    echo '<input type="radio" name="statsRadio" id = "promo" value="promote">';
+                    echo '<label for="demote">Demote</label><br>';
+                }
+            ?>
             </label>
             <br>
             <input type="submit">
