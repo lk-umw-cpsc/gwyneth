@@ -101,7 +101,8 @@
             <br>
 	    </label>
             <br>
-            <input type="submit">
+ 	    <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="user_access_modified" value="Update Access">
             </form>
             <p>You are <?php if (!$loggedIn) echo 'not '; ?>logged in.</p>
             <?php
