@@ -1,6 +1,13 @@
 <?php
 
     function hsc($input) {
+        if (is_array($input)) {
+            $arr = [];
+            foreach ($input as $key => $value) {
+                $arr[$key] = htmlspecialchars($value);
+            }
+            return $arr;
+        }
         return htmlspecialchars($input);
     }
 

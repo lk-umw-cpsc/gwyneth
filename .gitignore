@@ -2,3 +2,4 @@
 stateextract.py
 .gitignore
 thing.py
+*.swp

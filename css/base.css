@@ -27,7 +27,7 @@ but no code was taken from there. All of the code below is original code.
 html, body, header, main, footer, div, span, 
 p, h1, h2, h3, h4, h5, h6, ul, ol, li, 
 input, select, textarea, form, section, label,
-table, td, tr, th, form, fieldset, em {
+table, td, tr, th, form, fieldset, em, button, a {
     padding: 0;
     margin: 0;
     font-size: inherit;
@@ -37,6 +37,8 @@ table, td, tr, th, form, fieldset, em {
     font-style: normal;
     box-sizing: border-box;
     text-align: left;
+    list-style-type: none;
+    border-spacing: 0;
 }
 
 :root {
@@ -45,6 +47,7 @@ table, td, tr, th, form, fieldset, em {
     --page-font-color: #333333;
     --inactive-font-color: #d0d0d0;
     --inactive-background-color: #f0f0f0;
+    --standout-background: #fafafa;
 
     --shadow-and-border-color: #e8e8e8;
 
@@ -232,7 +235,7 @@ input[type=text]:focus, input[type=password]:active, input[type=email]:focus, in
     outline: var(--text-field-border);
 }
 
-input[type=submit], button {
+input[type=submit], button, .button {
     color: var(--button-font-color);
     background-color: var(--main-color);
     padding: var(--button-padding);
@@ -246,7 +249,7 @@ input[type=submit], button {
     text-align: center;
 }
 
-input[type=submit]:hover, button:hover {
+input[type=submit]:hover, button:hover, .button:hover {
     background-color: var(--accent-color);
 }
 
@@ -323,6 +326,14 @@ h2 {
     display: none;
 }
 
+.centered {
+    text-align: center;
+}
+
+.button {
+    display: inline-block;
+}
+
 /* Calendar */
 table#calendar {
     border-spacing: 0;
@@ -344,6 +355,18 @@ main.calendar-view th {
     height: 20vh;
     width: 14.25%;
     border: var(--light-border);
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 900px) {
+
+    div#table-wrapper {
+        overflow-x: auto;
+    }
+
+    .calendar-day {
+        min-width: 8rem;
+    }
 }
 
 .calendar-day:hover:not(.other-month) {
@@ -382,7 +405,6 @@ main.calendar-view th {
 .other-month {
     color: var(--inactive-font-color);
     background-color: var(--inactive-background-color);
-    cursor: pointer;
 }
 
 .today {
@@ -562,4 +584,67 @@ form.signup-form em {
     .availability-day {
         width: 100%;
     }
+}
+
+/* Day view */
+fieldset.event {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+}
+
+main.date {
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+main.date p.none-scheduled {
+    padding: 4rem 0;
+    text-align: center;
+}
+
+@media only screen and (min-width: 1024px) {
+    main.date {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    main.date > * {
+        width: 80%;
+    }
+    main.date > span {
+        text-align: left;
+    }
+}
+
+table.event td:first-of-type {
+    width: 1px;
+    white-space: nowrap;
+}
+
+table.event td {
+    padding: 0.5rem 1rem;
+}
+
+table.event th {
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    background-color: var(--main-color);
+    color: var(--button-font-color);
+    padding: 1rem 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+table.event tr:first-of-type > td {
+    padding-top: 1rem;
+}
+
+table.event {
+    border-bottom: 3px solid var(--shadow-and-border-color);
+    padding-bottom: 1rem;
+    background-color: var(--standout-background);
 }
