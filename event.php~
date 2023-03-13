@@ -95,9 +95,11 @@
       if (count($event_persons) == 0){
 				echo '<li>No volunteers assigned</li>';      
       }
-      for ($x = 0; $x < count($event_persons); $x += 1) {}
-        $person = $event_persons[$x];
-        echo '<li class="centered">'.$person->get_first_name().' '.$person->get_last_name().'</li>';
+      else {
+      	for ($x = 0; $x < count($event_persons); $x += 1) {
+        		$person = $event_persons[$x];
+        		echo '<li class="centered">'.$person->get_first_name().' '.$person->get_last_name().'</li>';
+      	}
       }
       ?>
       </ul>

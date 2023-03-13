@@ -13,16 +13,11 @@
       die();
   }
 
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_POST['selected_id'];
-  $event_info = fetch_event_by_id($_GET['id']);
-  $event_volunteer_list = $event_info[9];
-  if (!str_contains($event_volunteer_list, $id)) {
-    $event_volunteer_list = $event_volunteer_list."-".$id;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$eventID = $_GET["id"];
+		$volunteerID = $_POST['selected_id'];
+		update_event_volunteer_list($eventID, $volunteerID);
   }
-  update_event_volunteer_list($_GET['id'], $event_volunteer_list);
-}*/
-
 ?>
 
 <!DOCTYPE html>
