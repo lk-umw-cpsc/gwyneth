@@ -346,8 +346,7 @@ function getall_available($type, $day, $shift, $venue) {
 
 function getvolunteers_byevent($id){
 	 $con = connect();
-	 $query = 'SELECT * FROM dbEventVolunteers JOIN dbPersons WHERE eventID = "' . $id . '"' .
-	 			"AND dbEventVolunteers.userID = dbPersons.id";
+	 $query = 'SELECT * FROM dbEventVolunteers JOIN dbPersons WHERE eventID = "' . $id . '"';
 	 $result = mysqli_query($con, $query);
 	 $thePersons = array();
     while ($result_row = mysqli_fetch_assoc($result)) {

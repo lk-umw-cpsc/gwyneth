@@ -13,7 +13,7 @@
       die();
   }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $id = $_POST['selected_id'];
   $event_info = fetch_event_by_id($_GET['id']);
   $event_volunteer_list = $event_info[9];
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $event_volunteer_list = $event_volunteer_list."-".$id;
   }
   update_event_volunteer_list($_GET['id'], $event_volunteer_list);
-}
+}*/
 
 ?>
 
@@ -91,14 +91,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                  later -->
       <ul class="centered">
       <?php
-      $event_persons = explode("-", $event_info[9]);
-      for ($x = 0; $x < count($event_persons); $x += 1) {
-        $event_person = retrieve_person($event_persons[$x]);
-        if ($event_person === False) {
-          echo '<li class="centered">No volunteers assigned</li>';
-        } else {
-        echo '<li class="centered">'.$event_person->get_first_name().' '.$event_person->get_last_name().'</li>';
-        }
+      $event_persons = getvolunteers_byevent($id);
+      if (count($event_persons) == 0){
+				echo '<li>No volunteers assigned</li>';      
+      }
+      else {
+      	for ($x = 0; $x < count($event_persons); $x += 1) {
+        		$person = $event_persons[$x];
+        		echo '<li class="centered">'.$person->get_first_name().' '.$person->get_last_name().'</li>';
+      	}
       }
       ?>
       </ul>
