@@ -220,4 +220,12 @@ function create_event($event) {
     return $result;
 }
 
+function assign_volunteer_to_event($eventID, $userID) {
+
+}
+
+function remove_volunteer_from_event($eventID, $userID) {
+    
+}
+
 ?>
