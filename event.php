@@ -96,7 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $event_persons = explode("-", $event_info[9]);
       for ($x = 0; $x < count($event_persons); $x += 1) {
         $event_person = retrieve_person($event_persons[$x]);
+        if ($event_person === False) {
+          echo '<li class="centered">No volunteers assigned</li>';
+        } else {
         echo '<li class="centered">'.$event_person->get_first_name().' '.$event_person->get_last_name().'</li>';
+        }
       }
       ?>
       </ul>
