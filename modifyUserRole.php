@@ -80,7 +80,7 @@
                     <?php
                         // Provides drop down of the role types to select, other than the current person's role type, to change the role
                         $roles = array('volunteer' => 'Volunteer', 'SuperAdmin' => 'SuperAdmin', 'Admin' => 'Admin');
-                        echo '<p>Change Role:<select class="form-select-sm" name="s_type">' ;
+                        echo '<label>Change Role:<select class="form-select-sm" name="s_type">' ;
                         echo '<option value="" SELECTED></option>' ;
                         foreach ($roles as $role => $typename) {
                             if($role != (implode(" ",$thePerson->get_type()))) {
