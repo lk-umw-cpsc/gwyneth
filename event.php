@@ -18,6 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$volunteerID = $_POST['selected_id'];
 		update_event_volunteer_list($eventID, $volunteerID);
   }
+  
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$eventID = $_GET["id"];
+		$volunteerID = $_POST['selected_removal_id'];
+		remove_volunteer_from_event($eventID, $volunteerID);
+  }
 ?>
 
 <!DOCTYPE html>
@@ -123,6 +129,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ?>
       </select>
       <input type="submit" value="Assign Volunteer" />
+    </form>
+    
+      <form method="POST">
+      <select name="selected_removal_id">
+        <?php
+        $all_volunteers = getall_volunteers();
+        for ($x = 0; $x < count($all_volunteers); $x++) {
+          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+        }
+        ?>
+      </select>
+      <input type="submit" value="Remove Volunteer" />
     </form>
 
     <div>

@@ -13,16 +13,11 @@
       die();
   }
 
-/*if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $id = $_POST['selected_id'];
-  $event_info = fetch_event_by_id($_GET['id']);
-  $event_volunteer_list = $event_info[9];
-  if (!str_contains($event_volunteer_list, $id)) {
-    $event_volunteer_list = $event_volunteer_list."-".$id;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$eventID = $_GET["id"];
+		$volunteerID = $_POST['selected_id'];
+		update_event_volunteer_list($eventID, $volunteerID);
   }
-  update_event_volunteer_list($_GET['id'], $event_volunteer_list);
-}*/
-
 ?>
 
 <!DOCTYPE html>
@@ -128,6 +123,18 @@
         ?>
       </select>
       <input type="submit" value="Assign Volunteer" />
+    </form>
+    
+      <form method="POST">
+      <select name="selected_id">
+        <?php
+        $all_volunteers = getall_volunteers();
+        for ($x = 0; $x < count($all_volunteers); $x++) {
+          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+        }
+        ?>
+      </select>
+      <input type="submit" value="Remove Volunteer" />
     </form>
 
     <div>

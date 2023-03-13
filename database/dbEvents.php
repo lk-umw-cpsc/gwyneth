@@ -103,10 +103,18 @@ function update_event_volunteer_list($eventID, $volunteerID) {
 	$con=connect();
 	$check = 'SELECT * FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
 	$result_check = mysqli_query($con, $check);
-	if ($result_check) {
-			return 0;
-	}
+	//if ($result_check) {
+	//		return 0;
+	//}
 	$query = 'INSERT INTO dbEventVolunteers (eventID, userID) VALUES ("'.$eventID.'", "'.$volunteerID.'")';
+	$result = mysqli_query($con, $query);
+	mysqli_close($con);
+	return $result;
+}
+
+function remove_volunteer_from_event($eventID, $volunteerID){
+	$con = connect();
+	$query = 'DELETE FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
 	$result = mysqli_query($con, $query);
 	mysqli_close($con);
 	return $result;
@@ -223,14 +231,6 @@ function create_event($event) {
     mysqli_commit($connection);
     mysqli_close($connection);
     return $result;
-}
-
-function assign_volunteer_to_event($eventID, $userID) {
-
-}
-
-function remove_volunteer_from_event($eventID, $userID) {
-    
 }
 
 ?>
