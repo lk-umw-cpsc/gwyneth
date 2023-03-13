@@ -42,44 +42,55 @@
         <title>Gwyneth's Gift VMS | Template Page</title>
         <style>
             .modUser{
-                margin: 0 auto;
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                padding: 0 0 4rem 0;
+            }
+            @media only screen and (min-width: 1024px) {
+                .modUser {
+                    width: 80%;
+                }
+                main.user-role {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
             }
         </style>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <main>
-            <h1>Modify User Access</h1>
+        <h1>Modify User Access</h1>
+        <main class="user-role">
             <form class="modUser">
-                <br>
-                <label>
-                    Name:  <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?> 
-                </label>
-                <br>
-                <label>
-                    Role:  <?php echo implode(" ",$thePerson->get_type()); ?>
-                </label>
-                <br>
-                <br>
-                <label>
+                <div>
+                    <label>Name:</label>
+                    <span>
+                        <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?> 
+                    </span>
+                </div>
+                <div>
+                    <label>Role:</label>
+                    <span>
+                        <?php echo implode(" ",$thePerson->get_type()); ?>
+                    </span>
+                    </div>
         
-                <?php
-                // Provides drop down of the role types to select, other than the current person's role type, to change the role
-                    $roles = array('volunteer' => 'Volunteer', 'SuperAdmin' => 'SuperAdmin', 'Admin' => 'Admin');
-                    echo '<p>Change Role:<select class="form-select-sm" name="s_type">' ;
-                    echo '<option value="" SELECTED></option>' ;
-                    foreach ($roles as $role => $typename) {
-                        if($role != (implode(" ",$thePerson->get_type())))
-                            echo '<option value="'.$role.'">'.$typename.'</option>';
-                    }
-                    echo '</select>';
-                ?>
-                </label>
-                <br>
-                <br>
-                <label>
-                    Status: 
-                <br>
+                    <?php
+                        // Provides drop down of the role types to select, other than the current person's role type, to change the role
+                        $roles = array('volunteer' => 'Volunteer', 'SuperAdmin' => 'SuperAdmin', 'Admin' => 'Admin');
+                        echo '<p>Change Role:<select class="form-select-sm" name="s_type">' ;
+                        echo '<option value="" SELECTED></option>' ;
+                        foreach ($roles as $role => $typename) {
+                            if($role != (implode(" ",$thePerson->get_type()))) {
+                                echo '<option value="'.$role.'">'.$typename.'</option>';
+                            }
+                        }
+                        echo '</select>';
+                    ?>
+                <div>
+                <label>Status:</label>
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
@@ -101,10 +112,7 @@
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';
                     echo '</select>';
-                    ?>
-                    <br>
-                </label>
-                <br>
+                ?>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update Access">
             </form>
