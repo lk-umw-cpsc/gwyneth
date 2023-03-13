@@ -63,7 +63,7 @@
         <?php require_once('header.php') ?>
         <h1>Modify User Access</h1>
         <main class="user-role">
-            <form class="modUser">
+            <form class="modUser" method="post">
                 <div>
                     <label>Name:</label>
                     <span>
