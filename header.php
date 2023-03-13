@@ -62,6 +62,7 @@
         $permission_array['log.php'] = 2;
         $permission_array['reports.php'] = 2;
         $permission_array['eventedit.php'] = 2;
+        $permission_array['modifyuserrole.php'] = 2;
         $permission_array['addevent.php'] = 2;
 
         //Check if they're at a valid page for their access level.

@@ -358,6 +358,17 @@ main.calendar-view th {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 900px) {
+
+    div#table-wrapper {
+        overflow-x: auto;
+    }
+
+    .calendar-day {
+        min-width: 8rem;
+    }
+}
+
 .calendar-day:hover:not(.other-month) {
     outline: 2px solid var(--accent-color);
 }
