@@ -56,11 +56,6 @@
                     Name:  <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?> 
                 </label>
                 <br>
-                <!-- <label>
-                    Last Name:  <?php echo $thePerson->get_last_name(); ?> 
-                </label>
-                <br>
-            -->
                 <label>
                     Role:  <?php echo implode(" ",$thePerson->get_type()); ?>
                 </label>
