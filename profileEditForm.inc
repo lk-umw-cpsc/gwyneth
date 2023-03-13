@@ -14,8 +14,15 @@
 ?>
 <h1>Manage Profile</h1>
 <main class="signup-form">
+        
+    <form class = "modify-access" method = "post">
+	<input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="submit" name="modify_access" value="Modify User Access">
+    </form>
+
     <form class="signup-form" method="post">
-        <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
+        <br>
+	<p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
         <fieldset>
             <legend>Personal Information</legend>
             <p>The following information helps us identify you within our system.</p>
