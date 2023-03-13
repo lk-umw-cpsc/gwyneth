@@ -33,7 +33,7 @@
         $sanitized = [];
         $connection = connect();
         if ($ignoreList) {
-            foreach ($_POST as $key => $value) {
+            foreach ($input as $key => $value) {
                 if (in_array($key, $ignoreList)) {
                     $sanitized[$key] = $value;
                 } else {
@@ -41,7 +41,7 @@
                 }
             }
         } else {
-            foreach ($_POST as $key => $value) {
+            foreach ($input as $key => $value) {
                 $sanitized[$key] = _sanitize($connection, $value);
             }
         }
