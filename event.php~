@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $event_location = $event_info[7];
       $event_description = $event_info[6];
       
-		  echo '<h1>'View Event: '.$event_name.'</h1>';
+		  echo '<h1>''View Event: '.$event_name.'</h1>';
     ?>
 
     <main>
