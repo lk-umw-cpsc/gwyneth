@@ -25,6 +25,8 @@
         header('Location: index.php');
         die();
     }
+    require_once('include/input-validation.php');
+
     // Does the person exist?
     require_once('domain/Person.php');
     require_once('database/dbPersons.php');
@@ -34,6 +36,10 @@
         echo "That user does not exist";
         die();
     }
+
+    // make every submitted field SQL-safe except for password
+    $ignoreList = array('password');
+    $args = sanitize($_POST);
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,10 +82,14 @@
                         <?php echo implode(" ",$thePerson->get_type()); ?>
                     </span>
                     </div>
-        
+        	<br>
                     <?php
-                        // Provides drop down of the role types to select, other than the current person's role type, to change the role
-                        $roles = array('volunteer' => 'Volunteer', 'SuperAdmin' => 'SuperAdmin', 'Admin' => 'Admin');
+                        // Provides drop down of the role types to select and change the role
+			//other than the person's current role type is displayed
+                        if ($accessLevel == 3)
+				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
+			else
+				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
                         echo '<label>Change Role:<select class="form-select-sm" name="s_type">' ;
                         echo '<option value="" SELECTED></option>' ;
                         foreach ($roles as $role => $typename) {
@@ -89,16 +99,18 @@
                         }
                         echo '</select>';
                     ?>
-                <div>
-                <label>Status:</label>
+		<div>
+                <br>
+		<label>Status:</label>
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
-                    $currentStatus = $thePerson->get_status();
+                    
+		    $currentStatus = $thePerson->get_status();
                     if ($currentStatus == "Active") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="status" checked>';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="Inactive">';
+                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="status">';
                         echo '<label for="makeNotActive">  Inactive</label><br><br>';
                     } elseif ($currentStatus = "Inactive") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
@@ -112,9 +124,11 @@
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';
                     echo '</select>';
-                ?>
+                
+		?>
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update Access">
+		
             </form>
         </main>
     </body>

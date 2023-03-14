@@ -45,8 +45,8 @@
 	private $motivation;   // App: why interested in RMH?
 	private $specialties;  // special training or skills
 	private $convictions;  // App: ever convicted of a felony?  "yes" or blank
-	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
-	private $status;     // a person may be an "applicant", "active", "LOA", or "former"
+	private $type;       // array of "volunteer", "admin", "superadmin"
+	private $status;     // a person may be "active"or "inactive"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
 	private $hours;        // array of actual hours logged; e.g., 15-01-05:0930-1300:portland:3.5
@@ -271,8 +271,16 @@
 		return $this->type;
 	}
 
+	function set_type($role) { //update the role of user volunteer, superadmin, admin
+		$this->type = $role;
+	}
+
 	function get_status() {
 		return $this->status;
+	}
+
+	function set_status($status) { //update the status to active or inactive
+		$this->status = $status;
 	}
 
 	function get_availability() {   // array of day:hours:venue
@@ -297,6 +305,10 @@
 
 	function get_notes() {
 		return $this->notes;
+	}
+
+	function set_notes($reason) { //set reason for modifying user access
+		$this->notes = $reason;
 	}
 
 	function get_password() {
