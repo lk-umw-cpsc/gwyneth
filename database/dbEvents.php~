@@ -102,11 +102,10 @@ function update_event_date($id, $new_event_date) {
 function update_event_volunteer_list($eventID, $volunteerID) {
 	$con=connect();
 	$check = 'SELECT * FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
-	$result = mysqli_query($con, $check);
-  $result_check = mysqli_fetch_assoc($result);
-	if ($result_check > 0) {
-			return 0;
-	}
+	$result_check = mysqli_query($con, $check);
+	//if ($result_check) {
+	//		return 0;
+	//}
 	$query = 'INSERT INTO dbEventVolunteers (eventID, userID) VALUES ("'.$eventID.'", "'.$volunteerID.'")';
 	$result = mysqli_query($con, $query);
 	mysqli_close($con);
@@ -115,7 +114,7 @@ function update_event_volunteer_list($eventID, $volunteerID) {
 
 function remove_volunteer_from_event($eventID, $volunteerID){
 	$con = connect();
-	$query = 'DELETE FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
+	$query = 'DELETE * FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
 	$result = mysqli_query($con, $query);
 	mysqli_close($con);
 	return $result;
@@ -203,7 +202,7 @@ function fetch_event_by_id($id) {
     $id = mysqli_real_escape_string($connection, $id);
     $query = "select * from dbEvents where id = '$id'";
     $result = mysqli_query($connection, $query);
-    $event = mysqli_fetch_assoc($result);
+    $event = mysqli_fetch_row($result);
     if ($event) {
         require_once('include/output.php');
         $event = hsc($event);
@@ -227,26 +226,6 @@ function create_event($event) {
     $query = "
         insert into dbEvents (name, abbrevName, date, startTime, endTime, description, location, capacity)
         values ('$name', '$abbrevName', '$date', '$startTime', '$endTime', '$description', '$location', '$capacity')
-    ";
-    $result = mysqli_query($connection, $query);
-    mysqli_commit($connection);
-    mysqli_close($connection);
-    return $result;
-}
-
-function update_event($eventID, $eventDetails) {
-    $connection = connect();
-    $name = $eventDetails["name"];
-    $abbrevName = $eventDetails["abbrev-name"];
-    $date = $eventDetails["date"];
-    $startTime = $eventDetails["start-time"];
-    $endTime = $eventDetails["end-time"];
-    $description = $eventDetails["description"];
-    $location = $eventDetails["location"];
-    $capacity = $eventDetails["capacity"];
-    $query = "
-        update dbEvents set name='$name', abbrevName='$abbrevName', date='$date', startTime='$startTime', endTime='$endTime', description='$description', location='$location', capacity='$capacity'
-        where id='$eventID'
     ";
     $result = mysqli_query($connection, $query);
     mysqli_commit($connection);
