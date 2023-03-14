@@ -102,10 +102,11 @@ function update_event_date($id, $new_event_date) {
 function update_event_volunteer_list($eventID, $volunteerID) {
 	$con=connect();
 	$check = 'SELECT * FROM dbEventVolunteers WHERE eventID = "'.$eventID.'" AND userID = "'.$volunteerID.'" ';
-	$result_check = mysqli_query($con, $check);
-	//if ($result_check) {
-	//		return 0;
-	//}
+	$result = mysqli_query($con, $check);
+  $result_check = mysqli_fetch_assoc($result);
+	if ($result_check > 0) {
+			return 0;
+	}
 	$query = 'INSERT INTO dbEventVolunteers (eventID, userID) VALUES ("'.$eventID.'", "'.$volunteerID.'")';
 	$result = mysqli_query($con, $query);
 	mysqli_close($con);

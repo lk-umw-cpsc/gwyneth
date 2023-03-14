@@ -13,16 +13,20 @@
       die();
   }
 
+  $access_level = $_SESSION['access_level'];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $request_type = $_POST['request_type'];
 		$eventID = $_GET["id"];
+
+    if ($request_type == 'add') {
 		$volunteerID = $_POST['selected_id'];
 		update_event_volunteer_list($eventID, $volunteerID);
-  }
-  
-  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-		$eventID = $_GET["id"];
-		$volunteerID = $_POST['selected_removal_id'];
-		remove_volunteer_from_event($eventID, $volunteerID);
+    }
+    if ($request_type == 'remove') {
+		  $volunteerID = $_POST['selected_removal_id'];
+		  remove_volunteer_from_event($eventID, $volunteerID);
+    }
   }
 ?>
 
@@ -118,30 +122,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <center>Post-Event Media</center>
       </h2>	
 		
+    <?php
+    // if user access is 1, then the user is a volunteer
+    if ($access_level == 1 || $access_level == 2) {
+      echo '<form method="POST">';
+      echo '<input type="hidden" name="request_type" value="add">';
+      echo '<input type="hidden" name="selected_id" value="'.$_SESSION['_id'].'">';
+      echo '<input type="submit" value="Assign Self ('.$_SESSION['_id'].')">';
+      echo '</form>';
+    }
+    if ($access_level == 2 || $access_level == 3) {
 
-    <form method="POST">
-      <select name="selected_id">
-        <?php
+      echo '<form method="POST">';
+      echo '<input type=hidden name="request_type" value="add">';
+      echo '<select name="selected_id">';
         $all_volunteers = getall_volunteers();
         for ($x = 0; $x < count($all_volunteers); $x++) {
           echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
         }
-        ?>
-      </select>
-      <input type="submit" value="Assign Volunteer" />
-    </form>
+      echo '</select>';
+      echo '<input type="submit" value="Assign Volunteer" />';
+      echo '</form>';
     
-      <form method="POST">
-      <select name="selected_removal_id">
-        <?php
+      echo '<form method="POST">';
+      echo '<input type=hidden name="request_type" value="remove">';
+      echo '<select name="selected_removal_id">';
         $all_volunteers = getall_volunteers();
         for ($x = 0; $x < count($all_volunteers); $x++) {
           echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
         }
-        ?>
-      </select>
-      <input type="submit" value="Remove Volunteer" />
-    </form>
+      echo '</select>';
+      echo '<input type="submit" value="Remove Volunteer" />';
+    echo '</form>';
+
+    }
+    ?>
+
 
     <div>
 		<a href="calendar.php" class="button">
