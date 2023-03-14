@@ -103,7 +103,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       else {
       	for ($x = 0; $x < count($event_persons); $x += 1) {
         		$person = $event_persons[$x];
-        		echo '<li class="centered">'.$person->get_first_name().' '.$person->get_last_name().'</li>';
+
+            // allow admins/super admins to remove assigned volunteers
+            if ($access_level > 1) {
+        		echo '<li class="centered">'.
+                  '<div>'.
+                  $person->get_first_name().
+                  ' '.
+                  $person->get_last_name().
+                  '</div>'.
+                  '<div>'.
+                  '<form method="POST">'.
+                  '<input type="hidden" name="request_type" value="remove" />'.
+                  '<input type="hidden" name="selected_removal_id" value='.
+                  $person->get_id().' />'.
+                  '<input type="submit" value="Remove" />'.
+                  '</form>'.
+                  '</div>'.
+                  '</li>';
+            } else {
+        		echo '<li class="centered">'.
+                  '<div>'.
+                  $person->get_first_name().
+                  ' '.
+                  $person->get_last_name().
+                  '</div>'.
+                  '</li>';
+            }
       	}
       }
       ?>
@@ -144,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo '<input type="submit" value="Assign Volunteer" />';
       echo '</form>';
     
-      echo '<form method="POST">';
+      /*echo '<form method="POST">';
       echo '<input type=hidden name="request_type" value="remove">';
       echo '<select name="selected_removal_id">';
         $all_volunteers = getall_volunteers();
@@ -153,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
       echo '</select>';
       echo '<input type="submit" value="Remove Volunteer" />';
-    echo '</form>';
+    echo '</form>';*/
 
     }
     ?>
