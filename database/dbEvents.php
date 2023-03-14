@@ -203,7 +203,7 @@ function fetch_event_by_id($id) {
     $id = mysqli_real_escape_string($connection, $id);
     $query = "select * from dbEvents where id = '$id'";
     $result = mysqli_query($connection, $query);
-    $event = mysqli_fetch_row($result);
+    $event = mysqli_fetch_assoc($result);
     if ($event) {
         require_once('include/output.php');
         $event = hsc($event);
@@ -227,6 +227,26 @@ function create_event($event) {
     $query = "
         insert into dbEvents (name, abbrevName, date, startTime, endTime, description, location, capacity)
         values ('$name', '$abbrevName', '$date', '$startTime', '$endTime', '$description', '$location', '$capacity')
+    ";
+    $result = mysqli_query($connection, $query);
+    mysqli_commit($connection);
+    mysqli_close($connection);
+    return $result;
+}
+
+function update_event($eventID, $eventDetails) {
+    $connection = connect();
+    $name = $eventDetails["name"];
+    $abbrevName = $eventDetails["abbrev-name"];
+    $date = $eventDetails["date"];
+    $startTime = $eventDetails["start-time"];
+    $endTime = $eventDetails["end-time"];
+    $description = $eventDetails["description"];
+    $location = $eventDetails["location"];
+    $capacity = $eventDetails["capacity"];
+    $query = "
+        update dbEvents set name='$name', abbrevName='$abbrevName', date='$date', startTime='$startTime', endTime='$endTime', description='$description', location='$location', capacity='$capacity'
+        where id='$eventID'
     ";
     $result = mysqli_query($connection, $query);
     mysqli_commit($connection);
