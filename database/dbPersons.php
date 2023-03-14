@@ -496,4 +496,38 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($connection);
         return $result;
     }
+
+    function get_unassigned_available_volunteers($eventID) {
+        $connection =connect();
+        $query = "select * from dbEvents where id='$eventID'";
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            return null;
+        }
+        $event = mysqli_fetch_assoc($result);
+        $event_start = $event['startTime'];
+        $event_end = $event['startTime'];
+        $date = $event['date'];
+        $date = strtotime($date);
+        $dayofweek = strtolower(date('l', $date));
+        $dayname_start = $dayofweek . 's_start';
+        $dayname_end = $dayofweek . 's_end';
+        $query = "select * from dbPersons
+            where 
+            $dayname_start<='$event_start' and $dayname_end>='$event_end'
+            and id != 'vmsroot' 
+            and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
+        $result = mysqli_query($connection, $query);
+        if ($result == null || mysqli_num_rows($result) == 0) {
+            mysqli_close($connection);
+            return null;
+        }
+        $thePersons = array();
+        while ($result_row = mysqli_fetch_assoc($result)) {
+            $thePerson = make_a_person($result_row);
+            $thePersons[] = $thePerson;
+        }
+        mysqli_close($connection);
+        return $thePersons;
+    }
 ?>

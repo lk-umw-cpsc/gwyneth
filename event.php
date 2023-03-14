@@ -162,9 +162,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo '<form method="POST">';
       echo '<input type=hidden name="request_type" value="add">';
       echo '<select name="selected_id">';
-        $all_volunteers = getall_volunteers();
-        for ($x = 0; $x < count($all_volunteers); $x++) {
-          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+        $all_volunteers = get_unassigned_available_volunteers($id);
+        if ($all_volunteers) {
+          for ($x = 0; $x < count($all_volunteers); $x++) {
+            echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+          }
         }
       echo '</select>';
       echo '<input type="submit" value="Assign Volunteer" />';
