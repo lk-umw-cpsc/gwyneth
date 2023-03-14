@@ -498,10 +498,11 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
     }
 
     function get_unassigned_available_volunteers($eventID) {
-        $connection =connect();
+        $connection = connect();
         $query = "select * from dbEvents where id='$eventID'";
         $result = mysqli_query($connection, $query);
         if (!$result) {
+            mysqli_close($connection);
             return null;
         }
         $event = mysqli_fetch_assoc($result);
