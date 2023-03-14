@@ -59,12 +59,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die();
       }
       // print_r($event_info);
-      $event_name = $event_info[1];
-      $event_date = date('F j, Y', strtotime($event_info[3]));
-      $event_startTime = date('g:i a', strtotime($event_info[4]));
-      $event_endTime = date('g:i a', strtotime($event_info[5]));
-      $event_location = $event_info[7];
-      $event_description = $event_info[6];
+      $event_name = $event_info['name'];
+      $event_date = date('F j, Y', strtotime($event_info['date']));
+      $event_startTime = date('g:i a', strtotime($event_info['startTime']));
+      $event_endTime = date('g:i a', strtotime($event_info['endTime']));
+      $event_location = $event_info['location'];
+      $event_description = $event_info['description'];
       
 		  echo '<h1> View Event: '.$event_name.'</h1>';
     ?>
