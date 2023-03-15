@@ -6,9 +6,6 @@
     session_cache_expire(30);
     session_start();
 
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
-
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -32,6 +29,7 @@
                 die();
             }
             $events = find_event($args['name']);
+            $search = 'Results for Search by Name: "' . $args['name'] . '"';
         } else if (isset($args['submitDateRange'])) {
             if (!wereRequiredFieldsSubmitted($args, array('date-start', 'date-end'))) {
                 echo 'missing form data';
@@ -44,9 +42,14 @@
                 die();
             }
             $events = fetch_events_in_date_range_as_array($start, $end);
+
+            $start = date('m/d/Y', strtotime($start));
+            $end = date('m/d/Y', strtotime($end));
+            $search = 'Results for Search by Date Range: ' . $start . ' - ' . $end;
         }
     } else {
         $events = null;
+        echo 'we here';
     }
 ?>
 <!DOCTYPE html>
@@ -58,58 +61,60 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Event Search</h1>
-        <main class="date">
+        <main class="search-form">
+            <?php
+                if ($events) {
+                    echo '<h2>' . $search . '</h2>';
+                    require_once('include/output.php');
+                    foreach ($events as $event) {
+                        // echo '
+
+                        //     <fieldset class="event">
+                        //         <legend>' . $event['name'] . '</legend>
+                        //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
+                        //         <span>Description: ' . $event['description'] . '</span>
+                        //         <span>Location:' . $event['location'] . '</span>
+                        //     </fieldset>
+                        // ';
+                        $date = $event['date'];
+                        $date = strtotime($date);
+                        $date = date('l, F j, Y', $date);
+                        echo "
+                            <table class='event'>
+                                <thead>
+                                <tr>
+                                <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr><td>Date</td><td>" . $date . "</td></tr>
+                                <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
+                                <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                                <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                                </tbody>
+                                </table>
+                    
+    
+                                ";
+
+                        
+                    }
+                }
+            ?>
             <h2>Search for an Event</h2>
             <form method="post">
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" placeholder="Enter event name" required>
-                <input type="submit" name="submitName" id="submitName" value="Search by name">
+                <input type="submit" name="submitName" id="submitName" value="Search by Name">
             </form>
-            <form method="post">
+            <form id="event-date-range-search" method="post">
                 <label for="date-start">Date Range Start</label>
                 <input type="date" name="date-start" id="date-start" required>
                 <label for="date-end">Date Range End</label>
                 <input type="date" name="date-end" id="date-end" required>
-                <input type="submit" name="submitDateRange" id="submitDateRange" value="Search by date range">
+                <p id="date-range-error" class="error hidden">Start date must come before end date</p>
+                <input type="submit" name="submitDateRange" id="submitDateRange" value="Search by Date Range">
             </form>
-            <?php
-                    if ($events) {
-                        require_once('include/output.php');
-                        foreach ($events as $event) {
-                            // echo '
-    
-                            //     <fieldset class="event">
-                            //         <legend>' . $event['name'] . '</legend>
-                            //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
-                            //         <span>Description: ' . $event['description'] . '</span>
-                            //         <span>Location:' . $event['location'] . '</span>
-                            //     </fieldset>
-                            // ';
-                            $date = $event['date'];
-                            $date = strtotime($date);
-                            $date = date('l, F j, Y', $date);
-                            echo "
-                                <table class='event'>
-                                    <thead>
-                                    <tr>
-                                    <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr><td>Date</td><td>" . $date . "</td></tr>
-                                    <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
-                                    <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
-                                    <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
-                                    </tbody>
-                                    </table>
-                        
-        
-                                    ";
-    
-                            
-                        }
-                    }
-                ?>
         </main>
     </body>
 </html>
