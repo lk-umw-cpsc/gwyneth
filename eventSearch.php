@@ -1,83 +1,114 @@
 <?php
-/*
- * Copyright 2015 by Allen Tucker. This program is part of RMHP-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
- * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
- */
-/* 
- * Modified by Xun Wang on Feb 25, 2015
- */
+    // Template for new VMS pages. Base your new page on this one
 
-/* 
- * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
- */
+    // Make session information accessible, allowing us to associate
+    // data with the logged-in user.
+    session_cache_expire(30);
+    session_start();
 
-session_cache_expire(30);
-session_start();
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
+
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    }
+    if (!$loggedIn) {
+        header('Location: login.php');
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once('include/input-validation.php');
+        require_once('database/dbEvents.php');
+        $args = sanitize($_POST);
+        if (isset($args['submitName'])) {
+            if (!wereRequiredFieldsSubmitted($args, array('name'))) {
+                echo 'missing form data';
+                die();
+            }
+            $events = find_event($args['name']);
+        } else if (isset($args['submitDateRange'])) {
+            if (!wereRequiredFieldsSubmitted($args, array('date-start', 'date-end'))) {
+                echo 'missing form data';
+                die();
+            }
+            $start = validateDate($args['date-start']);
+            $end = validateDate($args['date-end']);
+            if (!$start || !$end || $start > $end) {
+                echo 'bad date range';
+                die();
+            }
+            $events = fetch_events_in_date_range_as_array($start, $end);
+        }
+    } else {
+        $events = null;
+    }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>
-            Search for Events
-        </title>
-        <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
-        <link rel="stylesheet" href="styles.css" type="text/css" />
-		<link rel="stylesheet" href="lib/jquery-ui.css" />
-        <?php require('universal.inc') ?>
-		
+        <?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS | Event Search</title>
     </head>
-    <body style="background-color: rgb(250, 249, 246);">
-        <div class="container-fluid" id="container">
-            <?PHP include('header.php'); ?>
-            <div class="container-fluid" id="content">
-                <?PHP
-                // display the search form
-                if (isset($_GET['area'])) {
-                    $area = $_GET['area'];
-                } else {
-                    $area = '';
-                }
-                echo('<form method="post">');
-                echo('<p><strong>Search for events:</strong>');
-               
-                echo '<p>Event name (type a few letters): ';
-                echo '<input type="text" name="s_name">';
-
-                echo('<p><input class="btn btn-success" type="submit" name="Search" value="Search">');
-                echo('</form></p>');
-
-                // if user hit "Search"  button, query the database and display the results
-                if (isset($_POST['Search'])) {
-                    $name = trim(str_replace('\'', '&#39;', htmlentities($_POST['s_name'])));
-                    // now go after the events that fit the search criteria
-                    include_once('database/dbEvents.php');
-                    include_once('domain/Event.php');
-                    $result = getonlythose_dbEvents($name, $_POST['s_day'], $_SESSION['venue']); 
-                    echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ';   
-                        echo "events";
-                    if ($name != "")
-                        echo ' with name like "' . $name . '"';
-				    if (sizeof($result) > 0) {
-				       echo ' (select one for more info).';
-                       echo '<div class="overflow-auto" id="target" style="width: variable; height: 400px;">';
-				       echo '<p><table class="table table-info table-responsive table-striped-columns table-hover table-bordered"> <tr><td>Event Name</td><td>Event Date (YY-MM-DD)</td></tr>';
-				       foreach ($result as $vol) {
-				          echo "<tr><td><a href=eventEdit.php?id=" . 
-				               str_replace(" ","_",$vol->get_id()) . ">" .
-				                $vol->get_event_name() . "</td><td>" . $vol->get_event_date();
-				          echo "</td></a></tr>";
-				       }
-				       echo '</table>';
-				       echo '</div>';   
-				    }
-				               
-                }
+    <body>
+        <?php require_once('header.php') ?>
+        <h1>Event Search</h1>
+        <main class="date">
+            <h2>Search for an Event</h2>
+            <form method="post">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" placeholder="Enter event name" required>
+                <input type="submit" name="submitName" id="submitName" value="Search by name">
+            </form>
+            <form method="post">
+                <label for="date-start">Date Range Start</label>
+                <input type="date" name="date-start" id="date-start" required>
+                <label for="date-end">Date Range End</label>
+                <input type="date" name="date-end" id="date-end" required>
+                <input type="submit" name="submitDateRange" id="submitDateRange" value="Search by date range">
+            </form>
+            <?php
+                    if ($events) {
+                        require_once('include/output.php');
+                        foreach ($events as $event) {
+                            // echo '
+    
+                            //     <fieldset class="event">
+                            //         <legend>' . $event['name'] . '</legend>
+                            //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
+                            //         <span>Description: ' . $event['description'] . '</span>
+                            //         <span>Location:' . $event['location'] . '</span>
+                            //     </fieldset>
+                            // ';
+                            $date = $event['date'];
+                            $date = strtotime($date);
+                            $date = date('l, F j, Y', $date);
+                            echo "
+                                <table class='event'>
+                                    <thead>
+                                    <tr>
+                                    <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr><td>Date</td><td>" . $date . "</td></tr>
+                                    <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
+                                    <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                                    <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                                    </tbody>
+                                    </table>
+                        
+        
+                                    ";
+    
+                            
+                        }
+                    }
                 ?>
-                <!-- below is the footer that we're using currently-->
-                </div>
-        </div>
-        <?PHP include('footer.inc'); ?>
+        </main>
     </body>
 </html>
-
