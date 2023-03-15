@@ -67,15 +67,6 @@
                     echo '<h2>' . $search . '</h2>';
                     require_once('include/output.php');
                     foreach ($events as $event) {
-                        // echo '
-
-                        //     <fieldset class="event">
-                        //         <legend>' . $event['name'] . '</legend>
-                        //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
-                        //         <span>Description: ' . $event['description'] . '</span>
-                        //         <span>Location:' . $event['location'] . '</span>
-                        //     </fieldset>
-                        // ';
                         $date = $event['date'];
                         $date = strtotime($date);
                         $date = date('l, F j, Y', $date);
