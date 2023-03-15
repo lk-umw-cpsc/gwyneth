@@ -20,6 +20,7 @@
     }
     if (!$loggedIn) {
         header('Location: login.php');
+        die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
