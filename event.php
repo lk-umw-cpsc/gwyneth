@@ -27,37 +27,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		  $volunteerID = $_POST['selected_removal_id'];
 		  remove_volunteer_from_event($eventID, $volunteerID);
     }
-  }
-?>
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<?php
-
-      // check if user has reached this page
-      // with an event ID
-      if (isset($_GET["id"])) {
+    
+    if (isset($_GET["id"])) {
         $id = $_GET["id"];
         echo '<title>'.$_GET["id"].' - Event</title>';
       } else {
         header('Location: calendar.php');
         die();
       }
-    ?>
-	</head>
-	
-	<body>
-		<?php
-      require_once('header.php');
-
-      // grab event data using fetch_event_by_id() in dbEvents.php
+      
       $event_info = fetch_event_by_id($id);
       if ($event_info == NULL) {
         // TODO: Need to create error page for no event found
         header('Location: calendar.php');
         die();
       }
+  }
+?>
+
+<!DOCTYPE html>
+<html>
+	<body>
+		<?php
+      require_once('header.php');
+
       // print_r($event_info);
       $event_name = $event_info['name'];
       $event_date = date('F j, Y', strtotime($event_info['date']));
