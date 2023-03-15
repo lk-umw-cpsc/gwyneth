@@ -1,8 +1,5 @@
 <?php 
 
-  require_once('universal.inc');
-  include_once('database/dbEvents.php');
-  include_once('database/dbPersons.php');
 
   session_cache_expire(30);
   session_start();
@@ -12,13 +9,34 @@
       header('Location: login.php');
       die();
   }
+  
+   if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+        echo '<title>'.$_GET["id"].' - Event</title>';
+   } else {
+        	header('Location: calendar.php');
+        	die();
+  	}
+  	
+  	include_once('database/dbEvents.php');
+  	
+  	$event_info = fetch_event_by_id($id);
+  	 if ($event_info == NULL) {
+        // TODO: Need to create error page for no event found
+        header('Location: calendar.php');
+        die();
+      }
 
   $access_level = $_SESSION['access_level'];
+  
+  include_once('database/dbPersons.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $request_type = $_POST['request_type'];
 		$eventID = $_GET["id"];
 
+
+  
     if ($request_type == 'add') {
 		$volunteerID = $_POST['selected_id'];
 		update_event_volunteer_list($eventID, $volunteerID);
@@ -27,30 +45,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		  $volunteerID = $_POST['selected_removal_id'];
 		  remove_volunteer_from_event($eventID, $volunteerID);
     }
-    
-    if (isset($_GET["id"])) {
-        $id = $_GET["id"];
-        echo '<title>'.$_GET["id"].' - Event</title>';
-      } else {
-        header('Location: calendar.php');
-        die();
-      }
-      
-      $event_info = fetch_event_by_id($id);
-      if ($event_info == NULL) {
-        // TODO: Need to create error page for no event found
-        header('Location: calendar.php');
-        die();
-      }
   }
 ?>
 
 <!DOCTYPE html>
 <html>
+	<head>
+		<?php
+			  require_once('universal.inc');
+      // check if user has reached this page
+      // with an event ID
+      /*if (isset($_GET["id"])) {
+        $id = $_GET["id"];
+        echo '<title>'.$_GET["id"].' - Event</title>';
+      } else {
+        	header('Location: calendar.php');
+        	die();
+      }*/
+    ?>
+	</head>
+	
 	<body>
 		<?php
       require_once('header.php');
 
+      // grab event data using fetch_event_by_id() in dbEvents.php
+      /*$event_info = fetch_event_by_id($id);
+      if ($event_info == NULL) {
+        // TODO: Need to create error page for no event found
+        header('Location: calendar.php');
+        die();
+      }*/
       // print_r($event_info);
       $event_name = $event_info['name'];
       $event_date = date('F j, Y', strtotime($event_info['date']));
