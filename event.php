@@ -1,9 +1,5 @@
 <?php 
 
-  require_once('universal.inc');
-  include_once('database/dbEvents.php');
-  include_once('database/dbPersons.php');
-
   session_cache_expire(30);
   session_start();
 
@@ -12,6 +8,10 @@
       header('Location: login.php');
       die();
   }
+
+  require_once('universal.inc');
+  require_once('database/dbEvents.php');
+  require_once('database/dbPersons.php');
 
   $access_level = $_SESSION['access_level'];
 
