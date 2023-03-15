@@ -28,13 +28,14 @@
       }
 
   $access_level = $_SESSION['access_level'];
+  
+  include_once('database/dbPersons.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $request_type = $_POST['request_type'];
 		$eventID = $_GET["id"];
 
-  
-  require_once('database/dbPersons.php');
+
   
     if ($request_type == 'add') {
 		$volunteerID = $_POST['selected_id'];
@@ -76,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die();
       }*/
       // print_r($event_info);
+      
       $event_name = $event_info['name'];
       $event_date = date('F j, Y', strtotime($event_info['date']));
       $event_startTime = date('g:i a', strtotime($event_info['startTime']));
@@ -83,19 +85,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $event_location = $event_info['location'];
       $event_description = $event_info['description'];
       
-		  echo '<h1> View Event: '.$event_name.'</h1>';
+		  echo '<h1> View Event </h1>';
+		  echo '<h2><center> '.$event_name.' </center></h2>';
     ?>
-
+    
     <main>
     <?php
       /* TODO: will figure out another way to center
                later
       */
-      echo '<div><center>';
-		  echo 'Date: '.$event_date.'<br>';
-		  echo 'Time: '.$event_startTime.' - '.$event_endTime.'<br>';
-		  echo 'Location: '.$event_location.'<br>';
-      echo '</div></center><br>';
+       echo '<center><table style="width:28%" class="center">
+      		<tr>	
+					<td>Date:</td>
+					<td>'.$event_date.'</td>     		
+      		</tr>
+      		
+      		<tr>	
+					<td>Time:</td>
+					<td>'.$event_startTime.' - '.$event_endTime.'</td>     		
+      		</tr>
+      		
+      		<tr>	
+					<td>Location:</td>
+					<td>'.$event_location.'</td>     		
+      		</tr>
+      </table></center><br>';
+ 
 		  echo '
         <p>
           <center>Description: </center>
@@ -152,18 +167,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ?>
       </ul>
 
-			<h2 class="centered">
-        Access/Insert Training Materials
-      </h2>	
-      <p class="centered">
-        To be added
-      </p>
-		
-    <!-- temporary breaks to separate headers -->
 
-			<h2>
-        <center>Post-Event Media</center>
-      </h2>	
 		
     <?php
     // if user access is 1, then the user is a volunteer
@@ -202,8 +206,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
     ?>
+    
+    		<h2 class="centered">
+        Access/Insert Training Materials
+      </h2>	
+      <p class="centered">
+        To be added
+      </p>
+		
+    <!-- temporary breaks to separate headers -->
 
+			<h2>
+        <center>Post-Event Media</center>
+      </h2>	
 
+   
+   <?php
+   
+    if ($access_level == 2 || $access_level == 3) {
+   	echo '<div>
+			<a href="editEvent.php?id='.$id.'" class="button">
+					Edit Event!
+			</a>';
+	}
+		
+	?>
+		
+    <!-- Talk about doing volunteer registration on same page -->
+		<!-- <a href="eventRegister.php" class="button">
+				Register for Event!
+		</a> -->
+
+    </div>
+			
+		
     <div>
 		<a href="calendar.php" class="button">
 				Go back to Calendar!
