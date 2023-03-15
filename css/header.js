@@ -41,6 +41,10 @@ function validateTimeRange(start, end) {
     return start < end;
 }
 
+function validateDateRange(start, end) {
+    return start <= end;
+}
+
 $(function() {
     $('#menu-toggle').click(function() {
         let element = $('nav > ul');
@@ -197,6 +201,34 @@ $(function() {
         let id = $(this).data('event-id');
         if (id) {
             document.location = 'event.php?id=' + id;
+        }
+    });
+
+    /* eventSearch.php */
+    $('#date-start, #date-end').change(function(){
+        let start = $('#date-start').val();
+        let end = $('#date-end').val();
+        if (!start || !end) {
+            return;
+        }
+        if (!validateDateRange(start, end)) {
+            $('#date-range-error').removeClass('hidden');
+        } else {
+            $('#date-range-error').addClass('hidden');
+        }
+    });
+
+    $('#event-date-range-search').submit(function(e) {
+        let start = $('#date-start').val();
+        let end = $('#date-end').val();
+        if (!start || !end) {
+            return;
+        }
+        if (!validateDateRange(start, end)) {
+            $('#date-range-error').removeClass('hidden');
+            e.preventDefault();
+        } else {
+            $('#date-range-error').addClass('hidden');
         }
     });
 });
