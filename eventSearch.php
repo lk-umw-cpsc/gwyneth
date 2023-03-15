@@ -73,22 +73,18 @@
                         echo "
                             <table class='event'>
                                 <thead>
-                                <tr>
-                                <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
-                                </tr>
+                                    <tr>
+                                        <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr><td>Date</td><td>" . $date . "</td></tr>
-                                <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
-                                <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
-                                <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                                    <tr><td>Date</td><td>" . $date . "</td></tr>
+                                    <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
+                                    <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                                    <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
                                 </tbody>
-                                </table>
-                    
-    
-                                ";
-
-                        
+                            </table>
+                        ";
                     }
                 }
             ?>
