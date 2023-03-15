@@ -178,6 +178,31 @@ function update_start_date($id, $new_start_date) {
 	return $result;
 }
 
+function update_type($id, $role) {
+	$con=connect();
+	$query = 'UPDATE dbPersons SET type = "' . $role . '" WHERE id = "' . $id . '"';
+	$result = mysqli_query($con,$query);
+	mysqli_close($con);
+	return $result;
+}
+
+function update_status($id, $status) {
+	$con=connect();
+	$query = 'UPDATE dbPersons SET status = "' . $status . '" WHERE id = "' . $id . '"';
+	$result = mysqli_query($con,$query);
+	mysqli_close($con);
+	return $result;
+}
+
+function get_dbtype($id) {
+    $con=connect();
+    $query = "SELECT type FROM dbPersons";
+    $query.= " WHERE id = '" .$id. "'"; 
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $result;
+}
+
 /*
  * @return all rows from dbPersons table ordered by last name
  * if none there, return false

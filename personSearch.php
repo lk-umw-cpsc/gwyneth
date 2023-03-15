@@ -36,7 +36,7 @@ session_cache_expire(30);
                 }
                 echo('<form method="post">');
                 echo('<p><strong>Search for volunteers:</strong>');
-                $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
+                $types = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
                 echo '<p>Type:<select class="form-select-sm" name="s_type">' ;
                 echo '<option value="" SELECTED></option>' ;
                 foreach ($types as $type => $typename)
