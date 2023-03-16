@@ -23,7 +23,7 @@
         if (wereRequiredFieldsSubmitted($args, $required)) {
             require_once('domain/Person.php');
             require_once('database/dbPersons.php');
-            $username = $args['username'];
+            $username = strtolow($args['username']);
             $password = $args['password'];
             $user = retrieve_person($username);
             if (!$user) {
@@ -33,7 +33,7 @@
                 $types = $user->get_type();
                 if (in_array('superadmin', $types)) {
                     $_SESSION['access_level'] = 3;
-                } else if (in_array('manager', $types)) {
+                } else if (in_array('admin', $types)) {
                     $_SESSION['access_level'] = 2;
                 } else {
                     $_SESSION['access_level'] = 1;
@@ -43,6 +43,10 @@
                 $_SESSION['venue'] = $user->get_venue();
                 $_SESSION['type'] = $user->get_type();
                 $_SESSION['_id'] = $user->get_id();
+                // hard code root privileges
+                if ($user->get_id() == 'vmsroot') {
+                    $_SESSION['access_level'] = 3;
+                }
                 header('Location: index.php');
                 die();
             } else {
