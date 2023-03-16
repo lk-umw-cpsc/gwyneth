@@ -21,7 +21,7 @@
         die();
     }
     // Was an ID supplied?
-    if ($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET['id'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && !isset($_GET['id'])) {
         header('Location: index.php');
         die();
     }
@@ -70,6 +70,11 @@
         <h1>Modify User Access</h1>
         <main class="user-role">
             <form class="modUser" method="post">
+	<?php	
+		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_access_modified"]) && isset($_POST["id"])) {
+    			echo "<p>User's access is updated.";
+    }
+	?>
                 <div>
                     <label>Name:</label>
                     <span>
@@ -81,7 +86,7 @@
                     <span>
                         <?php echo implode(" ",$thePerson->get_type()); ?>
                     </span>
-                    </div>
+                </div>
         	<br>
                     <?php
                         // Provides drop down of the role types to select and change the role
@@ -90,17 +95,17 @@
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
 			else
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
-                        echo '<label>Change Role:<select class="form-select-sm" name="s_type">' ;
+                        echo '<label>Change Role:<select class="form-select-sm" name="s_role">' ;
                         echo '<option value="" SELECTED></option>' ;
                         foreach ($roles as $role => $typename) {
-                            if($role != (implode(" ",$thePerson->get_type()))) {
-                                echo '<option value="'.$role.'">'.$typename.'</option>';
+                            if($typename != (implode(" ",$thePerson->get_type()))) {
+                                echo '<option value="'. $role .'">'. $typename .'</option>';
                             }
                         }
                         echo '</select>';
                     ?>
-		<div>
                 <br>
+		<br>
 		<label>Status:</label>
                 <?php
                     // Check the person's status and check the radio to signal the current status
@@ -108,28 +113,35 @@
                     
 		    $currentStatus = $thePerson->get_status();
                     if ($currentStatus == "Active") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="status" checked>';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="status">';
-                        echo '<label for="makeNotActive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">';
+                        echo '<label for="makeInactive">  Inactive</label><br><br>';
                     } elseif ($currentStatus = "Inactive") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="Inactive" checked>';
-                        echo '<label for="makeNotActive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>';
+                        echo '<label for="makeInactive">  Inactive</label><br><br>';
                     }
-                    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
-                    echo '<p>Reason:<select class="form-select-sm" name="s_type">';
+		    
+		    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
+                    echo '<label>Reason:<select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';
                     echo '</select>';
                 
 		?>
+
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update Access">
+		</form>
 		
-            </form>
+		<?php
+			$roleResult = update_type($id, $typename);
+			$statusResult = update_status($id, 'statsRadio');
+			print_r($_POST);
+		?>		
         </main>
     </body>
 </html>

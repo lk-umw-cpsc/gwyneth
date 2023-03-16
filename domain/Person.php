@@ -108,8 +108,8 @@
 			$this->type = explode(',', $t);
 		else
 			$this->type = array();
-
 		$this->status = $st;
+
 		if ($av == "")
 			$this->availability = array();
 		else
@@ -271,16 +271,8 @@
 		return $this->type;
 	}
 
-	function set_type($role) { //update the role of user volunteer, superadmin, admin
-		$this->type = $role;
-	}
-
 	function get_status() {
 		return $this->status;
-	}
-
-	function set_status($status) { //update the status to active or inactive
-		$this->status = $status;
 	}
 
 	function get_availability() {   // array of day:hours:venue
@@ -305,10 +297,6 @@
 
 	function get_notes() {
 		return $this->notes;
-	}
-
-	function set_notes($reason) { //set reason for modifying user access
-		$this->notes = $reason;
 	}
 
 	function get_password() {
