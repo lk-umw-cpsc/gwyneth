@@ -73,6 +73,7 @@ table, .standout {
 
 td {
     padding: 0.25rem;
+    white-space: nowrap;
 }
 
 td:first-of-type {

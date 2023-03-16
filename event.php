@@ -76,52 +76,53 @@
     ?>
 
     <main class="event-info">
-        <table class="centered">
-            <tbody>
-                <tr>	
-                    <td class="label">Date:</td>
-                    <td><?php echo $event_date ?></td>     		
-                </tr>
-                <tr>	
-                    <td class="label">Time:</td>
-                    <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
-                </tr>
-                <tr>	
-                    <td class="label">Location:</td>
-                    <td><?php echo $event_location ?></td>     		
-                </tr>
-                <tr>	
-                    <td class="label">Description:</td><td></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><?php echo $event_description ?></td>     		
-                </tr>
-                <tr>
-                    <td class="label" colspan="2">Training Materials:</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="inactive">None at this time</td>
-                </tr>
-                <tr>
-                    <td class="label" colspan="2">Post-Event Media:</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="inactive">None at this time</td>
-                </tr>
-                <?php
-                    if ($access_level >= 2) {
-                        echo '
-                            <tr>
-                                <td colspan="2">
-                                    <a href="editEvent.php?id=' . $id . '" class="button">Edit Event Details</a>
-                                </td>
-                            </tr>
-                        ';
-                    }
-                ?>
-            </tbody>
-        </table>
-
+        <div id="table-wrapper">
+            <table class="centered">
+                <tbody>
+                    <tr>	
+                        <td class="label">Date:</td>
+                        <td><?php echo $event_date ?></td>     		
+                    </tr>
+                    <tr>	
+                        <td class="label">Time:</td>
+                        <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
+                    </tr>
+                    <tr>	
+                        <td class="label">Location:</td>
+                        <td><?php echo $event_location ?></td>     		
+                    </tr>
+                    <tr>	
+                        <td class="label">Description:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><?php echo $event_description ?></td>     		
+                    </tr>
+                    <tr>
+                        <td class="label">Training Materials:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="inactive">None at this time</td>
+                    </tr>
+                    <tr>
+                        <td class="label">Post-Event Media:</td><td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="inactive">None at this time</td>
+                    </tr>
+                    <?php
+                        if ($access_level >= 2) {
+                            echo '
+                                <tr>
+                                    <td colspan="2">
+                                        <a href="editEvent.php?id=' . $id . '" class="button">Edit Event Details</a>
+                                    </td>
+                                </tr>
+                            ';
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
         <h2 class="centered">Event Volunteers</h2>
 
         <!-- TODO: will figure out another way to center
