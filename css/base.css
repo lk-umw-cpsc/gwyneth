@@ -334,6 +334,10 @@ h2 {
     display: inline-block;
 }
 
+.no-span {
+    width: auto;
+}
+
 /* Calendar */
 table#calendar {
     border-spacing: 0;
