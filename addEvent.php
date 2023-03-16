@@ -70,7 +70,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | Template Page</title>
+        <title>Gwyneth's Gift VMS | Create Event</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
