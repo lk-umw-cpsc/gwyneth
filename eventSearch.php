@@ -49,7 +49,6 @@
         }
     } else {
         $events = null;
-        echo 'we here';
     }
 ?>
 <!DOCTYPE html>
