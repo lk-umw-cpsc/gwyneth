@@ -86,7 +86,7 @@
                     <?php
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
-                        if ($accessLevel == 3)
+            if ($accessLevel == 3)
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
 			else
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');

@@ -154,6 +154,14 @@ function change_password($id, $newPass) {
     return $result;
 }
 
+function update_status($id, $new_status){
+    $con=connect();
+    $query = 'UPDATE dbPersons SET status = "' . $new_status . '" WHERE id = "' . $id . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $result;
+}
+
 function update_hours($id, $new_hours) {
     $con=connect();
     $query = 'UPDATE dbPersons SET hours = "' . $new_hours . '" WHERE id = "' . $id . '"';
