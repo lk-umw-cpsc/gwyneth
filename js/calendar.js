@@ -17,7 +17,7 @@ $(function() {
             document.location = 'calendar.php?month=' + value;
         }
     });
-    $('.calendar-day').click(function() {
+    $('.calendar-day:not(.other-month)').click(function() {
         document.location = 'date.php?date=' + $(this).data('date');
     });
 });
