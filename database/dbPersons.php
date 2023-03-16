@@ -480,7 +480,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
         $saturdaysStart, $saturdaysEnd
     ) {
-        $query = "update dbpersons set 
+        $query = "update dbPersons set 
             first_name='$first', last_name='$last', birthday='$dateOfBirth', address='$address', city='$city', zip='$zipcode',
             email='$email', phone1='$phone', phone1type='$phoneType', contact_time='$contactWhen', cMethod='$contactMethod',
             contact_name='$econtactName', contact_num='$econtactPhone', relation='$econtactRelation',
