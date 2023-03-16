@@ -23,7 +23,7 @@
         if (wereRequiredFieldsSubmitted($args, $required)) {
             require_once('domain/Person.php');
             require_once('database/dbPersons.php');
-            $username = strtolow($args['username']);
+            $username = strtolower($args['username']);
             $password = $args['password'];
             $user = retrieve_person($username);
             if (!$user) {
