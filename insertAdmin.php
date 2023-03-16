@@ -25,7 +25,7 @@
     $person['contact_num'] = 'N/A';
     $person['relation'] = 'N/A';
     $person['contact_time'] = 'N/A';
-    $person['type'] = 'manager';
+    $person['type'] = '';
     $person['status'] = 'N/A';
     $person['cMethod'] = 'N/A';
     $person['position'] = 'N/A';
