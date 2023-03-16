@@ -1,4 +1,8 @@
 <?php
+    if ($_SERVER['SERVER_NAME'] != 'localhost') {
+        echo "This page is unstable and currently disabled.";
+        die();
+    }
 /*
  * Copyright 2015 by Allen Tucker. This program is part of RMHP-Homebase, which is free 
  * software.  It comes with absolutely no warranty. You can redistribute and/or 
