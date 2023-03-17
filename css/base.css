@@ -657,6 +657,8 @@ table.event {
 main.search-form {
     gap: 1rem;
     margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
 }
 
 main.search-form form {
@@ -668,8 +670,6 @@ main.search-form form {
 @media only screen and (min-width: 1024px) {
     main.search-form {
         width: 100%;
-        display: flex;
-        flex-direction: column;
         align-items: center;
     }
     main.search-form > * {
