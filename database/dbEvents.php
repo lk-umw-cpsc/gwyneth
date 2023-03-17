@@ -229,9 +229,13 @@ function create_event($event) {
         values ('$name', '$abbrevName', '$date', '$startTime', '$endTime', '$description', '$location', '$capacity')
     ";
     $result = mysqli_query($connection, $query);
+    if (!$result) {
+        return null;
+    }
+    $id = mysqli_insert_id($connection);
     mysqli_commit($connection);
     mysqli_close($connection);
-    return $result;
+    return $id;
 }
 
 function update_event($eventID, $eventDetails) {
