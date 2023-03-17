@@ -48,11 +48,13 @@
                 echo 'bad args';
                 die();
             }
-            $success = create_event($args);
-            if(!$success){
+            $id = create_event($args);
+            if(!$id){
                 echo "Oopsy!";
                 die();
             }
+            header("Location: event.php?id=$id");
+            die();
         }
     }
     $date = null;
