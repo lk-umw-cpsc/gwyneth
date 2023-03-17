@@ -97,7 +97,7 @@ $(function() {
         $('div.availability-day > p > input[type=checkbox]').prop('required', noDaysChecked);
     });
 
-    $('input').blur(function() {
+    $('input:not([type=password])').blur(function() {
         const ele = $(this);
         ele.addClass('visited');
         ele.val(ele.val().trim());
@@ -229,6 +229,26 @@ $(function() {
             e.preventDefault();
         } else {
             $('#date-range-error').addClass('hidden');
+        }
+    });
+
+    /* changePassword.php */
+    $('form#password-change').submit(function(e) {
+        let passwordField = $('#new-password');
+        if (passwordField.val() != $('#new-password-reenter').val()) {
+            scrollIntoView(passwordField);
+            passwordField.focus();
+            $('#password-match-error').removeClass('hidden');
+            e.preventDefault();
+        } else {
+            $('#password-match-error').addClass('hidden');
+        }
+    });
+    $('#new-password-reenter').change(function() {
+        if ($(this).val() == $('#new-password').val()) {
+            $('#password-match-error').addClass('hidden');
+        } else {
+            $('#password-match-error').removeClass('hidden');
         }
     });
 });
