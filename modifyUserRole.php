@@ -138,8 +138,28 @@
 		</form>
 		
 		<?php
-			$roleResult = update_type($id, $typename);
-			$statusResult = update_status($id, 'statsRadio');
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                $new_role = $_POST['s_role'];
+                if (empty($new_role)){
+                    echo "No new role selected";
+                }else{
+                    update_type($id, $new_role);
+                }
+                $new_status = $_POST['statsRadio'];
+                if (empty($new_status)){
+                    echo "No new status selected";
+                }else{
+                    update_status($id, $new_status);
+                }
+                $new_notes = $_POST['s_reason'];
+                if (empty($new_notes)){
+                    echo "No new notes selected";
+                }else{
+                    update_notes($id, $new_notes);
+                }
+            }
+			//$roleResult = update_type($id, $typename);
+			//$statusResult = update_status($id, $currentStatus);
 			print_r($_POST);
 		?>		
         </main>
