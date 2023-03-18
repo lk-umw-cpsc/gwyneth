@@ -8,9 +8,10 @@
         header('Location: login.php');
         die();
     }
-
-    if (isset($_GET["id"])) {
-        $id = $_GET["id"];
+    require_once('include/input-validation.php');
+    $args = sanitize($_GET);
+    if (isset($args["id"])) {
+        $id = $args["id"];
     } else {
         header('Location: calendar.php');
         die();
@@ -33,26 +34,30 @@
     $access_level = $_SESSION['access_level'];
     
     include_once('database/dbPersons.php');
-
-    if (isset($_GET["request_type"])) {
+    if (isset($args["request_type"])) {
     //if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $request_type = $_GET['request_type'];
-        $eventID = $_GET["id"];
+        $request_type = $args['request_type'];
+        if (!valueConstrainedTo($request_type, 
+                array('add self', 'add another', 'remove'))) {
+            echo "Bad request";
+            die();
+        }
+        $eventID = $args["id"];
 
         // Check if Get request from user is from an organization member
         // (volunteer, admin/super admin)
         if ($request_type == 'add self' && $access_level >= 1) {
-            $volunteerID = $_GET['selected_id'];
+            $volunteerID = $args['selected_id'];
             update_event_volunteer_list($eventID, $volunteerID);
 
         // Check if GET request from user is from an admin/super admin
         // (Only admins and super admins can add another user)
         } else if ($request_type == 'add another' && $access_level > 1) {
-            $volunteerID = $_GET['selected_id'];
+            $volunteerID = $args['selected_id'];
             update_event_volunteer_list($eventID, $volunteerID);
 
         } else if ($request_type == 'remove' && $access_level > 1) {
-            $volunteerID = $_GET['selected_removal_id'];
+            $volunteerID = $args['selected_removal_id'];
             remove_volunteer_from_event($eventID, $volunteerID);
         } else {
           header('Location: event.php?id='.$eventID);
