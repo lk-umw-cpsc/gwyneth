@@ -290,4 +290,46 @@ function fetch_events_in_date_range_as_array($start_date, $end_date) {
     return $events;
 }
 
+function get_media($id, $type) {
+    $connection = connect();
+    $query = "select * from dbEventMedia
+              where eventID='$id' and type='$type'";
+    $result = mysqli_query($connection, $query);
+    if (!$result) {
+        return [];
+    }
+    $media = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    mysqli_close($connection);
+    return $media;
+}
+
+function get_event_training_media($id) {
+    return get_media($id, 'training');
+}
+
+function get_post_event_media($id) {
+    return get_media($id, 'post');
+}
+
+function attach_media($eventID, $type, $url, $format, $description) {
+    $query = "insert into dbEventMedia
+              (eventID, type, url, format, description)
+              values ('$eventID', '$type', '$url', '$format', '$description')";
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    mysqli_close($connection);
+    if (!$result) {
+        return false;
+    }
+    return true;
+}
+
+function attach_event_training_media($eventID, $url, $format, $description) {
+    return attach_media($eventID, 'training', $url, $format, $description);
+}
+
+function attach_post_event_media($eventID, $url, $format, $description) {
+    return attach_media($eventID, 'post', $url, $format, $description);
+}
+
 ?>
