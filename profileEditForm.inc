@@ -16,16 +16,16 @@
 <h1>Manage Profile</h1>
 <main class="signup-form">
     
-    <?php if ($isAdmin) : ?> {
+    <?php if ($isAdmin) : ?>
     	<form class = "modify-access" method = "post">
-	<input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input type="submit" name="modify_access" value="Modify User Access">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="modify_access" value="Modify User Access">
     	</form>
     <?php endif ?>
 
     <form class="signup-form" method="post">
         <br>
-	<p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
+	    <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
         <fieldset>
             <legend>Personal Information</legend>
             <p>The following information helps us identify you within our system.</p>
