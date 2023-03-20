@@ -163,7 +163,7 @@
             }
 			//$roleResult = update_type($id, $typename);
 			//$statusResult = update_status($id, $currentStatus);
-			print_r($_POST);
+			// print_r($_POST);
 		?>		
         </main>
     </body>
