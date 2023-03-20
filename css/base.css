@@ -334,6 +334,10 @@ h2 {
     display: inline-block;
 }
 
+.no-span {
+    width: auto;
+}
+
 /* Calendar */
 table#calendar {
     border-spacing: 0;
@@ -647,4 +651,31 @@ table.event {
     border-bottom: 3px solid var(--shadow-and-border-color);
     padding-bottom: 1rem;
     background-color: var(--standout-background);
+}
+
+/* Event Search Page */
+main.search-form {
+    gap: 1rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+}
+
+main.search-form form {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+@media only screen and (min-width: 1024px) {
+    main.search-form {
+        width: 100%;
+        align-items: center;
+    }
+    main.search-form > * {
+        width: 80%;
+    }
+    main.search-form > span {
+        text-align: left;
+    }
 }

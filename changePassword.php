@@ -1,100 +1,65 @@
-<?php
-/* 
- * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
- * This page allows volunteers and managers to change their password
- */
+ <?php
+    // Template for new VMS pages. Base your new page on this one
 
-session_cache_expire(30);
-session_start();
+    // Make session information accessible, allowing us to associate
+    // data with the logged-in user.
+    session_cache_expire(30);
+    session_start();
+    require_once('include/api.php');
+
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    }
+    if (!$loggedIn) {
+        redirect('login.php');
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        require_once('include/input-validation.php');
+        require_once('domain/Person.php');
+        require_once('database/dbPersons.php');
+        if (!wereRequiredFieldsSubmitted($_POST, array('password', 'new-password'))) {
+            echo "Args missing";
+            die();
+        }
+        $password = $_POST['password'];
+        $newPassword = $_POST['new-password'];
+        $user = retrieve_person($userID);
+        if (!password_verify($password, $user->get_password())) {
+            echo "Bad password"; // FIX THIS! MAKE IT PRETTY
+            die();
+        }
+        $hash = password_hash($newPassword, PASSWORD_BCRYPT);
+        change_password($userID, $hash);
+        echo "This should be a nice toast confirming password change!";
+        die();
+    }
 ?>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>
-            Change password
-        </title>
-        <?php require('universal.inc'); ?>
-
+        <?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS | Change Password</title>
     </head>
     <body>
-        <div id="container">
-            <?PHP include('header.php'); ?>
-            <div id="content">
-                <?PHP
-                include_once('database/dbPersons.php');
-                include_once('domain/Person.php');
-                
-
-                if ($_SESSION['_id'] != "guest") {
-                    $person = retrieve_person($_SESSION['_id']);
-                    
-                }
-                
-                ?>
-
-                <p>
-                    <?PHP
-                    if ($_SESSION['access_level'] == 0)
-                        echo('You do not have permission to view this page');
-                    if ($person) {
-
-
-                        //APPLICANT CHECK - do not have a password
-                        if ($person->get_first_name() != 'guest' && $person->get_status() == 'applicant') {
-                            echo('You do not have permission to view this page');
-                        }
-
-                        //VOLUNTEER CHECK - can change their password
-                        if ($_SESSION['access_level'] == 1) {
-                        	
-                               if (password_verify($person->get_id(), $person->get_password()) || ['access_level'] > 0) {
-                                if (!isset($_POST['_rp_submitted']))
-                                    echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
-                                else {
-                                    //they've submitted
-                                    if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
-                                        echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (!password_verify($_POST['_rp_old'], $person->get_password()))
-                                        echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (password_verify($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
-                                        $newPass = password_hash($_POST['_rp_newa'], PASSWORD_BCRYPT);
-                                        change_password($person->get_id(), $newPass);
-                                        echo('Password has been updated');
-                                    }
-                                }
-                                
-                                echo('<br clear="all">');
-                            }
-                                         
-                        }
-                        
-                        //MANAGER CHECK - can change their password
-                        if ($_SESSION['access_level'] == 2) {
-                            
-                            if (password_verify($person->get_id(), $person->get_password()) || ['access_level'] > 0) {
-                                if (!isset($_POST['_rp_submitted']))
-                                    echo('<p><div><form method="post"><p><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="right" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></td></tr></table></p></form></div>');
-                                else {
-                                    //they've submitted
-                                    if (($_POST['_rp_newa'] != $_POST['_rp_newb']) || (!$_POST['_rp_newa']))
-                                        echo('<div><form method="post"><p>Error with new password. Ensure passwords match.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (!password_verify($_POST['_rp_old'], $person->get_password()))
-                                        echo('<div><form method="post"><p>Error with old password.</p><br /><table class="warningTable"><tr><td class="warningTable">Old Password:</td><td class="warningTable"><input type="password" name="_rp_old"></td></tr><tr><td class="warningTable">New password</td><td class="warningTable"><input type="password" name="_rp_newa"></td></tr><tr><td class="warningTable">New password<br />(confirm)</td><td class="warningTable"><input type="password" name="_rp_newb"></td></tr><tr><td colspan="2" align="center" class="warningTable"><input type="hidden" name="_rp_submitted" value="1"><input type="submit" value="Change Password"></form></td></tr></table></div>');
-                                    else if (password_verify($_POST['_rp_old'], $person->get_password()) && ($_POST['_rp_newa'] == $_POST['_rp_newb'])) {
-                                        $newPass = password_hash($_POST['_rp_newa'], PASSWORD_BCRYPT);
-                                        change_password($person->get_id(), $newPass);
-                                        echo('Password has been updated');
-                                    }
-                                }
-                                
-                                echo('<br clear="all">');
-                            }
-                        	
-                        }
-
-                    }
-                    ?>
-                    </div>
-                    <?PHP include('footer.inc'); ?>
-        </div>
+        <?php require_once('header.php') ?>
+        <h1>Change Password</h1>
+        <main class="login">
+            <form id="password-change" method="post">
+                <label for="password">Current Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter old password" required>
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" placeholder="Enter new password" required>
+                <label for="reenter-new-password">Current Password</label>
+                <input type="password" id="new-password-reenter" placeholder="Re-enter new password" required>
+                <p id="password-match-error" class="error hidden">Passwords must match!</p>
+                <input type="submit" id="submit" name="submit" value="Change Password">
+            </form>
+        </main>
     </body>
 </html>

@@ -178,38 +178,6 @@ function update_start_date($id, $new_start_date) {
 	return $result;
 }
 
-function update_type($id, $role) {
-	$con=connect();
-	$query = 'UPDATE dbPersons SET type = "' . $role . '" WHERE id = "' . $id . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
-}
-
-function update_status($id, $new_status){
-    $con=connect();
-    $query = 'UPDATE dbPersons SET status = "' . $new_status . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-function update_notes($id, $new_notes){
-    $con=connect();
-    $query = 'UPDATE dbPersons SET notes = "' . $new_notes . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
-function get_dbtype($id) {
-    $con=connect();
-    $query = "SELECT type FROM dbPersons";
-    $query.= " WHERE id = '" .$id. "'"; 
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
 /*
  * @return all rows from dbPersons table ordered by last name
  * if none there, return false
@@ -378,8 +346,7 @@ function getall_available($type, $day, $shift, $venue) {
 
 function getvolunteers_byevent($id){
 	 $con = connect();
-	 $query = 'SELECT * FROM dbEventVolunteers JOIN dbPersons WHERE eventID = "' . $id . '"' .
-	 			"AND dbEventVolunteers.userID = dbPersons.id";
+	 $query = 'SELECT * FROM dbEventVolunteers JOIN dbPersons WHERE eventID = "' . $id . '"';
 	 $result = mysqli_query($con, $query);
 	 $thePersons = array();
     while ($result_row = mysqli_fetch_assoc($result)) {
@@ -512,7 +479,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
         $saturdaysStart, $saturdaysEnd
     ) {
-        $query = "update dbPersons set 
+        $query = "update dbpersons set 
             first_name='$first', last_name='$last', birthday='$dateOfBirth', address='$address', city='$city', zip='$zipcode',
             email='$email', phone1='$phone', phone1type='$phoneType', contact_time='$contactWhen', cMethod='$contactMethod',
             contact_name='$econtactName', contact_num='$econtactPhone', relation='$econtactRelation',
@@ -527,40 +494,5 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_commit($connection);
         mysqli_close($connection);
         return $result;
-    }
-
-    function get_unassigned_available_volunteers($eventID) {
-        $connection = connect();
-        $query = "select * from dbEvents where id='$eventID'";
-        $result = mysqli_query($connection, $query);
-        if (!$result) {
-            mysqli_close($connection);
-            return null;
-        }
-        $event = mysqli_fetch_assoc($result);
-        $event_start = $event['startTime'];
-        $event_end = $event['startTime'];
-        $date = $event['date'];
-        $date = strtotime($date);
-        $dayofweek = strtolower(date('l', $date));
-        $dayname_start = $dayofweek . 's_start';
-        $dayname_end = $dayofweek . 's_end';
-        $query = "select * from dbPersons
-            where 
-            $dayname_start<='$event_start' and $dayname_end>='$event_end'
-            and id != 'vmsroot' 
-            and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
-        $result = mysqli_query($connection, $query);
-        if ($result == null || mysqli_num_rows($result) == 0) {
-            mysqli_close($connection);
-            return null;
-        }
-        $thePersons = array();
-        while ($result_row = mysqli_fetch_assoc($result)) {
-            $thePerson = make_a_person($result_row);
-            $thePersons[] = $thePerson;
-        }
-        mysqli_close($connection);
-        return $thePersons;
     }
 ?>

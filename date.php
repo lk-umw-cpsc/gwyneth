@@ -50,31 +50,20 @@
                 $events = fetch_events_on_date($date);
                 if ($events) {
                     foreach ($events as $event) {
-                        // echo '
-
-                        //     <fieldset class="event">
-                        //         <legend>' . $event['name'] . '</legend>
-                        //         <span>Time: ' . time24hTo12h($event['startTime']) . ' - ' . time24hto12h($event['endTime']) . '</span>
-                        //         <span>Description: ' . $event['description'] . '</span>
-                        //         <span>Location:' . $event['location'] . '</span>
-                        //     </fieldset>
-                        // ';
                         echo "
                             <table class='event'>
-                             <thead>
-                              <tr>
-                               <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
-                              </tr>
-                             </thead>
-                             <tbody>
-                              <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
-                              <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
-                              <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
-                              </tbody>
+                                <thead>
+                                    <tr>
+                                        <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
+                                    <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                                    <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                                </tbody>
                               </table>
-                    
-    
-                              ";
+                        ";
 
                         
                     }

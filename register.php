@@ -76,8 +76,8 @@
                 $errors = true;
                 echo 'bad zip';
             }
-
-            $email = validateEmail($args['email']);
+            $email = strtolower($args['email']);
+            $email = validateEmail($email);
             if (!$email) {
                 $errors = true;
                 echo 'bad email';

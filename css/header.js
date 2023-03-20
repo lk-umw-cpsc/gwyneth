@@ -41,6 +41,10 @@ function validateTimeRange(start, end) {
     return start < end;
 }
 
+function validateDateRange(start, end) {
+    return start <= end;
+}
+
 $(function() {
     $('#menu-toggle').click(function() {
         let element = $('nav > ul');
@@ -93,7 +97,7 @@ $(function() {
         $('div.availability-day > p > input[type=checkbox]').prop('required', noDaysChecked);
     });
 
-    $('input').blur(function() {
+    $('input:not([type=password])').blur(function() {
         const ele = $(this);
         ele.addClass('visited');
         ele.val(ele.val().trim());
@@ -197,6 +201,54 @@ $(function() {
         let id = $(this).data('event-id');
         if (id) {
             document.location = 'event.php?id=' + id;
+        }
+    });
+
+    /* eventSearch.php */
+    $('#date-start, #date-end').change(function(){
+        let start = $('#date-start').val();
+        let end = $('#date-end').val();
+        if (!start || !end) {
+            return;
+        }
+        if (!validateDateRange(start, end)) {
+            $('#date-range-error').removeClass('hidden');
+        } else {
+            $('#date-range-error').addClass('hidden');
+        }
+    });
+
+    $('#event-date-range-search').submit(function(e) {
+        let start = $('#date-start').val();
+        let end = $('#date-end').val();
+        if (!start || !end) {
+            return;
+        }
+        if (!validateDateRange(start, end)) {
+            $('#date-range-error').removeClass('hidden');
+            e.preventDefault();
+        } else {
+            $('#date-range-error').addClass('hidden');
+        }
+    });
+
+    /* changePassword.php */
+    $('form#password-change').submit(function(e) {
+        let passwordField = $('#new-password');
+        if (passwordField.val() != $('#new-password-reenter').val()) {
+            scrollIntoView(passwordField);
+            passwordField.focus();
+            $('#password-match-error').removeClass('hidden');
+            e.preventDefault();
+        } else {
+            $('#password-match-error').addClass('hidden');
+        }
+    });
+    $('#new-password-reenter').change(function() {
+        if ($(this).val() == $('#new-password').val()) {
+            $('#password-match-error').addClass('hidden');
+        } else {
+            $('#password-match-error').removeClass('hidden');
         }
     });
 });
