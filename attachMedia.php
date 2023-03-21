@@ -16,8 +16,11 @@
             }
             $type = 'post';
             $format = $args['format'];
-            $eid = $args['id'];
             $url = $args['url'];
+            if ($format == 'video') {
+                $url = str_ireplace('watch?v=', 'embed/', $url);
+            }
+            $eid = $args['id'];
             $description = $args['description'];
             if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
                 echo "dude, bad format";
