@@ -114,11 +114,9 @@
     }
 
     function convertYouTubeURLToEmbedLink($url) {
-        echo $url;
-        if (!str_starts_with($url, 'https://www.youtube.com/')) {
+        if (!preg_match('/^https:\\/\\/(www\.)?youtube\\.com\\/.*/i', $url)) {
             return null;
         }
-        echo "here";
         // regex search for the v=<video id> argument
         $pattern = "/[&?]v=([^&]+)/i";
         if (preg_match($pattern, $url, $matches)) {

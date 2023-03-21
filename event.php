@@ -53,6 +53,10 @@
             $args = sanitize($_POST);
             $get = sanitize($_GET);
             if (isset($_POST['attach-post-media-submit'])) {
+                if ($access_level < 2) {
+                    echo 'forbidden';
+                    die();
+                }
                 $required = [
                     'url', 'description', 'format', 'id'
                 ];
