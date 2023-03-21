@@ -107,7 +107,23 @@
                         <td class="label">Post-Event Media:</td><td></td>
                     </tr>
                     <tr>
-                        <td colspan="2" class="inactive">None at this time</td>
+                        <?php
+                            $medias = get_post_event_media($id);
+                            foreach ($medias as $media) {
+                                echo '<tr><td colspan="2">';
+                                if ($media['format'] == 'link') {
+                                    echo '<a href="' . $media['url'] . '">' . $media['description'] . '</a>';
+                                } else if ($media['format'] == 'picture') {
+                                    echo '<span>' . $media['description'] . '</span><br><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '">';
+                                } else {
+                                    echo '<span>' . $media['description'] . '</span><br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                }
+                                echo '</td></tr>';
+                            }
+                            if (count($medias) == 0) {
+                                echo '<td colspan="2" class="inactive">None at this time</td>';
+                            }
+                        ?>
                     </tr>
                     <?php
                         if ($access_level >= 2) {
