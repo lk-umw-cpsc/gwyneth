@@ -163,7 +163,7 @@
                                 if ($access_level >= 2) {
                                     echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
                                 }
-                                echo '<br><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '">';
+                                echo '<br><a href="' . $media['url'] . '"><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '"></a>';
                             } else {
                                 echo '<span>' . $media['description'] . '</span>';
                                 if ($access_level >= 2) {
