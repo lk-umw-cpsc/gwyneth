@@ -693,3 +693,7 @@ form.media-form {
     padding: 0.5rem;
     display: block;
 }
+
+tr.media img {
+    max-width: 8rem;
+}

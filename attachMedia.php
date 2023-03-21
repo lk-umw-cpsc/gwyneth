@@ -38,7 +38,7 @@
         if ($media['format'] == 'link') {
             echo '<a href="' . $media['url'] . '">' . $media['description'] . '</a>';
         } else if ($media['format'] == 'picture') {
-            echo '<span>' . $media['description'] . '</span><br><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '">';
+            echo '<span>' . $media['description'] . '</span><br><img src="' . $media['url'] . '" alt="' . $media['description'] . '">';
         } else if ($media['format'] == 'picture') {
             echo '<span>' . $media['description'] . '</span><br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
         }

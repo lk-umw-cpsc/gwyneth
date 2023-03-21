@@ -151,7 +151,7 @@
                     <?php
                         $medias = get_post_event_media($id);
                         foreach ($medias as $media) {
-                            echo '<tr><td colspan="2">';
+                            echo '<tr class="media"><td colspan="2">';
                             if ($media['format'] == 'link') {
                                 echo '<a href="' . $media['url'] . '">' . $media['description'] . '</a>';
                             } else if ($media['format'] == 'picture') {
