@@ -49,6 +49,9 @@ table, td, tr, th, form, fieldset, em, button, a {
     --inactive-background-color: #f0f0f0;
     --standout-background: #fafafa;
 
+    --happy-toast-background-color: #1a7024;
+    --happy-toast-font-color: white;
+
     --shadow-and-border-color: #e8e8e8;
 
     --main-color: #2f4159;
@@ -336,6 +339,14 @@ h2 {
 
 .no-span {
     width: auto;
+}
+
+div.happy-toast {
+    background-color: var(--happy-toast-background-color);
+    color: var(--happy-toast-font-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 /* Calendar */

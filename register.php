@@ -38,10 +38,10 @@
             $ignoreList = array('password');
             $args = sanitize($_POST, $ignoreList);
 
-            echo "<p>The form was submitted:</p>";
-            foreach ($args as $key => $value) {
-                echo "<p>$key: $value</p>";
-            }
+            // echo "<p>The form was submitted:</p>";
+            // foreach ($args as $key => $value) {
+            //     echo "<p>$key: $value</p>";
+            // }
 
             $required = array(
                 'first-name', 'last-name', 'birthdate',
@@ -219,7 +219,7 @@
             if (!$result) {
                 echo '<p>That e-mail address is already in use.</p>';
             } else {
-                echo '<p>Your registration was submitted successfully. You may now log in.</p>';
+                echo '<script>document.location = "login.php?registerSuccess";</script>';
             }
         } else {
             require_once('registrationForm.php'); 

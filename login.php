@@ -65,7 +65,13 @@
         <?php require_once('header.php') ?>
         <main class="login">
             <h1>Volunteer Management System</h1>
+            <?php if (isset($_GET['registerSuccess'])): ?>
+                <div class="happy-toast">
+                    Your registration was successful! Please log in below.
+                </div>
+            <?php else: ?>
             <p>Welcome! Please log in below.</p>
+            <?php endif ?>
             <form method="post">
                 <?php
                     if ($badLogin) {
