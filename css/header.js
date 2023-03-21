@@ -251,7 +251,18 @@ $(function() {
             $('#password-match-error').removeClass('hidden');
         }
     });
-
+	
+	// Event training media
+    $('#attach-training-media').click(function() {
+        let form = $('#attach-training-media-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Attach Event Training Media');
+            form.addClass('hidden');
+        }
+    });
     // Post-event media
     $('#attach-post-media').click(function() {
         let form = $('#attach-post-media-form');

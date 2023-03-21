@@ -705,6 +705,13 @@ form.media-form {
     display: block;
 }
 
+#attach-training-media {
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block;
+}
+
 tr.media img {
     max-width: 8rem;
 }

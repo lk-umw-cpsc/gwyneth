@@ -88,6 +88,41 @@
                 header('Location: event.php?id=' . $id);
                 die();
             }
+			if (isset($_POST['attach-training-media-submit'])) {
+                if ($access_level < 2) {
+                    echo 'forbidden';
+                    die();
+                }
+                $required = [
+                    'url', 'description', 'format', 'id'
+                ];
+                if (!wereRequiredFieldsSubmitted($args, $required)) {
+                    echo "dude, args missing";
+                    die();
+                }
+                $type = 'post';
+                $format = $args['format'];
+                $url = $args['url'];
+                if ($format == 'video') {
+                    $url = convertYouTubeURLToEmbedLink($url);
+                    if (!$url) {
+                        echo "bad video link";
+                        die();
+                    }
+                } else if (!validateURL($url)) {
+                    echo "bad url";
+                    die();
+                }
+                $eid = $args['id'];
+                $description = $args['description'];
+                if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
+                    echo "dude, bad format";
+                    die();
+                }
+                attach_event_training_media($eid, $url, $format, $description);
+                header('Location: event.php?id=' . $id);
+                die();
+            }
         }
     }
 ?>
@@ -143,9 +178,55 @@
                     <tr>
                         <td class="label">Training Materials:</td><td></td>
                     </tr>
-                    <tr>
-                        <td colspan="2" class="inactive">None at this time</td>
-                    </tr>
+                        <!-- <td colspan="2" class="inactive">None at this time</td> -->
+						<?php
+                        $medias = get_event_training_media($id);
+                        foreach ($medias as $media) {
+                            echo '<tr class="media"><td colspan="2">';
+                            if ($media['format'] == 'link') {
+                                echo '<a href="' . $media['url'] . '">' . $media['description'] . '</a>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
+                            } else if ($media['format'] == 'picture') {
+                                echo '<span>' . $media['description'] . '</span>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
+                                echo '<br><a href="' . $media['url'] . '"><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '"></a>';
+                            } else {
+                                echo '<span>' . $media['description'] . '</span>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
+                                echo '<br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                            }
+                            echo '</td></tr>';
+                        }
+                        if (count($medias) == 0) {
+                            echo '<td colspan="2" class="inactive">None at this time</td>';
+                        }
+                    ?>
+					<?php if ($access_level >= 2): ?>
+						<tr><td colspan="2">
+                            <form class="media-form hidden" method="post" id="attach-training-media-form">
+                                <label>Attach Event Training Media</label>
+                                <label for="url">URL</label>
+                                <input type="text" id="url" name="url" required>
+                                <label for="description">Description</label>
+                                <input type="text" id="description" name="description" required>
+                                <label for="format">Format</label>
+                                <select id="format" name="format">
+                                    <option value="link">Link</option>
+                                    <option value="video">YouTube video (embeds video)</option>
+                                    <option value="picture">Picture (embeds picture)</option>
+                                </select>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
+                                <input type="submit" name="attach-training-media-submit" value="Attach">
+                            </form>
+                            <a id="attach-training-media">Attach Event Training Media</a>
+                        </td></tr>
+					<?php endif ?>
                     <tr>
                         <td class="label">Post-Event Media:</td><td></td>
                     </tr>
@@ -176,7 +257,7 @@
                         if (count($medias) == 0) {
                             echo '<td colspan="2" class="inactive">None at this time</td>';
                         }
-                    ?>
+					?>
                     <?php if ($access_level >= 2): ?>
                         <tr><td colspan="2">
                             <form class="media-form hidden" method="post" id="attach-post-media-form">
