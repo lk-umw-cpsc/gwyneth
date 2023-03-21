@@ -323,7 +323,7 @@ h2 {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .centered {
@@ -678,4 +678,18 @@ main.search-form form {
     main.search-form > span {
         text-align: left;
     }
+}
+
+/* Event page, event media */
+form.media-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#attach-post-media {
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block;
 }

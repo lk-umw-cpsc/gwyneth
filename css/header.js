@@ -251,4 +251,16 @@ $(function() {
             $('#password-match-error').removeClass('hidden');
         }
     });
+
+    // Post-event media
+    $('#attach-post-media').click(function() {
+        let form = $('#attach-post-media-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Attach Post-Event Media');
+            form.addClass('hidden');
+        }
+    });
 });

@@ -113,4 +113,22 @@
         return in_array($value, $values);
     }
 
+    function convertYouTubeURLToEmbedLink($url) {
+        echo $url;
+        if (!str_starts_with($url, 'https://www.youtube.com/')) {
+            return null;
+        }
+        echo "here";
+        // regex search for the v=<video id> argument
+        $pattern = "/[&?]v=([^&]+)/i";
+        if (preg_match($pattern, $url, $matches)) {
+            return 'https://www.youtube.com/embed/' . $matches[1];
+        }
+        return null;
+    }
+
+    function validateURL($url) {
+        return filter_var($url, FILTER_VALIDATE_URL);
+    }
+
 ?>
