@@ -5,7 +5,6 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    require_once('include/api.php');
 
     $loggedIn = false;
     $accessLevel = 0;
