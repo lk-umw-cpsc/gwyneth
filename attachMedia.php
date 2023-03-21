@@ -42,6 +42,7 @@
         } else if ($media['format'] == 'picture') {
             echo '<span>' . $media['description'] . '</span><br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
         }
+        echo '<a href="detachMedia?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
         echo '</li>';
     }
 ?>

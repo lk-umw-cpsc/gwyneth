@@ -332,4 +332,15 @@ function attach_post_event_media($eventID, $url, $format, $description) {
     return attach_media($eventID, 'post', $url, $format, $description);
 }
 
+function detach_media($mediaID) {
+    $query = "delete from dbEventMedia where id='$mediaID'";
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    mysqli_close($connection);
+    if ($result) {
+        return true;
+    }
+    return false;
+}
+
 ?>

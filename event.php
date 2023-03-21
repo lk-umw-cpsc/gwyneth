@@ -8,9 +8,11 @@
         header('Location: login.php');
         die();
     }
+    require_once('include/input-validation.php');
   
     if (isset($_GET["id"])) {
-        $id = $_GET["id"];
+        $args = sanitize($_GET);
+        $id = $args["id"];
     } else {
         header('Location: calendar.php');
         die();
@@ -49,7 +51,6 @@
                 remove_volunteer_from_event($eventID, $volunteerID);
             }
         } else {
-            require_once('include/input-validation.php');
             $args = sanitize($_POST);
             $get = sanitize($_GET);
             if (isset($_POST['attach-post-media-submit'])) {
@@ -154,10 +155,21 @@
                             echo '<tr class="media"><td colspan="2">';
                             if ($media['format'] == 'link') {
                                 echo '<a href="' . $media['url'] . '">' . $media['description'] . '</a>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
                             } else if ($media['format'] == 'picture') {
-                                echo '<span>' . $media['description'] . '</span><br><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '">';
+                                echo '<span>' . $media['description'] . '</span>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
+                                echo '<br><img style="max-width: 30vw" src="' . $media['url'] . '" alt="' . $media['description'] . '">';
                             } else {
-                                echo '<span>' . $media['description'] . '</span><br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+                                echo '<span>' . $media['description'] . '</span>';
+                                if ($access_level >= 2) {
+                                    echo ' <a href="detachMedia.php?eid=' . $id . '&mid=' . $media['id'] . '">Remove</a>';
+                                }
+                                echo '<br><iframe width="560" height="315" src="' . $media['url'] .'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
                             }
                             echo '</td></tr>';
                         }
