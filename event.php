@@ -218,6 +218,7 @@
                                 <label>Attach Event Training Media</label>
                                 <label for="url">URL</label>
                                 <input type="text" id="url" name="url" required>
+                                <p class="error hidden" id="url-error">Please enter a valid URL.</p>
                                 <label for="description">Description</label>
                                 <input type="text" id="description" name="description" required>
                                 <label for="format">Format</label>
@@ -267,12 +268,13 @@
                         <tr><td colspan="2">
                             <form class="media-form hidden" method="post" id="attach-post-media-form">
                                 <label>Attach Post-Event Media</label>
-                                <label for="url">URL</label>
-                                <input type="text" id="url" name="url" required>
-                                <label for="description">Description</label>
-                                <input type="text" id="description" name="description" required>
-                                <label for="format">Format</label>
-                                <select id="format" name="format">
+                                <label for="post-url">URL</label>
+                                <input type="text" id="post-url" name="url" required>
+                                <p class="error hidden" id="post-url-error">Please enter a valid URL.</p>
+                                <label for="post-description">Description</label>
+                                <input type="text" id="post-description" name="description" required>
+                                <label for="post-format">Format</label>
+                                <select id="post-format" name="format">
                                     <option value="link">Link</option>
                                     <option value="video">YouTube video (embeds video)</option>
                                     <option value="picture">Picture (embeds picture)</option>
