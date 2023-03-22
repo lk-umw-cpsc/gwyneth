@@ -37,7 +37,6 @@ session_cache_expire(30);
                 session_write_close();
                 ?>
                 <p class="centered">You are now logged out of the Volunteer Management System.</p>
-                <?PHP include('footer.inc'); ?>
         </main>
     </body>
 </html>
