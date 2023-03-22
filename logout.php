@@ -25,7 +25,7 @@ session_cache_expire(30);
     <head>
         <meta HTTP-EQUIV="REFRESH" content="2; url=index.php">
         <title>
-            Logged out of RMH Homebase
+            Gwyneth's Gift VMS | Logout Successful
         </title>
         <?php require('universal.inc') ?>
     </head>
