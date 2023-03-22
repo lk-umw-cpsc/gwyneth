@@ -341,7 +341,7 @@ h2 {
     width: auto;
 }
 
-div.happy-toast {
+.happy-toast {
     background-color: var(--happy-toast-background-color);
     color: var(--happy-toast-font-color);
     padding: 1rem;
