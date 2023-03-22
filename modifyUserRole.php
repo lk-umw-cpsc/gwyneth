@@ -21,10 +21,12 @@
         die();
     }
     // Was an ID supplied?
-    if ($_SERVER["REQUEST_METHOD"] != "GET" || !isset($_GET['id'])) {
+    if ($_SERVER["REQUEST_METHOD"] == "GET" && !isset($_GET['id'])) {
         header('Location: index.php');
         die();
     }
+    require_once('include/input-validation.php');
+
     // Does the person exist?
     require_once('domain/Person.php');
     require_once('database/dbPersons.php');
@@ -34,6 +36,10 @@
         echo "That user does not exist";
         die();
     }
+
+    // make every submitted field SQL-safe except for password
+    $ignoreList = array('password');
+    $args = sanitize($_POST);
 ?>
 <!DOCTYPE html>
 <html>
@@ -64,6 +70,11 @@
         <h1>Modify User Access</h1>
         <main class="user-role">
             <form class="modUser" method="post">
+	<?php	
+		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_access_modified"]) && isset($_POST["id"])) {
+    			echo "<p>User's access is updated.";
+    }
+	?>
                 <div>
                     <label>Name:</label>
                     <span>
@@ -75,47 +86,85 @@
                     <span>
                         <?php echo implode(" ",$thePerson->get_type()); ?>
                     </span>
-                    </div>
-        
+                </div>
+        	<br>
                     <?php
-                        // Provides drop down of the role types to select, other than the current person's role type, to change the role
-                        $roles = array('volunteer' => 'Volunteer', 'SuperAdmin' => 'SuperAdmin', 'Admin' => 'Admin');
-                        echo '<p>Change Role:<select class="form-select-sm" name="s_type">' ;
+                        // Provides drop down of the role types to select and change the role
+			//other than the person's current role type is displayed
+            if ($accessLevel == 3)
+				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
+			else
+				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
+                        echo '<label>Change Role:<select class="form-select-sm" name="s_role">' ;
                         echo '<option value="" SELECTED></option>' ;
                         foreach ($roles as $role => $typename) {
-                            if($role != (implode(" ",$thePerson->get_type()))) {
-                                echo '<option value="'.$role.'">'.$typename.'</option>';
+                            if($typename != (implode(" ",$thePerson->get_type()))) {
+                                echo '<option value="'. $role .'">'. $typename .'</option>';
                             }
                         }
                         echo '</select>';
                     ?>
-                <div>
-                <label>Status:</label>
+                <br>
+		<br>
+		<label>Status:</label>
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
-                    $currentStatus = $thePerson->get_status();
+                    
+		    $currentStatus = $thePerson->get_status();
                     if ($currentStatus == "Active") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="Inactive">';
-                        echo '<label for="makeNotActive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">';
+                        echo '<label for="makeInactive">  Inactive</label><br><br>';
                     } elseif ($currentStatus = "Inactive") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeNotActive" value="Inactive" checked>';
-                        echo '<label for="makeNotActive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>';
+                        echo '<label for="makeInactive">  Inactive</label><br><br>';
                     }
-                    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
-                    echo '<p>Reason:<select class="form-select-sm" name="s_type">';
+		    
+		    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
+                    echo '<label>Reason:<select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';
                     echo '</select>';
-                ?>
+                
+		?>
+
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update Access">
-            </form>
+		</form>
+		
+		<?php
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
+                $new_role = $_POST['s_role'];
+                if (empty($new_role)){
+                    echo "No new role selected";
+                }else{
+                    update_type($id, $new_role);
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+                $new_status = $_POST['statsRadio'];
+                if (empty($new_status)){
+                    echo "No new status selected";
+                }else{
+                    update_status($id, $new_status);
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+                $new_notes = $_POST['s_reason'];
+                if (empty($new_notes)){
+                    echo "No new notes selected";
+                }else{
+                    update_notes($id, $new_notes);
+                    echo "<meta http-equiv='refresh' content='0'>";
+                }
+            }
+			//$roleResult = update_type($id, $typename);
+			//$statusResult = update_status($id, $currentStatus);
+			// print_r($_POST);
+		?>		
         </main>
     </body>
 </html>

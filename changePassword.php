@@ -1,11 +1,8 @@
- <?php
-    // Template for new VMS pages. Base your new page on this one
-
+<?php
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-    require_once('include/api.php');
 
     $loggedIn = false;
     $accessLevel = 0;
@@ -17,7 +14,8 @@
         $userID = $_SESSION['_id'];
     }
     if (!$loggedIn) {
-        redirect('login.php');
+        header('Location: login.php');
+        die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');

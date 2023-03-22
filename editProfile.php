@@ -10,6 +10,12 @@
     }
 
     require_once('include/input-validation.php');
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_access"]) && isset($_POST["id"])) {
+        $id = $_POST['id'];
+        header("Location:/gwyneth/modifyUserRole.php?id=$id");
+        die();
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,11 +27,7 @@
     <?php
         require_once('header.php');
 
-	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_access"]) && isset($_POST["id"])) {
-		$id = $_POST['id'];
-		header("Location:/gwyneth/modifyUserRole.php?id=$id");
-	}
-        elseif ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
             require_once('domain/Person.php');
             require_once('database/dbPersons.php');
 
