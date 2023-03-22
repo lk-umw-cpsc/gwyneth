@@ -1,7 +1,4 @@
 <?php
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
-
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
     session_cache_expire(30);
