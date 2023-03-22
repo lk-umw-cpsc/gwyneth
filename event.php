@@ -149,11 +149,12 @@
         <?php if (isset($_GET['attachSuccess'])): ?>
             <div class="happy-toast">Media attached successfully!</div>
         <?php endif ?>
-        <?php        
+        <?php    
+            require_once('include/output.php');
             $event_name = $event_info['name'];
             $event_date = date('l, F j, Y', strtotime($event_info['date']));
-            $event_startTime = date('g:i a', strtotime($event_info['startTime']));
-            $event_endTime = date('g:i a', strtotime($event_info['endTime']));
+            $event_startTime = time24hto12h($event_info['startTime']);
+            $event_endTime = time24hto12h($event_info['endTime']);
             $event_location = $event_info['location'];
             $event_description = $event_info['description'];
         
