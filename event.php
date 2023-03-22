@@ -8,9 +8,10 @@
         header('Location: login.php');
         die();
     }
-  
-    if (isset($_GET["id"])) {
-        $id = $_GET["id"];
+    require_once('include/input-validation.php');
+    $args = sanitize($_GET);
+    if (isset($args["id"])) {
+        $id = $args["id"];
     } else {
         header('Location: calendar.php');
         die();
@@ -33,18 +34,34 @@
     $access_level = $_SESSION['access_level'];
     
     include_once('database/dbPersons.php');
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $request_type = $_POST['request_type'];
-        $eventID = $_GET["id"];
-
-        if ($request_type == 'add') {
-            $volunteerID = $_POST['selected_id'];
-            update_event_volunteer_list($eventID, $volunteerID);
+    if (isset($args["request_type"])) {
+    //if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $request_type = $args['request_type'];
+        if (!valueConstrainedTo($request_type, 
+                array('add self', 'add another', 'remove'))) {
+            echo "Bad request";
+            die();
         }
-        if ($request_type == 'remove') {
-            $volunteerID = $_POST['selected_removal_id'];
+        $eventID = $args["id"];
+
+        // Check if Get request from user is from an organization member
+        // (volunteer, admin/super admin)
+        if ($request_type == 'add self' && $access_level >= 1) {
+            $volunteerID = $args['selected_id'];
+            update_event_volunteer_list($eventID, $volunteerID);
+
+        // Check if GET request from user is from an admin/super admin
+        // (Only admins and super admins can add another user)
+        } else if ($request_type == 'add another' && $access_level > 1) {
+            $volunteerID = $args['selected_id'];
+            update_event_volunteer_list($eventID, $volunteerID);
+
+        } else if ($request_type == 'remove' && $access_level > 1) {
+            $volunteerID = $args['selected_removal_id'];
             remove_volunteer_from_event($eventID, $volunteerID);
+        } else {
+          header('Location: event.php?id='.$eventID);
+          die();
         }
     }
 ?>
@@ -155,8 +172,9 @@
                             ' '.
                             $person->get_last_name().
                             '</span>'.
-                            '<form class="remove-person" method="POST">'.
+                            '<form class="remove-person" method="GET">'.
                             '<input type="hidden" name="request_type" value="remove" />'.
+                            '<input type="hidden" name="id" value="'.$id.'">'.
                             '<input type="hidden" name="selected_removal_id" value='.
                             $person->get_id().' />'.
                             '<input class="stripped" type="submit" value="Remove" />'.
@@ -180,8 +198,9 @@
             if ($remaining_slots > 0) {
                 if (!$already_assigned) {
                     echo '
-                        <form method="POST">
-                            <input type="hidden" name="request_type" value="add">
+                        <form method="GET">
+                            <input type="hidden" name="request_type" value="add self">
+                            <input type="hidden" name="id" value="'.$id.'">
                             <input type="hidden" name="selected_id" value="' . $_SESSION['_id'] . '">
                             <input type="submit" value="Sign Up">
                         </form>
@@ -198,8 +217,9 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    echo '<form method="POST" class="standout">';
-                    echo '<input type=hidden name="request_type" value="add">';
+                    echo '<form method="GET" class="standout">';
+                    echo '<input type=hidden name="request_type" value="add another">';
+                    echo '<input type="hidden" name="id" value="'.$id.'">';
                     echo '<label for="volunteer-select">Assign Volunteer:</label>';
                     echo '<div class="pair"><select name="selected_id" id="volunter-select">';
                     $all_volunteers = get_unassigned_available_volunteers($id);
