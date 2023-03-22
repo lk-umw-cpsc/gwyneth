@@ -25,7 +25,7 @@ session_cache_expire(30);
     <head>
         <meta HTTP-EQUIV="REFRESH" content="2; url=index.php">
         <title>
-            Gwyneth's Gift VMS | Logout Successful
+            Gwyneth's Gift VMS | Log out Successful
         </title>
         <?php require('universal.inc') ?>
     </head>
