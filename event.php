@@ -149,6 +149,9 @@
         <?php if (isset($_GET['attachSuccess'])): ?>
             <div class="happy-toast">Media attached successfully!</div>
         <?php endif ?>
+        <?php if (isset($_GET['removeSuccess'])): ?>
+            <div class="happy-toast">Media removed successfully!</div>
+        <?php endif ?>
         <?php    
             require_once('include/output.php');
             $event_name = $event_info['name'];
@@ -218,10 +221,10 @@
                             <form class="media-form hidden" method="post" id="attach-training-media-form">
                                 <label>Attach Event Training Media</label>
                                 <label for="url">URL</label>
-                                <input type="text" id="url" name="url" required>
+                                <input type="text" id="url" name="url" placeholder="Paste link to media" required>
                                 <p class="error hidden" id="url-error">Please enter a valid URL.</p>
                                 <label for="description">Description</label>
-                                <input type="text" id="description" name="description" required>
+                                <input type="text" id="description" name="description" placeholder="Enter a description" required>
                                 <label for="format">Format</label>
                                 <select id="format" name="format">
                                     <option value="link">Link</option>
@@ -270,10 +273,10 @@
                             <form class="media-form hidden" method="post" id="attach-post-media-form">
                                 <label>Attach Post-Event Media</label>
                                 <label for="post-url">URL</label>
-                                <input type="text" id="post-url" name="url" required>
+                                <input type="text" id="post-url" name="url" placeholder="Paste link to media" required>
                                 <p class="error hidden" id="post-url-error">Please enter a valid URL.</p>
                                 <label for="post-description">Description</label>
-                                <input type="text" id="post-description" name="description" required>
+                                <input type="text" id="post-description" name="description" placeholder="Enter a description" required>
                                 <label for="post-format">Format</label>
                                 <select id="post-format" name="format">
                                     <option value="link">Link</option>

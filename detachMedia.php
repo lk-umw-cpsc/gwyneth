@@ -17,5 +17,5 @@
     $eid = $args['eid'];
     $mid = $args['mid'];
     detach_media($mid);
-    header('Location: event.php?id=' . $eid);
+    header('Location: event.php?id=' . $eid . '&removeSuccess');
 ?>
