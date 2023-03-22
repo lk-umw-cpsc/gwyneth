@@ -25,7 +25,7 @@ session_cache_expire(30);
     <head>
         <meta HTTP-EQUIV="REFRESH" content="2; url=index.php">
         <title>
-            Logged out of RMH Homebase
+            Gwyneth's Gift VMS | Logout Successful
         </title>
         <?php require('universal.inc') ?>
     </head>
@@ -36,8 +36,7 @@ session_cache_expire(30);
                 session_unset();
                 session_write_close();
                 ?>
-                <p>You are now logged out of Homebase.</p>
-                <?PHP include('footer.inc'); ?>
+                <p class="happy-toast centered">You are now logged out of the Volunteer Management System.</p>
         </main>
     </body>
 </html>
