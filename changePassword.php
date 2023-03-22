@@ -34,7 +34,7 @@
         }
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         change_password($userID, $hash);
-        echo "This should be a nice toast confirming password change!";
+        header('Location: index.php?pcSuccess');
         die();
     }
 ?>

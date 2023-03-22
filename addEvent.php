@@ -53,7 +53,7 @@
                 echo "Oopsy!";
                 die();
             }
-            header("Location: event.php?id=$id");
+            header("Location: event.php?id=$id&createSuccess");
             die();
         }
     }

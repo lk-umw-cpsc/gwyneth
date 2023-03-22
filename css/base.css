@@ -452,6 +452,10 @@ h1.calendar-header a {
 }
 
 /* Dashboard */
+main.dashboard {
+    padding: 0 8rem 4rem 8rem;
+}
+
 main.dashboard > p {
     text-align: center;
     margin-bottom: 0.5rem;
@@ -462,7 +466,7 @@ main.dashboard > p {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    padding: 0 8rem 4rem 8rem;
+    /* padding: 0 8rem 4rem 8rem; */
     margin-top: 2rem;
     gap: 3rem;
     justify-content: center;
@@ -497,8 +501,11 @@ main.dashboard > p {
 }
 
 @media only screen and (max-width: 680px) {
-    #dashboard {
+    main.dashboard {
         padding: 1rem;
+
+    }
+    #dashboard {
         gap: 1rem;
     }
 

@@ -36,7 +36,7 @@ session_cache_expire(30);
                 session_unset();
                 session_write_close();
                 ?>
-                <p class="happy-toast centered">You are now logged out of the Volunteer Management System.</p>
+                <p class="happy-toast centered">You have been logged out.</p>
         </main>
     </body>
 </html>

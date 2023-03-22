@@ -85,7 +85,7 @@
                     die();
                 }
                 attach_post_event_media($eid, $url, $format, $description);
-                header('Location: event.php?id=' . $id);
+                header('Location: event.php?id=' . $id . '&attachSuccess');
                 die();
             }
 			if (isset($_POST['attach-training-media-submit'])) {
@@ -120,7 +120,7 @@
                     die();
                 }
                 attach_event_training_media($eid, $url, $format, $description);
-                header('Location: event.php?id=' . $id);
+                header('Location: event.php?id=' . $id . '&attachSuccess');
                 die();
             }
         }
@@ -139,21 +139,26 @@
 </head>
 
 <body>
-    <?php
-        require_once('header.php');
-        
-        $event_name = $event_info['name'];
-        $event_date = date('l, F j, Y', strtotime($event_info['date']));
-        $event_startTime = date('g:i a', strtotime($event_info['startTime']));
-        $event_endTime = date('g:i a', strtotime($event_info['endTime']));
-        $event_location = $event_info['location'];
-        $event_description = $event_info['description'];
-      
-        echo '<h1> View Event </h1>';
-        echo '<h2><center> '.$event_name.' </center></h2>';
-    ?>
+    <?php require_once('header.php') ?>
+    <h1>View Event</h1>
 
     <main class="event-info">
+        <?php if (isset($_GET['createSuccess'])): ?>
+            <div class="happy-toast">Event created successfully!</div>
+        <?php endif ?>
+        <?php if (isset($_GET['attachSuccess'])): ?>
+            <div class="happy-toast">Media attached successfully!</div>
+        <?php endif ?>
+        <?php        
+            $event_name = $event_info['name'];
+            $event_date = date('l, F j, Y', strtotime($event_info['date']));
+            $event_startTime = date('g:i a', strtotime($event_info['startTime']));
+            $event_endTime = date('g:i a', strtotime($event_info['endTime']));
+            $event_location = $event_info['location'];
+            $event_description = $event_info['description'];
+        
+            echo '<h2 class="centered">'.$event_name.'</h2>';
+        ?>
         <div id="table-wrapper">
             <table class="centered">
                 <tbody>
