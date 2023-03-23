@@ -22,7 +22,10 @@
             <input type="submit" name="modify_access" value="Modify User Access">
     	</form>
     <?php endif ?>
-
+    <?php if ($id == 'vmsroot') : ?>
+        <p>This user account cannot be modified</p></main></body>
+        <?php die() ?>
+    <?php endif ?>
     <form class="signup-form" method="post">
         <br>
 	    <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
@@ -46,7 +49,6 @@
             <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
 
             <label for="state"><em>* </em>State</label>
-            <!-- Need to select this one...-->
             <select id="state" name="state" required>
                 <?php
                     $state = $person->get_state();
