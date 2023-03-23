@@ -541,14 +541,16 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $event_start = $event['startTime'];
         $event_end = $event['startTime'];
         $date = $event['date'];
-        $date = strtotime($date);
-        $dayofweek = strtolower(date('l', $date));
+        $dateInt = strtotime($date);
+        $dayofweek = strtolower(date('l', $dateInt));
         $dayname_start = $dayofweek . 's_start';
         $dayname_end = $dayofweek . 's_end';
         $query = "select * from dbPersons
             where 
             $dayname_start<='$event_start' and $dayname_end>='$event_end'
+            and start_date<='$date'
             and id != 'vmsroot' 
+            and status='Active'
             and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
         $result = mysqli_query($connection, $query);
         if ($result == null || mysqli_num_rows($result) == 0) {
