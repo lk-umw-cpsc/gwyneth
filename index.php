@@ -59,10 +59,12 @@
                         <span>Create Report</span>
                     </div>
                 <?php endif ?>
-                <div class="dashboard-item" data-link="editProfile.php">
-                    <img src="images/manage-account.svg">
-                    <span>Manage Profile</span>
-                </div>
+                <?php if ($person->get_id() != 'vmsroot') : ?>
+                    <div class="dashboard-item" data-link="editProfile.php">
+                        <img src="images/manage-account.svg">
+                        <span>Manage Profile</span>
+                    </div>
+                <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
                     <img src="images/change-password.svg">
                     <span>Change Password</span>
