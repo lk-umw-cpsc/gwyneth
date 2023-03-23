@@ -159,10 +159,6 @@ nav {
     max-width: 100vw;
 }
 
-body {
-    /* margin-top: 5rem; */
-}
-
 #vms-logo {
     color: var(--main-color);
     font-weight: 300;
