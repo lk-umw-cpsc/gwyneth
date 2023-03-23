@@ -23,7 +23,7 @@
     	</form>
     <?php endif ?>
     <?php if ($id == 'vmsroot') : ?>
-        <p>This user account cannot be modified</p></main></body>
+        <div class="error-toast">The root user profile cannot be modified</div></main></body>
         <?php die() ?>
     <?php endif ?>
     <form class="signup-form" method="post">
