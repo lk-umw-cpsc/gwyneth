@@ -381,7 +381,7 @@
                     echo '<form method="POST" class="standout">';
                     echo '<input type=hidden name="request_type" value="add">';
                     echo '<label for="volunteer-select">Assign Volunteer:</label>';
-                    echo '<div class="pair"><select name="selected_id" id="volunter-select">';
+                    echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
                     $all_volunteers = get_unassigned_available_volunteers($id);
                     if ($all_volunteers) {
                         for ($x = 0; $x < count($all_volunteers); $x++) {
