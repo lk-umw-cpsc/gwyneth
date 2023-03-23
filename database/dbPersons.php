@@ -170,6 +170,21 @@ function update_birthday($id, $new_birthday) {
 	return $result;
 }
 
+/*
+ * Returns the age of the person by subtracting the 
+ * person's birthday from the current date
+*/
+
+function get_age($birthday) {
+
+  $today = date("Ymd");
+  // If month-day is before the person's birthday,
+  // subtract 1 from current year - birth year
+  $age = date_diff(date_create($birthday), date_create($today))->format('%y');
+
+  return $age;
+}
+
 function update_start_date($id, $new_start_date) {
 	$con=connect();
 	$query = 'UPDATE dbPersons SET start_date = "' . $new_start_date . '" WHERE id = "' . $id . '"';
