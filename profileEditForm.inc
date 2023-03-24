@@ -15,7 +15,7 @@
 <h1>Manage Profile</h1>
 <main class="signup-form">
     
-    <?php if (isset($isAdmin) && $isAdmin) : ?>
+    <?php if ($isAdmin) : ?>
     	<form class = "modify-access" method = "post">
             <input type="hidden" name="id" value="<?php echo $id; ?>">
             <input type="submit" name="modify_access" value="Modify User Access">
