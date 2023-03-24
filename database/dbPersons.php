@@ -612,7 +612,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "type='$type'";
             $first = false;
         }
-        $query = "select * from dbPersons $where";
+        $query = "select * from dbPersons $where order by last_name, first_name";
         // echo $query;
         $connection = connect();
         $result = mysqli_query($connection, $query);
