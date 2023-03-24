@@ -614,4 +614,36 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($connection);
         return $persons;
     }
+
+    function update_type($id, $role) {
+        $con=connect();
+        $query = 'UPDATE dbPersons SET type = "' . $role . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return $result;
+    }
+    
+    function update_status($id, $new_status){
+        $con=connect();
+        $query = 'UPDATE dbPersons SET status = "' . $new_status . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return $result;
+    }
+    function update_notes($id, $new_notes){
+        $con=connect();
+        $query = 'UPDATE dbPersons SET notes = "' . $new_notes . '" WHERE id = "' . $id . '"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return $result;
+    }
+    
+    function get_dbtype($id) {
+        $con=connect();
+        $query = "SELECT type FROM dbPersons";
+        $query.= " WHERE id = '" .$id. "'"; 
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return $result;
+    }
 ?>
