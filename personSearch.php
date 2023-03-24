@@ -30,7 +30,7 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>User Search</h1>
-        <form class="general" method="get">
+        <form id="person-search" class="general" method="get">
             <h2>Find User</h2>
             <?php 
                 if (isset($_GET['name'])) {
@@ -45,59 +45,66 @@
                     $id = $args['id'];
                     $phone = preg_replace("/[^0-9]/", "", $args['phone']);
                     $role = $args['role'];
-                    if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
-                        echo '<p>The system did not understand your request.';
+                    if (!($name || $id || $phone || $role)) {
+                        echo '<div class="error-toast">At least one search criterion is required.</div>';
+                    } else if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
+                        echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else {
                         echo "<h3>Seach Results</h3>";
                         $persons = find_users($name, $id, $phone, $role);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
-                            <table class="general">
-                                <thead>
-                                    <tr>
-                                        <th>First</th>
-                                        <th>Last</th>
-                                        <th>E-mail</th>
-                                        <th>Phone Number</th>
-                                        <th>Role</th>
-                                    </tr>
-                                </thead>
-                                <tbody>';
+                            <div class="table-wrapper">
+                                <table class="general">
+                                    <thead>
+                                        <tr>
+                                            <th>First</th>
+                                            <th>Last</th>
+                                            <th>E-mail</th>
+                                            <th>Phone Number</th>
+                                            <th>Role</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="standout">';
                             foreach ($persons as $person) {
                                 echo '
-                                    <tr>
-                                        <td>' . $person->get_first_name() . '</td>
-                                        <td>' . $person->get_last_name() . '</td>
-                                        <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
-                                        <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
-                                        <td>' . ucfirst($person->get_type()[0]) . '</td>
-                                    </tr>';
+                                        <tr>
+                                            <td>' . $person->get_first_name() . '</td>
+                                            <td>' . $person->get_last_name() . '</td>
+                                            <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
+                                            <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
+                                            <td>' . ucfirst($person->get_type()[0]) . '</td>
+                                            <td><a href="editProfile.php?id=' . $person->get_id() . '">Manage</a></td>
+                                        </a></tr>';
                             }
                             echo '
-                                </tbody>
-                            </table>';
+                                    </tbody>
+                                </table>
+                            </div>';
                         } else {
-                            echo '<p>Your search returned no results.</p>';
+                            echo '<div class="error-toast">Your search returned no results.</div>';
                         }
                     }
                     echo '<h3>Search Again</h3>';
                 }
             ?>
-            <p>Use the form below to find a volunteer or staff member account. At least one search criteria is required.</p>
+            <p>Use the form below to find a volunteer or staff member account. At least one search criterion is required.</p>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter the user's first and/or last name">
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
             <label for="id">E-mail</label>
-            <input type="text" id="id" name="id" placeholder="Enter the user's email address (login ID)">
+            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's email address (login ID)">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="Enter the user's phone number">
+            <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
             <label for="role">Role</label>
             <select id="role" name="role">
-                <option></option>
-                <option value="volunteer">Volunteer</option>
-                <option value="admin">Admin</option>
-                <option value="superadmin">Super Admin</option>
+                <option value="">Any</option>
+                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
+                <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected' ?>>Admin</option>
+                <option value="superadmin" <?php if (isset($role) && $role == 'superadmin') echo 'selected' ?>>Super Admin</option>
             </select>
+            <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
         </form>
     </body>

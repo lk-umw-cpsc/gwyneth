@@ -328,4 +328,15 @@ $(function() {
             $('#post-url').focus();
         }
     });
+    // Person search
+    $('form#person-search').submit(function(e) {
+        let name = $('#name').val().trim();
+        let id = $('#id').val().trim();
+        let phone = $('#phone').val().trim();
+        let role = $('#role').val().trim();
+        if (!(name || id || phone || role)) {
+            $('#criteria-error').removeClass('hidden');
+            e.preventDefault();
+        }
+    });
 });
