@@ -529,6 +529,14 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $result;
     }
 
+    /**
+     * Searches the database and returns an array of all volunteers
+     * that are eligible to attend the given event that have not yet
+     * signed up/been assigned to the event.
+     * 
+     * Eligibility criteria: availability falls within event start/end time
+     * and start date falls before or on the volunteer's start date.
+     */
     function get_unassigned_available_volunteers($eventID) {
         $connection = connect();
         $query = "select * from dbEvents where id='$eventID'";
