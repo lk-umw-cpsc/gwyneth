@@ -219,7 +219,11 @@
             if (!$result) {
                 echo '<p>That e-mail address is already in use.</p>';
             } else {
-                echo '<script>document.location = "login.php?registerSuccess";</script>';
+                if ($loggedIn) {
+                    echo '<script>document.location = "index.php?registerSuccess";</script>';
+                } else {
+                    echo '<script>document.location = "login.php?registerSuccess";</script>';
+                }
             }
         } else {
             require_once('registrationForm.php'); 

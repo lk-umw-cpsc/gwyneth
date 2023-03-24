@@ -27,6 +27,8 @@
         <main class='dashboard'>
             <?php if (isset($_GET['pcSuccess'])): ?>
                 <div class="happy-toast">Password changed successfully!</div>
+            <?php elseif (isset($_GET['registerSuccess'])): ?>
+                <div class="happy-toast">Volunteer registered successfully!</div>
             <?php endif ?>
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
