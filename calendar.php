@@ -12,14 +12,13 @@
 
     // Redirect to current month
     if (!isset($_GET['month'])) {
-        header('Location: calendar.php?month=' . date("Y-m"));
-        die();
+        $month = date("Y-m");
+    } else {
+        $month = $_GET['month'];
     }
 
     $today = strtotime(date("Y-m-d"));
 
-    // Fetch month from URL
-    $month = $_GET['month'];
     $first = $month . '-01';
     // Convert to date
     $month = strtotime($month);
@@ -31,6 +30,7 @@
     // Validate; redirect if bad arg given
     if (!$month) {
         header('Location: calendar.php?month=' . date("Y-m"));
+        die();
     }
     $calendarStart = $first;
     // Back up until we find the first Sunday that should appear on the calendar
@@ -55,7 +55,10 @@
                 <img id="next-month-button" src="images/arrow-forward.png" data-month="<?php echo date("Y-m", $nextMonth); ?>">
             </h1>
             <!-- <input type="date" id="month-jumper" value="<?php echo date('Y-m-d', $month); ?>" min="2023-01-01"> -->
-            <div id="table-wrapper">
+            <?php if (isset($_GET['deleteSuccess'])) : ?>
+                <div class="happy-toast">Event deleted successfully.</div>
+            <?php endif ?>
+            <div class="table-wrapper">
                 <table id="calendar">
                     <thead>
                         <tr>
