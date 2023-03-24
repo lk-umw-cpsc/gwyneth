@@ -92,9 +92,9 @@
         return filter_var($email, FILTER_VALIDATE_EMAIL);
     }
 
-    function wereRequiredFieldsSubmitted($args, $fieldsRequired) {
+    function wereRequiredFieldsSubmitted($args, $fieldsRequired, $blankOkay=true) {
         foreach ($fieldsRequired as $field) {
-            if (!isset($args[$field]) || !$args[$field]) {
+            if (!isset($args[$field]) || (!$args[$field] && !$blankOkay)) {
                 return false;
             }
         }

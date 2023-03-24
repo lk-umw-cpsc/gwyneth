@@ -565,4 +565,62 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($connection);
         return $thePersons;
     }
+
+    function find_users($name, $id, $phone, $type) {
+        $where = 'where ';
+        if (!($name || $id || $phone || $type)) {
+            return [];
+        }
+        $first = true;
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= "first_name like '%$first%' and last_name like '%$last%'";
+            } else {
+                $where .= "(first_name like '%$name%' or last_name like '%$name%')";
+            }
+            $first = false;
+        }
+        if ($id) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "id like '%$id%'";
+            $first = false;
+        }
+        if ($phone) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "phone1 like '%$phone%'";
+            $first = false;
+        }
+        if ($type) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "type='$type'";
+            $first = false;
+        }
+        $query = "select * from dbPersons $where";
+        // echo $query;
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+        }
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $persons = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $persons []= make_a_person($row);
+        }
+        mysqli_close($connection);
+        return $persons;
+    }
 ?>
