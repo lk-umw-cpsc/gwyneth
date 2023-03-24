@@ -170,44 +170,27 @@ function update_birthday($id, $new_birthday) {
 	return $result;
 }
 
+/*
+ * Returns the age of the person by subtracting the 
+ * person's birthday from the current date
+*/
+
+function get_age($birthday) {
+
+  $today = date("Ymd");
+  // If month-day is before the person's birthday,
+  // subtract 1 from current year - birth year
+  $age = date_diff(date_create($birthday), date_create($today))->format('%y');
+
+  return $age;
+}
+
 function update_start_date($id, $new_start_date) {
 	$con=connect();
 	$query = 'UPDATE dbPersons SET start_date = "' . $new_start_date . '" WHERE id = "' . $id . '"';
 	$result = mysqli_query($con,$query);
 	mysqli_close($con);
 	return $result;
-}
-
-function update_type($id, $role) {
-	$con=connect();
-	$query = 'UPDATE dbPersons SET type = "' . $role . '" WHERE id = "' . $id . '"';
-	$result = mysqli_query($con,$query);
-	mysqli_close($con);
-	return $result;
-}
-
-function update_status($id, $new_status){
-    $con=connect();
-    $query = 'UPDATE dbPersons SET status = "' . $new_status . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-function update_notes($id, $new_notes){
-    $con=connect();
-    $query = 'UPDATE dbPersons SET notes = "' . $new_notes . '" WHERE id = "' . $id . '"';
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
-}
-
-function get_dbtype($id) {
-    $con=connect();
-    $query = "SELECT type FROM dbPersons";
-    $query.= " WHERE id = '" .$id. "'"; 
-    $result = mysqli_query($con,$query);
-    mysqli_close($con);
-    return $result;
 }
 
 /*

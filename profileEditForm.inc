@@ -2,10 +2,9 @@
     require_once('domain/Person.php');
     require_once('database/dbPersons.php');
     require_once('include/output.php');
-    $isAdmin = false;
+
     if ($_SESSION['access_level'] >= 2 && isset($_GET['id'])) {
         $id = $_GET['id'];
-	$isAdmin = true;
         // Check to see if user is a lower-level manager here
     } else {
         $id = $_SESSION['_id'];
@@ -28,7 +27,7 @@
     <?php endif ?>
     <form class="signup-form" method="post">
         <br>
-	    <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
+	<p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
         <fieldset>
             <legend>Personal Information</legend>
             <p>The following information helps us identify you within our system.</p>

@@ -9,9 +9,8 @@
         die();
     }
     require_once('include/input-validation.php');
-  
-    if (isset($_GET["id"])) {
-        $args = sanitize($_GET);
+    $args = sanitize($_GET);
+    if (isset($args["id"])) {
         $id = $args["id"];
     } else {
         header('Location: calendar.php');
@@ -335,8 +334,9 @@
                             ' '.
                             $person->get_last_name().
                             '</span>'.
-                            '<form class="remove-person" method="POST">'.
+                            '<form class="remove-person" method="GET">'.
                             '<input type="hidden" name="request_type" value="remove" />'.
+                            '<input type="hidden" name="id" value="'.$id.'">'.
                             '<input type="hidden" name="selected_removal_id" value='.
                             $person->get_id().' />'.
                             '<input class="stripped" type="submit" value="Remove" />'.
@@ -360,8 +360,9 @@
             if ($remaining_slots > 0) {
                 if (!$already_assigned) {
                     echo '
-                        <form method="POST">
-                            <input type="hidden" name="request_type" value="add">
+                        <form method="GET">
+                            <input type="hidden" name="request_type" value="add self">
+                            <input type="hidden" name="id" value="'.$id.'">
                             <input type="hidden" name="selected_id" value="' . $_SESSION['_id'] . '">
                             <input type="submit" value="Sign Up">
                         </form>
@@ -378,8 +379,9 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    echo '<form method="POST" class="standout">';
-                    echo '<input type=hidden name="request_type" value="add">';
+                    echo '<form method="GET" class="standout">';
+                    echo '<input type=hidden name="request_type" value="add another">';
+                    echo '<input type="hidden" name="id" value="'.$id.'">';
                     echo '<label for="volunteer-select">Assign Volunteer:</label>';
                     echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
                     $all_volunteers = get_unassigned_available_volunteers($id);

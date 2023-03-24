@@ -50,7 +50,7 @@
                     } else if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else {
-                        echo "<h3>Seach Results</h3>";
+                        echo "<h3>Search Results</h3>";
                         $persons = find_users($name, $id, $phone, $role);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
