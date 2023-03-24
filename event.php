@@ -37,89 +37,106 @@
     ini_set("display_errors",1);
     error_reporting(E_ALL);
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (isset($_POST['request_type'])) {
-            $request_type = $_POST['request_type'];
-            $eventID = $_GET["id"];
-
-            if ($request_type == 'add') {
-                $volunteerID = $_POST['selected_id'];
-                update_event_volunteer_list($eventID, $volunteerID);
-            }
-            if ($request_type == 'remove') {
-                $volunteerID = $_POST['selected_removal_id'];
-                remove_volunteer_from_event($eventID, $volunteerID);
-            }
-        } else {
-            $args = sanitize($_POST);
-            $get = sanitize($_GET);
-            if (isset($_POST['attach-post-media-submit'])) {
-                if ($access_level < 2) {
-                    echo 'forbidden';
-                    die();
-                }
-                $required = [
-                    'url', 'description', 'format', 'id'
-                ];
-                if (!wereRequiredFieldsSubmitted($args, $required)) {
-                    echo "dude, args missing";
-                    die();
-                }
-                $type = 'post';
-                $format = $args['format'];
-                $url = $args['url'];
-                if ($format == 'video') {
-                    $url = convertYouTubeURLToEmbedLink($url);
-                    if (!$url) {
-                        echo "bad video link";
-                        die();
-                    }
-                } else if (!validateURL($url)) {
-                    echo "bad url";
-                    die();
-                }
-                $eid = $args['id'];
-                $description = $args['description'];
-                if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
-                    echo "dude, bad format";
-                    die();
-                }
-                attach_post_event_media($eid, $url, $format, $description);
-                header('Location: event.php?id=' . $id . '&attachSuccess');
+        $args = sanitize($_POST);
+        $get = sanitize($_GET);
+        if (isset($_POST['attach-post-media-submit'])) {
+            if ($access_level < 2) {
+                echo 'forbidden';
                 die();
             }
-			if (isset($_POST['attach-training-media-submit'])) {
-                if ($access_level < 2) {
-                    echo 'forbidden';
+            $required = [
+                'url', 'description', 'format', 'id'
+            ];
+            if (!wereRequiredFieldsSubmitted($args, $required)) {
+                echo "dude, args missing";
+                die();
+            }
+            $type = 'post';
+            $format = $args['format'];
+            $url = $args['url'];
+            if ($format == 'video') {
+                $url = convertYouTubeURLToEmbedLink($url);
+                if (!$url) {
+                    echo "bad video link";
                     die();
                 }
-                $required = [
-                    'url', 'description', 'format', 'id'
-                ];
-                if (!wereRequiredFieldsSubmitted($args, $required)) {
-                    echo "dude, args missing";
+            } else if (!validateURL($url)) {
+                echo "bad url";
+                die();
+            }
+            $eid = $args['id'];
+            $description = $args['description'];
+            if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
+                echo "dude, bad format";
+                die();
+            }
+            attach_post_event_media($eid, $url, $format, $description);
+            header('Location: event.php?id=' . $id . '&attachSuccess');
+            die();
+        }
+        if (isset($_POST['attach-training-media-submit'])) {
+            if ($access_level < 2) {
+                echo 'forbidden';
+                die();
+            }
+            $required = [
+                'url', 'description', 'format', 'id'
+            ];
+            if (!wereRequiredFieldsSubmitted($args, $required)) {
+                echo "dude, args missing";
+                die();
+            }
+            $type = 'post';
+            $format = $args['format'];
+            $url = $args['url'];
+            if ($format == 'video') {
+                $url = convertYouTubeURLToEmbedLink($url);
+                if (!$url) {
+                    echo "bad video link";
                     die();
                 }
-                $type = 'post';
-                $format = $args['format'];
-                $url = $args['url'];
-                if ($format == 'video') {
-                    $url = convertYouTubeURLToEmbedLink($url);
-                    if (!$url) {
-                        echo "bad video link";
-                        die();
-                    }
-                } else if (!validateURL($url)) {
-                    echo "bad url";
-                    die();
-                }
-                $eid = $args['id'];
-                $description = $args['description'];
-                if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
-                    echo "dude, bad format";
-                    die();
-                }
-                attach_event_training_media($eid, $url, $format, $description);
-                header('Location: event.php?id=' . $id . '&attachSuccess');
+            } else if (!validateURL($url)) {
+                echo "bad url";
+                die();
+            }
+            $eid = $args['id'];
+            $description = $args['description'];
+            if (!valueConstrainedTo($format, ['link', 'video', 'picture'])) {
+                echo "dude, bad format";
+                die();
+            }
+            attach_event_training_media($eid, $url, $format, $description);
+            header('Location: event.php?id=' . $id . '&attachSuccess');
+            die();
+        }
+    } else {
+        if (isset($args["request_type"])) {
+            //if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $request_type = $args['request_type'];
+            if (!valueConstrainedTo($request_type, 
+                    array('add self', 'add another', 'remove'))) {
+                echo "Bad request";
+                die();
+            }
+            $eventID = $args["id"];
+    
+            // Check if Get request from user is from an organization member
+            // (volunteer, admin/super admin)
+            if ($request_type == 'add self' && $access_level >= 1) {
+                $volunteerID = $args['selected_id'];
+                update_event_volunteer_list($eventID, $volunteerID);
+    
+            // Check if GET request from user is from an admin/super admin
+            // (Only admins and super admins can add another user)
+            } else if ($request_type == 'add another' && $access_level > 1) {
+                $volunteerID = $args['selected_id'];
+                update_event_volunteer_list($eventID, $volunteerID);
+    
+            } else if ($request_type == 'remove' && $access_level > 1) {
+                $volunteerID = $args['selected_removal_id'];
+                remove_volunteer_from_event($eventID, $volunteerID);
+            } else {
+                header('Location: event.php?id='.$eventID);
                 die();
             }
         }
