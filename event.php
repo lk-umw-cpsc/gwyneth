@@ -409,11 +409,12 @@
 
     ?>
 
-        <?php
-            if ($access_level >= 2) {
-                echo '<a href="event.php" class="button">Delete Event</a>';
-            }
-        ?>
+        <?php if ($access_level >= 2) : ?>
+            <form method="post" action="deleteEvent.php">
+                <input type="submit" value="Delete Event">
+                <input type="hidden" name="id" value="<?= $id ?>">
+            </form>
+        <?php endif ?>
 
         <!-- Talk about doing volunteer registration on same page -->
         <!-- <a href="eventRegister.php" class="button">
