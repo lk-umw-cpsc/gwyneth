@@ -45,6 +45,7 @@
         <?php require('universal.inc'); ?>
         <script src="js/calendar.js"></script>
         <title>Gwyneth's Gift VMS | Events Calendar</title>
+        <style>.happy-toast { margin: 0 1rem 1rem 1rem; }</style>
     </head>
     <body>
         <?php require('header.php'); ?>
