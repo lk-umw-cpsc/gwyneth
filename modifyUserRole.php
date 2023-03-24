@@ -144,7 +144,7 @@
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">';
                         echo '<label for="makeInactive">  Inactive</label><br><br>';
-                    } elseif ($currentStatus = "Inactive") {
+                    } elseif ($currentStatus == "Inactive") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>';
