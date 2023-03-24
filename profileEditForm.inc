@@ -14,12 +14,17 @@
 ?>
 <h1>Manage Profile</h1>
 <main class="signup-form">
-        
-    <form class = "modify-access" method = "post">
-	<input type="hidden" name="id" value="<?php echo $id; ?>">
-        <input type="submit" name="modify_access" value="Modify User Access">
-    </form>
-
+    
+    <?php if ($isAdmin) : ?>
+    	<form class = "modify-access" method = "post">
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="modify_access" value="Modify User Access">
+    	</form>
+    <?php endif ?>
+    <?php if ($id == 'vmsroot') : ?>
+        <div class="error-toast">The root user profile cannot be modified</div></main></body>
+        <?php die() ?>
+    <?php endif ?>
     <form class="signup-form" method="post">
         <br>
 	<p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
@@ -43,7 +48,6 @@
             <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
 
             <label for="state"><em>* </em>State</label>
-            <!-- Need to select this one...-->
             <select id="state" name="state" required>
                 <?php
                     $state = $person->get_state();

@@ -1,145 +1,111 @@
 <?php
-    if ($_SERVER['SERVER_NAME'] != 'localhost') {
-        echo "This page is unstable and currently disabled.";
+    // Template for new VMS pages. Base your new page on this one
+
+    // Make session information accessible, allowing us to associate
+    // data with the logged-in user.
+    session_cache_expire(30);
+    session_start();
+
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    }
+    // admin-only access
+    if ($accessLevel < 2) {
+        header('Location: index.php');
         die();
     }
-/*
- * Copyright 2015 by Allen Tucker. This program is part of RMHP-Homebase, which is free 
- * software.  It comes with absolutely no warranty. You can redistribute and/or 
- * modify it under the terms of the GNU General Public License as published by the 
- * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
- */
-/* 
- * Modified by Xun Wang on Feb 25, 2015
- */
-
-session_start();
-session_cache_expire(30);
 ?>
+<!DOCTYPE html>
 <html>
     <head>
-        <title>
-            Search for People
-        </title>
-        <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
-        <link rel="stylesheet" href="styles.css" type="text/css" />
-		<link rel="stylesheet" href="lib/jquery-ui.css" />
-        <?php require('universal.inc') ?>
-		
+        <?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS | User Search</title>
     </head>
-    <body style="background-color: rgb(250, 249, 246);">
-        <div class="container-fluid" id="container">
-            <?PHP include('header.php'); ?>
-            <div class="container-fluid" id="content">
-                <?PHP
-                // display the search form
-                if (isset($_GET['area'])) {
-                    $area = $_GET['area'];
-                } else {
-                    $area = '';
-                }
-                echo('<form method="post">');
-                echo('<p><strong>Search for volunteers:</strong>');
-                $types = array('volunteer' => 'Volunteer', 'manager' => 'Manager');
-                echo '<p>Type:<select class="form-select-sm" name="s_type">' ;
-                echo '<option value="" SELECTED></option>' ;
-                foreach ($types as $type => $typename)
-                	echo '<option value="'.$type.'">'.$typename.'</option>';
-                
-                echo '</select>';
-                echo('&nbsp;&nbsp;Status:<select class="form-select-sm" name="s_status">' .
-                '<option value="" SELECTED></option>' . '<option value="applicant">Applicant</option>' . '<option value="active">Active</option>' .
-                '<option value="LOA">On Leave</option>' . '<option value="former">Former</option>' .
-                '</select>');
-                echo '<p>Name (type a few letters): ';
-                echo '<input class="form-control-sm" type="text" name="s_name">';
-
-                echo '<fieldset>
-						<legend>Availability: </legend>
-							<table><tr>
-								<td>Day (of week)</td>
-								<td>Shift</td>
-								</tr>';
-                echo "<tr>";
-                echo "<td>";
-                $days = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-                echo '<select class="form-select-sm" name="s_day">' . '<option value=""></option>';
-                foreach ($days as $day) {
-                    echo '<option value="' . $day . '">' . $day . '</option>';
-                }
-                echo '</select>';
-                echo "</td><td>";
-                $shifts = array('9-12' => '9am-12pm', '12-3' => '12pm-3pm', '3-6' => '3pm-6pm',
-                    '6-9' => '6pm-9pm', 'night' => "Overnight");
-                echo '<select class="form-select-sm" name="s_shift">' . '<option value=""></option>';
-                foreach ($shifts as $shiftno => $shiftname) {
-                    echo '<option value="' . $shiftno . '">' . $shiftname . '</option>';
-                }
-                echo '</select>';
-                echo "</tr>";
-                echo '</table></fieldset>';
-
-                echo('<p><input class="btn btn-success" type="submit" name="Search" value="Search">');
-                echo('</form></p>');
-
-                // if user hit "Search"  button, query the database and display the results
-                if (isset($_POST['Search'])) {
-                    $type = $_POST['s_type'];
-                    $status = $_POST['s_status'];
-                    $name = trim(str_replace('\'', '&#39;', htmlentities($_POST['s_name'])));
-                    // now go after the volunteers that fit the search criteria
-                    include_once('database/dbPersons.php');
-                    include_once('domain/Person.php');
-                    $result = getonlythose_dbPersons($type, $status, $name, $_POST['s_day'], $_POST['s_shift'], $_SESSION['venue']); //added s_venue
-                    echo '<p><strong>Search Results:</strong> <p>Found ' . sizeof($result) . ' ' . $status . ' ';
-                    if ($type != "")
-                        echo $type . "s";
-                    else
-                        echo "persons";
-                    if ($name != "")
-                        echo ' with name like "' . $name . '"';
-                    $availability = $_POST['s_day'] ." ". $_POST['s_shift'] ; //added s_venue 
-                    if ($availability != " ") {
-                        echo " with availability " . $availability;
+    <body>
+        <?php require_once('header.php') ?>
+        <h1>User Search</h1>
+        <form id="person-search" class="general" method="get">
+            <h2>Find User</h2>
+            <?php 
+                if (isset($_GET['name'])) {
+                    require_once('include/input-validation.php');
+                    require_once('database/dbPersons.php');
+                    $args = sanitize($_GET);
+                    $required = ['name', 'id', 'phone', 'role'];
+                    if (!wereRequiredFieldsSubmitted($args, $required, true)) {
+                        echo 'Missing expected form elements';
                     }
-				    if (sizeof($result) > 0) {
-				       echo ' (select one for more info).';
-				       echo '<div class="overflow-auto" id="target" style="width: variable; height: 400px;">';
-				       echo '<p><table class="table table-info table-responsive table-striped-columns table-hover table-bordered"> <tr><td>Name</td><td>Phone</td>
-				                            <td>E-mail</td><td>Availability</td></tr>';
-				       foreach ($result as $vol) {
-				          echo "<tr><td><a href=editProfile.php?id=" . 
-				               str_replace(" ","_",$vol->get_id()) . ">" .
-				               $vol->get_first_name() . " " . $vol->get_last_name() . "</td><td>" .
-				               phone_edit($vol->get_phone1()) . "</td><td>" .
-				               $vol->get_email() . "</td><td>";
-				          // little algorithm added to trim venue off of availability when displayed in search
-				          foreach ($vol->get_availability() as $availableon) {
-				               $count = 0;
-				               $stop = 0;
-				               while (true){
-				                    if ($availableon[$count] == ":"){
-				                        $stop = $stop + 1;
-				                        if ($stop == 2){
-				                            break;
-				                        }
-				                    }
-				                    echo ($availableon[$count]);
-				                    $count = $count + 1;
-				               }
-				               echo (", ");
-				          }
-				          echo "</td></a></tr>";
-				       }
-				       echo '</table>';
-				       echo '</div>';   
-				    }
-				               
+                    $name = $args['name'];
+                    $id = $args['id'];
+                    $phone = preg_replace("/[^0-9]/", "", $args['phone']);
+                    $role = $args['role'];
+                    if (!($name || $id || $phone || $role)) {
+                        echo '<div class="error-toast">At least one search criterion is required.</div>';
+                    } else if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
+                        echo '<div class="error-toast">The system did not understand your request.</div>';
+                    } else {
+                        echo "<h3>Search Results</h3>";
+                        $persons = find_users($name, $id, $phone, $role);
+                        require_once('include/output.php');
+                        if (count($persons) > 0) {
+                            echo '
+                            <div class="table-wrapper">
+                                <table class="general">
+                                    <thead>
+                                        <tr>
+                                            <th>First</th>
+                                            <th>Last</th>
+                                            <th>E-mail</th>
+                                            <th>Phone Number</th>
+                                            <th>Role</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="standout">';
+                            foreach ($persons as $person) {
+                                echo '
+                                        <tr>
+                                            <td>' . $person->get_first_name() . '</td>
+                                            <td>' . $person->get_last_name() . '</td>
+                                            <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
+                                            <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
+                                            <td>' . ucfirst($person->get_type()[0]) . '</td>
+                                            <td><a href="editProfile.php?id=' . $person->get_id() . '">Manage</a></td>
+                                        </a></tr>';
+                            }
+                            echo '
+                                    </tbody>
+                                </table>
+                            </div>';
+                        } else {
+                            echo '<div class="error-toast">Your search returned no results.</div>';
+                        }
+                    }
+                    echo '<h3>Search Again</h3>';
                 }
-                ?>
-                </div>
-        </div>
-        <?PHP include('footer.inc'); ?>
+            ?>
+            <p>Use the form below to find a volunteer or staff member account. At least one search criterion is required.</p>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
+            <label for="id">E-mail</label>
+            <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's email address (login ID)">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
+            <label for="role">Role</label>
+            <select id="role" name="role">
+                <option value="">Any</option>
+                <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
+                <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected' ?>>Admin</option>
+                <option value="superadmin" <?php if (isset($role) && $role == 'superadmin') echo 'selected' ?>>Super Admin</option>
+            </select>
+            <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
+            <input type="submit" value="Search">
+        </form>
     </body>
 </html>
-

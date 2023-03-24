@@ -9,6 +9,19 @@ function scrollIntoView(element) {
     });
 }
 
+/*
+    Adapted from https://stackoverflow.com/a/43467144
+*/
+function isValidURL(string) {
+    let url;
+    try {
+      url = new URL(string);
+    } catch (_) {
+      return false;
+    }
+    return true;
+  }
+
 function time12hTo24h(time) {
     time = time.toLowerCase();
     let pattern = /^([1-9]|1[0-2]):([0-5][0-9]) ?([ap]m)$/i;
@@ -249,6 +262,81 @@ $(function() {
             $('#password-match-error').addClass('hidden');
         } else {
             $('#password-match-error').removeClass('hidden');
+        }
+    });
+	
+	// Event training media
+    $('#attach-training-media').click(function() {
+        let form = $('#attach-training-media-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Attach Event Training Media');
+            form.addClass('hidden');
+        }
+    });
+    // Post-event media
+    $('#attach-post-media').click(function() {
+        let form = $('#attach-post-media-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Attach Post-Event Media');
+            form.addClass('hidden');
+        }
+    });
+    $('#url').blur(function() {
+        let val = $(this).val();
+        if (isValidURL(val)) {
+            $('#url-error').addClass('hidden');
+            return;
+        }
+        val = 'https://' + val;
+        if (isValidURL(val)) {
+            $(this).val(val);
+            $('#url-error').addClass('hidden');
+            return;
+        }
+        $('#url-error').removeClass('hidden');
+    });
+    $('#post-url').blur(function() {
+        let val = $(this).val();
+        if (isValidURL(val)) {
+            $('#post-url-error').addClass('hidden');
+            return;
+        }
+        val = 'https://' + val;
+        if (isValidURL(val)) {
+            $(this).val(val);
+            $('#post-url-error').addClass('hidden');
+            return;
+        }
+        $('#post-url-error').removeClass('hidden');
+    });
+    $('#attach-training-media-form').submit(function(e) {
+        if (!isValidURL($('#url').val())) {
+            e.preventDefault();
+            $('#url-error').removeClass('hidden');
+            $('#url').focus();
+        }
+    });
+    $('#attach-post-media-form').submit(function(e) {
+        if (!isValidURL($('#post-url').val())) {
+            e.preventDefault();
+            $('#post-url').focus();
+        }
+    });
+    // Person search
+    $('form#person-search').submit(function(e) {
+        let name = $('#name').val().trim();
+        let id = $('#id').val().trim();
+        let phone = $('#phone').val().trim();
+        let role = $('#role').val().trim();
+        if (!(name || id || phone || role)) {
+            $('#criteria-error').removeClass('hidden');
+            e.preventDefault();
         }
     });
 });

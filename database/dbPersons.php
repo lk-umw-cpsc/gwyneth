@@ -512,6 +512,14 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $result;
     }
 
+    /**
+     * Searches the database and returns an array of all volunteers
+     * that are eligible to attend the given event that have not yet
+     * signed up/been assigned to the event.
+     * 
+     * Eligibility criteria: availability falls within event start/end time
+     * and start date falls before or on the volunteer's start date.
+     */
     function get_unassigned_available_volunteers($eventID) {
         $connection = connect();
         $query = "select * from dbEvents where id='$eventID'";
@@ -524,14 +532,16 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $event_start = $event['startTime'];
         $event_end = $event['startTime'];
         $date = $event['date'];
-        $date = strtotime($date);
-        $dayofweek = strtolower(date('l', $date));
+        $dateInt = strtotime($date);
+        $dayofweek = strtolower(date('l', $dateInt));
         $dayname_start = $dayofweek . 's_start';
         $dayname_end = $dayofweek . 's_end';
         $query = "select * from dbPersons
             where 
             $dayname_start<='$event_start' and $dayname_end>='$event_end'
+            and start_date<='$date'
             and id != 'vmsroot' 
+            and status='Active'
             and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
         $result = mysqli_query($connection, $query);
         if ($result == null || mysqli_num_rows($result) == 0) {
@@ -545,5 +555,63 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         }
         mysqli_close($connection);
         return $thePersons;
+    }
+
+    function find_users($name, $id, $phone, $type) {
+        $where = 'where ';
+        if (!($name || $id || $phone || $type)) {
+            return [];
+        }
+        $first = true;
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= "first_name like '%$first%' and last_name like '%$last%'";
+            } else {
+                $where .= "(first_name like '%$name%' or last_name like '%$name%')";
+            }
+            $first = false;
+        }
+        if ($id) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "id like '%$id%'";
+            $first = false;
+        }
+        if ($phone) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "phone1 like '%$phone%'";
+            $first = false;
+        }
+        if ($type) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "type='$type'";
+            $first = false;
+        }
+        $query = "select * from dbPersons $where order by last_name, first_name";
+        // echo $query;
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+        }
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $persons = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $persons []= make_a_person($row);
+        }
+        mysqli_close($connection);
+        return $persons;
     }
 ?>
