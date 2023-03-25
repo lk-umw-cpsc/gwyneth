@@ -45,7 +45,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS</title>
+        <title>Gwyneth's Gift VMS | Modify User Access</title>
         <style>
             .modUser{
                 display: flex;

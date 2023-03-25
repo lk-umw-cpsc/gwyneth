@@ -78,7 +78,7 @@ $(function() {
 });
 </script>
 	<?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS</title>
+        <title>Gwyneth's Gift VMS | Reports</title>
         <style>
             .report_select{
                 display: flex;
