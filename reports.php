@@ -18,16 +18,17 @@
 session_cache_expire(30);
 session_start();
 
-include_once('header.php'); 
+include_once('database/dbinfo.php');
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
+include_once('database/dbEvents.php');
+
 include_once('database/dbShifts.php');
 include_once('domain/Shift.php');
 ?>
 
 <html>
 <head>
-<title>Search for data objects</title>	
 <!-- <link rel="stylesheet" href="lib\bootstrap\css\bootstrap.css" type="text/css" /> -->
 <!-- <link rel="stylesheet" href="styles.css" type="text/css" /> -->
 <!-- <link rel="stylesheet" href="lib/jquery-ui.css" /> -->
@@ -76,8 +77,8 @@ $(function() {
 	
 });
 </script>
- <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | Template Page</title>
+	<?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS</title>
         <style>
             .report_select{
                 display: flex;

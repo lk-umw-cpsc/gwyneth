@@ -6,8 +6,12 @@
  * modify it under the terms of the GNU General Public License as published by the 
  * Free Software Foundation (see <http://www.gnu.org/licenses/ for more information).
  */
+
+include_once('dbinfo.php');
 include_once('database/dbPersons.php');
 include_once('domain/Person.php');
+include_once('dbEvents.php');
+
 include_once('database/dbShifts.php');
 include_once('domain/Shift.php');
 
