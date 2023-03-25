@@ -15,8 +15,8 @@
  * @author Jerrick Hoang
  * @version 11/5/2013
  */
-session_start();
 session_cache_expire(30);
+session_start();
 
 include_once('header.php'); 
 include_once('database/dbPersons.php');
@@ -76,21 +76,44 @@ $(function() {
 	
 });
 </script>
-<?php require('universal.inc') ?>
-
+ <?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS | Template Page</title>
+        <style>
+            .report_select{
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                padding: 0 0 4rem 0;
+            }
+            @media only screen and (min-width: 1024px) {
+                .report_select {
+                    width: 50%;
+                }
+                main.reportSelection {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+            }
+        </style>
 </head>
 <body>
-<div id="container">
+ 	<?php require_once('header.php') ?>
+        <h1>Business and Operational Reports</h1>
+        <main class="reportSelection">
+            <form class="report_select" method="post">
+        <?php
+	//<div id="container">
 
-<div id = "content">
-<div>
-	<p id="search-fields-container">
-	<form id = "search-fields" method="post">
-		<p class = "search-description" id="today">
-		<?php date_default_timezone_set ("America/New_York");
+	//<div id = "content">
+	//<div>
+	//<p id="report-select-container">
+	//<form id = "search-fields" method="post">
+		//<p class = "search-description" id="today">
+		//<?php date_default_timezone_set ("America/New_York");
 		$venue = $_GET['venue'];
 		$venues = array('portland'=>"RMH Portland",'bangor'=>"RMH Bangor");
-		echo '<b>'." Gwyneth's Gifts Volunteer Reports</b><br>Today's date: ".date("F d, Y");
+		echo '<b>'." Gwyneth's Gift Reports</b><br>Today's date: ".date("F d, Y");
 		echo '</p>';
 		echo '<input type="hidden" name="_form_submit" value="report'.$venue.'" />';?>
 	<table>	<tr>
