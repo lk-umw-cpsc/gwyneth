@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 13, 2023 at 02:39 PM
+-- Generation Time: Mar 24, 2023 at 03:20 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -140,6 +140,21 @@ INSERT INTO `dbdates` (`id`, `shifts`, `mgr_notes`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dbEventMedia`
+--
+
+CREATE TABLE `dbEventMedia` (
+  `id` int(11) NOT NULL,
+  `eventID` int(11) NOT NULL,
+  `url` text NOT NULL,
+  `type` text NOT NULL,
+  `format` text NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dbEvents`
 --
 
@@ -160,10 +175,7 @@ CREATE TABLE `dbEvents` (
 --
 
 INSERT INTO `dbEvents` (`id`, `name`, `abbrevName`, `date`, `startTime`, `endTime`, `description`, `location`, `capacity`) VALUES
-(1, 'Event Test 1', 'Event 1', '2023-03-06', '11:00', '14:00', 'This is a test event :)', '111 College Ave, Fredericksburg, VA 22401', 5),
-(2, 'Event 2', 'Event 2', '2023-03-06', '12:00', '15:00', 'On y va dude', '1234 Yolo Street\r\nSwagville, TX 54321', 10),
-(4, 'Event 3', 'Event 3', '2023-03-15', '11:00', '12:00', 'please work my god', 'Fredericksburg, VA', 12),
-(7, 'asdasdfaslfkj', 'asdflasf', '2023-03-16', '12:00', '16:00', 'asdf', 'asdf', 20);
+(15, 'Test Event', 'Test', '2023-03-27', '12:00', '18:00', 'Hola', ':)', 4);
 
 -- --------------------------------------------------------
 
@@ -173,7 +185,7 @@ INSERT INTO `dbEvents` (`id`, `name`, `abbrevName`, `date`, `startTime`, `endTim
 
 CREATE TABLE `dbEventVolunteers` (
   `eventID` int(11) NOT NULL,
-  `userID` text NOT NULL
+  `userID` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -351,7 +363,7 @@ INSERT INTO `dbmasterschedule` (`venue`, `day`, `week_no`, `hours`, `slots`, `pe
 --
 
 CREATE TABLE `dbPersons` (
-  `id` text NOT NULL,
+  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `start_date` text DEFAULT NULL,
   `venue` text DEFAULT NULL,
   `first_name` text NOT NULL,
@@ -410,8 +422,9 @@ CREATE TABLE `dbPersons` (
 --
 
 INSERT INTO `dbPersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`, `address`, `city`, `state`, `zip`, `phone1`, `phone1type`, `phone2`, `phone2type`, `birthday`, `email`, `shirt_size`, `computer`, `camera`, `transportation`, `contact_name`, `contact_num`, `relation`, `contact_time`, `cMethod`, `position`, `credithours`, `howdidyouhear`, `commitment`, `motivation`, `specialties`, `convictions`, `type`, `status`, `availability`, `schedule`, `hours`, `notes`, `password`, `sundays_start`, `sundays_end`, `mondays_start`, `mondays_end`, `tuesdays_start`, `tuesdays_end`, `wednesdays_start`, `wednesdays_end`, `thursdays_start`, `thursdays_end`, `fridays_start`, `fridays_end`, `saturdays_start`, `saturdays_end`) VALUES
-('jdoe@umw.edu', '2023-03-03', 'portland', 'John', 'Doe', '123456 College Ave', 'Fredericksburg', 'VA', '22401', '5551234567', 'cellphone', '', '', '2000-01-01', 'jdoe@umw.edu', 'XL', '', '', '', 'Mom Doe', '1234567890', 'Mom, duh', 'Whenever you feel like it, really', 'phone', '', '', '', '', '', '&lt;script&gt;alert(&#039;if this works, we are vulnerable to XSS!&#039;);&lt;/script&gt;', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$SD9rYWp9tWGM88LnCh5ge.486qOjkRLM5mQ9hqrE3T9oKlmWlf13a', '08:00', '18:00', '', '', '', '', '', '', '', '', '', '', '', ''),
-('vmsroot', 'N/A', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'manager', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '$2y$10$RF8YNRfXWlylw6X7WAWXButYfMeuaAioa/vDqqjXP0PWb8KHteUny', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
+('jdoe@umw.edu', '2023-03-03', 'portland', 'John', 'Doe', '123456 College Ave', 'Fredericksburg', 'VA', '22401', '5551234567', 'cellphone', '', '', '2000-01-01', 'jdoe@umw.edu', 'XL', '', '', '', 'Mom Doe', '1234567890', 'Mom, duh', 'Whenever you feel like it, really', 'phone', '', '', '', '', '', '&lt;script&gt;alert(&#039;if this works, we are vulnerable to XSS!&#039;);&lt;/script&gt;', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$SD9rYWp9tWGM88LnCh5ge.486qOjkRLM5mQ9hqrE3T9oKlmWlf13a', '08:00', '18:00', '', '', '', '', '00:00', '23:59', '', '', '', '', '', ''),
+('lknight2@mail.umw.edu', '2023-03-21', 'portland', 'Lauren', 'Knight', '1234 Street St', 'Fredericksburg', 'VA', '22401', '5405555555', 'home', '', '', '1990-01-01', 'lknight2@mail.umw.edu', 'S', '1', '1', '1', 'Halulolo', '5555555555', 'That person', 'Days', 'phone', '', '', '', '', '', '', '', 'superadmin', 'Inactive', '', '', '', 'Volunteer', '$2y$10$28EB5VqpTe2.1ZfVN3B/8eoDfCjh8rX/XXIyW7gutbyCvRBJ7k0xS', '', '', '00:00', '23:59', '', '', '', '', '', '', '', '', '', ''),
+('vmsroot', 'N/A', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '$2y$10$SXBhB4A.TljRvR3KgxpDxOp86Rrg/UstwIRmANb1PhhgUX7PYCGzK', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -868,15 +881,35 @@ ALTER TABLE `dbdates`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `dbEventMedia`
+--
+ALTER TABLE `dbEventMedia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FKeventID2` (`eventID`);
+
+--
 -- Indexes for table `dbEvents`
 --
 ALTER TABLE `dbEvents`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `dbEventVolunteers`
+--
+ALTER TABLE `dbEventVolunteers`
+  ADD KEY `FKeventID` (`eventID`),
+  ADD KEY `FKpersonID` (`userID`);
+
+--
 -- Indexes for table `dbLog`
 --
 ALTER TABLE `dbLog`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `dbPersons`
+--
+ALTER TABLE `dbPersons`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -902,16 +935,39 @@ ALTER TABLE `dbweeks`
 --
 
 --
+-- AUTO_INCREMENT for table `dbEventMedia`
+--
+ALTER TABLE `dbEventMedia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
 -- AUTO_INCREMENT for table `dbEvents`
 --
 ALTER TABLE `dbEvents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `dbLog`
 --
 ALTER TABLE `dbLog`
   MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `dbEventMedia`
+--
+ALTER TABLE `dbEventMedia`
+  ADD CONSTRAINT `FKeventID2` FOREIGN KEY (`eventID`) REFERENCES `dbEvents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `dbEventVolunteers`
+--
+ALTER TABLE `dbEventVolunteers`
+  ADD CONSTRAINT `FKeventID` FOREIGN KEY (`eventID`) REFERENCES `dbEvents` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `FKpersonID` FOREIGN KEY (`userID`) REFERENCES `dbPersons` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
