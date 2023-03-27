@@ -87,3 +87,10 @@ td.label {
 .empty-slot, .inactive {
     color: var(--inactive-font-color);
 }
+
+/* print settings */
+@media print {
+  button {
+    visibility: hidden;
+  }
+}
