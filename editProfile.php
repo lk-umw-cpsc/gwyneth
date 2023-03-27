@@ -14,8 +14,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-        <?php require_once('universal.inc'); ?>
-        <title>Gwyneth's Gift VMS | Manage Profile</title>
+    <?php require_once('universal.inc'); ?>
+    <title>Gwyneth's Gift VMS | Manage Profile</title>
 </head>
 <body>
     <?php
@@ -23,7 +23,7 @@
 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["modify_access"]) && isset($_POST["id"])) {
             $id = $_POST['id'];
-            header("Location:/gwyneth/modifyUserRole.php?id=$id");
+            header("Location: /gwyneth/modifyUserRole.php?id=$id");
         } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
             require_once('domain/Person.php');
             require_once('database/dbPersons.php');
@@ -212,6 +212,7 @@
             }
 
         } else {
+            $isAdmin = $_SESSION['access_level'] >= 2;
             require_once('profileEditForm.inc');
         }
     ?>

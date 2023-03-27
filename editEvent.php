@@ -1,6 +1,4 @@
 <?php
-    // Template for new VMS pages. Base your new page on this one
-
     // Make session information accessible, allowing us to associate
     // data with the logged-in user.
     session_cache_expire(30);
@@ -45,7 +43,7 @@
             $endTime = $args['end-time'] = $validated[1];
             $date = $args['date'] = validateDate($args["date"]);
             $capacity = intval($args["capacity"]);
-            if (!$startTime || !$endTime || !$date || $capacity < 1){
+            if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20){
                 echo 'bad args';
                 die();
             }

@@ -5,7 +5,8 @@
     // data with the logged-in user.
     session_cache_expire(30);
     session_start();
-
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -15,6 +16,10 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+    require_once('include/input-validation.php');
+
+    $get = sanitize($_GET);
+    $id = $get['id'];
     // Is user authorized to view this page?
     if ($accessLevel < 2) {
         header('Location: index.php');
@@ -24,13 +29,37 @@
     if ($_SERVER["REQUEST_METHOD"] == "GET" && !isset($_GET['id'])) {
         header('Location: index.php');
         die();
+    } else if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        require_once('database/dbPersons.php');
+        $new_role = $_POST['s_role'];
+        if (empty($new_role)){
+            // echo "No new role selected";
+        }else{
+            update_type($id, $new_role);
+            $typeChange = true;
+            // echo "<meta http-equiv='refresh' content='0'>";
+        }
+        $new_status = $_POST['statsRadio'];
+        if (empty($new_status)){
+            // echo "No new status selected";
+        }else{
+            update_status($id, $new_status);
+            $statusChange = true;
+            // echo "<meta http-equiv='refresh' content='0'>";
+        }
+        $new_notes = $_POST['s_reason'];
+        if (empty($new_notes)){
+            // echo "No new notes selected";
+        }else{
+            update_notes($id, $new_notes);
+            $notesChange = true;
+            // echo "<meta http-equiv='refresh' content='0'>";
+        }
     }
-    require_once('include/input-validation.php');
 
     // Does the person exist?
     require_once('domain/Person.php');
     require_once('database/dbPersons.php');
-    $id = $_GET['id'];
     $thePerson = retrieve_person($id);
     if (!$thePerson) {
         echo "That user does not exist";
@@ -70,11 +99,9 @@
         <h1>Modify User Access</h1>
         <main class="user-role">
             <form class="modUser" method="post">
-	<?php	
-		if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["user_access_modified"]) && isset($_POST["id"])) {
-    			echo "<p>User's access is updated.";
-    }
-	?>
+                <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
+                    <div class="happy-toast">User's access is updated.</div>
+                <?php endif ?>
                 <div>
                     <label>Name:</label>
                     <span>
@@ -117,7 +144,7 @@
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">';
                         echo '<label for="makeInactive">  Inactive</label><br><br>';
-                    } elseif ($currentStatus = "Inactive") {
+                    } elseif ($currentStatus == "Inactive") {
                         echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
                         echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
                         echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>';
@@ -136,35 +163,6 @@
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
                 <input type="submit" name="user_access_modified" value="Update Access">
 		</form>
-		
-		<?php
-            if($_SERVER["REQUEST_METHOD"] == "POST"){
-                $new_role = $_POST['s_role'];
-                if (empty($new_role)){
-                    echo "No new role selected";
-                }else{
-                    update_type($id, $new_role);
-                    echo "<meta http-equiv='refresh' content='0'>";
-                }
-                $new_status = $_POST['statsRadio'];
-                if (empty($new_status)){
-                    echo "No new status selected";
-                }else{
-                    update_status($id, $new_status);
-                    echo "<meta http-equiv='refresh' content='0'>";
-                }
-                $new_notes = $_POST['s_reason'];
-                if (empty($new_notes)){
-                    echo "No new notes selected";
-                }else{
-                    update_notes($id, $new_notes);
-                    echo "<meta http-equiv='refresh' content='0'>";
-                }
-            }
-			//$roleResult = update_type($id, $typename);
-			//$statusResult = update_status($id, $currentStatus);
-			// print_r($_POST);
-		?>		
         </main>
     </body>
 </html>

@@ -65,6 +65,7 @@
         $permission_array['modifyuserrole.php'] = 2;
         $permission_array['addevent.php'] = 2;
         $permission_array['editevent.php'] = 2;
+        $permission_array['roster.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strpos($_SERVER['PHP_SELF'],"/")+1));
@@ -99,7 +100,7 @@
                 // echo('<li class="nav-item"><a class="nav-link active" aria-current="page" href="' . $path . 'help.php?helpPage=' . $current_page . '" target="_BLANK">Help</a></li>');
                 echo('<span class="nav-divider">|</span>');
                 echo('<span class="navbar-brand">Events</span>');
-                echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php?venue=portland'.''.'">Calendar</a></li>');
+                echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'calendar.php">Calendar</a></li>');
                 echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'eventSearch.php">Search</a></li>');
                 //echo('<button type="button" class="btn btn-link"><a href="' . $path . 'index.php" class="link-primary">home</a></button>');
 	        	//echo(' | <button type="button" class="btn btn-link"><a href="' . $path . 'about.php">about</a></button>');

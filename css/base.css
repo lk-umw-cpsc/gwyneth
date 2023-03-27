@@ -49,6 +49,15 @@ table, td, tr, th, form, fieldset, em, button, a {
     --inactive-background-color: #f0f0f0;
     --standout-background: #fafafa;
 
+    --happy-toast-background-color: #1a7024;
+    --happy-toast-font-color: white;
+
+    --info-toast-background-color: #2f2f2f;
+    --info-toast-font-color: white;
+
+    --error-toast-background-color: #701a1a;
+    --error-toast-font-color: white;
+
     --shadow-and-border-color: #e8e8e8;
 
     --main-color: #2f4159;
@@ -154,10 +163,6 @@ nav {
     /* box-shadow: 0px 3px 1rem var(--shadow-and-border-color); */
     border-bottom: 2px solid var(--shadow-and-border-color);
     max-width: 100vw;
-}
-
-body {
-    /* margin-top: 5rem; */
 }
 
 #vms-logo {
@@ -306,6 +311,11 @@ h2 {
     font-weight: 500;
 }
 
+h3 {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
 @media only screen and (max-width: 1079px) {
     :root {
         font-size: 16px;
@@ -323,7 +333,7 @@ h2 {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 .centered {
@@ -336,6 +346,32 @@ h2 {
 
 .no-span {
     width: auto;
+}
+
+.happy-toast {
+    background-color: var(--happy-toast-background-color);
+    color: var(--happy-toast-font-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.info-toast {
+    background-color: var(--info-toast-background-color);
+    color: var(--info-toast-font-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.error-toast {
+    background-color: var(--error-toast-background-color);
+    color: var(--error-toast-font-color);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    /* border: 1px solid var(--error-toast-font-color);
+    outline: 3px solid var(--error-toast-background-color) */
 }
 
 /* Calendar */
@@ -364,7 +400,7 @@ main.calendar-view th {
 
 @media only screen and (max-width: 900px) {
 
-    div#table-wrapper {
+    div#table-wrapper, div.table-wrapper {
         overflow-x: auto;
     }
 
@@ -441,6 +477,10 @@ h1.calendar-header a {
 }
 
 /* Dashboard */
+main.dashboard {
+    padding: 0 8rem 4rem 8rem;
+}
+
 main.dashboard > p {
     text-align: center;
     margin-bottom: 0.5rem;
@@ -451,7 +491,7 @@ main.dashboard > p {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    padding: 0 8rem 4rem 8rem;
+    /* padding: 0 8rem 4rem 8rem; */
     margin-top: 2rem;
     gap: 3rem;
     justify-content: center;
@@ -486,8 +526,11 @@ main.dashboard > p {
 }
 
 @media only screen and (max-width: 680px) {
-    #dashboard {
+    main.dashboard {
         padding: 1rem;
+
+    }
+    #dashboard {
         gap: 1rem;
     }
 
@@ -677,5 +720,74 @@ main.search-form form {
     }
     main.search-form > span {
         text-align: left;
+    }
+}
+
+/* Event page, event media */
+form.media-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#attach-post-media {
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block;
+}
+
+#attach-training-media {
+    text-align: center;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: block;
+}
+
+tr.media img {
+    max-width: 8rem;
+}
+
+/* General Use (used by User Search, ...) */
+main.general, form.general {
+    margin: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+table.general {
+    width: 100%;
+    padding-bottom: 1rem;
+}
+
+table.general th:first-of-type {
+    border-top-left-radius: .25rem;
+}
+
+table.general th:last-of-type {
+    border-top-right-radius: .25rem;
+}
+
+table.general th {
+    background-color: var(--main-color);
+    color: var(--button-font-color);
+    font-weight: 500;
+}
+
+table.general th, table.general td {
+    padding: 1rem;
+    white-space: nowrap;
+}
+
+.standout {
+    border-bottom: 3px solid var(--shadow-and-border-color);
+    padding: 1rem;
+    background-color: var(--standout-background);
+}
+
+@media only screen and (min-width: 1024px) {
+    main.general, form.general {
+        margin: 0rem 8rem 4rem 8rem;
     }
 }

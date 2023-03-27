@@ -44,7 +44,7 @@
             $endTime = $args['end-time'] = $validated[1];
             $date = $args['date'] = validateDate($args["date"]);
             $capacity = intval($args["capacity"]);
-            if (!$startTime || !$endTime || !$date || $capacity < 1){
+            if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20){
                 echo 'bad args';
                 die();
             }
@@ -53,7 +53,7 @@
                 echo "Oopsy!";
                 die();
             }
-            header("Location: event.php?id=$id");
+            header("Location: event.php?id=$id&createSuccess");
             die();
         }
     }

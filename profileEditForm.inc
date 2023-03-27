@@ -2,10 +2,9 @@
     require_once('domain/Person.php');
     require_once('database/dbPersons.php');
     require_once('include/output.php');
-    $isAdmin = false;
+
     if ($_SESSION['access_level'] >= 2 && isset($_GET['id'])) {
         $id = $_GET['id'];
-	$isAdmin = true;
         // Check to see if user is a lower-level manager here
     } else {
         $id = $_SESSION['_id'];
@@ -16,16 +15,21 @@
 <h1>Manage Profile</h1>
 <main class="signup-form">
     
-    <?php if ($isAdmin) : ?>
-    	<form class = "modify-access" method = "post">
-            <input type="hidden" name="id" value="<?php echo $id; ?>">
-            <input type="submit" name="modify_access" value="Modify User Access">
-    	</form>
+    <?php if ($isAdmin): ?>
+        <?php if ($id == 'vmsroot') : ?>
+            <div class="error-toast">The root user profile cannot be modified</div></main></body>
+            <?php die() ?>
+        <?php else: ?>
+            <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a>
+            <!-- <form class = "modify-access" method = "post">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="submit" name="modify_access" value="Modify User Access">
+            </form> -->
+        <?php endif ?>
     <?php endif ?>
-
     <form class="signup-form" method="post">
         <br>
-	    <p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
+	<p>An asterisk (<label><em>*</em></label>) indicates a required field.</p>
         <fieldset>
             <legend>Personal Information</legend>
             <p>The following information helps us identify you within our system.</p>
@@ -46,7 +50,6 @@
             <input type="text" id="city" name="city" value="<?php echo hsc($person->get_city()); ?>" required placeholder="Enter your city">
 
             <label for="state"><em>* </em>State</label>
-            <!-- Need to select this one...-->
             <select id="state" name="state" required>
                 <?php
                     $state = $person->get_state();

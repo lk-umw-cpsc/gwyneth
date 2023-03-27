@@ -62,28 +62,32 @@
         <h1>Event Search</h1>
         <main class="search-form">
             <?php
-                if ($events) {
+                if (isset($events)) {
                     echo '<h2>' . $search . '</h2>';
                     require_once('include/output.php');
-                    foreach ($events as $event) {
-                        $date = $event['date'];
-                        $date = strtotime($date);
-                        $date = date('l, F j, Y', $date);
-                        echo "
-                            <table class='event'>
-                                <thead>
-                                    <tr>
-                                        <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td>Date</td><td>" . $date . "</td></tr>
-                                    <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
-                                    <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
-                                    <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
-                                </tbody>
-                            </table>
-                        ";
+                    if (count($events) > 0) {
+                        foreach ($events as $event) {
+                            $date = $event['date'];
+                            $date = strtotime($date);
+                            $date = date('l, F j, Y', $date);
+                            echo "
+                                <table class='event'>
+                                    <thead>
+                                        <tr>
+                                            <th colspan='2' data-event-id='" . $event['id'] . "'>" . $event['name'] . "</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Date</td><td>" . $date . "</td></tr>
+                                        <tr><td>Time</td><td>" . time24hto12h($event['startTime']) . " - " . time24hto12h($event['endTime']) . "</td></tr>
+                                        <tr><td>Location</td><td>" . $event['location'] . "</td></tr>
+                                        <tr><td>Description</td><td>" . $event['description'] . "</td></tr>
+                                    </tbody>
+                                </table>
+                            ";
+                        }
+                    } else {
+                        echo '<div class="error-toast">Your search returned no results.</div>';
                     }
                 }
             ?>

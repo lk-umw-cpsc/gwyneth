@@ -65,7 +65,7 @@ li.remove-person {
     justify-content: center;
 }
 
-table {
+table, .standout {
     border-bottom: 3px solid var(--shadow-and-border-color);
     padding: 1rem;
     background-color: var(--standout-background);
