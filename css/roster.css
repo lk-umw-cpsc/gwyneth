@@ -90,7 +90,12 @@ td.label {
 
 /* print settings */
 @media print {
-  button, header {
+  header img[id='menu-toggle'], header ul, button {
     visibility: hidden;
+  }
+  .logo {
+    position: absolute;
+    top: 0%;
+    left: 5%;
   }
 }

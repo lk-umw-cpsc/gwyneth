@@ -47,6 +47,11 @@
         $access_level = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+
+    if ($access_level < 2) {
+      header('Location: event.php?id='.$id.'');
+      die();
+    }
 ?>
 
 <!DOCTYPE html>
