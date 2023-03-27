@@ -158,7 +158,7 @@
                     '</tr>'.
                     '<tr>'.
                         '<td class="label">Address:</td>'.
-                        '<td>'.$address.' '.$city.', '.$state.' '.$zip.'</td>'.
+                        '<td>'.$address.', '.$city.', '.$state.' '.$zip.'</td>'.
                     '</tr>'.
                     '<tr>'.
                         '<td class="label">Phone 1:</td>'.
