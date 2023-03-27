@@ -90,7 +90,7 @@ td.label {
 
 /* print settings */
 @media print {
-  button {
+  button, header {
     visibility: hidden;
   }
 }
