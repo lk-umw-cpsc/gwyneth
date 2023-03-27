@@ -71,6 +71,9 @@
         <h2><center> <?php echo $event_name ?></center></h2>
         
       <main class="event-info">
+        <div>
+          <button onClick="window.print()" >Print Page</button>
+        </div>
         <div id="table-wrapper">
             <table class="centered">
                 <tbody>
@@ -183,7 +186,6 @@
           }
 
         ?>
-
 
         </main>
     </body>
