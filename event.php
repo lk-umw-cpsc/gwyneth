@@ -391,6 +391,9 @@
             } else if ($already_assigned) {
                 echo '<div class="centered">You are signed up for this event!</div>';
             }
+            if ($access_level >= 2) {
+              echo '<br/><a href="roster.php?id='.$id.'" class="button">View Event Roster</a>';
+            }
         ?>
         </div>
         <?php

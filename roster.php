@@ -47,6 +47,11 @@
         $access_level = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+
+    if ($access_level < 2) {
+      header('Location: event.php?id='.$id.'');
+      die();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +76,9 @@
         <h2><center> <?php echo $event_name ?></center></h2>
         
       <main class="event-info">
+        <div>
+          <button onClick="window.print()" >Print Page</button>
+        </div>
         <div id="table-wrapper">
             <table class="centered">
                 <tbody>
@@ -155,7 +163,7 @@
                     '</tr>'.
                     '<tr>'.
                         '<td class="label">Address:</td>'.
-                        '<td>'.$address.' '.$city.', '.$state.' '.$zip.'</td>'.
+                        '<td>'.$address.', '.$city.', '.$state.' '.$zip.'</td>'.
                     '</tr>'.
                     '<tr>'.
                         '<td class="label">Phone 1:</td>'.
@@ -183,7 +191,6 @@
           }
 
         ?>
-
 
         </main>
     </body>

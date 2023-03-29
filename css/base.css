@@ -750,7 +750,7 @@ tr.media img {
 
 /* General Use (used by User Search, ...) */
 main.general, form.general {
-    margin: 0.5rem;
+    margin: 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
