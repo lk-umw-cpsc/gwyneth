@@ -99,7 +99,12 @@ $(function() {
         </style>
 </head>
 <body>
- 	<?php require_once('header.php') ?>
+ 	<?php require_once('header.php');
+	if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["go_to_reports_page"]) && isset($_POST["report_types"])) {
+		$type = $_POST['report_type'];
+		header("Location: /gwyneth/reportsPage.php?report_type=$type");
+	}
+	?>
         <h1>Business and Operational Reports</h1>
         <main class="reportSelection">
             <form class="report_select" method="post">
@@ -119,7 +124,7 @@ $(function() {
 		echo '<input type="hidden" name="_form_submit" value="report'.$venue.'" />';?>
 	<table>	<tr>
 		<td class = "search-description" valign="top"> &nbsp;&nbsp;&nbsp;&nbsp;Select Report Type: 
-		<p>	<select multiple name="report-types[]" id = "report-type" size="6"> <!-- size should = # of options -->
+		<p>	<select name="report-types" id = "report-type" size="6", multiple> <!-- size should = # of options -->
 	  		<option value="volunteer-hours">Total Hours</option>
 	  		<option value="shifts-staffed-vacant">Shifts/Vacancies</option>
 	  		<option value="emails">* Volunteer Emails</option>
@@ -139,7 +144,8 @@ $(function() {
 	</tr>
 	<tr>
 	<td valign="top">
-	To view report, click <input class="btn btn-success btn-sm" type="submit" value="Submit" id ="report-submit" class ="btn">
+	To view report, click 
+	<input class="btn btn-success btn-sm" type="submit" value="Submit" id ="report-submit" class ="btn", name="go_to_reports_page">
 	</td></tr>
 	<tr>
 	<td>* To save the report, check here <input type="checkbox" name="export" value="export">, hit 'Submit', and
