@@ -183,25 +183,25 @@
             <table class="centered">
                 <tbody>
                     <tr>	
-                        <td class="label">Date </td>
+                        <td class="label">Date:</td>
                         <td><?php echo $event_date ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Time </td>
+                        <td class="label">Time:</td>
                         <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Location </td>
+                        <td class="label">Location:</td>
                         <td><?php echo $event_location ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Description </td><td></td>
+                        <td class="label">Description:</td><td></td>
                     </tr>
                     <tr>
                         <td colspan="2"><?php echo $event_description ?></td>     		
                     </tr>
                     <tr>
-                        <td class="label">Training Materials </td><td></td>
+                        <td class="label">Training Materials:</td><td></td>
                     </tr>
                         <!-- <td colspan="2" class="inactive">None at this time</td> -->
 						<?php
@@ -254,7 +254,7 @@
                         </td></tr>
 					<?php endif ?>
                     <tr>
-                        <td class="label">Post-Event Media </td><td></td>
+                        <td class="label">Post-Event Media:</td><td></td>
                     </tr>
                     <?php
                         $medias = get_post_event_media($id);
@@ -390,9 +390,6 @@
                 }
             } else if ($already_assigned) {
                 echo '<div class="centered">You are signed up for this event!</div>';
-            }
-            if ($access_level >= 2) {
-              echo '<br/><a href="roster.php?id='.$id.'" class="button">View Event Roster</a>';
             }
         ?>
         </div>
