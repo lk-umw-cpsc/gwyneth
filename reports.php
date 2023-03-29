@@ -116,13 +116,15 @@ $(function() {
 	//<p id="report-select-container">
 	//<form id = "search-fields" method="post">
 		//<p class = "search-description" id="today">
-		//<?php date_default_timezone_set ("America/New_York");
+		date_default_timezone_set ("America/New_York");
 		$venue = $_GET['venue'];
 		$venues = array('portland'=>"RMH Portland",'bangor'=>"RMH Bangor");
-		echo '<b>'." Gwyneth's Gift Reports</b><br>Today's date: ".date("F d, Y");
+		echo "Today's Date: " .date("F d, Y");
+		echo '<br><br><b>'." Select Report </b>";
 		echo '</p>';
 		echo '<input type="hidden" name="_form_submit" value="report'.$venue.'" />';?>
 	<table>	<tr>
+<<<<<<< HEAD
 		<td class = "search-description" valign="top"> &nbsp;&nbsp;&nbsp;&nbsp;Select Report Type: 
 		<p>	<select name="report-types" id = "report-type" size="6", multiple> <!-- size should = # of options -->
 	  		<option value="volunteer-hours">Total Hours</option>
@@ -130,6 +132,13 @@ $(function() {
 	  		<option value="emails">* Volunteer Emails</option>
 	  		<option value="volunteers">* Volunteer Contact Info</option>
 			<option value="information">* General Volunteer Info</option> <!-- added this report for general volunteer information for Gwyneth's Gift -->
+=======
+		<td class = "search-description" valign="top"> 
+		<p>	<select multiple name="report-types[]" id = "report-type" size="6"> <!-- size should = # of options -->
+	  		<option value="volunteer-hours">Total Volunteer Hours</option>
+	  		<option value="shifts-staffed-vacant">Individual Volunteer Hours</option>
+	  		<option value="emails">Top Performers</option>
+>>>>>>> 3b67f4836eaf416acf11fd95dbd9b87713010781
 			</select>
 		</td>
 		<td class = "search-description" valign="top">&nbsp;&nbsp; Date Range: 
