@@ -36,7 +36,7 @@
     }
 
     include_once('database/dbPersons.php');
-
+    include_once('include/output.php');
 
     $loggedIn = false;
     $access_level = 0;
@@ -123,24 +123,16 @@
             // put phone number into format (xxx)-xxx-xxxx
             $phone1 = $person->get_phone1();
             if (strlen($phone1) > 0) {
-              $phone1 = substr($phone1,0,3).'-'.substr($phone1,3,3).'-'.substr($phone1,6);
+              $phone1 = formatPhoneNumber($phone1);
               $phone1_type = $person->get_phone1type();
             } else {
               $phone1 = 'N/A';
               $phone1_type = '';
             }
-            $phone2 = $person->get_phone2();
-            if (strlen($phone2) > 0) {
-              $phone2 = substr($phone2,0,3).'-'.substr($phone2,3,3).'-'.substr($phone2,6);
-              $phone2_type = $person->get_phone1type();
-            } else {
-              $phone2 = 'N/A';
-              $phone2_type = '';
-            }
             $contact_name = $person->get_contact_name();
             $contact_num = $person->get_contact_num();
             if (strlen($contact_num) > 0) {
-              $contact_num = substr($contact_num,0,3).'-'.substr($contact_num,3,3).'-'.substr($contact_num,6);
+              $contact_num = formatPhoneNumber($contact_num);
             } else {
               $contact_num = 'N/A';
             }
@@ -151,37 +143,33 @@
             echo '<table class="centered">';
             echo '<tbody>'.
                     '<tr>'.
-                      '<td class="label">'.$first_name.' '.$last_name.'</td>'.
+                      '<td class="label"><b>'.$first_name.' '.$last_name.'</b></td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Email:</td>'.
+                        '<td class="label">Email</td>'.
                         '<td>'.$email.'</td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Age:</td>'.
+                        '<td class="label">Age</td>'.
                         '<td>'.$age.'</td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Address:</td>'.
+                        '<td class="label">Address</td>'.
                         '<td>'.$address.', '.$city.', '.$state.' '.$zip.'</td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Phone 1:</td>'.
+                        '<td class="label">Phone</td>'.
                         '<td>'.$phone1.' ('.$phone1_type.')'.'</td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Phone 2:</td>'.
-                        '<td>'.$phone2.' ('.$phone2_type.')'.'</td>'.
+                        '<td class="label"><b>Emergency Contact<b></td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Emergency Contact:</td>'.
-                    '</tr>'.
-                    '<tr>'.
-                        '<td class="label">Contact Name:</td>'.
+                        '<td class="label">Contact Name</td>'.
                         '<td>'.$contact_name.'</td>'.
                     '</tr>'.
                     '<tr>'.
-                        '<td class="label">Contact Number:</td>'.
+                        '<td class="label">Contact Phone</td>'.
                         '<td>'.$contact_num.'</td>'.
                     '</tr>'.
                  '</tbody>'.
