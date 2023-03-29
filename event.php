@@ -130,6 +130,10 @@
             // (Only admins and super admins can add another user)
             } else if ($request_type == 'add another' && $access_level > 1) {
                 $volunteerID = $args['selected_id'];
+                if ($volunteerID == 'vmsroot') {
+                    echo 'invalid user id';
+                    die();
+                }
                 update_event_volunteer_list($eventID, $volunteerID);
     
             } else if ($request_type == 'remove' && $access_level > 1) {
@@ -374,7 +378,7 @@
                 ?>
             </ul>
         <?php 
-            if ($remaining_slots > 0) {
+            if ($remaining_slots > 0 && $user_id != 'vmsroot') {
                 if (!$already_assigned) {
                     echo '
                         <form method="GET">
