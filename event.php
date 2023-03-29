@@ -403,20 +403,24 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    echo '<form method="GET" class="standout">';
-                    echo '<input type=hidden name="request_type" value="add another">';
-                    echo '<input type="hidden" name="id" value="'.$id.'">';
-                    echo '<label for="volunteer-select">Assign Volunteer:</label>';
-                    echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
                     $all_volunteers = get_unassigned_available_volunteers($id);
                     if ($all_volunteers) {
-                        for ($x = 0; $x < count($all_volunteers); $x++) {
-                            echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                        echo '<form method="GET" class="standout">';
+                        echo '<input type=hidden name="request_type" value="add another">';
+                        echo '<input type="hidden" name="id" value="'.$id.'">';
+                        echo '<label for="volunteer-select">Assign Volunteer:</label>';
+                        echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
+                        if ($all_volunteers) {
+                            for ($x = 0; $x < count($all_volunteers); $x++) {
+                                echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                            }
                         }
+                        echo '</select>';
+                        echo '<input type="submit" value="Assign" /></div>';
+                        echo '</form>';
+                    } else {
+                        echo '<div class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
                     }
-                    echo '</select>';
-                    echo '<input type="submit" value="Assign" /></div>';
-                    echo '</form>';
                 }
             }
         ?>
