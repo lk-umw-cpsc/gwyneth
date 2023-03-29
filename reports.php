@@ -124,21 +124,13 @@ $(function() {
 		echo '</p>';
 		echo '<input type="hidden" name="_form_submit" value="report'.$venue.'" />';?>
 	<table>	<tr>
-<<<<<<< HEAD
 		<td class = "search-description" valign="top"> &nbsp;&nbsp;&nbsp;&nbsp;Select Report Type: 
-		<p>	<select name="report-types" id = "report-type" size="6", multiple> <!-- size should = # of options -->
+		<p>	<select multiple name="report-types[]" id = "report-type" size="6"> <!-- size should = # of options -->
 	  		<option value="volunteer-hours">Total Hours</option>
 	  		<option value="shifts-staffed-vacant">Shifts/Vacancies</option>
 	  		<option value="emails">* Volunteer Emails</option>
 	  		<option value="volunteers">* Volunteer Contact Info</option>
 			<option value="information">* General Volunteer Info</option> <!-- added this report for general volunteer information for Gwyneth's Gift -->
-=======
-		<td class = "search-description" valign="top"> 
-		<p>	<select multiple name="report-types[]" id = "report-type" size="6"> <!-- size should = # of options -->
-	  		<option value="volunteer-hours">Total Volunteer Hours</option>
-	  		<option value="shifts-staffed-vacant">Individual Volunteer Hours</option>
-	  		<option value="emails">Top Performers</option>
->>>>>>> 3b67f4836eaf416acf11fd95dbd9b87713010781
 			</select>
 		</td>
 		<td class = "search-description" valign="top">&nbsp;&nbsp; Date Range: 

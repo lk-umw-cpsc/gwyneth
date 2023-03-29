@@ -92,25 +92,31 @@
             <th>Hours Volunteered</th>
             <th>Reg. Date</th>
         </tr>
-        <tr>
-            <td>John</td>
-            <td>Dow</td>
+        <tbody>
+        <?php 
+        $con=connect();
+        $type = "volunteer";
+        $query = "SELECT first_name, last_name FROM dbPersons WHERE type LIKE '%" . $type . "%' ";
+        $result = mysqli_query($con,$query);
+        if ($result == null || mysqli_num_rows($result) == 0) {
+            mysqli_close($con);
+        }
+        $result = mysqli_query($con,$query);
+
+        while($row = mysqli_fetch_assoc($result)){
+            echo"<tr>
+            <td>" . $row['first_name'] . "</td>
+            <td>" . $row['last_name'] . "</td>
             <td>12</td>
             <td>September,2023</td>
-        </tr>
-        <tr>
-            <td>John</td>
-            <td>Dow</td>
-            <td>12</td>
-            <td>September,2023</td>
-        </tr>
-        <tr>
-            <td>John</td>
-            <td>Dow</td>
-            <td>12</td>
-            <td>September,2023</td>
-        </tr>
+            </tr>";
+        }
+        ?>
+        </tbody>
         </table>
+        <?php 
+            require_once('database/dbPersons.php');
+        ?>
         <div class="center_b"><a href="http://localhost/gwyneth/reports.php?venue=portland">
             <button class = "theB">New Report</button>
         </a></div>

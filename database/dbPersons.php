@@ -244,7 +244,8 @@ function getall_volunteers() {
 
 function getall_volunteer_names() {
 	$con=connect();
-	$query = "SELECT first_name, last_name FROM dbPersons ORDER BY last_name,first_name";
+    $type = "volunteer";
+	$query = "SELECT first_name, last_name FROM dbPersons WHERE type LIKE '%" . $type . "%' ";
     $result = mysqli_query($con,$query);
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);
