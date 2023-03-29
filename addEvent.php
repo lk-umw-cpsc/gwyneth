@@ -44,7 +44,8 @@
             $endTime = $args['end-time'] = $validated[1];
             $date = $args['date'] = validateDate($args["date"]);
             $capacity = intval($args["capacity"]);
-            if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20){
+            $abbrevLength = strlen($args['abbrev-name']);
+            if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20 || $abbrevLength > 11){
                 echo 'bad args';
                 die();
             }
@@ -83,7 +84,7 @@
                 <label for="name">Event Name </label>
                 <input type="text" id="name" name="name" required placeholder="Enter name"> 
                 <label for="name">Abbreviated Name</label>
-                <input type="text" id="abbrev-name" name="abbrev-name" required placeholder="Enter name that will appear on calendar">
+                <input type="text" id="abbrev-name" name="abbrev-name" maxlength="11" required placeholder="Enter name that will appear on calendar">
                 <label for="name">Date </label>
                 <input type="date" id="date" name="date" <?php if ($date) echo 'value="' . $date . '"'; ?> min="<?php echo date('Y-m-d'); ?>" required>
                 <label for="name">Start Time </label>
