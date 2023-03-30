@@ -104,13 +104,23 @@
         require_once('database/dbPersons.php');
         $con=connect();
         $type1 = "volunteer";
-        $query = "SELECT first_name, last_name,id FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
+        $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
         $result = mysqli_query($con,$query);
-        if ($result == null || mysqli_num_rows($result) == 0) {
-            mysqli_close($con);
+        
+        while($row = mysqli_fetch_assoc($result)){
+            echo"<tr>
+            <td>" . $row['first_name'] . "</td>
+            <td>" . $row['last_name'] . "</td>
+            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+            <td>September,2023</td>
+            </tr>";
         }
+    }elseif($type == "top_performers"){
+        require_once('database/dbPersons.php');
+        $con=connect();
+        $type1 = "volunteer";
+        $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ORDER BY hours DESC";
         $result = mysqli_query($con,$query);
-
         while($row = mysqli_fetch_assoc($result)){
             echo"<tr>
             <td>" . $row['first_name'] . "</td>
