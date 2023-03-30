@@ -41,7 +41,7 @@
                 text-align: left;
                 padding: 8px;
             }
-
+          
             tr:nth-child(even) {
                 background-color: #2f4159;
                 color: white;
@@ -69,7 +69,13 @@
         <div>
             <label>Reports Type:</label>
             <span>
-                <?php echo $type; ?> 
+                <?php 
+                if($type == "top_performers"){
+                    echo "Top Performers"; 
+                }elseif($type == "general_volunteer_report"){
+                    echo "General Volunteer Report";
+                }
+                ?> 
             </span>
         </div>
         <div>
@@ -94,9 +100,11 @@
         </tr>
         <tbody>
         <?php 
+    if($type == "general_volunteer_report"){
+        require_once('database/dbPersons.php');
         $con=connect();
-        $type = "volunteer";
-        $query = "SELECT first_name, last_name FROM dbPersons WHERE type LIKE '%" . $type . "%' ";
+        $type1 = "volunteer";
+        $query = "SELECT first_name, last_name,id FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
         $result = mysqli_query($con,$query);
         if ($result == null || mysqli_num_rows($result) == 0) {
             mysqli_close($con);
@@ -107,10 +115,11 @@
             echo"<tr>
             <td>" . $row['first_name'] . "</td>
             <td>" . $row['last_name'] . "</td>
-            <td>12</td>
+            <td>" . get_hours_volunteered_by($row['id']) . "</td>
             <td>September,2023</td>
             </tr>";
         }
+    }
         ?>
         </tbody>
         </table>
