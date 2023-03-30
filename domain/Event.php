@@ -12,8 +12,11 @@ class Event {
     private $description;
     private $location;
     private $capacity;
+    private $volunteers;
+    private $trainingMedia;
+    private $postMedia;
 
-    function __construct($id, $name, $abbrevName, $date, $startTime, $endTime, $description, $location, $capacity) {
+    function __construct($id, $name, $abbrevName, $date, $startTime, $endTime, $description, $location, $capacity, $volunteers, $trainingMedia, $postMedia) {
         $this->id = $id;
         $this->name = $name;
         $this->abbrevName = $abbrevName;
@@ -23,6 +26,9 @@ class Event {
         $this->description = $description;
         $this->location = $location;
         $this->capacity = $capacity;
+        $this->volunteers = $volunteers;
+        $this->trainingMedia = $trainingMedia;
+        $this->postMedia = $postMedia;
     }
 
     function getID() {
@@ -59,5 +65,17 @@ class Event {
 
     function getCapacity() {
         return $this->capacity;
+    }
+
+    function getVolunteers() {
+        return $volunteers;
+    }
+
+    function getTrainingMedia() {
+        return $trainingMedia;
+    }
+
+    function getPostMedia() {
+        return $postMedia;
     }
 }
