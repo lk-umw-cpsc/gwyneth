@@ -19,7 +19,7 @@
         <?php if ($id == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
-        <?php else: ?>
+        <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
             <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a>
             <!-- <form class = "modify-access" method = "post">
                 <input type="hidden" name="id" value="<?php echo $id; ?>">
