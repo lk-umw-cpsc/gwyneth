@@ -405,7 +405,7 @@
                 if ($access_level >= 2) {
                     $all_volunteers = get_unassigned_available_volunteers($id);
                     if ($all_volunteers) {
-                        echo '<form method="GET" class="standout">';
+                        echo '<form method="GET" id="assign-volunteer" class="standout">';
                         echo '<input type=hidden name="request_type" value="add another">';
                         echo '<input type="hidden" name="id" value="'.$id.'">';
                         echo '<label for="volunteer-select">Assign Volunteer:</label>';
@@ -419,7 +419,7 @@
                         echo '<input type="submit" value="Assign" /></div>';
                         echo '</form>';
                     } else {
-                        echo '<div class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
+                        echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
                     }
                 }
             }
