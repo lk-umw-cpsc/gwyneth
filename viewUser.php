@@ -45,6 +45,11 @@
         ?>
         <h1>View User</h1>
         <main class="general">
+            <?php if ($id == 'vmsroot'): ?>
+                <div class="error-toast">The root user does not have a profile.</div>
+                </main></body></html>
+                <?php die() ?>
+            <?php endif ?>
             <?php if (isset($_GET['editSuccess'])): ?>
                 <div class="happy-toast">Profile updated successfully!</div>
             <?php endif ?>
