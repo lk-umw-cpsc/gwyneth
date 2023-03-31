@@ -55,7 +55,7 @@
             $notesChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
-        if ($notesChange || $statusChange || $typeChange) {
+        if (isset($notesChange) || isset($statusChange) || isset($typeChange)) {
             header('Location: viewProfile.php?rscSuccess&id=' . $_GET['id']);
             die();
         }
