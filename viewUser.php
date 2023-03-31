@@ -53,7 +53,7 @@
             <?php endif ?>
             <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
             <fieldset>
-                <legend>General</legend>
+                <legend>General Information</legend>
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
                 <label>Date of Birth</label>
@@ -63,7 +63,7 @@
                 <label>Role</label>
                 <p><?php echo ucfirst($user->get_type()[0]) ?></p>
                 <label>Status</label>
-                <p><?php echo ucfirst($user->get_status()) ?></p>
+                <p><?php echo ucfirst($user->get_status()); /*if ($user->get_notes()) echo ' (' . $user->get_notes() . ')';*/ ?></p>
                 <?php if ($id != $userID): ?>
                     <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Role/Status</a>
                 <?php endif ?>
