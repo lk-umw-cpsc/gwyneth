@@ -31,6 +31,7 @@
         echo 'User does not exist';
         die();
     }
+    $viewingOwnProfile = $id == $userID;
 ?>
 <!DOCTYPE html>
 <html>
@@ -56,7 +57,11 @@
             <?php if (isset($_GET['rscSuccess'])): ?>
                 <div class="happy-toast">User's role and/or status updated successfully!</div>
             <?php endif ?>
-            <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
+            <?php if ($viewingOwnProfile): ?>
+                <h2>Your Profile</h2>
+            <?php else: ?>
+                <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
+            <?php endif ?>
             <fieldset>
                 <legend>General Information</legend>
                 <label>Username</label>
