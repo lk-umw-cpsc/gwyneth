@@ -87,3 +87,9 @@ td.label {
 .empty-slot, .inactive {
     color: var(--inactive-font-color);
 }
+
+#assign-volunteer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}

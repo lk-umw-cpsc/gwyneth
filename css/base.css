@@ -756,6 +756,13 @@ main.general, form.general {
     gap: 0.5rem;
 }
 
+main.general fieldset {
+    padding: 1.0rem;
+    display: flex;
+    gap: .5rem;
+    flex-direction: column;
+}
+
 table.general {
     width: 100%;
     padding-bottom: 1rem;
