@@ -1,4 +1,3 @@
-
 <?php
     // Template for new VMS pages. Base your new page on this one
 
