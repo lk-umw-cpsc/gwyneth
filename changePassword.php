@@ -17,7 +17,8 @@
         $userID = $_SESSION['_id'];
     }
     if (!$loggedIn) {
-        redirect('login.php');
+        header('Location: login.php');
+        die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
