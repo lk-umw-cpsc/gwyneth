@@ -55,6 +55,10 @@
             $notesChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
+        if ($notesChange || $statusChange || $typeChange) {
+            header('Location: viewUser.php?rscSuccess&id=' . $_GET['id']);
+            die();
+        }
     }
 
     // Does the person exist?
