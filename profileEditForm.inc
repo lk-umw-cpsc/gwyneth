@@ -21,11 +21,11 @@
             <div class="error-toast">An error occurred.</div>
         <?php endif ?>
     <?php endif ?>
-    <!-- <?php if ($isAdmin): ?>
+    <?php if ($isAdmin): ?>
         <?php if ($id == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
-        <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
+        <!-- <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
             <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a>
         <?php endif ?> -->
     <?php endif ?>
