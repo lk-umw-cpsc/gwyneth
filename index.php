@@ -44,12 +44,6 @@
                         <span>Create Event</span>
                     </div>
                 <?php endif ?>
-                <?php if ($notRoot) : ?>
-                    <div class="dashboard-item" data-link="volunteerReport.php">
-                        <img src="images/volunteer-history.svg">
-                        <span>Volunteer Report</span>
-                    </div>
-                <?php endif ?>
                 <div class="dashboard-item" data-link="eventSearch.php">
                     <img src="images/search.svg">
                     <span>Find Event</span>
@@ -72,6 +66,12 @@
                     <div class="dashboard-item" data-link="editProfile.php">
                         <img src="images/manage-account.svg">
                         <span>Manage Profile</span>
+                    </div>
+                <?php endif ?>
+                <?php if ($notRoot) : ?>
+                    <div class="dashboard-item" data-link="volunteerReport.php">
+                        <img src="images/volunteer-history.svg">
+                        <span>Volunteer Report</span>
                     </div>
                 <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
