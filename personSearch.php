@@ -76,7 +76,7 @@
                                             <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
                                             <td>' . ucfirst($person->get_type()[0]) . '</td>
-                                            <td><a href="editProfile.php?id=' . $person->get_id() . '">Manage</a></td>
+                                            <td><a href="viewUser.php?id=' . $person->get_id() . '">Profile</a></td>
                                         </a></tr>';
                             }
                             echo '
