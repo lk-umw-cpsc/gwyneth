@@ -6,7 +6,7 @@
     ini_set("display_errors",1);
     error_reporting(E_ALL);
     if (!isset($_SESSION['_id'])) {
-        header('Location: index.php');
+        header('Location: login.php');
         die();
     }
 
@@ -18,9 +18,10 @@
     } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
-
+        $editingSelf = true;
         if ($_SESSION['access_level'] >= 2 && isset($_POST['id'])) {
             $id = $_POST['id'];
+            $editingSelf = false;
             // Check to see if user is a lower-level manager here
         } else {
             $id = $_SESSION['_id'];
@@ -198,7 +199,7 @@
             $saturdaysStart, $saturdaysEnd
         );
         if ($result) {
-            if ($_GET['id'] == $_SESSION['_id']) {
+            if ($editingSelf) {
                 header('Location: viewProfile.php?editSuccess');
             } else {
                 header('Location: viewProfile.php?editSuccess&id='. $id);
