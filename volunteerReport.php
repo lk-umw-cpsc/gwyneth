@@ -15,6 +15,11 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+    if (!$loggedIn) {
+        header('Location: login.php');
+        die();
+    }
+    $events = get_events_attended_by($_SESSION['_id']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -30,7 +35,7 @@
         <h1>Volunteer History Report</h1>
         <main class="general">
             <h2>Your Volunteer Hours</h2>
-            <?php foreach (get_events_attended_by($_SESSION['_id']) as $event): ?>
+            <?php foreach ($events as $event): ?>
                 
             <?php endforeach ?>
         </main>
