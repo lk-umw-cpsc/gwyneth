@@ -14,18 +14,20 @@
 ?>
 <h1>Manage Profile</h1>
 <main class="signup-form">
-    
-    <?php if ($isAdmin): ?>
+    <?php if (isset($updateSuccess)): ?>
+        <?php if ($updateSuccess): ?>
+            <div class="happy-toast">Profile updated successfully!</div>
+        <?php else: ?>
+            <div class="error-toast">An error occurred.</div>
+        <?php endif ?>
+    <?php endif ?>
+    <!-- <?php if ($isAdmin): ?>
         <?php if ($id == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
         <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
             <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a>
-            <!-- <form class = "modify-access" method = "post">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" name="modify_access" value="Modify User Access">
-            </form> -->
-        <?php endif ?>
+        <?php endif ?> -->
     <?php endif ?>
     <form class="signup-form" method="post">
         <br>

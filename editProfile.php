@@ -3,7 +3,8 @@
     // Description: Profile edit page
     session_cache_expire(30);
     session_start();
-
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
     if (!isset($_SESSION['_id'])) {
         header('Location: index.php');
         die();
@@ -39,10 +40,10 @@
             $ignoreList = array('password');
             $args = sanitize($_POST, $ignoreList);
 
-            echo "<p>The form was submitted:</p>";
-            foreach ($args as $key => $value) {
-                echo "<p>$key: $value</p>";
-            }
+            // echo "<p>The form was submitted:</p>";
+            // foreach ($args as $key => $value) {
+            //     echo "<p>$key: $value</p>";
+            // }
 
             $required = array(
                 'first-name', 'last-name', 'birthdate',
@@ -60,7 +61,7 @@
             $dateOfBirth = validateDate($args['birthdate']);
             if (!$dateOfBirth) {
                 $errors = true;
-                echo 'bad dob';
+                // echo 'bad dob';
             }
 
             $address = $args['address'];
@@ -76,36 +77,36 @@
             $zipcode = $args['zip'];
             if (!validateZipcode($zipcode)) {
                 $errors = true;
-                echo 'bad zip';
+                // echo 'bad zip';
             }
 
             $email = validateEmail($args['email']);
             if (!$email) {
                 $errors = true;
-                echo 'bad email';
+                // echo 'bad email';
             }
             $phone = validateAndFilterPhoneNumber($args['phone']);
             if (!$phone) {
                 $errors = true;
-                echo 'bad phone';
+                // echo 'bad phone';
             }
             $phoneType = $args['phone-type'];
             if (!valueConstrainedTo($phoneType, array('cellphone', 'home', 'work'))) {
                 $errors = true;
-                echo 'bad phone type';
+                // echo 'bad phone type';
             }
             $contactWhen = $args['contact-when'];
             $contactMethod = $args['contact-method'];
             if (!valueConstrainedTo($contactMethod, array('phone', 'text', 'email'))) {
                 $errors = true;
-                echo 'bad contact method';
+                // echo 'bad contact method';
             }
 
             $econtactName = $args['econtact-name'];
             $econtactPhone = validateAndFilterPhoneNumber($args['econtact-phone']);
             if (!$econtactPhone) {
                 $errors = true;
-                echo 'bad e-contact phone';
+                // echo 'bad e-contact phone';
             }
             $econtactRelation = $args['econtact-relation'];
 
@@ -119,7 +120,7 @@
             $shirtSize = $args['shirt-size'];
             if (!valueConstrainedTo($shirtSize, array('S', 'M', 'L', 'XL', 'XXL'))) {
                 $errors = true;
-                echo 'bad shirt size';
+                // echo 'bad shirt size';
             }
 
             $days = array('sundays', 'mondays', 'tuesdays', 'wednesdays', 'thursdays', 'fridays', 'saturdays');
@@ -137,7 +138,7 @@
                     $range24h = validate12hTimeRangeAndConvertTo24h($start, $end);
                     if (!$range24h) {
                         $errors = true;
-                        echo "bad $day availability";
+                        // echo "bad $day availability";
                     }
                     $availability[$day] = $range24h;
                     $availabilityCount++;
@@ -147,7 +148,7 @@
             }
             if ($availabilityCount == 0) {
                 $errors = true;
-                echo 'bad availability - none chosen';
+                // echo 'bad availability - none chosen';
             }
             $sundaysStart = '';
             $sundaysEnd = '';
@@ -193,8 +194,7 @@
             }
 
             if ($errors) {
-                echo '<p>Your form submission contained unexpected input.</p>';
-                die();
+                $updateSuccess = false;
             }
             
             $result = update_person_profile($id,
@@ -208,13 +208,12 @@
                 $saturdaysStart, $saturdaysEnd
             );
             if ($result) {
-                echo "Profile updated successfully";
+                $updateSuccess = true;
             }
 
-        } else {
-            $isAdmin = $_SESSION['access_level'] >= 2;
-            require_once('profileEditForm.inc');
         }
+        $isAdmin = $_SESSION['access_level'] >= 2;
+        require_once('profileEditForm.inc');
     ?>
 </body>
 </html>
