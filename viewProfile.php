@@ -44,7 +44,7 @@
             require_once('header.php'); 
             require_once('include/output.php');
         ?>
-        <h1>View User</h1>
+        <h1>View Profile</h1>
         <main class="general">
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>

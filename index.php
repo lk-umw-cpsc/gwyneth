@@ -62,7 +62,7 @@
                     </div>
                 <?php endif ?>
                 <?php if ($person->get_id() != 'vmsroot') : ?>
-                    <div class="dashboard-item" data-link="viewUser.php">
+                    <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
                         <span>View Profile</span>
                     </div>
