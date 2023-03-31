@@ -129,7 +129,11 @@
                 <p><?php echo $user->get_shirt_size() ?></p>
             </fieldset>
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
-            <a class="button" href="#">Reset Password (not implemented)</a>
+            <?php if ($id != $userID): ?>
+                <a class="button" href="#">Reset Password (not implemented)</a>
+            <?php else: ?>
+                <a class="button" href="changePassword.php">Change Password</a>
+            <?php endif ?>
         </main>
     </body>
 </html>
