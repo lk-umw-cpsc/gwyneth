@@ -96,7 +96,7 @@
                 <label>Relation</label>
                 <p><?php echo $user->get_relation() ?></p>
                 <label>Phone Number</label>
-                <p><?php echo formatPhoneNumber($user->get_contact_num()) ?></p>
+                <p><a href="tel:<?php echo $user->get_contact_num() ?>"><?php echo formatPhoneNumber($user->get_contact_num()) ?></a></p>
             </fieldset>
             <fieldset>
                 <legend>Volunteer Information</legend>
