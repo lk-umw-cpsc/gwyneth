@@ -199,9 +199,9 @@
         );
         if ($result) {
             if ($_GET['id'] == $_SESSION['_id']) {
-                header('Location: viewUser.php?editSuccess');
+                header('Location: viewProfile.php?editSuccess');
             } else {
-                header('Location: viewUser.php?editSuccess&id='. $id);
+                header('Location: viewProfile.php?editSuccess&id='. $id);
             }
             die();
         }

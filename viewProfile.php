@@ -31,6 +31,7 @@
         echo 'User does not exist';
         die();
     }
+    $viewingOwnProfile = $id == $userID;
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,15 +44,24 @@
             require_once('header.php'); 
             require_once('include/output.php');
         ?>
-        <h1>View User</h1>
+        <h1>View Profile</h1>
         <main class="general">
+            <?php if ($id == 'vmsroot'): ?>
+                <div class="error-toast">The root user does not have a profile.</div>
+                </main></body></html>
+                <?php die() ?>
+            <?php endif ?>
             <?php if (isset($_GET['editSuccess'])): ?>
                 <div class="happy-toast">Profile updated successfully!</div>
             <?php endif ?>
             <?php if (isset($_GET['rscSuccess'])): ?>
                 <div class="happy-toast">User's role and/or status updated successfully!</div>
             <?php endif ?>
-            <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
+            <?php if ($viewingOwnProfile): ?>
+                <h2>Your Profile</h2>
+            <?php else: ?>
+                <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
+            <?php endif ?>
             <fieldset>
                 <legend>General Information</legend>
                 <label>Username</label>
