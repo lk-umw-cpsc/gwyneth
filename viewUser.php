@@ -45,6 +45,9 @@
         ?>
         <h1>View User</h1>
         <main class="general">
+            <?php if (isset($_GET['editSuccess'])): ?>
+                <div class="happy-toast">Profile updated successfully!</div>
+            <?php endif ?>
             <h2>Viewing <?php echo $user->get_first_name() . ' ' . $user->get_last_name() ?></h2>
             <fieldset>
                 <legend>General</legend>
