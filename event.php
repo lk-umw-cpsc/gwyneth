@@ -130,6 +130,10 @@
             // (Only admins and super admins can add another user)
             } else if ($request_type == 'add another' && $access_level > 1) {
                 $volunteerID = $args['selected_id'];
+                if ($volunteerID == 'vmsroot') {
+                    echo 'invalid user id';
+                    die();
+                }
                 update_event_volunteer_list($eventID, $volunteerID);
     
             } else if ($request_type == 'remove' && $access_level > 1) {
@@ -374,7 +378,7 @@
                 ?>
             </ul>
         <?php 
-            if ($remaining_slots > 0) {
+            if ($remaining_slots > 0 && $user_id != 'vmsroot') {
                 if (!$already_assigned) {
                     echo '
                         <form method="GET">
@@ -399,37 +403,25 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    echo '<form method="GET" class="standout">';
-                    echo '<input type=hidden name="request_type" value="add another">';
-                    echo '<input type="hidden" name="id" value="'.$id.'">';
-                    echo '<label for="volunteer-select">Assign Volunteer </label>';
-                    echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
                     $all_volunteers = get_unassigned_available_volunteers($id);
                     if ($all_volunteers) {
+                        echo '<form method="GET" id="assign-volunteer" class="standout">';
+                        echo '<input type=hidden name="request_type" value="add another">';
+                        echo '<input type="hidden" name="id" value="'.$id.'">';
+                        echo '<label for="volunteer-select">Assign Volunteer:</label>';
+                        echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
                         for ($x = 0; $x < count($all_volunteers); $x++) {
-                            echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
                         }
+                        echo '</select>';
+                        echo '<input type="submit" value="Assign" /></div>';
+                        echo '</form>';
+                    } else {
+                        echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
                     }
-                    echo '</select>';
-                    echo '<input type="submit" value="Assign" /></div>';
-                    echo '</form>';
                 }
             }
         ?>
-
-        <?php
-      /*echo '<form method="POST">';
-      echo '<input type=hidden name="request_type" value="remove">';
-      echo '<select name="selected_removal_id">';
-        $all_volunteers = getall_volunteers();
-        for ($x = 0; $x < count($all_volunteers); $x++) {
-          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
-        }
-      echo '</select>';
-      echo '<input type="submit" value="Remove Volunteer" />';
-    echo '</form>';*/
-
-    ?>
 
         <?php if ($access_level >= 2) : ?>
             <form method="post" action="deleteEvent.php">
@@ -438,19 +430,7 @@
             </form>
         <?php endif ?>
 
-        <!-- Talk about doing volunteer registration on same page -->
-        <!-- <a href="eventRegister.php" class="button">
-				Register for Event!
-		</a> -->
-
-
         <a href="calendar.php" class="button">Return to Calendar</a>
-            <!-- Talk about doing volunteer registration on same page -->
-            <!-- (this page will only be visible to logged in users,
-            so we probably don't need that. -Lauren) -->
-            <!-- <a href="eventRegister.php" class="button">
-				Register for Event!
-		</a> -->
     </main>
 </body>
 

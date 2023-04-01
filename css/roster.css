@@ -88,6 +88,10 @@ td.label {
     color: var(--inactive-font-color);
 }
 
+hr {
+    display: none;
+}
+
 /* print settings */
 @media print {
 
@@ -99,5 +103,8 @@ td.label {
     position: absolute;
     top: 0%;
     left: 5%;
+  }
+  hr {
+    display: block;
   }
 }

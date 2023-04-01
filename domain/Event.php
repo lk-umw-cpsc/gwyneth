@@ -1,65 +1,81 @@
 <?php
-/*
- * Copyright 2013 by Allen Tucker. 
- * This program is part of RMHC-Homebase, which is free software.  It comes with 
- * absolutely no warranty. You can redistribute and/or modify it under the terms 
- * of the GNU General Public License as published by the Free Software Foundation
- * (see <http://www.gnu.org/licenses/ for more information).
- * 
+/**
+ * Encapsulated version of a dbEvents entry.
  */
+class Event {
+    private $id;
+    private $name;
+    private $abbrevName;
+    private $date;
+    private $startTime;
+    private $endTime;
+    private $description;
+    private $location;
+    private $capacity;
+    private $volunteers;
+    private $trainingMedia;
+    private $postMedia;
 
-/*
- * Created on Mar 28, 2008
- * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
- * @version 3/28/2008, revised 7/1/2015
- */
+    function __construct($id, $name, $abbrevName, $date, $startTime, $endTime, $description, $location, $capacity, $volunteers, $trainingMedia, $postMedia) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->abbrevName = $abbrevName;
+        $this->date = $date;
+        $this->startTime = $startTime;
+        $this->endTime = $endTime;
+        $this->description = $description;
+        $this->location = $location;
+        $this->capacity = $capacity;
+        $this->volunteers = $volunteers;
+        $this->trainingMedia = $trainingMedia;
+        $this->postMedia = $postMedia;
+    }
 
-/* 
- * Created for Gwyneth's Gift in 2022 using original Homebase code as a guide
- */
+    function getID() {
+        return $this->id;
+    }
 
- class Event {
-	private $id;         // id (unique key) = event id
-	private $event_date; // format: 99-03-12
-	private $venue;      // portland, leftover from the old two calendar system
-	private $event_name;  // event name as a string
-	private $description;   // description of the event
-	private $event_id;		// the unique id that is attached to each event, is then copied into id, used for editing events
+    function getName() {
+        return $this->name;
+    }
 
+    function getAbbreviatedName() {
+        return $this->abbrevName;
+    }
 
-	function __construct($en, $v, $sd, $description, $ev) {
-		$this->id = $ev;
-		$this->event_date = $sd;
-		$this->venue = $v;
-		$this->event_name = $en;
-		$this->description = $description;
-		$this->event_id = $ev;
-		
-	}
+    function getDate() {
+        return $this->date;
+    }
 
-	function get_id() {
-		return $this->id;
-	}
+    function getStartTime() {
+        return $this->startTime;
+    }
 
-	function get_event_date() {
-		return $this->event_date;
-	}
+    function getEndTime() {
+        return $this->endTime;
+    }
 
-	function get_venue() {
-		return $this->venue;
-	}
+    function getDescription() {
+        return $this->description;
+    }
 
-	function get_event_name() {
-		return $this->event_name;
-	}
+    function getLocation() {
+        return $this->location;
+    }
 
-	function get_description() {
-		return $this->description;
-	}
+    function getCapacity() {
+        return $this->capacity;
+    }
 
-	function get_event_id() {
-		return $this->event_id;
-	}
+    function getVolunteers() {
+        return $volunteers;
+    }
 
+    function getTrainingMedia() {
+        return $trainingMedia;
+    }
+
+    function getPostMedia() {
+        return $postMedia;
+    }
 }
-?>

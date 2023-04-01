@@ -1,4 +1,4 @@
- <?php
+<?php
     // Template for new VMS pages. Base your new page on this one
 
     // Make session information accessible, allowing us to associate
@@ -6,7 +6,8 @@
     session_cache_expire(30);
     session_start();
     require_once('include/api.php');
-
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -17,7 +18,8 @@
         $userID = $_SESSION['_id'];
     }
     if (!$loggedIn) {
-        redirect('login.php');
+        header('Location: login.php');
+        die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');

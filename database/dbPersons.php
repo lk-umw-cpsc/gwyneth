@@ -657,7 +657,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $connection = connect();
         $result = mysqli_query($connection, $query);
         if ($result) {
-            require_once('../include/time.php');
+            require_once('include/time.php');
             $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
             mysqli_close($connection);
             foreach ($rows as &$row) {
