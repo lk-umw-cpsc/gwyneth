@@ -132,8 +132,8 @@ $(function() {
 			</select>
 		</td>
 		<td class = "search-description" valign="top">&nbsp;&nbsp; Date Range: 
-			<p id="fromto"> from : <input name = "from" type="date" size="10" id="from" placeholder="MM-DD-YYYY"><br>
-							&nbsp;&nbsp;&nbsp;&nbsp;to : <input name = "to" type="date" size="10" id="to"placeholder="MM-DD-YYYY"></p>
+			<p id="fromto"> from : <input name = "from" type="date" size="10" id="from" placeholder="yyyy-mm-dd"><br>
+							&nbsp;&nbsp;&nbsp;&nbsp;to : <input name = "to" type="date" size="10" id="to"placeholder="yyyy-mm-dd"></p>
 		</td>
 		<td class = "search-description" valign="top">&nbsp;&nbsp; Last Name Range: 
 			<p id="name_fromto"> from : <input name = "name_from" type="text" size="10" id="name_from"><br>
