@@ -16,13 +16,28 @@
 
   $get = sanitize($_GET);
   $type = $get['report_type'];
-
-  // $id = $get['id'];
+  $dateFrom = $_GET['from'];
+  $dateTo = $_GET['to'];
+  
   // Is user authorized to view this page?
   if ($accessLevel < 2) {
       header('Location: index.php');
       die();
   }
+  function getBetweenDates($startDate, $endDate){
+      $rangArray = [];
+          
+      $startDate = strtotime($startDate);
+      $endDate = strtotime($endDate);
+           
+      for ($currentDate = $startDate; $currentDate <= $endDate; $currentDate += (86400)) {
+        $date = date('M-d-y', $currentDate);
+        $rangArray[] = $date;
+      }
+
+      return $rangArray;
+    }
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -81,7 +96,20 @@
         <div>
             <label>Date Range:</label>
             <span>
-                <?php echo "?"; ?> 
+                <?php
+                // if date from is provided but not date to, assume admin wants all dates from given date to current
+                    if(isset($dateFrom) && !isset($dateTo)){
+                        echo $dateFrom, " to Current";
+                // if date from is not provided but date to is, assume admin wants all dates prior to the date given
+                    }elseif(!isset($dateFrom) && isset($dateTo)){
+                        echo "Every date till ", $dateTo;
+                // if date from and date to is not assume admin wants all dates
+                    }elseif(!isset($dateFrom) && !isset($dateTo)){
+                        echo "All date";
+                    }else{
+                        echo $dateFrom ," to ", $dateTo;
+                    } 
+                ?> 
             </span>
         </div>
         <div class= "lastNameDiv">
@@ -95,8 +123,9 @@
         <tr>
             <th>Firs Name</th>
             <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>Email Address</th>
             <th>Hours Volunteered</th>
-            <th>Reg. Date</th>
         </tr>
         <tbody>
         <?php 
@@ -111,8 +140,9 @@
             echo"<tr>
             <td>" . $row['first_name'] . "</td>
             <td>" . $row['last_name'] . "</td>
+            <td>" . $row['phone1'] . "</td>
+            <td>" . $row['email'] . "</td>
             <td>" . get_hours_volunteered_by($row['id']) . "</td>
-            <td>September,2023</td>
             </tr>";
         }
     }elseif($type == "top_performers"){
@@ -126,16 +156,12 @@
             <td>" . $row['first_name'] . "</td>
             <td>" . $row['last_name'] . "</td>
             <td>" . get_hours_volunteered_by($row['id']) . "</td>
-            <td>September,2023</td>
             </tr>";
         }
     }
         ?>
         </tbody>
         </table>
-        <?php 
-            require_once('database/dbPersons.php');
-        ?>
         <div class="center_b"><a href="http://localhost/gwyneth/reports.php?venue=portland">
             <button class = "theB">New Report</button>
         </a></div>
