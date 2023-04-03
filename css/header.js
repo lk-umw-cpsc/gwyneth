@@ -265,19 +265,23 @@ $(function() {
         }
     });
     
-    // Edit Photo
+    // Edit Photo link
     $('#edit-profile-picture').click(function() {
         let form = $('#edit-profile-picture-form');
         if (form.hasClass('hidden')) {
             form.removeClass('hidden');
+            $(this).addClass('edit-profile-picture-clicked');
+            $(this).removeClass('edit-profile-picture-unclicked');
             $(this).html('Cancel');
         } else {
             $(this).html('Edit Photo');
+            $(this).addClass('edit-profile-picture-unclicked');
+            $(this).removeClass('edit-profile-picture-clicked');
             form.addClass('hidden');
         }
     });
     
-    //submit photo
+    // Submit profile image link
     $('#edit-profile-picture-form').submit(function(e) {
         if (!isValidURL($('#url').val())) {
             e.preventDefault();

@@ -749,6 +749,18 @@ form.media-form {
 	display: block;
 }
 
+.edit-profile-picture-unclicked {
+  text-align: left;
+  cursor: pointer;
+  display: block;
+}
+
+.edit-profile-picture-clicked {
+  text-align: center;
+  cursor: pointer;
+  display: block;
+}
+
 tr.media img {
     max-width: 8rem;
 }
