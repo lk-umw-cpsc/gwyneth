@@ -69,7 +69,17 @@
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
                 <img src="https://th-thumbnailer.cdn-si-edu.com/xDcPinsw9xl6ifm352a9ZnmAC9o=/fit-in/1600x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/97/2c/972c4531-0552-4a49-b51b-4cdb5066bd1d/tacc1157_05_faceright_10k_rgb.jpg" width="140" height="140">
-                <a href="editProfilePhoto.php" >Edit Photo</a>
+								<tr><td colspan="2">
+                            <form class="media-form hidden" method="post" id="edit-profile-picture-form">
+                                <label>Edit Photo</label>
+                                <label for="url">URL</label>
+                                <input type="text" id="url" name="url" placeholder="Paste link to media" required>
+                                <p class="error hidden" id="url-error">Please enter a valid URL.</p>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
+                                <input type="submit" name="edit-profile-picture-submit" value="Attach">
+                            </form>
+                            <a id="edit-profile-picture">Edit Photo</a>
+                        </td></tr>        
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>

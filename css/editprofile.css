@@ -744,6 +744,11 @@ form.media-form {
     display: block;
 }
 
+#edit-profile-picture{
+	cursor: pointer;
+	display: block;
+}
+
 tr.media img {
     max-width: 8rem;
 }

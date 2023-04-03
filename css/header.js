@@ -264,6 +264,28 @@ $(function() {
             $('#password-match-error').removeClass('hidden');
         }
     });
+    
+    // Edit Photo
+    $('#edit-profile-picture').click(function() {
+        let form = $('#edit-profile-picture-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Edit Photo');
+            form.addClass('hidden');
+        }
+    });
+    
+    //submit photo
+    $('#edit-profile-picture-form').submit(function(e) {
+        if (!isValidURL($('#url').val())) {
+            e.preventDefault();
+            $('#url-error').removeClass('hidden');
+            $('#url').focus();
+        }
+    });
+
 	
 	// Event training media
     $('#attach-training-media').click(function() {
@@ -328,6 +350,8 @@ $(function() {
             $('#post-url').focus();
         }
     });
+    
+
     // Person search
     $('form#person-search').submit(function(e) {
         let name = $('#name').val().trim();
