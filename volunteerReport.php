@@ -61,7 +61,7 @@
                             <th>Date</th>
                             <th>Name</th>
                             <th>Location</th>
-                            <th>Duration</th>
+                            <th>Hours</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -75,7 +75,7 @@
                                 <td>' . $event["duration"] . '</td>
                             </tr>';
                         } 
-                        echo "<tr><td></td><td></td><td id='total-hours'>Total Hours</td><td>$totalHours</td></tr>";
+                        echo "<tr class='total-hours'><td></td><td></td><td class='total-hours'>Total Hours</td><td>$totalHours</td></tr>";
                         ?>
                     </tbody></table>
                     <p class="print-only">I hereby certify that this volunteer has contributed the above volunteer hours to the Gwyneth's Gift organization.</p>
