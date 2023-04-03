@@ -72,7 +72,7 @@
             $event_description = $event_info['description'];
           ?>
         <h1> Event Roster </h1>
-        <h2><center> <?php echo $event_name ?></center></h2>
+        <h2 class="centered"><?php echo $event_name ?></h2>
         
       <main class="event-info">
         <div>
@@ -82,19 +82,19 @@
             <table class="centered">
                 <tbody>
                     <tr>	
-                        <td class="label">Date:</td>
+                        <td class="label">Date</td>
                         <td><?php echo $event_date ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Time:</td>
+                        <td class="label">Time</td>
                         <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Location:</td>
+                        <td class="label">Location</td>
                         <td><?php echo $event_location ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Description:</td><td></td>
+                        <td class="label">Description</td><td></td>
                     </tr>
                     <tr>
                         <td colspan="2"><?php echo $event_description ?></td>     		
@@ -103,7 +103,7 @@
             </table>
         </div>
 
-        <h2>Volunteers:</h2>
+        <h2>Attendees</h2>
 
         <?php
 
@@ -136,7 +136,12 @@
               $contact_num = 'N/A';
             }
             $age = get_age($person->get_birthday());
-
+            $type = $person->get_type()[0];
+            if ($type == 'volunteer') {
+              $type = 'Volunteer';
+            } else {
+              $type = 'Admin';
+            }
 
             echo '<div id="table-wrapper">'."\n";
             echo '<table class="centered">';
@@ -144,6 +149,7 @@
                     '<tr>'.
                       '<td class="label"><b>'.$first_name.' '.$last_name.'</b></td>'.
                     '</tr>'.
+                    "<tr><td class='label'>Role</td><td>$type</td></tr>" .
                     '<tr>'.
                         '<td class="label">Email</td>'.
                         '<td>'.$email.'</td>'.
