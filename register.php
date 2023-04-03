@@ -204,7 +204,7 @@
             }
             // need to incorporate availability here
             $newperson = new Person($first, $last, 'portland', 
-                $address, $city, $state, $zipcode,
+                $address, $city, $state, $zipcode, "",
                 $phone, $phoneType, null, null,
                 $email, $shirtSize, $hasComputer, $hasCamera, $hasTransportation, $econtactName, $econtactPhone, $econtactRelation, 
                 $contactWhen, 'volunteer', 'Active', $contactMethod, null, null,
