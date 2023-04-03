@@ -141,8 +141,10 @@
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
                 <a class="button" href="#">Reset Password (not implemented)</a>
+                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
+                <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
             <?php endif ?>
         </main>
     </body>
