@@ -55,7 +55,7 @@
             <?php endif ?>
             <h2 class="print-only">Hours Volunteered by <?php echo $volunteer->get_first_name() . ' ' . $volunteer->get_last_name() ?></h2>
             <?php if (count($events)  > 0): ?>
-                <table class="general">
+                <div class="table-wrapper"><table class="general">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -84,7 +84,7 @@
                             <tr><td>Admin Signature:  ______________________________________ Date: <?php echo date('m/d/Y') ?></td></tr>
                             <tr><td>Print Admin Name: _____________________________________</td></tr>
                         </tbody>
-                    </table>
+                    </table></div>
                     <button class="no-print" onclick="window.print()">Print</button>
                 <?php else: ?>
                     <p>There are no volunteer hours to report</p>
