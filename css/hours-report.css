@@ -14,9 +14,14 @@ main.hours-report {
     margin: 0rem 1rem 8rem 1rem;
 }
 
-td#total-hours {
+td.total-hours {
     text-align: right;
 }
+
+tr.total-hours {
+    font-weight: 500;
+}
+
 table#signature-table td:first-of-type {
     width: 1%;
     white-space: nowrap;
