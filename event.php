@@ -162,18 +162,20 @@
 </head>
 
 <body>
-    <div id="delete-confirmation-wrapper" class="hidden">
-        <div id="delete-confirmation">
-            <p>Are you sure you want to delete this event?</p>
-            <p>This action cannot be undone.</p>
+    <?php if ($access_level >= 2) : ?>
+        <div id="delete-confirmation-wrapper" class="hidden">
+            <div id="delete-confirmation">
+                <p>Are you sure you want to delete this event?</p>
+                <p>This action cannot be undone.</p>
 
-            <form method="post" action="deleteEvent.php">
-                <input type="submit" value="Delete Event">
-                <input type="hidden" name="id" value="<?= $id ?>">
-            </form>
-            <button id="delete-cancel">Cancel</button>
+                <form method="post" action="deleteEvent.php">
+                    <input type="submit" value="Delete Event">
+                    <input type="hidden" name="id" value="<?= $id ?>">
+                </form>
+                <button id="delete-cancel">Cancel</button>
+            </div>
         </div>
-    </div>
+    <?php endif ?>
     <?php require_once('header.php') ?>
     <h1>View Event</h1>
     <main class="event-info">
