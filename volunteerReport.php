@@ -64,7 +64,7 @@
                             <th>Hours</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="standout">
                         <?php foreach ($events as $event) {
                             $date = strtotime($event['date']);
                             $date = date('m/d/Y', $date);
