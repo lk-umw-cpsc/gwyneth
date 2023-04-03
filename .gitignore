@@ -1,3 +1,6 @@
+*.js~
+*.css~
+*.php~
 .DS_Store
 stateextract.py
 .gitignore
