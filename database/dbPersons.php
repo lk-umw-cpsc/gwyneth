@@ -653,7 +653,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $today = date("Y-m-d");
         $query = "select * from dbEventVolunteers, dbEvents
                   where userID='$personID' and eventID=id
-                  and date<='$today'";
+                  and date<='$today'
+                  order by date asc";
         $connection = connect();
         $result = mysqli_query($connection, $query);
         if ($result) {
