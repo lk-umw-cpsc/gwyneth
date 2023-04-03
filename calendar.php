@@ -37,8 +37,6 @@
     while (date('w', $calendarStart) > 0) {
         $calendarStart = strtotime(date('Y-m-d', $calendarStart) . ' -1 day');
     }
-    ini_set("display_errors",1);
-    error_reporting(E_ALL);
     $calendarEnd = date('Y-m-d', strtotime(date('Y-m-d', $calendarStart) . ' +34 day'));
     $calendarEndEpoch = strtotime($calendarEnd);
     $weeks = 5;
