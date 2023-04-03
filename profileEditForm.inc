@@ -12,7 +12,7 @@
 
     $person = retrieve_person($id);
 ?>
-<h1>Manage Profile</h1>
+<h1>Edit Profile</h1>
 <main class="signup-form">
     <?php if (isset($updateSuccess)): ?>
         <?php if ($updateSuccess): ?>
