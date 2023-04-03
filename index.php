@@ -75,7 +75,7 @@
                 <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="volunteerReport.php">
                         <img src="images/volunteer-history.svg">
-                        <span>Volunteer Report</span>
+                        <span>View My Hours</span>
                     </div>
                 <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
