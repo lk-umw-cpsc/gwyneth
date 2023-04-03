@@ -156,12 +156,26 @@
     ?>
     <title>Gwyneth's Gift VMS | View Event: <?php echo $event_info['name'] ?></title>
     <link rel="stylesheet" href="css/event.css" type="text/css" />
+    <?php if ($access_level >= 2) : ?>
+        <script src="js/event.js"></script>
+    <?php endif ?>
 </head>
 
 <body>
+    <div id="delete-confirmation-wrapper" class="hidden">
+        <div id="delete-confirmation">
+            <p>Are you sure you want to delete this event?</p>
+            <p>This action cannot be undone.</p>
+
+            <form method="post" action="deleteEvent.php">
+                <input type="submit" value="Delete Event">
+                <input type="hidden" name="id" value="<?= $id ?>">
+            </form>
+            <button id="delete-cancel">Cancel</button>
+        </div>
+    </div>
     <?php require_once('header.php') ?>
     <h1>View Event</h1>
-
     <main class="event-info">
         <?php if (isset($_GET['createSuccess'])): ?>
             <div class="happy-toast">Event created successfully!</div>
@@ -444,10 +458,11 @@
         ?>
 
         <?php if ($access_level >= 2) : ?>
-            <form method="post" action="deleteEvent.php">
+            <!-- <form method="post" action="deleteEvent.php">
                 <input type="submit" value="Delete Event">
                 <input type="hidden" name="id" value="<?= $id ?>">
-            </form>
+            </form> -->
+            <button onclick="showDeleteConfirmation()">Delete Event</button>
         <?php endif ?>
 
         <a href="calendar.php" class="button">Return to Calendar</a>
