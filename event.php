@@ -180,7 +180,7 @@
             $event_endTime = time24hto12h($event_info['endTime']);
             $event_location = $event_info['location'];
             $event_description = $event_info['description'];
-        
+            $event_in_past = strcmp(date('Y-m-d'), $event_info['date']) > 0;
             echo '<h2 class="centered">'.$event_name.'</h2>';
         ?>
         <div id="table-wrapper">
@@ -378,7 +378,7 @@
                 ?>
             </ul>
         <?php 
-            if ($remaining_slots > 0 && $user_id != 'vmsroot') {
+            if ($remaining_slots > 0 && $user_id != 'vmsroot' && !$event_in_past) {
                 if (!$already_assigned) {
                     echo '
                         <form method="GET">
@@ -393,7 +393,11 @@
                     echo '<div class="centered">You are signed up for this event!</div>';
                 }
             } else if ($already_assigned) {
-                echo '<div class="centered">You are signed up for this event!</div>';
+                if ($event_in_past) {
+                    echo '<div class="centered">You attended this event!</div>';
+                } else {
+                    echo '<div class="centered">You are signed up for this event!</div>';
+                }
             }
             if ($access_level >= 2) {
               echo '<br/><a href="roster.php?id='.$id.'" class="button">View Event Roster</a>';
@@ -403,23 +407,27 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    $all_volunteers = get_unassigned_available_volunteers($id);
-                    if ($all_volunteers) {
-                        echo '<form method="GET" id="assign-volunteer" class="standout">';
-                        echo '<input type=hidden name="request_type" value="add another">';
-                        echo '<input type="hidden" name="id" value="'.$id.'">';
-                        echo '<label for="volunteer-select">Assign Volunteer:</label>';
-                        echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
-                        if ($all_volunteers) {
-                            for ($x = 0; $x < count($all_volunteers); $x++) {
-                                echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
-                            }
-                        }
-                        echo '</select>';
-                        echo '<input type="submit" value="Assign" /></div>';
-                        echo '</form>';
+                    if ($event_in_past) {
+                        echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>This event is archived. Volunteers cannot be assigned.</p></div>';
                     } else {
-                        echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
+                        $all_volunteers = get_unassigned_available_volunteers($id);
+                        if ($all_volunteers) {
+                            echo '<form method="GET" id="assign-volunteer" class="standout">';
+                            echo '<input type=hidden name="request_type" value="add another">';
+                            echo '<input type="hidden" name="id" value="'.$id.'">';
+                            echo '<label for="volunteer-select">Assign Volunteer:</label>';
+                            echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
+                            if ($all_volunteers) {
+                                for ($x = 0; $x < count($all_volunteers); $x++) {
+                                    echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                                }
+                            }
+                            echo '</select>';
+                            echo '<input type="submit" value="Assign" /></div>';
+                            echo '</form>';
+                        } else {
+                            echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
+                        }
                     }
                 }
             }
