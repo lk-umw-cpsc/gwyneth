@@ -69,6 +69,7 @@
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
                 <img src="https://th-thumbnailer.cdn-si-edu.com/xDcPinsw9xl6ifm352a9ZnmAC9o=/fit-in/1600x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/97/2c/972c4531-0552-4a49-b51b-4cdb5066bd1d/tacc1157_05_faceright_10k_rgb.jpg" width="140" height="140">
+                <a href="editProfilePhoto.php" >Edit Photo</a>
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>
