@@ -181,6 +181,12 @@
             $event_location = $event_info['location'];
             $event_description = $event_info['description'];
             $event_in_past = strcmp(date('Y-m-d'), $event_info['date']) > 0;
+            require_once('include/time.php');
+            $event_duration = calculateHourDuration($event_info['startTime'], $event_info['endTime']);
+            $event_duration = floatPrecision($event_duration, 2);
+            if ($event_duration == floor($event_duration)) {
+                $event_duration = intval($event_duration);
+            }
             echo '<h2 class="centered">'.$event_name.'</h2>';
         ?>
         <div id="table-wrapper">
@@ -192,7 +198,11 @@
                     </tr>
                     <tr>	
                         <td class="label">Time:</td>
-                        <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
+                        <td><?php echo $event_startTime.' - '.$event_endTime ?></td>
+                    </tr>
+                    <tr>	
+                        <td class="label">Duration:</td>
+                        <td><?php echo $event_duration . ' hours' ?></td>
                     </tr>
                     <tr>	
                         <td class="label">Location:</td>
