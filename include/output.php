@@ -34,4 +34,8 @@
         return hsc($str);
     }
 
+    function floatPrecision($number, $places) {
+        return number_format((float)$number, $places, '.', '');
+    }
+
 ?>

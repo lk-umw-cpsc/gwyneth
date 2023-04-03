@@ -793,6 +793,10 @@ table.general th, table.general td {
     background-color: var(--standout-background);
 }
 
+.align-right {
+    text-align: right;
+}
+
 @media only screen and (min-width: 1024px) {
     main.general, form.general {
         margin: 0rem 8rem 4rem 8rem;

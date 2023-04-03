@@ -61,21 +61,23 @@
                             <th>Date</th>
                             <th>Name</th>
                             <th>Location</th>
-                            <th>Hours</th>
+                            <th class="align-right">Hours</th>
                         </tr>
                     </thead>
                     <tbody class="standout">
-                        <?php foreach ($events as $event) {
-                            $date = strtotime($event['date']);
-                            $date = date('m/d/Y', $date);
-                            echo '<tr>
-                                <td>' . $date . '</td>
-                                <td>' . $event["name"] . '</td>
-                                <td>' . $event["location"] . '</td>
-                                <td>' . $event["duration"] . '</td>
-                            </tr>';
-                        } 
-                        echo "<tr class='total-hours'><td></td><td></td><td class='total-hours'>Total Hours</td><td>$totalHours</td></tr>";
+                        <?php 
+                            require_once('include/output.php');
+                            foreach ($events as $event) {
+                                $date = strtotime($event['date']);
+                                $date = date('m/d/Y', $date);
+                                echo '<tr>
+                                    <td>' . $date . '</td>
+                                    <td>' . $event["name"] . '</td>
+                                    <td>' . $event["location"] . '</td>
+                                    <td class="align-right">' . floatPrecision($event["duration"], 2) . '</td>
+                                </tr>';
+                            } 
+                            echo "<tr class='total-hours'><td></td><td></td><td class='total-hours'>Total Hours</td><td class='align-right'>$totalHours</td></tr>";
                         ?>
                     </tbody></table>
                     <p class="print-only">I hereby certify that this volunteer has contributed the above volunteer hours to the Gwyneth's Gift organization.</p>
