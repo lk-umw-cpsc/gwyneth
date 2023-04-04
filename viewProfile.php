@@ -27,10 +27,6 @@
     }
     require_once('database/dbPersons.php');
     $user = retrieve_person($id);
-    if (!$user) {
-        echo 'User does not exist';
-        die();
-    }
     $viewingOwnProfile = $id == $userID;
 ?>
 <!DOCTYPE html>
@@ -48,6 +44,10 @@
         <main class="general">
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
+                </main></body></html>
+                <?php die() ?>
+            <?php elseif (!$user): ?>
+                <div class="error-toast">User does not exist!</div>
                 </main></body></html>
                 <?php die() ?>
             <?php endif ?>
