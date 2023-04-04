@@ -32,11 +32,22 @@
         die();
     }
     $viewingOwnProfile = $id == $userID;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if (isset($_POST['url'])) {
+        if (!update_profile_pic($id, $_POST['url'])) {
+          header('Location: viewProfile.php?id='.$id.'&picsuccess=False');
+        } else {
+          header('Location: viewProfile.php?id='.$id.'&picsuccess=True');
+        }
+      }
+    }
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
         <title>Gwyneth's Gift VMS | View User</title>
     </head>
     <body>
@@ -46,6 +57,17 @@
         ?>
         <h1>View Profile</h1>
         <main class="general">
+        <?php
+            if (isset($_GET['picsuccess'])) {
+              $picsuccess = $_GET['picsuccess'];
+              if ($picsuccess === 'True') {
+                echo '<div class="happy-toast">Profile Picture Updated Successfully!</div>';
+              } else if ($picsuccess === 'False') {
+                echo '<div class="error-toast">There was an error updating the Profile Picture!</div>';
+              }
+            }
+        ?>
+            <div class=>
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
                 </main></body></html>
@@ -66,6 +88,28 @@
                 <legend>General Information</legend>
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
+                <label>Profile Picture</label>
+                <img src=
+                  <?php
+                    $profile_pic = $user -> get_profile_pic();
+                    if ($profile_pic === NULL) {
+                      echo '"'.'https://www.gwynethsgift.org/wp-content/uploads/2021/11/gg-icon-transparent-small.png'.'"';
+                    } else {
+                      echo '"'.$profile_pic.'"';
+                    }
+                  ?>
+                width="140" height="140">
+								<tr><td colspan="2">
+                            <form class="media-form hidden" method="post" id="edit-profile-picture-form">
+                                <label>Edit Photo</label>
+                                <label for="url">URL</label>
+                                <input type="text" id="url" name="url" placeholder="Paste link to media" required>
+                                <p class="error hidden" id="url-error">Please enter a valid URL.</p>
+                                <input type="hidden" name="id" value="<?php echo $id ?>">
+                                <input type="submit" name="edit-profile-picture-submit" value="Attach">
+                            </form>
+                            <a id="edit-profile-picture">Edit Photo</a>
+                        </td></tr>        
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>

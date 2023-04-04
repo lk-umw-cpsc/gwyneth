@@ -39,6 +39,7 @@ function add_person($person) {
             $person->get_city() . '","' .
             $person->get_state() . '","' .
             $person->get_zip() . '","' .
+            $person->get_profile_pic() . '","'.
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_phone2() . '","' .
@@ -171,6 +172,19 @@ function update_birthday($id, $new_birthday) {
 }
 
 /*
+ * Updates the profile picture link of the corresponding
+ * id.
+*/
+
+function update_profile_pic($id, $link) {
+  $con = connect();
+  $query = 'UPDATE dbPersons SET profile_pic = "'.$link.'" WHERE id ="'.$id.'"';
+  $result = mysqli_query($con, $query);
+  mysqli_close($con);
+  return $result;
+}
+
+/*
  * Returns the age of the person by subtracting the 
  * person's birthday from the current date
 */
@@ -273,6 +287,7 @@ function make_a_person($result_row) {
                     $result_row['city'],
                     $result_row['state'],
                     $result_row['zip'],
+                    $result_row['profile_pic'],
                     $result_row['phone1'],
                     $result_row['phone1type'],
                     $result_row['phone2'],
