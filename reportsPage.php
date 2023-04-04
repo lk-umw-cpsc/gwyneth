@@ -16,8 +16,8 @@
 
   $get = sanitize($_GET);
   $type = $get['report_type'];
-  $dateFrom = $_GET['from'];
-  $dateTo = $_GET['to'];
+  $dateFrom = $_GET['date_from'];
+  $dateTo = $_GET['date_to'];
 
   // Is user authorized to view this page?
   if ($accessLevel < 2) {
@@ -130,7 +130,7 @@
         </tr>
         <tbody>
         <?php 
-    if(isset($dateFrom) && isset($dateTo)){
+    
         if($type == "general_volunteer_report"){
             require_once('database/dbPersons.php');
             require_once('database/dbEvents.php');
@@ -161,11 +161,11 @@
                 </tr>";
             }
         }
-    }
+    
         ?>
         </tbody>
         </table>
-        <div class="center_b"><a href="http://localhost/gwyneth/reports.php?venue=portland">
+        <div class="center_b"><a href="http://localhost/gwyneth/report.php">
             <button class = "theB">New Report</button>
         </a></div>
         </main>
