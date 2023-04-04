@@ -18,18 +18,19 @@
     } else if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["profile-edit-form"])) {
         require_once('domain/Person.php');
         require_once('database/dbPersons.php');
+        // make every submitted field SQL-safe except for password
+        $ignoreList = array('password');
+        $args = sanitize($_POST, $ignoreList);
+
         $editingSelf = true;
         if ($_SESSION['access_level'] >= 2 && isset($_POST['id'])) {
             $id = $_POST['id'];
-            $editingSelf = false;
+            $editingSelf = $id == $_SESSION['_id'];
+            $id = $args['id'];
             // Check to see if user is a lower-level manager here
         } else {
             $id = $_SESSION['_id'];
         }
-
-        // make every submitted field SQL-safe except for password
-        $ignoreList = array('password');
-        $args = sanitize($_POST, $ignoreList);
 
         // echo "<p>The form was submitted:</p>";
         // foreach ($args as $key => $value) {

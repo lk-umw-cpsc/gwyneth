@@ -3,8 +3,9 @@
     require_once('database/dbPersons.php');
     require_once('include/output.php');
 
-    if ($_SESSION['access_level'] >= 2 && isset($_GET['id'])) {
-        $id = $_GET['id'];
+    $args = sanitize($_GET);
+    if ($_SESSION['access_level'] >= 2 && isset($args['id'])) {
+        $id = $args['id'];
         // Check to see if user is a lower-level manager here
     } else {
         $id = $_SESSION['_id'];

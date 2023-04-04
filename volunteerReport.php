@@ -48,7 +48,9 @@
         ?>
         <h1>Volunteer History Report</h1>
         <main class="hours-report">
-            <?php if ($viewingSelf): ?>
+            <?php if (!$volunteer): ?>
+                <p class="error-toast">That volunteer does not exist!</p>
+            <?php elseif ($viewingSelf): ?>
                 <h2 class="no-print">Your Volunteer Hours</h2>
             <?php else: ?>
                 <h2 class="no-print">Hours Volunteered by <?php echo $volunteer->get_first_name() . ' ' . $volunteer->get_last_name() ?></h2>
