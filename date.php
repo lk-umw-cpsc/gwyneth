@@ -24,7 +24,9 @@
         header('Location: calendar.php');
         die();
     }
-    $date = $_GET['date'];
+    require_once('include/input-validation.php');
+    $get = sanitize($_GET);
+    $date = $get['date'];
     $datePattern = '/[0-9]{4}-[0-9]{2}-[0-9]{2}/';
     $timeStamp = strtotime($date);
     if (!preg_match($datePattern, $date) || !$timeStamp) {
