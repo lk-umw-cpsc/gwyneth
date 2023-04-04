@@ -126,7 +126,12 @@
                 }
                 $start = $args[$startKey];
                 $end = $args[$endKey];
-                $range24h = validate12hTimeRangeAndConvertTo24h($start, $end);
+                // $range24h = validate12hTimeRangeAndConvertTo24h($start, $end);
+                if (!validate24hTimeRange($start, $end)) {
+                    $range24h = null;
+                } else {
+                    $range24h = [ $start, $end ];
+                }
                 if (!$range24h) {
                     $errors = true;
                     // echo "bad $day availability";
