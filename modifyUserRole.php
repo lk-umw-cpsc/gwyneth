@@ -31,7 +31,8 @@
         die();
     } else if ($_SERVER["REQUEST_METHOD"] == "POST"){
         require_once('database/dbPersons.php');
-        $new_role = $_POST['s_role'];
+        $post = sanitize($_POST);
+        $new_role = $post['s_role'];
         if (empty($new_role)){
             // echo "No new role selected";
         }else{
@@ -39,7 +40,7 @@
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
-        $new_status = $_POST['statsRadio'];
+        $new_status = $post['statsRadio'];
         if (empty($new_status)){
             // echo "No new status selected";
         }else{
@@ -47,7 +48,7 @@
             $statusChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
         }
-        $new_notes = $_POST['s_reason'];
+        $new_notes = $post['s_reason'];
         if (empty($new_notes)){
             // echo "No new notes selected";
         }else{
