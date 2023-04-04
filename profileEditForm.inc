@@ -61,6 +61,7 @@
 ?>
 <h1>Edit Profile</h1>
 <main class="signup-form">
+    <h2>Modify Volunteer Profile</h2>
     <?php if (isset($updateSuccess)): ?>
         <?php if ($updateSuccess): ?>
             <div class="happy-toast">Profile updated successfully!</div>
