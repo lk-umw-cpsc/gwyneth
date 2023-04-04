@@ -819,3 +819,7 @@ table.general th, table.general td {
 img {
 	object-fit: cover;
 }
+
+.pic_update_message {
+  color: green;
+}

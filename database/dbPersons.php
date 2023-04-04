@@ -172,6 +172,19 @@ function update_birthday($id, $new_birthday) {
 }
 
 /*
+ * Updates the profile picture link of the corresponding
+ * id.
+*/
+
+function update_profile_pic($id, $link) {
+  $con = connect();
+  $query = 'UPDATE dbPersons SET profile_pic = "'.$link.'" WHERE id ="'.$id.'"';
+  $result = mysqli_query($con, $query);
+  mysqli_close($con);
+  return $result;
+}
+
+/*
  * Returns the age of the person by subtracting the 
  * person's birthday from the current date
 */

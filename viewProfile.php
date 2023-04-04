@@ -32,6 +32,16 @@
         die();
     }
     $viewingOwnProfile = $id == $userID;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      if (isset($_POST['url'])) {
+        if (!update_profile_pic($id, $_POST['url'])) {
+          header('Location: viewProfile.php?id='.$id.'&picsuccess=False');
+        } else {
+          header('Location: viewProfile.php?id='.$id.'&picsuccess=True');
+        }
+      }
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -47,6 +57,17 @@
         ?>
         <h1>View Profile</h1>
         <main class="general">
+        <?php
+            if (isset($_GET['picsuccess'])) {
+              $picsuccess = $_GET['picsuccess'];
+              if ($picsuccess === 'True') {
+                echo '<div class="happy-toast">Profile Picture Updated Successfully!</div>';
+              } else if ($picsuccess === 'False') {
+                echo '<div class="error-toast">There was an error updating the Profile Picture!</div>';
+              }
+            }
+        ?>
+            <div class=>
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
                 </main></body></html>
@@ -68,7 +89,16 @@
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
-                <img src="https://th-thumbnailer.cdn-si-edu.com/xDcPinsw9xl6ifm352a9ZnmAC9o=/fit-in/1600x0/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/97/2c/972c4531-0552-4a49-b51b-4cdb5066bd1d/tacc1157_05_faceright_10k_rgb.jpg" width="140" height="140">
+                <img src=
+                  <?php
+                    $profile_pic = $user -> get_profile_pic();
+                    if ($profile_pic === NULL) {
+                      echo '"'.'https://www.gwynethsgift.org/wp-content/uploads/2021/11/gg-icon-transparent-small.png'.'"';
+                    } else {
+                      echo '"'.$profile_pic.'"';
+                    }
+                  ?>
+                width="140" height="140">
 								<tr><td colspan="2">
                             <form class="media-form hidden" method="post" id="edit-profile-picture-form">
                                 <label>Edit Photo</label>
