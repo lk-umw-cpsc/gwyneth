@@ -56,7 +56,7 @@
                         <img src="images/add-person.svg">
                         <span>Register Volunteer</span>
                     </div>
-                    <div class="dashboard-item" data-link="reports.php?venue=portland">
+                    <div class="dashboard-item" data-link="report.php">
                         <img src="images/create-report.svg">
                         <span>Create Report</span>
                     </div>

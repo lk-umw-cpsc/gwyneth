@@ -176,6 +176,9 @@
         <div class="center_b"><a href="http://localhost/gwyneth/report.php">
             <button class = "theB">New Report</button>
         </a></div>
+        <div class="center_b"><a href="http://localhost/gwyneth/index.php">
+            <button class = "theB">Home Page</button>
+        </a></div>
         </main>
     </body>
 </html>
