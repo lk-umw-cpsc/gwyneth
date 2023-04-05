@@ -29,7 +29,7 @@
                 die();
             }
             $events = find_event($args['name']);
-            $search = 'Results for Search by Name: "' . $args['name'] . '"';
+            $search = 'Results for Search by Name: "' . htmlspecialchars($_POST['name']) . '"';
         } else if (isset($args['submitDateRange'])) {
             if (!wereRequiredFieldsSubmitted($args, array('date-start', 'date-end'))) {
                 echo 'missing form data';
@@ -45,7 +45,7 @@
 
             $start = date('m/d/Y', strtotime($start));
             $end = date('m/d/Y', strtotime($end));
-            $search = 'Results for Search by Date Range: ' . $start . ' - ' . $end;
+            $search = 'Results for Search by Date Range: ' . htmlspecialchars($_POST['date-start']) . ' - ' . htmlspecialchars($_POST['date-end']);
         }
     } else {
         $events = null;
