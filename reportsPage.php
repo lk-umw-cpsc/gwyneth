@@ -119,7 +119,7 @@
             <span>
                 <?php 
                     if($lastFrom == NULL && $lastTo == NULL){
-                        echo "All Last Name";
+                        echo "All last name";
                     }else{
                         echo $lastFrom, " to " , $lastTo;
                     }
