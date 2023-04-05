@@ -335,7 +335,8 @@ $(function() {
         let id = $('#id').val().trim();
         let phone = $('#phone').val().trim();
         let role = $('#role').val().trim();
-        if (!(name || id || phone || role)) {
+        let status = $('#status').val().trim();
+        if (!(name || id || phone || role || status)) {
             $('#criteria-error').removeClass('hidden');
             e.preventDefault();
         }

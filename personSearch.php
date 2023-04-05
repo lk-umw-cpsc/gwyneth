@@ -37,7 +37,7 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'role'];
+                    $required = ['name', 'id', 'phone', 'role', 'status'];
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
                     }
@@ -45,13 +45,16 @@
                     $id = $args['id'];
                     $phone = preg_replace("/[^0-9]/", "", $args['phone']);
                     $role = $args['role'];
-                    if (!($name || $id || $phone || $role)) {
+                    $status = $args['status'];
+                    if (!($name || $id || $phone || $role || $status)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
+                    } else if (!valueConstrainedTo($status, ['Active', 'Inactive', ''])) {
+                        echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $role);
+                        $persons = find_users($name, $id, $phone, $role, $status);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
@@ -64,6 +67,7 @@
                                             <th>E-mail</th>
                                             <th>Phone Number</th>
                                             <th>Role</th>
+                                            <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -76,6 +80,7 @@
                                             <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
                                             <td>' . ucfirst($person->get_type()[0]) . '</td>
+                                            <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
                                         </a></tr>';
                             }
@@ -103,6 +108,12 @@
                 <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
                 <option value="admin" <?php if (isset($role) && $role == 'admin') echo 'selected' ?>>Admin</option>
                 <option value="superadmin" <?php if (isset($role) && $role == 'superadmin') echo 'selected' ?>>Super Admin</option>
+            </select>
+            <label for="status">Status</label>
+            <select id="status" name="status">
+                <option value="">Any</option>
+                <option value="Active" <?php if (!isset($status) || (isset($status) && $status == 'Active')) echo 'selected' ?>>Active</option>
+                <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected' ?>>Inactive</option>
             </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
