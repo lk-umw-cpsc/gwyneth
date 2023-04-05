@@ -18,7 +18,8 @@
   $type = $get['report_type'];
   $dateFrom = $_GET['date_from'];
   $dateTo = $_GET['date_to'];
-
+  $lastFrom = $_GET['lname_start'];
+  $lastTo = $_GET['lname_end'];
   // Is user authorized to view this page?
   if ($accessLevel < 2) {
       header('Location: index.php');
@@ -103,8 +104,8 @@
                 // if date from is not provided but date to is, assume admin wants all dates prior to the date given
                     }elseif(!isset($dateFrom) && isset($dateTo)){
                         echo "Every date till ", $dateTo;
-                // if date from and date to is not assume admin wants all dates
-                    }elseif(!isset($dateFrom) && !isset($dateTo)){
+                // if date from and date to is not provided assume admin wants all dates
+                    }elseif($dateFrom == NULL && $dateTo ==NULL){
                         echo "All date";
                     }else{
                         echo $dateFrom ," to ", $dateTo;
@@ -116,7 +117,14 @@
         <div class= "lastNameDiv">
             <label>Last Name Range:</label>
             <span>
-                <?php echo "?"; ?> 
+                <?php 
+                    if($lastFrom == NULL && $lastTo == NULL){
+                        echo "All Last Name";
+                    }else{
+                        echo $lastFrom, " to " , $lastTo;
+                    }
+                 //SELECT * FROM department WHERE NAME LIKE 'H%';
+                 ?> 
             </span>
         </div>
         <h3 style="font-weight: bold">Result: <h3>

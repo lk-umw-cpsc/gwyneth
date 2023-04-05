@@ -33,10 +33,19 @@
     </head>
     <body>
         <?php require_once('header.php');
-	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) && isset($_POST["report_type"]) || isset($_POST["date_from"])) {
+	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) && isset($_POST["report_type"]) && isset($_POST["date_from"])
+            && isset($_POST["date_to"]) && isset($_POST['lname_start']) && isset($_POST['lname_end'])) {
 		    $type = $_POST['report_type'];
-		    header("Location: /gwyneth/reportsPage.php?report_type=$type");
+            $dFrom = $_POST['date_from'];
+            $dTo = $_POST['date_to'];
+            $lastFrom = $_POST['lname_start'];
+            $lastTo = $_POST['lname_end'];
+ 		    header("Location: /gwyneth/reportsPage.php?report_type=$type&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo");
 	    } 
+            // $alphabet = range('a', 'z');
+            // foreach ($alphabet as $letter) {
+            //     echo $letter . " ";
+            // }
 	    ?>
         <h1>Reports</h1>
     <main class="rep">
