@@ -60,6 +60,24 @@
         return false;
     }
 
+    function validate24hTimeRange($start, $end) {
+        if (!validate24hTime($start) || !validate24hTime($start)) {
+            return false;
+        }
+        if ($start >= $end) {
+            return false;
+        }
+        return true;
+    }
+
+    function validate24hTime($time) {
+        $exp = "/([0-1][0-9]|2[0-3]):[0-5][0-9]/";
+        if (!preg_match($exp, $time)) {
+            return false;
+        }
+        return true;
+    }
+
     function validate12hTimeRangeAndConvertTo24h($start, $end) {
         $start = validate12hTimeAndConvertTo24h($start);
         $end = validate12hTimeAndConvertTo24h($end);

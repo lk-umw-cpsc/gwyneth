@@ -27,10 +27,6 @@
     }
     require_once('database/dbPersons.php');
     $user = retrieve_person($id);
-    if (!$user) {
-        echo 'User does not exist';
-        die();
-    }
     $viewingOwnProfile = $id == $userID;
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -70,6 +66,10 @@
             <div class=>
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
+                </main></body></html>
+                <?php die() ?>
+            <?php elseif (!$user): ?>
+                <div class="error-toast">User does not exist!</div>
                 </main></body></html>
                 <?php die() ?>
             <?php endif ?>
@@ -185,8 +185,10 @@
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
                 <a class="button" href="#">Reset Password (not implemented)</a>
+                <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
+                <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
             <?php endif ?>
         </main>
     </body>

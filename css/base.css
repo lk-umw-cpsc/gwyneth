@@ -76,6 +76,8 @@ table, td, tr, th, form, fieldset, em, button, a {
     --light-border: 1px solid var(--shadow-and-border-color);
     --text-field-border: 2px solid #e8e8e8;
 
+    --cancel-button-background-color: #aaa;
+
     --error-color: red;
 
     /* Global rules */
@@ -791,6 +793,10 @@ table.general th, table.general td {
     border-bottom: 3px solid var(--shadow-and-border-color);
     padding: 1rem;
     background-color: var(--standout-background);
+}
+
+.align-right {
+    text-align: right;
 }
 
 @media only screen and (min-width: 1024px) {

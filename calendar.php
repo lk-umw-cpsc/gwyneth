@@ -37,7 +37,14 @@
     while (date('w', $calendarStart) > 0) {
         $calendarStart = strtotime(date('Y-m-d', $calendarStart) . ' -1 day');
     }
-    $calendarEnd = strtotime(date('Y-m-d', $calendarStart) . ' +34 day');
+    $calendarEnd = date('Y-m-d', strtotime(date('Y-m-d', $calendarStart) . ' +34 day'));
+    $calendarEndEpoch = strtotime($calendarEnd);
+    $weeks = 5;
+    // Add another row if it's needed to display all days in the month
+    if (date('m', strtotime($calendarEnd . ' +1 day')) == date('m', $first)) {
+        $calendarEnd = date('Y-m-d', strtotime($calendarEnd . ' +7 day'));
+        $weeks = 6;
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -76,10 +83,10 @@
                     <?php
                         $date = $calendarStart;
                         $start = date('Y-m-d', $calendarStart);
-                        $end = date('Y-m-d', $calendarEnd);
+                        $end = date('Y-m-d', $calendarEndEpoch);
                         require_once('database/dbEvents.php');
                         $events = fetch_events_in_date_range($start, $end);
-                        for ($week = 0; $week < 5; $week++) {
+                        for ($week = 0; $week < $weeks; $week++) {
                             echo '
                                 <tr class="calendar-week">
                             ';

@@ -46,8 +46,8 @@ function time12hTo24h(time) {
 }
 
 function validateTimeRange(start, end) {
-    start = time12hTo24h(start);
-    end = time12hTo24h(end);
+    // start = time12hTo24h(start);
+    // end = time12hTo24h(end);
     if (!start || !end) {
         return false;
     }
@@ -91,7 +91,7 @@ $(function() {
     });
     $('div.availability-day > p > input[type=checkbox]').change(function() {
         let checked = $(this).prop('checked');
-        let fields = $(this).parent().parent().children('input[type=text]');
+        let fields = $(this).parent().parent().children('select');
         fields.prop('disabled', !checked);
         fields.prop('required', checked);
         let requiredAsterisks = $(this).parent().parent().find('p em');
@@ -107,6 +107,7 @@ $(function() {
         }
         // Force user to choose at least one day with availability
         let noDaysChecked = numberChecked == 0;
+        // $('div.availability-day > p > select').prop('required', noDaysChecked);
         $('div.availability-day > p > input[type=checkbox]').prop('required', noDaysChecked);
     });
 
@@ -362,7 +363,8 @@ $(function() {
         let id = $('#id').val().trim();
         let phone = $('#phone').val().trim();
         let role = $('#role').val().trim();
-        if (!(name || id || phone || role)) {
+        let status = $('#status').val().trim();
+        if (!(name || id || phone || role || status)) {
             $('#criteria-error').removeClass('hidden');
             e.preventDefault();
         }

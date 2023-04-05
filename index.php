@@ -14,6 +14,7 @@
     if (isset($_SESSION['_id'])) {
         $person = retrieve_person($_SESSION['_id']);
     }
+    $notRoot = $person->get_id() != 'vmsroot';
 ?>
 <!DOCTYPE html>
 <html>
@@ -61,14 +62,20 @@
                         <span>Create Report</span>
                     </div>
                 <?php endif ?>
-                <?php if ($person->get_id() != 'vmsroot') : ?>
+                <?php if ($notRoot) : ?>
                     <div class="dashboard-item" data-link="viewProfile.php">
                         <img src="images/view-profile.svg">
                         <span>View Profile</span>
                     </div>
                     <div class="dashboard-item" data-link="editProfile.php">
                         <img src="images/manage-account.svg">
-                        <span>Manage Profile</span>
+                        <span>Edit Profile</span>
+                    </div>
+                <?php endif ?>
+                <?php if ($notRoot) : ?>
+                    <div class="dashboard-item" data-link="volunteerReport.php">
+                        <img src="images/volunteer-history.svg">
+                        <span>View My Hours</span>
                     </div>
                 <?php endif ?>
                 <div class="dashboard-item" data-link="changePassword.php">
