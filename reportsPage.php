@@ -1,4 +1,10 @@
 <?php 
+/**
+ * @version April 6, 2023
+ * @author Alip Yalikun
+ */
+
+
   session_cache_expire(30);
   session_start();
   ini_set("display_errors",1);
@@ -86,7 +92,7 @@
             <label>Reports Type:</label>
             <span>
                 <?php 
-                if($type == "top_performers"){
+                if($type == "top_perform"){
                     echo "Top Performers"; 
                 }elseif($type == "general_volunteer_report"){
                     echo "General Volunteer Report";
@@ -128,19 +134,70 @@
             </span>
         </div>
         <h3 style="font-weight: bold">Result: <h3>
-        <table>
-        <tr>
-            <th>Firs Name</th>
-            <th>Last Name</th>
-            <th>Phone Number</th>
-            <th>Email Address</th>
-            <th>Hours Volunteered</th>
-        </tr>
-        <tbody>
+        
         <?php 
-    
-       
-        if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && isset($lastFrom) && isset($lastTo)){
+        // view Gernal valunteer report with all date range and all name range
+        if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
+            $result = mysqli_query($con,$query);
+            while($row = mysqli_fetch_assoc($result)){
+                echo"<tr>
+                <td>" . $row['first_name'] . "</td>
+                <td>" . $row['last_name'] . "</td>
+                <td>" . $row['phone1'] . "</td>
+                <td>" . $row['email'] . "</td>
+                <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                </tr>";    
+            }
+        }
+        // view Top performers report with all date range and all name range
+        if($type == "top_perform" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ORDER BY hours DESC";
+            $result = mysqli_query($con,$query);
+            while($row = mysqli_fetch_assoc($result)){
+                echo"<tr>
+                <td>" . $row['first_name'] . "</td>
+                <td>" . $row['last_name'] . "</td>
+                <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                </tr>";
+            }
+        }
+        if($dateFrom == NULL && $dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
             require_once('database/dbPersons.php');
             require_once('database/dbEvents.php');
             $con=connect();
@@ -159,21 +216,7 @@
                         <td>" . get_hours_volunteered_by($row['id']) . "</td>
                         </tr>";
                     }
-                }
-               
-            }
-        }elseif($type == "top_performers"){
-            require_once('database/dbPersons.php');
-            $con=connect();
-            $type1 = "volunteer";
-            $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ORDER BY hours DESC";
-            $result = mysqli_query($con,$query);
-            while($row = mysqli_fetch_assoc($result)){
-                echo"<tr>
-                <td>" . $row['first_name'] . "</td>
-                <td>" . $row['last_name'] . "</td>
-                <td>" . get_hours_volunteered_by($row['id']) . "</td>
-                </tr>";
+                } 
             }
         }
     
