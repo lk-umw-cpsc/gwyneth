@@ -139,21 +139,28 @@
         <tbody>
         <?php 
     
-        if($type == "general_volunteer_report"){
+       
+        if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && isset($lastFrom) && isset($lastTo)){
             require_once('database/dbPersons.php');
             require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
             $result = mysqli_query($con,$query);
+            $nameRange = range($lastFrom,$lastTo);
             while($row = mysqli_fetch_assoc($result)){
-                echo"<tr>
-                <td>" . $row['first_name'] . "</td>
-                <td>" . $row['last_name'] . "</td>
-                <td>" . $row['phone1'] . "</td>
-                <td>" . $row['email'] . "</td>
-                <td>" . get_hours_volunteered_by($row['id']) . "</td>
-                </tr>";
+                foreach ($nameRange as $a){
+                    if($row['last_name'][0] == $a){
+                        echo"<tr>
+                        <td>" . $row['first_name'] . "</td>
+                        <td>" . $row['last_name'] . "</td>
+                        <td>" . $row['phone1'] . "</td>
+                        <td>" . $row['email'] . "</td>
+                        <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                        </tr>";
+                    }
+                }
+               
             }
         }elseif($type == "top_performers"){
             require_once('database/dbPersons.php');

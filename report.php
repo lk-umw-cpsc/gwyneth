@@ -62,9 +62,9 @@
             <label for="date_to">Date Range End</label>
             <input name = "date_to" type="date" id="date_to" placeholder="yyyy-mm-dd">
             <label for="lname_start">Last Name Range Start</label>
-            <input name = "lname_start" type="text" id="lname_start" placeholder="a-z">
+            <input name = "lname_start" type="text" id="lname_start" placeholder="A-Z">
             <label for="lname_end">Last Name Range End</label>
-            <input name = "lname_end" type="text" id="lname_end" placeholder="a-z">
+            <input name = "lname_end" type="text" id="lname_end" placeholder="A-Z">
             <input type="submit" name="submit_click">
 
         </form>
