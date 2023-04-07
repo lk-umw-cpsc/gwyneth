@@ -115,7 +115,6 @@
                         echo "All date";
                     }else{
                         echo $dateFrom ," to ", $dateTo;
-                        getBetweenDates($dateFrom,$dateTo);
                     } 
                 ?> 
             </span>
@@ -219,7 +218,46 @@
                 } 
             }
         }
-    
+        if(!$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Phone Number</th>
+                <th>Email Address</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT * FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id";
+            $result = mysqli_query($con,$query);
+            try {
+                // Code that might throw an exception or error goes here
+                $dd = getBetweenDates($dateFrom, $dateTo);
+                $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                while($row = mysqli_fetch_assoc($result)){
+                    foreach ($dd as $date){
+                        if(in_array($date,$dateRange)){
+                            echo"<tr>
+                            <td>" . $row['first_name'] . "</td>
+                            <td>" . $row['last_name'] . "</td>
+                            <td>" . $row['phone1'] . "</td>
+                            <td>" . $row['email'] . "</td>
+                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            </tr>";
+                        }
+                    }
+                }
+            } catch (TypeError $e) {
+                // Code to handle the exception or error goes here
+                echo "No Results found!"; 
+            }
+        }
         ?>
         </tbody>
         </table>
