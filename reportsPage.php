@@ -218,6 +218,8 @@
                 } 
             }
         }
+        //note here so I can look at it tmrw: first i need to work on combining two range type to filter result out for me
+        // and then add the $type, make sure that works with both ranges combined toghther. 
         if(!$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
             echo"
             <table>
