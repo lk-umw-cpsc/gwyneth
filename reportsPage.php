@@ -144,11 +144,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -172,11 +172,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -216,11 +216,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -249,11 +249,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -292,9 +292,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -320,9 +320,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -362,9 +362,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -395,9 +395,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
@@ -435,11 +435,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Events Volunteerd</th>
+                <th>Event</th>
                 <th>Event Location</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
