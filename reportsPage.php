@@ -57,11 +57,9 @@
         <title>Gwyneth's Gift VMS | Report Result</title>
         <style>
             table {
-                margin-top: 0;
+                margin-top: 1rem;
                 border-collapse: collapse;
-		margin-left:auto;
-		margin-right:auto;
-                width: 80%;
+                width: 85%;
             }
 
             td, th {
@@ -75,7 +73,7 @@
                 color: white;
             }
             .lastNameDiv{
-                margin-bottom: 0;
+                margin-bottom: 3rem;
 
             }
             .theB{
@@ -94,9 +92,7 @@
             }
             .center_b {
                 margin-top: 3rem;
-		margin-left:auto;
-                margin-right:auto;                
-		display: flex;
+                display: flex;
                 align-items: center;
                 justify-content: center;
 		gap: .8rem;
@@ -121,11 +117,10 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Report Result</h1>
-        <main class="report">
-		<div class = "intro">
+        <h1>Reports Page</h1>
+        <main class="rep">
         <div>
-            <label>Reports Type: </label>
+            <label>Reports Type:</label>
             <span>
                 <?php 
                 if($type == "top_perform"){
@@ -141,7 +136,7 @@
             </span>
         </div>
         <div>
-            <label>Date Range: </label>
+            <label>Date Range:</label>
             <span>
                 <?php
                 // if date from is provided but not date to, assume admin wants all dates from given date to current
@@ -159,8 +154,8 @@
                 ?> 
             </span>
         </div>
-	<div>
-            <label>Last Name Range: </label>
+        <div class= "lastNameDiv">
+            <label>Last Name Range:</label>
             <span>
                 <?php 
                     if($lastFrom == NULL && $lastTo == NULL){
@@ -192,16 +187,16 @@
 	</div>
 
         <?php 
-        // view General volunteer report with all date range and all name range
+        // view Gernal valunteer report with all date range and all name range
         if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -223,11 +218,11 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -265,11 +260,11 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -296,11 +291,11 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -337,9 +332,9 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -363,9 +358,9 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -403,9 +398,9 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -434,9 +429,9 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -467,16 +462,16 @@
                 echo "No Results found!"; 
             }
         }
-
+        // view indiv_vol_hours report with all date range and all name range
         if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
             echo"
             <table>
             <tr>
-                <th>First Name</th>
+                <th>Firs Name</th>
                 <th>Last Name</th>
-                <th>Event</th>
+                <th>Events Volunteerd</th>
                 <th>Event Location</th>
-                <th>Volunteer Hours</th>
+                <th>Hours Volunteered</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -496,18 +491,147 @@
                 <td>" . $row['location'] . "</td>
                 <td>" . get_hours_volunteered_by($row['id']) . "</td>
                 </tr>";
-	   }
-	}
+            }
+        }
+        // date range and name range for indiv_vol_hours report
+        if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Events Volunteerd</th>
+                <th>Event Location</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            dbEvents.name, dbEvents.location,
+            (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+            GROUP BY dbPersons.first_name, dbPersons.last_name";
+            $result = mysqli_query($con,$query);
+            try {
+                // Code that might throw an exception or error goes here
+                $dd = getBetweenDates($dateFrom, $dateTo);
+                $nameRange = range($lastFrom,$lastTo);
+                $bothRange = array_merge($dd,$nameRange);
+                $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                while($row = mysqli_fetch_assoc($result)){
+                    foreach ($bothRange as $both){
+                        if(in_array($both,$dateRange) && in_array($row['last_name'][0],$nameRange)){
+                            echo"<tr>
+                            <td>" . $row['first_name'] . "</td>
+                            <td>" . $row['last_name'] . "</td>
+                            <td>" . $row['name'] . "</td>
+                            <td>" . $row['location'] . "</td>
+                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            </tr>";
+                        }
+                    }
+                }
+            } catch (TypeError $e) {
+                // Code to handle the exception or error goes here
+                echo "No Results found!"; 
+            }
+        }
+        //only name range for indiv_vol_hours report 
+        if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Events Volunteerd</th>
+                <th>Event Location</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            dbEvents.name, dbEvents.location,
+            (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+            GROUP BY dbPersons.first_name, dbPersons.last_name";
+            $result = mysqli_query($con,$query);
+            $nameRange = range($lastFrom,$lastTo);
+            while($row = mysqli_fetch_assoc($result)){
+                foreach ($nameRange as $a){
+                    if($row['last_name'][0] == $a){
+                        echo"<tr>
+                        <td>" . $row['first_name'] . "</td>
+                        <td>" . $row['last_name'] . "</td>
+                        <td>" . $row['name'] . "</td>
+                        <td>" . $row['location'] . "</td>
+                        <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                        </tr>";
+                    }
+                } 
+            }
+        }
+        //only date range for indiv_vol_hoursreport
+        if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Events Volunteerd</th>
+                <th>Event Location</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            dbEvents.name, dbEvents.location,
+            (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+            GROUP BY dbPersons.first_name, dbPersons.last_name";
+            $result = mysqli_query($con,$query);
+            try {
+                // Code that might throw an exception or error goes here
+                $dd = getBetweenDates($dateFrom, $dateTo);
+                $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                while($row = mysqli_fetch_assoc($result)){
+                    foreach ($dd as $date){
+                        if(in_array($date,$dateRange)){
+                            echo"<tr>
+                            <td>" . $row['first_name'] . "</td>
+                            <td>" . $row['last_name'] . "</td>
+                            <td>" . $row['name'] . "</td>
+                            <td>" . $row['location'] . "</td>
+                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            </tr>";
+                        }
+                    }
+                }
+            } catch (TypeError $e) {
+                // Code to handle the exception or error goes here
+                echo "No Results found!"; 
+            }
+        }
         ?>
         </tbody>
         </table>
-        <div class="center_b">
-		<a href="http://localhost/gwyneth/report.php">
-            	<button class = "theB">New Report</button>
-            	</a>
-            	<a href="http://localhost/gwyneth/index.php">
-            	<button class = "theB">Home Page</button>
-            	</a>
-	</div>
+        <div class="center_b"><a href="http://localhost/gwyneth/report.php">
+            <button class = "theB">New Report</button>
+        </a></div>
+        <div class="center_b"><a href="http://localhost/gwyneth/index.php">
+            <button class = "theB">Home Page</button>
+        </a></div>
+        </main>
     </body>
 </html>
