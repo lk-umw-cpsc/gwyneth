@@ -174,9 +174,14 @@
             </tr>
             <tbody>";
             require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ORDER BY hours DESC";
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+            ORDER BY DURATION DESC";
             $result = mysqli_query($con,$query);
             while($row = mysqli_fetch_assoc($result)){
                 echo"<tr>
@@ -235,7 +240,8 @@
             require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT * FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id";
             $result = mysqli_query($con,$query);
             try {
@@ -276,7 +282,8 @@
             require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT * FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id";
             $result = mysqli_query($con,$query);
             try {
