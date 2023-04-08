@@ -96,6 +96,10 @@
                     echo "Top Performers"; 
                 }elseif($type == "general_volunteer_report"){
                     echo "General Volunteer Report";
+                }elseif($type == "total_vol_hours"){
+                    echo "Total Volunteer Hours";
+                }elseif($type == "indiv_vol_hours"){
+                    echo "Individual Volunteer Hours";
                 }
                 ?> 
             </span>
