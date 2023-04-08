@@ -58,8 +58,10 @@
         <style>
             table {
                 margin-top: 1rem;
-                border-collapse: collapse;
-                width: 85%;
+                margin-left: auto;
+		margin-right: auto;
+		border-collapse: collapse;
+                width: 80%;
             }
 
             td, th {
@@ -71,10 +73,6 @@
             tr:nth-child(even) {
                 background-color: #2f4159;
                 color: white;
-            }
-            .lastNameDiv{
-                margin-bottom: 3rem;
-
             }
             .theB{
                 width: auto;
@@ -118,7 +116,7 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Reports Page</h1>
-        <main class="rep">
+        <main class="report">
 	   <div class="intro">
         <div>
             <label>Reports Type:</label>
@@ -155,8 +153,8 @@
                 ?> 
             </span>
         </div>
-        <div class= "lastNameDiv">
-            <label>Last Name Range:</label>
+        <div>    
+	    <label>Last Name Range:</label>
             <span>
                 <?php 
                     if($lastFrom == NULL && $lastTo == NULL){
@@ -188,7 +186,7 @@
 	</div>
 
         <?php 
-        // view Gernal valunteer report with all date range and all name range
+        // view General volunteer report with all date range and all name range
         if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
             echo"
             <table>
@@ -621,10 +619,11 @@
         ?>
         </tbody>
         </table>
-        <div class="center_b"><a href="http://localhost/gwyneth/report.php">
+        <div class="center_b">
+	    <a href="http://localhost/gwyneth/report.php">
             <button class = "theB">New Report</button>
-        </a></div>
-        <div class="center_b"><a href="http://localhost/gwyneth/index.php">
+            </a>
+	    <a href="http://localhost/gwyneth/index.php">
             <button class = "theB">Home Page</button>
         </a></div>
         </main>
