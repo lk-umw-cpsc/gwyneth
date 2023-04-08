@@ -22,12 +22,23 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | Reports Page</title>
+        <title>Gwyneth's Gift VMS | Reports</title>
         <style>
-            main.rep {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+            .report_select{
+                display: flex;
+                flex-direction: column;
+                gap: .5rem;
+                padding: 0 0 4rem 0;
+            }
+            @media only screen and (min-width: 1024px) {
+                .report_select {
+                    width: 50%;
+            }
+            main.report {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
             }
         </style>
     </head>
@@ -47,15 +58,17 @@
             //     echo $letter . " ";
             // }
 	    ?>
-        <h1>Reports</h1>
-    <main class="rep">
+        <h1>Business and Operational Reports</h1>
+    <main class="report">
         <h2>Generate Report</h2>
-        <form class="genRep" method="post">
+	<br>
+        <form class="report_select" method="post">
             <label for="report_type">Select Report Type</label>
             <select name="report_type" id="report_type">
                 <option value = "general_volunteer_report">General Volunteer Report</option>
+                <option value = "total_vol_hours">Total Volunteer Hours</option>
+                <option value = "indiv_vol_hours">Individual Volunteer Hours</option>
                 <option value = "top_perform">Top Performers</option>
-                <option value = "total_hours">Total Hours</option>
             </select>
             <label for="date_from">Date Range Start</label>
             <input name = "date_from" type="date" id="date_from" placeholder="yyyy-mm-dd">
