@@ -119,6 +119,7 @@
         <?php require_once('header.php') ?>
         <h1>Reports Page</h1>
         <main class="rep">
+	   <div class="intro">
         <div>
             <label>Reports Type:</label>
             <span>
@@ -192,11 +193,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -218,11 +219,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -260,11 +261,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -291,11 +292,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -332,9 +333,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -358,9 +359,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -398,9 +399,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -429,9 +430,9 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -467,11 +468,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
                 <th>Events Volunteerd</th>
                 <th>Event Location</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -498,11 +499,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Events Volunteerd</th>
+                <th>Event</th>
                 <th>Event Location</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -543,11 +544,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Events Volunteerd</th>
+                <th>Event</th>
                 <th>Event Location</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -579,11 +580,11 @@
             echo"
             <table>
             <tr>
-                <th>Firs Name</th>
+                <th>First Name</th>
                 <th>Last Name</th>
-                <th>Events Volunteerd</th>
+                <th>Event</th>
                 <th>Event Location</th>
-                <th>Hours Volunteered</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
