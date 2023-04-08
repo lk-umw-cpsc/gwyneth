@@ -505,8 +505,6 @@
                 <th>Hours Volunteered</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -552,8 +550,6 @@
                 <th>Hours Volunteered</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -590,8 +586,6 @@
                 <th>Hours Volunteered</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
