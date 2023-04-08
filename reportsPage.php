@@ -195,6 +195,38 @@
                 </tr>";
             }
         }
+        if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
+            echo"
+            <table>
+            <tr>
+                <th>Firs Name</th>
+                <th>Last Name</th>
+                <th>Events Volunteerd</th>
+                <th>Event Location</th>
+                <th>Hours Volunteered</th>
+            </tr>
+            <tbody>";
+            require_once('database/dbPersons.php');
+            require_once('database/dbEvents.php');
+            $con=connect();
+            $type1 = "volunteer";
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            dbEvents.name, dbEvents.location,
+            (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
+            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+            GROUP BY dbPersons.first_name, dbPersons.last_name";
+            $result = mysqli_query($con,$query);
+            while($row = mysqli_fetch_assoc($result)){
+                echo"<tr>
+                <td>" . $row['first_name'] . "</td>
+                <td>" . $row['last_name'] . "</td>
+                <td>" . $row['name'] . "</td>
+                <td>" . $row['location'] . "</td>
+                <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                </tr>";
+            }
+        }
         //only name range
         if($dateFrom == NULL && $dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
             echo"
