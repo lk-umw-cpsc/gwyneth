@@ -50,12 +50,12 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | Reports Page</title>
+        <title>Gwyneth's Gift VMS | Report Result</title>
         <style>
             table {
                 margin-top: 1rem;
                 border-collapse: collapse;
-                width: 100%;
+                width: 85%;
             }
 
             td, th {
