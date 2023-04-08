@@ -115,7 +115,7 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>Reports Page</h1>
+        <h1>Report Result</h1>
         <main class="report">
 	   <div class="intro">
         <div>
@@ -169,7 +169,7 @@
 	<div>
             <label>Total Volunteer Hours: </label>
             <span>
-                <?php echo ""; ?>
+                <?php echo "need to calc hrs"; ?>
             </span>
         </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
@@ -468,7 +468,7 @@
             <tr>
                 <th>First Name</th>
                 <th>Last Name</th>
-                <th>Events Volunteerd</th>
+                <th>Event</th>
                 <th>Event Location</th>
                 <th>Volunteer Hours</th>
             </tr>
