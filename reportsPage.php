@@ -18,7 +18,10 @@
       $accessLevel = $_SESSION['access_level'];
       $userID = $_SESSION['_id'];
   }
+
   require_once('include/input-validation.php');
+  require_once('database/dbPersons.php');
+  require_once('database/dbEvents.php');
 
   $get = sanitize($_GET);
   $type = $get['report_type'];
@@ -44,6 +47,7 @@
 
       return $rangArray;
     }
+
 
 ?>
 <!DOCTYPE html>
@@ -86,7 +90,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: .5rem;
+                gap: .8rem;
             }
             .center_b {
                 margin-top: 3rem;
@@ -95,7 +99,7 @@
 		display: flex;
                 align-items: center;
                 justify-content: center;
-		gap: .5rem;
+		gap: .8rem;
             }
 	    .intro {
                 display: flex;
@@ -145,10 +149,10 @@
                         echo $dateFrom, " to Current";
                 // if date from is not provided but date to is, assume admin wants all dates prior to the date given
                     }elseif(!isset($dateFrom) && isset($dateTo)){
-                        echo "Every date till ", $dateTo;
+                        echo "Every date through ", $dateTo;
                 // if date from and date to is not provided assume admin wants all dates
                     }elseif($dateFrom == NULL && $dateTo ==NULL){
-                        echo "All date";
+                        echo "All dates";
                     }else{
                         echo $dateFrom ," to ", $dateTo;
                     } 
@@ -160,7 +164,7 @@
             <span>
                 <?php 
                     if($lastFrom == NULL && $lastTo == NULL){
-                        echo "All last name";
+                        echo "All last names";
                     }else{
                         echo $lastFrom, " to " , $lastTo;
                     }
@@ -168,6 +172,12 @@
                  ?> 
             </span>
 	</div>
+	<div>
+            <label>Total Volunteer Hours: </label>
+            <span>
+                <?php echo ""; ?>
+            </span>
+        </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
 	</div>
     </main>
@@ -194,8 +204,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
@@ -222,8 +230,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
@@ -266,8 +272,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' ";
@@ -299,8 +303,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
@@ -340,8 +342,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -368,8 +368,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -410,8 +408,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -443,8 +439,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -485,8 +479,6 @@
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
-            require_once('database/dbPersons.php');
-            require_once('database/dbEvents.php');
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
@@ -504,8 +496,8 @@
                 <td>" . $row['location'] . "</td>
                 <td>" . get_hours_volunteered_by($row['id']) . "</td>
                 </tr>";
-            }
-        }
+	   }
+	}
         ?>
         </tbody>
         </table>
