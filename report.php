@@ -70,7 +70,20 @@
                 <option value = "indiv_vol_hours">Individual Volunteer Hours</option>
                 <option value = "top_perform">Top Performers</option>
             </select>
-            <label for="date_from">Date Range Start</label>
+
+	<br>
+	<div>
+	 <label>Status </label>
+	<?php
+            // Set filter on status of volunteers to return in the report result
+	    echo '&nbsp&nbsp&nbsp&nbsp&nbsp';
+            echo '<input type="radio" name="statusFilter" id = "allStatus" value="All" checked>&nbspAll&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+            echo '<input type="radio" name="statusFilter" id = "isActive" value="Active" >&nbspActive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+            echo '<input type="radio" name="statusFilter" id = "isInactive" value="Inactive">&nbspInactive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+	?>
+	</div>
+	<br>
+	    <label for="date_from">Date Range Start</label>
             <input name = "date_from" type="date" id="date_from" placeholder="yyyy-mm-dd">
             <label for="date_to">Date Range End</label>
             <input name = "date_to" type="date" id="date_to" placeholder="yyyy-mm-dd">
@@ -79,7 +92,7 @@
             <label for="lname_end">Last Name Range End</label>
             <input name = "lname_end" type="text" id="lname_end" placeholder="A-Z">
             <input type="submit" name="submit_click">
-
+	
         </form>
 
     </main>

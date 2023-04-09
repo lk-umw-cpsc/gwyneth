@@ -195,6 +195,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -208,6 +209,7 @@
                 <td>" . $row['last_name'] . "</td>
                 <td>" . $row['phone1'] . "</td>
                 <td>" . $row['email'] . "</td>
+		<td>" . $row['specialties'] . "</td>
                 <td>" . get_hours_volunteered_by($row['id']) . "</td>
                 </tr>";    
             }
@@ -221,6 +223,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -244,6 +247,7 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['phone1'] . "</td>
                             <td>" . $row['email'] . "</td>
+			    <td>" . $row['specialties'] . "</td>
                             <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
                         }
@@ -263,6 +267,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -279,6 +284,7 @@
                         <td>" . $row['last_name'] . "</td>
                         <td>" . $row['phone1'] . "</td>
                         <td>" . $row['email'] . "</td>
+			<td>" . $row['specialties'] . "</td>
                         <td>" . get_hours_volunteered_by($row['id']) . "</td>
                         </tr>";
                     }
@@ -294,6 +300,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -315,6 +322,7 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['phone1'] . "</td>
                             <td>" . $row['email'] . "</td>
+			    <td>" . $row['specialties'] . "</td>
                             <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
                         }
