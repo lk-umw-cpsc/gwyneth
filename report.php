@@ -32,14 +32,21 @@
             }
             @media only screen and (min-width: 1024px) {
                 .report_select {
-                    width: 50%;
+                    width: 40%;
             }
             main.report {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
+	    .column {
+		padding: 0 4rem 0 0;
+		width: 50%;
+	    }
+	    .row{
+          	display: flex;
             }
+	    }
         </style>
     </head>
     <body>
@@ -63,14 +70,27 @@
         <h2>Generate Report</h2>
 	<br>
         <form class="report_select" method="post">
-            <label for="report_type">Select Report Type</label>
+	<div>
+		<?php $reports = array('general_volunteer_report'=>'General Volunteer Report','total_vol_hours'=>'Total Volunteer Hours','indiv_vol_hours'=>'Individual Volunteer Hours','top_perform'=>'Top Performers');
+			echo '<label>Select Report Type: <select class="report_type" name="report_type">';
+                        echo '<option value="" SELECTED></option>';
+                        foreach ($reports as $report => $reportName) {
+                             echo '<option value="'. $report .'">'. $reportName .'</option>';
+                            }
+                        
+                        echo '</select>';
+		$report_selected = $report;
+                    ?>
+
+<!---            <label for="report_type">Select Report Type</label>
             <select name="report_type" id="report_type">
                 <option value = "general_volunteer_report">General Volunteer Report</option>
                 <option value = "total_vol_hours">Total Volunteer Hours</option>
                 <option value = "indiv_vol_hours">Individual Volunteer Hours</option>
                 <option value = "top_perform">Top Performers</option>
             </select>
-
+-->
+	</div>
 	<br>
 	<div>
 	 <label>Status </label>
@@ -83,14 +103,32 @@
 	?>
 	</div>
 	<br>
+	<div class="row">
+	<div class="column">
 	    <label for="date_from">Date Range Start</label>
             <input name = "date_from" type="date" id="date_from" placeholder="yyyy-mm-dd">
-            <label for="date_to">Date Range End</label>
+        </div>
+	<div class="column">
+	    <label for="date_to">Date Range End</label>
             <input name = "date_to" type="date" id="date_to" placeholder="yyyy-mm-dd">
-            <label for="lname_start">Last Name Range Start</label>
+        </div>
+	</div>
+	<br>
+	<div class="row">
+	<div class="column">
+	    <label for="lname_start">Last Name Range Start</label>
             <input name = "lname_start" type="text" id="lname_start" placeholder="A-Z">
-            <label for="lname_end">Last Name Range End</label>
+        </div>
+	<div class="column">
+	    <label for="lname_end">Last Name Range End</label>
             <input name = "lname_end" type="text" id="lname_end" placeholder="A-Z">
+	</div>
+	</div>
+	<div>
+	    <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<?php if (isset($name)) echo htmlspecialchars($_GET['name']) ?>" placeholder="Enter the user's first and/or last name">
+	</div>
+
             <input type="submit" name="submit_click">
 	
         </form>

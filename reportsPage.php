@@ -153,17 +153,20 @@
                 ?> 
             </span>
         </div>
-        <div>    
-	    <label>Last Name Range:</label>
+        <div>
+
+		<?php if ($type == "indiv_vol_hours"): ?>
+			<label>Name: </label>
+			<?php echo ' . first_name . " " . last_name . ' ?>
+		<?php else: ?>    
+	    		<label>Last Name Range:</label>
             <span>
-                <?php 
-                    if($lastFrom == NULL && $lastTo == NULL){
-                        echo "All last names";
-                    }else{
-                        echo $lastFrom, " to " , $lastTo;
-                    }
-                 //SELECT * FROM department WHERE NAME LIKE 'H%';
-                 ?> 
+                	<?php if($lastFrom == NULL && $lastTo == NULL): ?>
+                        	<?php echo "All last names"; ?>
+                    	<?php else: ?>
+                        	<?php echo $lastFrom, " to " , $lastTo; ?>
+			<?php endif ?>
+                 <?php endif ?>
             </span>
 	</div>
 	<div>
@@ -478,13 +481,14 @@
                 <th>Last Name</th>
                 <th>Event</th>
                 <th>Event Location</th>
+                <th>Event Date</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
+            dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -496,6 +500,7 @@
                 <td>" . $row['last_name'] . "</td>
                 <td>" . $row['name'] . "</td>
                 <td>" . $row['location'] . "</td>
+                <td>" . $row['date'] . "</td>
                 <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
             }
