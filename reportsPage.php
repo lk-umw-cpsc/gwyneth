@@ -338,7 +338,7 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -348,7 +348,7 @@
                 echo"<tr>
                 <td>" . $row['first_name'] . "</td>
                 <td>" . $row['last_name'] . "</td>
-                <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
             }
         }
@@ -364,7 +364,7 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -382,7 +382,7 @@
                             echo"<tr>
                             <td>" . $row['first_name'] . "</td>
                             <td>" . $row['last_name'] . "</td>
-                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
                         }
                     }
@@ -404,7 +404,7 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.startTime, dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -417,7 +417,7 @@
                         echo"<tr>
                         <td>" . $row['first_name'] . "</td>
                         <td>" . $row['last_name'] . "</td>
-                        <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                        <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                         </tr>";
                     }
                 } 
@@ -435,7 +435,7 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.startTime, dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -451,7 +451,7 @@
                             echo"<tr>
                             <td>" . $row['first_name'] . "</td>
                             <td>" . $row['last_name'] . "</td>
-                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
                         }
                     }
@@ -476,7 +476,7 @@
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,
+            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -488,7 +488,7 @@
                 <td>" . $row['last_name'] . "</td>
                 <td>" . $row['name'] . "</td>
                 <td>" . $row['location'] . "</td>
-                <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
             }
         }
@@ -507,7 +507,7 @@
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,
+            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -527,7 +527,7 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['name'] . "</td>
                             <td>" . $row['location'] . "</td>
-                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
                         }
                     }
@@ -552,7 +552,7 @@
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,
+            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -567,7 +567,7 @@
                         <td>" . $row['last_name'] . "</td>
                         <td>" . $row['name'] . "</td>
                         <td>" . $row['location'] . "</td>
-                        <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                        <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                         </tr>";
                     }
                 } 
@@ -588,7 +588,7 @@
             $con=connect();
             $type1 = "volunteer";
             $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,
+            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -606,7 +606,7 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['name'] . "</td>
                             <td>" . $row['location'] . "</td>
-                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
+                            <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
                         }
                     }
