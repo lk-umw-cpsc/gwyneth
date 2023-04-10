@@ -130,6 +130,10 @@
             // (Only admins and super admins can add another user)
             } else if ($request_type == 'add another' && $access_level > 1) {
                 $volunteerID = $args['selected_id'];
+                if ($volunteerID == 'vmsroot') {
+                    echo 'invalid user id';
+                    die();
+                }
                 update_event_volunteer_list($eventID, $volunteerID);
     
             } else if ($request_type == 'remove' && $access_level > 1) {
@@ -152,12 +156,28 @@
     ?>
     <title>Gwyneth's Gift VMS | View Event: <?php echo $event_info['name'] ?></title>
     <link rel="stylesheet" href="css/event.css" type="text/css" />
+    <?php if ($access_level >= 2) : ?>
+        <script src="js/event.js"></script>
+    <?php endif ?>
 </head>
 
 <body>
+    <?php if ($access_level >= 2) : ?>
+        <div id="delete-confirmation-wrapper" class="hidden">
+            <div id="delete-confirmation">
+                <p>Are you sure you want to delete this event?</p>
+                <p>This action cannot be undone.</p>
+
+                <form method="post" action="deleteEvent.php">
+                    <input type="submit" value="Delete Event">
+                    <input type="hidden" name="id" value="<?= $id ?>">
+                </form>
+                <button id="delete-cancel">Cancel</button>
+            </div>
+        </div>
+    <?php endif ?>
     <?php require_once('header.php') ?>
     <h1>View Event</h1>
-
     <main class="event-info">
         <?php if (isset($_GET['createSuccess'])): ?>
             <div class="happy-toast">Event created successfully!</div>
@@ -176,32 +196,42 @@
             $event_endTime = time24hto12h($event_info['endTime']);
             $event_location = $event_info['location'];
             $event_description = $event_info['description'];
-        
+            $event_in_past = strcmp(date('Y-m-d'), $event_info['date']) > 0;
+            require_once('include/time.php');
+            $event_duration = calculateHourDuration($event_info['startTime'], $event_info['endTime']);
+            $event_duration = floatPrecision($event_duration, 2);
+            if ($event_duration == floor($event_duration)) {
+                $event_duration = intval($event_duration);
+            }
             echo '<h2 class="centered">'.$event_name.'</h2>';
         ?>
         <div id="table-wrapper">
             <table class="centered">
                 <tbody>
                     <tr>	
-                        <td class="label">Date:</td>
+                        <td class="label">Date </td>
                         <td><?php echo $event_date ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Time:</td>
-                        <td><?php echo $event_startTime.' - '.$event_endTime ?></td>     		
+                        <td class="label">Time </td>
+                        <td><?php echo $event_startTime.' - '.$event_endTime ?></td>
                     </tr>
                     <tr>	
-                        <td class="label">Location:</td>
+                        <td class="label">Duration</td>
+                        <td><?php echo $event_duration . ' hours' ?></td>
+                    </tr>
+                    <tr>	
+                        <td class="label">Location </td>
                         <td><?php echo $event_location ?></td>     		
                     </tr>
                     <tr>	
-                        <td class="label">Description:</td><td></td>
+                        <td class="label">Description </td><td></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><?php echo $event_description ?></td>     		
+                        <td id="description-cell" colspan="2"><?php echo $event_description ?></td>     		
                     </tr>
                     <tr>
-                        <td class="label">Training Materials:</td><td></td>
+                        <td class="label">Training Materials </td><td></td>
                     </tr>
                         <!-- <td colspan="2" class="inactive">None at this time</td> -->
 						<?php
@@ -254,7 +284,7 @@
                         </td></tr>
 					<?php endif ?>
                     <tr>
-                        <td class="label">Post-Event Media:</td><td></td>
+                        <td class="label">Post-Event Media </td><td></td>
                     </tr>
                     <?php
                         $medias = get_post_event_media($id);
@@ -374,7 +404,7 @@
                 ?>
             </ul>
         <?php 
-            if ($remaining_slots > 0) {
+            if ($remaining_slots > 0 && $user_id != 'vmsroot' && !$event_in_past) {
                 if (!$already_assigned) {
                     echo '
                         <form method="GET">
@@ -389,7 +419,11 @@
                     echo '<div class="centered">You are signed up for this event!</div>';
                 }
             } else if ($already_assigned) {
-                echo '<div class="centered">You are signed up for this event!</div>';
+                if ($event_in_past) {
+                    echo '<div class="centered">You attended this event!</div>';
+                } else {
+                    echo '<div class="centered">You are signed up for this event!</div>';
+                }
             }
             if ($access_level >= 2) {
               echo '<br/><a href="roster.php?id='.$id.'" class="button">View Event Roster</a>';
@@ -399,58 +433,41 @@
         <?php
             if ($remaining_slots > 0) {
                 if ($access_level >= 2) {
-                    echo '<form method="GET" class="standout">';
-                    echo '<input type=hidden name="request_type" value="add another">';
-                    echo '<input type="hidden" name="id" value="'.$id.'">';
-                    echo '<label for="volunteer-select">Assign Volunteer:</label>';
-                    echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
-                    $all_volunteers = get_unassigned_available_volunteers($id);
-                    if ($all_volunteers) {
-                        for ($x = 0; $x < count($all_volunteers); $x++) {
-                            echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                    if ($event_in_past) {
+                        echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>This event is archived. Volunteers cannot be assigned.</p></div>';
+                    } else {
+                        $all_volunteers = get_unassigned_available_volunteers($id);
+                        if ($all_volunteers) {
+                            echo '<form method="GET" id="assign-volunteer" class="standout">';
+                            echo '<input type=hidden name="request_type" value="add another">';
+                            echo '<input type="hidden" name="id" value="'.$id.'">';
+                            echo '<label for="volunteer-select">Assign Volunteer:</label>';
+                            echo '<div class="pair"><select name="selected_id" id="volunter-select" required>';
+                            if ($all_volunteers) {
+                                for ($x = 0; $x < count($all_volunteers); $x++) {
+                                    echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
+                                }
+                            }
+                            echo '</select>';
+                            echo '<input type="submit" value="Assign" /></div>';
+                            echo '</form>';
+                        } else {
+                            echo '<div id="assign-volunteer" class="standout"><label>Assign Volunteer</label><p>There are currently no volunteers available to assign to this event.</p></div>';
                         }
                     }
-                    echo '</select>';
-                    echo '<input type="submit" value="Assign" /></div>';
-                    echo '</form>';
                 }
             }
         ?>
 
-        <?php
-      /*echo '<form method="POST">';
-      echo '<input type=hidden name="request_type" value="remove">';
-      echo '<select name="selected_removal_id">';
-        $all_volunteers = getall_volunteers();
-        for ($x = 0; $x < count($all_volunteers); $x++) {
-          echo '<option value="'.$all_volunteers[$x]->get_id().'">'.$all_volunteers[$x]->get_last_name().', '.$all_volunteers[$x]->get_first_name().'</option>';
-        }
-      echo '</select>';
-      echo '<input type="submit" value="Remove Volunteer" />';
-    echo '</form>';*/
-
-    ?>
-
         <?php if ($access_level >= 2) : ?>
-            <form method="post" action="deleteEvent.php">
+            <!-- <form method="post" action="deleteEvent.php">
                 <input type="submit" value="Delete Event">
                 <input type="hidden" name="id" value="<?= $id ?>">
-            </form>
+            </form> -->
+            <button onclick="showDeleteConfirmation()">Delete Event</button>
         <?php endif ?>
 
-        <!-- Talk about doing volunteer registration on same page -->
-        <!-- <a href="eventRegister.php" class="button">
-				Register for Event!
-		</a> -->
-
-
         <a href="calendar.php" class="button">Return to Calendar</a>
-            <!-- Talk about doing volunteer registration on same page -->
-            <!-- (this page will only be visible to logged in users,
-            so we probably don't need that. -Lauren) -->
-            <!-- <a href="eventRegister.php" class="button">
-				Register for Event!
-		</a> -->
     </main>
 </body>
 

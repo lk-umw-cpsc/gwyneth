@@ -39,6 +39,7 @@ function add_person($person) {
             $person->get_city() . '","' .
             $person->get_state() . '","' .
             $person->get_zip() . '","' .
+            $person->get_profile_pic() . '","'.
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_phone2() . '","' .
@@ -171,6 +172,19 @@ function update_birthday($id, $new_birthday) {
 }
 
 /*
+ * Updates the profile picture link of the corresponding
+ * id.
+*/
+
+function update_profile_pic($id, $link) {
+  $con = connect();
+  $query = 'UPDATE dbPersons SET profile_pic = "'.$link.'" WHERE id ="'.$id.'"';
+  $result = mysqli_query($con, $query);
+  mysqli_close($con);
+  return $result;
+}
+
+/*
  * Returns the age of the person by subtracting the 
  * person's birthday from the current date
 */
@@ -274,6 +288,7 @@ function make_a_person($result_row) {
                     $result_row['city'],
                     $result_row['state'],
                     $result_row['zip'],
+                    $result_row['profile_pic'],
                     $result_row['phone1'],
                     $result_row['phone1type'],
                     $result_row['phone2'],
@@ -558,9 +573,9 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $thePersons;
     }
 
-    function find_users($name, $id, $phone, $type) {
+    function find_users($name, $id, $phone, $type, $status) {
         $where = 'where ';
-        if (!($name || $id || $phone || $type)) {
+        if (!($name || $id || $phone || $type || $status)) {
             return [];
         }
         $first = true;
@@ -594,6 +609,13 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
                 $where .= ' and ';
             }
             $where .= "type='$type'";
+            $first = false;
+        }
+        if ($status) {
+            if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "status='$status'";
             $first = false;
         }
         $query = "select * from dbPersons $where order by last_name, first_name";
@@ -690,7 +712,8 @@ function find_user_names($name) {
         $today = date("Y-m-d");
         $query = "select * from dbEventVolunteers, dbEvents
                   where userID='$personID' and eventID=id
-                  and date<='$today'";
+                  and date<='$today'
+                  order by date asc";
         $connection = connect();
         $result = mysqli_query($connection, $query);
         if ($result) {

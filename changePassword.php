@@ -1,4 +1,4 @@
- <?php
+<?php
     // Template for new VMS pages. Base your new page on this one
 
     // Make session information accessible, allowing us to associate
@@ -6,7 +6,8 @@
     session_cache_expire(30);
     session_start();
     require_once('include/api.php');
-
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
     $loggedIn = false;
     $accessLevel = 0;
     $userID = null;
@@ -17,7 +18,8 @@
         $userID = $_SESSION['_id'];
     }
     if (!$loggedIn) {
-        redirect('login.php');
+        header('Location: login.php');
+        die();
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         require_once('include/input-validation.php');
@@ -31,13 +33,13 @@
         $newPassword = $_POST['new-password'];
         $user = retrieve_person($userID);
         if (!password_verify($password, $user->get_password())) {
-            echo "Bad password"; // FIX THIS! MAKE IT PRETTY
+            $error = true;
+        } else {
+            $hash = password_hash($newPassword, PASSWORD_BCRYPT);
+            change_password($userID, $hash);
+            header('Location: index.php?pcSuccess');
             die();
         }
-        $hash = password_hash($newPassword, PASSWORD_BCRYPT);
-        change_password($userID, $hash);
-        header('Location: index.php?pcSuccess');
-        die();
     }
 ?>
 <!DOCTYPE html>
@@ -50,6 +52,9 @@
         <?php require_once('header.php') ?>
         <h1>Change Password</h1>
         <main class="login">
+            <?php if (isset($error)): ?>
+                <p class="error-toast">Your entry for Current Password was incorrect.</p>
+            <?php endif ?>
             <form id="password-change" method="post">
                 <label for="password">Current Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter old password" required>

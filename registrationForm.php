@@ -1,3 +1,48 @@
+<?php
+$times = [
+    '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
+    '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+    '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+    '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
+    '11:59 PM'
+];
+$values = [
+    "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", 
+    "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", 
+    "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", 
+    "18:00", "19:00", "20:00", "21:00", "22:00", "23:00",
+    "23:59"
+];
+
+function buildSelect($name, $disabled=false, $selected=null) {
+    global $times;
+    global $values;
+    if ($disabled) {
+        $select = '
+            <select id="' . $name . '" name="' . $name . '" disabled>';
+    } else {
+        $select = '
+            <select id="' . $name . '" name="' . $name . '">';
+    }
+    if (!$selected) {
+        $select .= '<option disabled selected value>Select a time</option>';
+    }
+    $n = count($times);
+    for ($i = 0; $i < $n; $i++) {
+        $value = $values[$i];
+        if ($selected == $value) {
+            $select .= '
+                <option value="' . $values[$i] . '" selected>' . $times[$i] . '</option>';
+        } else {
+            $select .= '
+                <option value="' . $values[$i] . '">' . $times[$i] . '</option>';
+        }
+    }
+    $select .= '</select>';
+    return $select;
+}
+?>
+
 <h1>New Volunteer Registration</h1>
 <main class="signup-form">
     <form class="signup-form" method="post">
@@ -135,9 +180,11 @@
                         <label for="available-sundays">Sundays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="sundays-start" name="sundays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <!-- <input type="text" id="sundays-start" name="sundays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
+                    <?php echo buildSelect('sundays-start', true) ?>
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="sundays-end" name="sundays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('sundays-end', true) ?>
+                    <!-- <input type="text" id="sundays-end" name="sundays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="sundays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -146,9 +193,11 @@
                         <label for="available-mondays">Mondays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="mondays-start" name="mondays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('mondays-start', true) ?>
+                    <!-- <input type="text" id="mondays-start" name="mondays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="mondays-end" name="mondays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('mondays-end', true) ?>
+                    <!-- <input type="text" id="mondays-end" name="mondays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="mondays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -157,9 +206,11 @@
                         <label for="available-tuesdays">Tuesdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="tuesdays-start" name="tuesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('tuesdays-start', true) ?>
+                    <!-- <input type="text" id="tuesdays-start" name="tuesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="tuesdays-end" name="tuesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('tuesdays-end', true) ?>
+                    <!-- <input type="text" id="tuesdays-end" name="tuesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="tuesdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -168,9 +219,11 @@
                         <label for="available-wednesdays">Wednesdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="wednesdays-start" name="wednesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('wednesdays-start', true) ?>
+                    <!-- <input type="text" id="wednesdays-start" name="wednesdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="wednesdays-end" name="wednesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('wednesdays-end', true) ?>
+                    <!-- <input type="text" id="wednesdays-end" name="wednesdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="wednesdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -179,9 +232,11 @@
                         <label for="available-thursdays">Thursdays</label>
                     </p>
                     <p>From</p>
-                    <input type="text" id="thursdays-start" name="thursdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('thursdays-start', true) ?>
+                    <!-- <input type="text" id="thursdays-start" name="thursdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p>to</p>
-                    <input type="text" id="thursdays-end" name="thursdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('thursdays-end', true) ?>
+                    <!-- <input type="text" id="thursdays-end" name="thursdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="thursdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -190,9 +245,11 @@
                         <label for="available-fridays">Fridays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="fridays-start" name="fridays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('fridays-start', true) ?>
+                    <!-- <input type="text" id="fridays-start" name="fridays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="fridays-end" name="fridays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('fridays-end', true) ?>
+                    <!-- <input type="text" id="fridays-end" name="fridays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="fridays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <div class="availability-day">
@@ -201,9 +258,11 @@
                         <label for="available-saturdays">Saturdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="saturdays-start" name="saturdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled>
+                    <?php echo buildSelect('saturdays-start', true) ?>
+                    <!-- <input type="text" id="saturdays-start" name="saturdays-start" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" disabled> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="saturdays-end" name="saturdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled>
+                    <?php echo buildSelect('saturdays-end', true) ?>
+                    <!-- <input type="text" id="saturdays-end" name="saturdays-end" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" disabled> -->
                     <p id="saturdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
             </div>

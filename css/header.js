@@ -46,8 +46,8 @@ function time12hTo24h(time) {
 }
 
 function validateTimeRange(start, end) {
-    start = time12hTo24h(start);
-    end = time12hTo24h(end);
+    // start = time12hTo24h(start);
+    // end = time12hTo24h(end);
     if (!start || !end) {
         return false;
     }
@@ -91,7 +91,7 @@ $(function() {
     });
     $('div.availability-day > p > input[type=checkbox]').change(function() {
         let checked = $(this).prop('checked');
-        let fields = $(this).parent().parent().children('input[type=text]');
+        let fields = $(this).parent().parent().children('select');
         fields.prop('disabled', !checked);
         fields.prop('required', checked);
         let requiredAsterisks = $(this).parent().parent().find('p em');
@@ -107,6 +107,7 @@ $(function() {
         }
         // Force user to choose at least one day with availability
         let noDaysChecked = numberChecked == 0;
+        // $('div.availability-day > p > select').prop('required', noDaysChecked);
         $('div.availability-day > p > input[type=checkbox]').prop('required', noDaysChecked);
     });
 
@@ -264,6 +265,32 @@ $(function() {
             $('#password-match-error').removeClass('hidden');
         }
     });
+    
+    // Edit Photo link
+    $('#edit-profile-picture').click(function() {
+        let form = $('#edit-profile-picture-form');
+        if (form.hasClass('hidden')) {
+            form.removeClass('hidden');
+            $(this).addClass('edit-profile-picture-clicked');
+            $(this).removeClass('edit-profile-picture-unclicked');
+            $(this).html('Cancel');
+        } else {
+            $(this).html('Edit Photo');
+            $(this).addClass('edit-profile-picture-unclicked');
+            $(this).removeClass('edit-profile-picture-clicked');
+            form.addClass('hidden');
+        }
+    });
+    
+    // Submit profile image link
+    $('#edit-profile-picture-form').submit(function(e) {
+        if (!isValidURL($('#url').val())) {
+            e.preventDefault();
+            $('#url-error').removeClass('hidden');
+            $('#url').focus();
+        }
+    });
+
 	
 	// Event training media
     $('#attach-training-media').click(function() {
@@ -328,13 +355,16 @@ $(function() {
             $('#post-url').focus();
         }
     });
+    
+
     // Person search
     $('form#person-search').submit(function(e) {
         let name = $('#name').val().trim();
         let id = $('#id').val().trim();
         let phone = $('#phone').val().trim();
         let role = $('#role').val().trim();
-        if (!(name || id || phone || role)) {
+        let status = $('#status').val().trim();
+        if (!(name || id || phone || role || status)) {
             $('#criteria-error').removeClass('hidden');
             e.preventDefault();
         }

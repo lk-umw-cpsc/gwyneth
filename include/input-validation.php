@@ -60,6 +60,24 @@
         return false;
     }
 
+    function validate24hTimeRange($start, $end) {
+        if (!validate24hTime($start) || !validate24hTime($start)) {
+            return false;
+        }
+        if ($start >= $end) {
+            return false;
+        }
+        return true;
+    }
+
+    function validate24hTime($time) {
+        $exp = "/([0-1][0-9]|2[0-3]):[0-5][0-9]/";
+        if (!preg_match($exp, $time)) {
+            return false;
+        }
+        return true;
+    }
+
     function validate12hTimeRangeAndConvertTo24h($start, $end) {
         $start = validate12hTimeAndConvertTo24h($start);
         $end = validate12hTimeAndConvertTo24h($end);
@@ -114,15 +132,22 @@
     }
 
     function convertYouTubeURLToEmbedLink($url) {
-        if (!preg_match('/^https:\\/\\/(www\.)?youtube\\.com\\/.*/i', $url)) {
-            return null;
-        }
-        // regex search for the v=<video id> argument
-        $pattern = "/[&?]v=([^&]+)/i";
-        if (preg_match($pattern, $url, $matches)) {
-            return 'https://www.youtube.com/embed/' . $matches[1];
-        }
-        return null;
+        if (preg_match('/^https:\\/\\/(www\.)?youtube\\.com\\/.*/i', $url)) {
+			// regex search for the v=<video id> argument
+			$pattern = "/[&?]v=([^&]+)/i";
+			if (preg_match($pattern, $url, $matches)) {
+				return 'https://www.youtube.com/embed/' . $matches[1];
+			}
+		}
+		else if (preg_match('/^https:\\/\\/youtu.be\\/.*/i', $url)){
+			$pattern = "/youtu.be\\/([^\\/]+)/";
+			if (preg_match($pattern, $url, $matches)) {
+				return 'https://www.youtube.com/embed/' . $matches[1];
+			}
+		}
+		else{
+			return null;
+		}
     }
 
     function validateURL($url) {

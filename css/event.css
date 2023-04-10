@@ -87,3 +87,45 @@ td.label {
 .empty-slot, .inactive {
     color: var(--inactive-font-color);
 }
+
+#assign-volunteer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+#delete-confirmation-wrapper {
+    z-index: 99;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .3);
+}
+
+#delete-confirmation {
+    z-index: 99;
+    background-color: var(--page-background-color);
+    /* border: 1px solid var(--secondary-accent-color); */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-radius: .5rem;
+    box-shadow: 0px 1rem 1rem rgba(0, 0, 0, 0.5);
+    margin: 0.5rem;
+}
+
+#delete-cancel {
+    background-color: var(--cancel-button-background-color);
+}
+
+#delete-cancel:hover {
+    background-color: var(--accent-color);
+}
+
+#description-cell {
+    white-space: normal;
+}

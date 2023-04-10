@@ -372,6 +372,7 @@ CREATE TABLE `dbPersons` (
   `city` text DEFAULT NULL,
   `state` varchar(2) DEFAULT NULL,
   `zip` text DEFAULT NULL,
+  `profile_pic` text DEFAULT NULL,
   `phone1` varchar(12) NOT NULL,
   `phone1type` text DEFAULT NULL,
   `phone2` varchar(12) DEFAULT NULL,

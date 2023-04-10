@@ -3,28 +3,79 @@
     require_once('database/dbPersons.php');
     require_once('include/output.php');
 
-    if ($_SESSION['access_level'] >= 2 && isset($_GET['id'])) {
-        $id = $_GET['id'];
+    $args = sanitize($_GET);
+    if ($_SESSION['access_level'] >= 2 && isset($args['id'])) {
+        $id = $args['id'];
         // Check to see if user is a lower-level manager here
     } else {
         $id = $_SESSION['_id'];
     }
 
     $person = retrieve_person($id);
-?>
-<h1>Manage Profile</h1>
-<main class="signup-form">
+    if (!$person) {
+        echo '<main class="signup-form"><p class="error-toast">That user does not exist.</p></main></body></html>';
+        die();
+    }
+
+    $times = [
+        '12:00 AM', '1:00 AM', '2:00 AM', '3:00 AM', '4:00 AM', '5:00 AM',
+        '6:00 AM', '7:00 AM', '8:00 AM', '9:00 AM', '10:00 AM', '11:00 AM',
+        '12:00 PM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM',
+        '6:00 PM', '7:00 PM', '8:00 PM', '9:00 PM', '10:00 PM', '11:00 PM',
+        '11:59 PM'
+    ];
+    $values = [
+        "00:00", "01:00", "02:00", "03:00", "04:00", "05:00", 
+        "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", 
+        "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", 
+        "18:00", "19:00", "20:00", "21:00", "22:00", "23:00",
+        "23:59"
+    ];
     
+    function buildSelect($name, $disabled=false, $selected=null) {
+        global $times;
+        global $values;
+        if ($disabled) {
+            $select = '
+                <select id="' . $name . '" name="' . $name . '" disabled>';
+        } else {
+            $select = '
+                <select id="' . $name . '" name="' . $name . '">';
+        }
+        if (!$selected) {
+            $select .= '<option disabled selected value>Select a time</option>';
+        }
+        $n = count($times);
+        for ($i = 0; $i < $n; $i++) {
+            $value = $values[$i];
+            if ($selected == $value) {
+                $select .= '
+                    <option value="' . $values[$i] . '" selected>' . $times[$i] . '</option>';
+            } else {
+                $select .= '
+                    <option value="' . $values[$i] . '">' . $times[$i] . '</option>';
+            }
+        }
+        $select .= '</select>';
+        return $select;
+    }
+?>
+<h1>Edit Profile</h1>
+<main class="signup-form">
+    <h2>Modify Volunteer Profile</h2>
+    <?php if (isset($updateSuccess)): ?>
+        <?php if ($updateSuccess): ?>
+            <div class="happy-toast">Profile updated successfully!</div>
+        <?php else: ?>
+            <div class="error-toast">An error occurred.</div>
+        <?php endif ?>
+    <?php endif ?>
     <?php if ($isAdmin): ?>
         <?php if ($id == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
-        <?php else: ?>
-            <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a>
-            <!-- <form class = "modify-access" method = "post">
-                <input type="hidden" name="id" value="<?php echo $id; ?>">
-                <input type="submit" name="modify_access" value="Modify User Access">
-            </form> -->
+        <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
+            <!-- <a class="button" href="modifyUserRole.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Modify User Access</a> -->
         <?php endif ?>
     <?php endif ?>
     <form class="signup-form" method="post">
@@ -132,9 +183,11 @@
                         <label for="available-sundays">Sundays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="sundays-start" name="sundays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('sundays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="sundays-start" name="sundays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="sundays-end" name="sundays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('sundays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="sundays-end" name="sundays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="sundays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -148,9 +201,11 @@
                         <label for="available-mondays">Mondays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="mondays-start" name="mondays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('mondays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="mondays-start" name="mondays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="mondays-end" name="mondays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('mondays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="mondays-end" name="mondays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="mondays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -164,9 +219,11 @@
                         <label for="available-tuesdays">Tuesdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="tuesdays-start" name="tuesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('tuesdays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="tuesdays-start" name="tuesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="tuesdays-end" name="tuesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('tuesdays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="tuesdays-end" name="tuesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="tuesdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -180,9 +237,11 @@
                         <label for="available-wednesdays">Wednesdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="wednesdays-start" name="wednesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('wednesdays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="wednesdays-start" name="wednesdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="wednesdays-end" name="wednesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('wednesdays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="wednesdays-end" name="wednesdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="wednesdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -196,9 +255,11 @@
                         <label for="available-thursdays">Thursdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="thursdays-start" name="thursdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('thursdays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="thursdays-start" name="thursdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="thursdays-end" name="thursdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('thursdays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="thursdays-end" name="thursdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="thursdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -212,9 +273,11 @@
                         <label for="available-fridays">Fridays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="fridays-start" name="fridays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('fridays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="fridays-start" name="fridays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="fridays-end" name="fridays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('fridays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="fridays-end" name="fridays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="fridays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
                 <?php
@@ -228,9 +291,11 @@
                         <label for="available-saturdays">Saturdays</label>
                     </p>
                     <p><em class="hidden">* </em>From</p>
-                    <input type="text" id="saturdays-start" name="saturdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('saturdays-start', !$day, $start) ?>
+                    <!-- <input type="text" id="saturdays-start" name="saturdays-start" value="<?php echo time24hTo12h($start); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 8:00AM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p><em class="hidden">* </em>to</p>
-                    <input type="text" id="saturdays-end" name="saturdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>>
+                    <?php echo buildSelect('saturdays-end', !$day, $end) ?>
+                    <!-- <input type="text" id="saturdays-end" name="saturdays-end" value="<?php echo time24hTo12h($end); ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" placeholder="Ex. 4:00PM" <?php if (!$day) echo 'disabled'; else echo 'required'; ?>> -->
                     <p id="saturdays-range-error" class="hidden error">Start time must come before end time.</p>
                 </div>
             </div>

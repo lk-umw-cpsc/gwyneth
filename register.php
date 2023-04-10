@@ -140,7 +140,11 @@
                     }
                     $start = $args[$startKey];
                     $end = $args[$endKey];
-                    $range24h = validate12hTimeRangeAndConvertTo24h($start, $end);
+                    // $range24h = validate12hTimeRangeAndConvertTo24h($start, $end);
+                    $range24h = null;
+                    if (validate24hTimeRange($start, $end)) {
+                        $range24h = [$start, $end];
+                    }
                     if (!$range24h) {
                         $errors = true;
                         echo "bad $day availability";
@@ -204,7 +208,7 @@
             }
             // need to incorporate availability here
             $newperson = new Person($first, $last, 'portland', 
-                $address, $city, $state, $zipcode,
+                $address, $city, $state, $zipcode, "",
                 $phone, $phoneType, null, null,
                 $email, $shirtSize, $hasComputer, $hasCamera, $hasTransportation, $econtactName, $econtactPhone, $econtactRelation, 
                 $contactWhen, 'volunteer', 'Active', $contactMethod, null, null,

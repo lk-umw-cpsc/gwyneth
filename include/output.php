@@ -22,16 +22,20 @@
             if ($hour == 0) {
                 $hour = 12;
             }
-            return hsc($hour . ':' . $minute . 'AM');
+            return hsc($hour . ':' . $minute . ' AM');
         } else if ($hour > 12) {
             $hour -= 12;
         }
-        return hsc($hour . ':' . $minute . 'PM');
+        return hsc($hour . ':' . $minute . ' PM');
     }
 
     function formatPhoneNumber($number) {
         $str = '(' . substr($number, 0, 3) . ') ' . substr($number, 3, 3) . '-' . substr($number, 6, 4);
         return hsc($str);
+    }
+
+    function floatPrecision($number, $places) {
+        return number_format((float)$number, $places, '.', '');
     }
 
 ?>

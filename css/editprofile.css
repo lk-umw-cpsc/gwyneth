@@ -76,8 +76,6 @@ table, td, tr, th, form, fieldset, em, button, a {
     --light-border: 1px solid var(--shadow-and-border-color);
     --text-field-border: 2px solid #e8e8e8;
 
-    --cancel-button-background-color: #aaa;
-
     --error-color: red;
 
     /* Global rules */
@@ -746,6 +744,23 @@ form.media-form {
     display: block;
 }
 
+#edit-profile-picture{
+	cursor: pointer;
+	display: block;
+}
+
+.edit-profile-picture-unclicked {
+  text-align: left;
+  cursor: pointer;
+  display: block;
+}
+
+.edit-profile-picture-clicked {
+  text-align: center;
+  cursor: pointer;
+  display: block;
+}
+
 tr.media img {
     max-width: 8rem;
 }
@@ -795,12 +810,16 @@ table.general th, table.general td {
     background-color: var(--standout-background);
 }
 
-.align-right {
-    text-align: right;
-}
-
 @media only screen and (min-width: 1024px) {
     main.general, form.general {
         margin: 0rem 8rem 4rem 8rem;
     }
+}
+
+img {
+	object-fit: cover;
+}
+
+.pic_update_message {
+  color: green;
 }

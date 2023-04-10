@@ -23,6 +23,7 @@
 	private $city;    // city - string
 	private $state;   // state - string
 	private $zip;    // zip code - integer
+  private $profile_pic; // image link
 	private $phone1;   // primary phone -- home, cell, or work
 	private $phone1type; // home, cell, or work
 	private $phone2;   // secondary phone -- home, cell, or work
@@ -68,7 +69,7 @@
 	private $saturdaysStart;
 	private $saturdaysEnd;
 
-	function __construct($f, $l, $v, $a, $c, $s, $z, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
+	function __construct($f, $l, $v, $a, $c, $s, $z, $pp, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass,
 			$suns, $sune, $mons, $mone, $tues, $tuee, $weds, $wede,
@@ -82,6 +83,7 @@
 		$this->city = $c;
 		$this->state = $s;
 		$this->zip = $z;
+    $this->profile_pic = $pp;
 		$this->phone1 = $p1;
 		$this->phone1type = $p1t;
 		$this->phone2 = $p2;
@@ -178,6 +180,10 @@
 	function get_zip() {
 		return $this->zip;
 	}
+
+  function get_profile_pic() {
+    return $this->profile_pic;
+  }
 
 	function get_phone1() {
 		return $this->phone1;
