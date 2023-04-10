@@ -228,7 +228,7 @@
                         <td class="label">Description </td><td></td>
                     </tr>
                     <tr>
-                        <td colspan="2"><?php echo $event_description ?></td>     		
+                        <td id="description-cell" colspan="2"><?php echo $event_description ?></td>     		
                     </tr>
                     <tr>
                         <td class="label">Training Materials </td><td></td>

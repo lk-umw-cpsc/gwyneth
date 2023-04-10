@@ -125,3 +125,7 @@ td.label {
 #delete-cancel:hover {
     background-color: var(--accent-color);
 }
+
+#description-cell {
+    white-space: normal;
+}
