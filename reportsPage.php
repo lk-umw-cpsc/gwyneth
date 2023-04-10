@@ -24,7 +24,7 @@
   require_once('database/dbEvents.php');
 
   $get = sanitize($_GET);
-  $indivID = $get['indivID'];
+  $indivID = @$get['indivID'];
   $type = $get['report_type'];
   $dateFrom = $_GET['date_from'];
   $dateTo = $_GET['date_to'];
@@ -209,7 +209,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		<th>Skills</th>
+		        <th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -237,7 +237,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		<th>Skills</th>
+		        <th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -510,7 +510,7 @@
                 <td>" . $row['date'] . "</td>
                 <td>" . $hours = (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
-		$hours+=(int)$hours;
+		        @$hours+=(int)$hours;
             }
 		echo"
 		<tr>
