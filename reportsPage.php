@@ -64,10 +64,16 @@
 		border-collapse: collapse;
                 width: 80%;
             }
-            td, th {
+            td {
                 border: 1px solid #333333;
                 text-align: left;
                 padding: 8px;
+            }
+            th {
+                border: 1px solid #333333;
+                text-align: left;
+                padding: 8px;
+		font-weight: bold;
             }
           
             tr:nth-child(even) {
@@ -209,7 +215,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		        <th>Skills</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -237,13 +243,13 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		        <th>Skills</th>
+		<th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email, dbPersons.specialties
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id";
             $result = mysqli_query($con,$query);
@@ -320,7 +326,7 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email
+            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email, dbPersons.specialties
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id";
             $result = mysqli_query($con,$query);
@@ -484,14 +490,14 @@
             }
         }
         // view indiv_vol_hours report with all date range and all name range
-        if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
+        if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL){
             echo"
             <table>
             <tr>
-                <th><label>Event</label></th>
-                <th><label>Event Location</label></th>
-                <th><label>Event Date</label></th>
-                <th><label>Volunteer Hours</label></th>
+                <th>Event</th>
+                <th>Event Location</th>
+                <th>Event Date</th>
+                <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
@@ -500,7 +506,7 @@
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-            where dbPersons.id ='$indivID'
+            WHERE dbPersons.id ='$indivID'
 	    ORDER BY dbEvents.date desc";
             $result = mysqli_query($con,$query);
             while($row = mysqli_fetch_assoc($result)){
@@ -518,89 +524,49 @@
 		<td><label>". $hours ."</label></td>
 		</tr>";
         }
-        // date range and name range for indiv_vol_hours report
-        if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
+        // date range for indiv_vol_hours report
+        if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL){
             echo"
             <table>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
                 <th>Event</th>
                 <th>Event Location</th>
+                <th>Event Date</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
+            $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-            GROUP BY dbPersons.first_name, dbPersons.last_name";
+	    WHERE dbPersons.id='$indivID'
+	    ORDER BY dbEvents.date desc";            
             $result = mysqli_query($con,$query);
             try {
                 // Code that might throw an exception or error goes here
                 $dd = getBetweenDates($dateFrom, $dateTo);
-                $nameRange = range($lastFrom,$lastTo);
-                $bothRange = array_merge($dd,$nameRange);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
                 while($row = mysqli_fetch_assoc($result)){
-                    foreach ($bothRange as $both){
-                        if(in_array($both,$dateRange) && in_array($row['last_name'][0],$nameRange)){
+		    foreach ($dd as $date) {
+                        if(in_array($date, $dateRange)){
                             echo"<tr>
-                            <td>" . $row['first_name'] . "</td>
-                            <td>" . $row['last_name'] . "</td>
                             <td>" . $row['name'] . "</td>
                             <td>" . $row['location'] . "</td>
+                            <td>" . $row['date'] . "</td>
                             <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
                         }
                     }
-                }
-            } catch (TypeError $e) {
+		}
+              } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
             }
         }
-        //only name range for indiv_vol_hours report 
-        if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
-            echo"
-            <table>
-            <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Event</th>
-                <th>Event Location</th>
-                <th>Volunteer Hours</th>
-            </tr>
-            <tbody>";
-            $con=connect();
-            $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,dbEvents.startTime,dbEvents.endTime,
-            (dbEvents.endTime - dbEvents.startTime) AS DURATION
-            FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-            JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-            GROUP BY dbPersons.first_name, dbPersons.last_name";
-            $result = mysqli_query($con,$query);
-            $nameRange = range($lastFrom,$lastTo);
-            while($row = mysqli_fetch_assoc($result)){
-                foreach ($nameRange as $a){
-                    if($row['last_name'][0] == $a){
-                        echo"<tr>
-                        <td>" . $row['first_name'] . "</td>
-                        <td>" . $row['last_name'] . "</td>
-                        <td>" . $row['name'] . "</td>
-                        <td>" . $row['location'] . "</td>
-                        <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
-                        </tr>";
-                    }
-                } 
-            }
-        }
-        //only date range for indiv_vol_hoursreport
-        if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
+        //only starting date range for indiv_vol_hours report
+        if($type == "indiv_vol_hours" && !$dateFrom == NULL && $dateTo ==NULL){
             echo"
             <table>
             <tr>
