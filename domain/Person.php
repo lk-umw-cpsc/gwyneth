@@ -47,7 +47,7 @@
 	private $specialties;  // special training or skills
 	private $convictions;  // App: ever convicted of a felony?  "yes" or blank
 	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
-	private $status;     // a person may be an "applicant", "active", "LOA", or "former"
+	private $status;     // a person may be "active" or "inactive"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
 	private $hours;        // array of actual hours logged; e.g., 15-01-05:0930-1300:portland:3.5

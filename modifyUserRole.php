@@ -79,7 +79,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | Template Page</title>
+        <title>Gwyneth's Gift VMS | Modify User Access</title>
         <style>
             .modUser{
                 display: flex;
@@ -138,24 +138,25 @@
                     ?>
                 <br>
 		<br>
+		<div>
 		<label>Status:</label>
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
-                    
+                    echo '&nbsp&nbsp&nbsp';
 		    $currentStatus = $thePerson->get_status();
                     if ($currentStatus == "Active") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>';
-                        echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">';
-                        echo '<label for="makeInactive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>&nbspActive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">&nbspInactive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
                     } elseif ($currentStatus == "Inactive") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">';
-                        echo '<label for="makeActive">  Active&nbsp&nbsp&nbsp</label>';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>';
-                        echo '<label for="makeInactive">  Inactive</label><br><br>';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">&nbspActive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>&nbspInactive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
                     }
-		    
+		?>
+		</div>    
+		<br>
+		
+		<?php
 		    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
                     echo '<label>Reason:<select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';

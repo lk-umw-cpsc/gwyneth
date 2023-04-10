@@ -68,6 +68,8 @@
         $permission_array['addevent.php'] = 2;
         $permission_array['editevent.php'] = 2;
         $permission_array['roster.php'] = 2;
+        $permission_array['report.php'] = 2;
+        $permission_array['reportspage.php'] = 2;
 
         //Check if they're at a valid page for their access level.
         $current_page = strtolower(substr($_SERVER['PHP_SELF'], strpos($_SERVER['PHP_SELF'],"/")+1));
@@ -118,7 +120,7 @@
 	            echo('<span class="navbar-brand">Volunteers</span>');
                 echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'personSearch.php">Search</a></li>
 			        <li class="sub-item"><a class="nav-link active" aria-current="page" href="register.php">Add</a></li>'); 
-	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'reports.php?venue='.$_SESSION['venue'].'">Reports</a></li>');
+	            echo('<li class="sub-item"><a class="nav-link active" aria-current="page" href="' . $path . 'report.php">Reports</a></li>');
 	        }
 	        echo('<li><a class="nav-link active" aria-current="page" href="' . $path . 'logout.php">Log out</a></li>');
             echo '</ul></nav>';

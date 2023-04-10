@@ -258,7 +258,8 @@ function getall_volunteers() {
 
 function getall_volunteer_names() {
 	$con=connect();
-	$query = "SELECT first_name, last_name FROM dbPersons ORDER BY last_name,first_name";
+    $type = "volunteer";
+	$query = "SELECT first_name, last_name FROM dbPersons WHERE type LIKE '%" . $type . "%' ";
     $result = mysqli_query($con,$query);
     if ($result == null || mysqli_num_rows($result) == 0) {
         mysqli_close($con);
@@ -637,6 +638,43 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $persons;
     }
 
+function find_user_names($name) {
+        $where = 'where ';
+        if (!($name)) {
+            return [];
+        }
+        $first = true;
+        if ($name) {
+            if (strpos($name, ' ')) {
+                $name = explode(' ', $name, 2);
+                $first = $name[0];
+                $last = $name[1];
+                $where .= "first_name like '%$first%' and last_name like '%$last%'";
+            } else {
+                $where .= "(first_name like '%$name%' or last_name like '%$name%')";
+            }
+            $first = false;
+        }
+	$query = "select * from dbPersons $where order by last_name, first_name";
+        // echo $query;
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            mysqli_close($connection);
+            return [];
+	}
+        $raw = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $persons = [];
+        foreach ($raw as $row) {
+            if ($row['id'] == 'vmsroot') {
+                continue;
+            }
+            $persons []= make_a_person($row);
+        }
+        mysqli_close($connection);
+        return $persons;
+    }
+
     function update_type($id, $role) {
         $con=connect();
         $query = 'UPDATE dbPersons SET type = "' . $role . '" WHERE id = "' . $id . '"';
@@ -668,7 +706,6 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         mysqli_close($con);
         return $result;
     }
-
     date_default_timezone_set("America/New_York");
 
     function get_events_attended_by($personID) {
