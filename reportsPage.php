@@ -24,6 +24,7 @@
   require_once('database/dbEvents.php');
 
   $get = sanitize($_GET);
+  $id = $get['id'];
   $type = $get['report_type'];
   $dateFrom = $_GET['date_from'];
   $dateTo = $_GET['date_to'];
@@ -477,8 +478,6 @@
             echo"
             <table>
             <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
                 <th>Event</th>
                 <th>Event Location</th>
                 <th>Event Date</th>
@@ -487,17 +486,15 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-            $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email,
-            dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
+            $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-            GROUP BY dbPersons.first_name, dbPersons.last_name";
+            where dbPersons.id ='$id'
+	    ORDER BY dbEvents.date desc";
             $result = mysqli_query($con,$query);
             while($row = mysqli_fetch_assoc($result)){
                 echo"<tr>
-                <td>" . $row['first_name'] . "</td>
-                <td>" . $row['last_name'] . "</td>
                 <td>" . $row['name'] . "</td>
                 <td>" . $row['location'] . "</td>
                 <td>" . $row['date'] . "</td>
