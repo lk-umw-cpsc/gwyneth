@@ -24,7 +24,7 @@
   require_once('database/dbEvents.php');
 
   $get = sanitize($_GET);
-  $id = $get['id'];
+  $indivID = $get['indivID'];
   $type = $get['report_type'];
   $dateFrom = $_GET['date_from'];
   $dateTo = $_GET['date_to'];
@@ -64,7 +64,6 @@
 		border-collapse: collapse;
                 width: 80%;
             }
-
             td, th {
                 border: 1px solid #333333;
                 text-align: left;
@@ -74,6 +73,7 @@
             tr:nth-child(even) {
                 background-color: #2f4159;
                 color: white;
+		
             }
             .theB{
                 width: auto;
@@ -122,7 +122,7 @@
         <div>
             <label>Reports Type:</label>
             <span>
-                <?php 
+                <?php echo '&nbsp&nbsp&nbsp'; 
                 if($type == "top_perform"){
                     echo "Top Performers"; 
                 }elseif($type == "general_volunteer_report"){
@@ -136,33 +136,20 @@
             </span>
         </div>
         <div>
-            <label>Date Range:</label>
-            <span>
-                <?php
-                // if date from is provided but not date to, assume admin wants all dates from given date to current
-                    if(isset($dateFrom) && !isset($dateTo)){
-                        echo $dateFrom, " to Current";
-                // if date from is not provided but date to is, assume admin wants all dates prior to the date given
-                    }elseif(!isset($dateFrom) && isset($dateTo)){
-                        echo "Every date through ", $dateTo;
-                // if date from and date to is not provided assume admin wants all dates
-                    }elseif($dateFrom == NULL && $dateTo ==NULL){
-                        echo "All dates";
-                    }else{
-                        echo $dateFrom ," to ", $dateTo;
-                    } 
-                ?> 
-            </span>
-        </div>
-        <div>
 
 		<?php if ($type == "indiv_vol_hours"): ?>
 			<label>Name: </label>
-			<?php echo $name ?>
+		<?php echo '&nbsp&nbsp&nbsp';
+			$con=connect();
+             		$query = "SELECT dbPersons.first_name, dbPersons.last_name FROM dbPersons WHERE id= '$indivID' ";
+             		$result = mysqli_query($con,$query);
+			$theName = mysqli_fetch_assoc($result);	
+			echo $theName['first_name'], " " , $theName['last_name'] ?>
 		<?php else: ?>    
 	    		<label>Last Name Range:</label>
             <span>
-                	<?php if($lastFrom == NULL && $lastTo == NULL): ?>
+                	<?php echo '&nbsp&nbsp&nbsp';
+			      if($lastFrom == NULL && $lastTo == NULL): ?>
                         	<?php echo "All last names"; ?>
                     	<?php else: ?>
                         	<?php echo $lastFrom, " to " , $lastTo; ?>
@@ -170,10 +157,33 @@
                  <?php endif ?>
             </span>
 	</div>
+
+
+	<div>
+             <label>Date Range:</label>
+             <span>
+                 <?php echo '&nbsp&nbsp&nbsp';
+                 // if date from is provided but not date to, assume admin wants all dates from gi    ven date to current
+                     if(isset($dateFrom) && !isset($dateTo)){
+                         echo $dateFrom, " to Current";
+                 // if date from is not provided but date to is, assume admin wants all dates prio    r to the date given
+                     }elseif(!isset($dateFrom) && isset($dateTo)){
+                         echo "Every date through ", $dateTo;
+                 // if date from and date to is not provided assume admin wants all dates
+                     }elseif($dateFrom == NULL && $dateTo ==NULL){
+                         echo "All dates";
+                     }else{
+                         echo $dateFrom ," to ", $dateTo;
+                     }
+                 ?>
+             </span>
+         </div>
+
 	<div>
             <label>Total Volunteer Hours: </label>
             <span>
-                <?php echo "need to calc hrs"; ?>
+                <?php echo '&nbsp&nbsp&nbsp';
+			echo "need to calc hrs"; ?>
             </span>
         </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
@@ -478,10 +488,10 @@
             echo"
             <table>
             <tr>
-                <th>Event</th>
-                <th>Event Location</th>
-                <th>Event Date</th>
-                <th>Volunteer Hours</th>
+                <th><label>Event</label></th>
+                <th><label>Event Location</label></th>
+                <th><label>Event Date</label></th>
+                <th><label>Volunteer Hours</label></th>
             </tr>
             <tbody>";
             $con=connect();
@@ -490,7 +500,7 @@
             (dbEvents.endTime - dbEvents.startTime) AS DURATION
             FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
             JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-            where dbPersons.id ='$id'
+            where dbPersons.id ='$indivID'
 	    ORDER BY dbEvents.date desc";
             $result = mysqli_query($con,$query);
             while($row = mysqli_fetch_assoc($result)){
@@ -498,9 +508,15 @@
                 <td>" . $row['name'] . "</td>
                 <td>" . $row['location'] . "</td>
                 <td>" . $row['date'] . "</td>
-                <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
+                <td>" . $hours = (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
+		$hours+=(int)$hours;
             }
+		echo"
+		<tr>
+		<td><label>Total Hours</label></td>
+		<td><label>". $hours ."</label></td>
+		</tr>";
         }
         // date range and name range for indiv_vol_hours report
         if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){

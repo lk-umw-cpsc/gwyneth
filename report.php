@@ -67,7 +67,7 @@
                 $lastFrom = $_POST['lname_start'];
                 $lastTo = $_POST['lname_end'];
 		if ($report=="indiv_vol_hours" && $name == NULL) {
-			echo "Please enter a volunteer's first and/or last name.";
+			echo "<b>Please enter a volunteer's first and/or last name.</b><br>";
 		}
 	    	elseif ($report=="indiv_vol_hours" && $name != NULL) {
 			echo "<h3>Search Results</h3>";
@@ -92,7 +92,7 @@
                                          <td>' . $person->get_first_name() . '</td>
                                          <td>' . $person->get_last_name() . '</td>
  					 <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
-				     <td><a href="reportsPage.php?report_type='. $report .'&date_from='. $dFrom .'&date_to='. $dTo .'&lname_start='. $lastFrom .'&lname_end='. $lastTo .'&name='. $name .'&id='. $person->get_id() .'">Run Report</a></td>
+				     <td><a href="reportsPage.php?report_type='. $report .'&date_from='. $dFrom .'&date_to='. $dTo .'&lname_start='. $lastFrom .'&lname_end='. $lastTo .'&name='. $name .'&indivID='. $person->get_id() .'">Run Report</a></td>
 				     </tr>';
                             }
                             echo '
