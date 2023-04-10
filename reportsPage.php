@@ -157,7 +157,7 @@
 
 		<?php if ($type == "indiv_vol_hours"): ?>
 			<label>Name: </label>
-			<?php echo ' . first_name . " " . last_name . ' ?>
+			<?php echo $name ?>
 		<?php else: ?>    
 	    		<label>Last Name Range:</label>
             <span>
