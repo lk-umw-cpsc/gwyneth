@@ -804,3 +804,10 @@ table.general th, table.general td {
         margin: 0rem 8rem 4rem 8rem;
     }
 }
+
+.new-password {
+    font-size: 2rem;
+    padding: 1rem;
+    border: var(--text-field-border);
+    text-align: center;
+}

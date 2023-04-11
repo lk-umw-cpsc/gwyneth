@@ -21,7 +21,7 @@
     if ($isAdmin && isset($_GET['id'])) {
         require_once('include/input-validation.php');
         $args = sanitize($_GET);
-        $id = $args['id'];
+        $id = strtolower($args['id']);
     } else {
         $id = $userID;
     }
@@ -63,7 +63,6 @@
               }
             }
         ?>
-            <div class=>
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
                 </main></body></html>
@@ -99,17 +98,15 @@
                     }
                   ?>
                 width="140" height="140">
-								<tr><td colspan="2">
-                            <form class="media-form hidden" method="post" id="edit-profile-picture-form">
-                                <label>Edit Photo</label>
-                                <label for="url">URL</label>
-                                <input type="text" id="url" name="url" placeholder="Paste link to media" required>
-                                <p class="error hidden" id="url-error">Please enter a valid URL.</p>
-                                <input type="hidden" name="id" value="<?php echo $id ?>">
-                                <input type="submit" name="edit-profile-picture-submit" value="Attach">
-                            </form>
-                            <a id="edit-profile-picture">Edit Photo</a>
-                        </td></tr>        
+                <form class="media-form hidden" method="post" id="edit-profile-picture-form">
+                    <label>Edit Photo</label>
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="url" placeholder="Paste link to media" required>
+                    <p class="error hidden" id="url-error">Please enter a valid URL.</p>
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="submit" name="edit-profile-picture-submit" value="Attach">
+                </form>
+                <a id="edit-profile-picture">Edit Photo</a>
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>
@@ -184,7 +181,9 @@
             </fieldset>
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
-                <a class="button" href="#">Reset Password (not implemented)</a>
+                <?php if ($accessLevel > $user->get_access_level()): ?>
+                    <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
+                <?php endif ?>
                 <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>

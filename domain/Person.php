@@ -13,7 +13,14 @@
  * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
  * @version 3/28/2008, revised 7/1/2015
  */
- class Person {
+
+$accessLevelsByRole = [
+	'volunteer' => 1,
+	'admin' => 2,
+	'superadmin' => 3
+];
+
+class Person {
 	private $id;         // id (unique key) = first_name . phone1
 	private $start_date; // format: 99-03-12
 	private $venue;      // portland or bangor
@@ -47,6 +54,7 @@
 	private $specialties;  // special training or skills
 	private $convictions;  // App: ever convicted of a felony?  "yes" or blank
 	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
+	private $access_level;
 	private $status;     // a person may be "active" or "inactive"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
@@ -83,7 +91,7 @@
 		$this->city = $c;
 		$this->state = $s;
 		$this->zip = $z;
-    $this->profile_pic = $pp;
+    	$this->profile_pic = $pp;
 		$this->phone1 = $p1;
 		$this->phone1type = $p1t;
 		$this->phone2 = $p2;
@@ -106,11 +114,14 @@
 		$this->motivation = $mot;
 		$this->specialties = $spe;
 		$this->convictions = $convictions;
-		if ($t !== "")
+		if ($t !== "") {
 			$this->type = explode(',', $t);
-		else
+			global $accessLevelsByRole;
+			$this->access_level = $accessLevelsByRole[$t];
+		} else {
 			$this->type = array();
-
+			$this->access_level = 0;
+		}
 		$this->status = $st;
 		if ($av == "")
 			$this->availability = array();
@@ -363,6 +374,10 @@
 
 	function get_saturday_availability_end() {
 		return $this->saturdaysEnd;
+	}
+
+	function get_access_level() {
+		return $this->access_level;
 	}
 }
 ?>
