@@ -205,6 +205,9 @@
                 <label>Volunteer Status:</label>
                 <span>
                     <?php echo '&nbsp&nbsp&nbsp';
+                        if($type == "indiv_vol_hours"){
+                            echo "Not applicable";
+                        }
                         echo $stats;
                     ?>
                 </span>
@@ -579,14 +582,14 @@
             $con=connect();
             $type1 = "volunteer";
             if($stats != "All"){
-                $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
+                $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%'
                 ORDER BY dbEvents.date desc";
             }else{
-                $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
+                $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -599,16 +602,19 @@
                 <td>" . $row['name'] . "</td>
                 <td>" . $row['location'] . "</td>
                 <td>" . $row['date'] . "</td>
-                <td>" . $hours = (int)$row['endTime'] - (int)$row['startTime'] . "</td>
+                <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
-		        @$hours+=(int)$hours;
+                $hours = get_hours_volunteered_by($row['id']);
             }
 		echo"
 		<tr>
-		<td><label>Total Hours</label></td>
-		<td><label>". $hours ."</label></td>
+        <td style='border: none;' bgcolor='white'></td>
+        <td style='border: none;' bgcolor='white'></td>
+		<td bgcolor='white'><label>Total Hours:</label></td>
+		<td bgcolor='white'><label>". $hours ."</label></td>
 		</tr>";
         }
+
         // date range for indiv_vol_hours report
         if($type == "indiv_vol_hours" && !$dateFrom == NULL && !$dateTo ==NULL){
             echo"
@@ -623,14 +629,14 @@
             $con=connect();
             $type1 = "volunteer";
            if($stats != "All"){
-                $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
+                $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%'
                 ORDER BY dbEvents.date desc";
             }else{
-                $query = "SELECT dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
+                $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
@@ -643,7 +649,7 @@
                 $dd = getBetweenDates($dateFrom, $dateTo);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
                 while($row = mysqli_fetch_assoc($result)){
-		    foreach ($dd as $date) {
+		        foreach ($dd as $date) {
                         if(in_array($date, $dateRange)){
                             echo"<tr>
                             <td>" . $row['name'] . "</td>
@@ -653,7 +659,15 @@
                             </tr>";
                         }
                     }
-		}
+                    $hours = get_hours_volunteered_by($row['id']);
+		        }
+                echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". $hours ."</label></td>
+                </tr>";
               } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
