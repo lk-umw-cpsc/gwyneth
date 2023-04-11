@@ -742,4 +742,19 @@ function find_user_names($name) {
         }
         return $hours;
     }
+    function get_tot_vol_hours(){
+        $query = "select * from dbPersons";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        $totHours = array();
+        while($row = mysqli_fetch_assoc($result)){
+            $hours = get_hours_volunteered_by($row['id']);
+            $totHours[] = $hours;
+        }
+        $sum = 0;
+        foreach($totHours as $hrs){
+            $sum += $hrs;
+        }
+        return $sum; 
+    }
 ?>

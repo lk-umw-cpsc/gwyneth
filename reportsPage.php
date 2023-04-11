@@ -32,6 +32,7 @@
   $lastTo = $_GET['lname_end'];
   @$stats = $_GET['statusFilter'];
   $today =  date('Y-m-d');
+  
   if($dateFrom != NULL && $dateTo == NULL){
     $dateTo = $today;
   }
@@ -92,7 +93,7 @@
             }
 	    .center_a {
                 margin-top: 0;
-		margin-bottom: 3rem;
+		        margin-bottom: 3rem;
                 margin-left:auto;
                 margin-right:auto;
                 display: flex;
@@ -216,7 +217,8 @@
             <label>Total Volunteer Hours: </label>
             <span>
                 <?php echo '&nbsp&nbsp&nbsp';
-			echo "need to calc hrs"; ?>
+                    echo get_tot_vol_hours();
+                   ?>
             </span>
         </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
@@ -233,6 +235,7 @@
 	</div>
 
         <?php 
+        
         // view General volunteer report with all date range and all name range
         if($type == "general_volunteer_report" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom == NULL && $lastTo == NULL){
             echo"
@@ -254,6 +257,7 @@
                 $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%'";
             }
             $result = mysqli_query($con,$query);
+            $totHours = array();
             while($row = mysqli_fetch_assoc($result)){
                 echo"<tr>
                 <td>" . $row['first_name'] . "</td>
@@ -262,8 +266,24 @@
                 <td>" . $row['email'] . "</td>
 		        <td>" . $row['specialties'] . "</td>
                 <td>" . get_hours_volunteered_by($row['id']) . "</td>
-                </tr>";    
+                </tr>"; 
+                $hours = get_hours_volunteered_by($row['id']);   
+                $totHours[] = $hours;
             }
+            $sum = 0;
+            foreach($totHours as $hrs){
+                $sum += $hrs;
+            }
+                $ab = $sum;
+            echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". $sum ."</label></td>
+                </tr>";
         }
         // date range and name range for general volunteer report 
         if($type == "general_volunteer_report" && !$dateFrom == NULL && !$dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
@@ -296,6 +316,7 @@
                 $nameRange = range($lastFrom,$lastTo);
                 $bothRange = array_merge($dd,$nameRange);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                $totHours = array();
                 while($row = mysqli_fetch_assoc($result)){
                     foreach ($bothRange as $both){
                         if(in_array($both,$dateRange) && in_array($row['last_name'][0],$nameRange)){
@@ -307,9 +328,24 @@
 			                <td>" . $row['specialties'] . "</td>
                             <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
+                            $hours = get_hours_volunteered_by($row['id']);   
+                            $totHours[] = $hours;
                         }
                     }
                 }
+                $sum = 0;
+                foreach($totHours as $hrs){
+                    $sum += $hrs;
+                }
+                echo"
+                    <tr>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td bgcolor='white'><label>Total Hours:</label></td>
+                    <td bgcolor='white'><label>". $sum ."</label></td>
+                    </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
@@ -337,6 +373,7 @@
             }
             $result = mysqli_query($con,$query);
             $nameRange = range($lastFrom,$lastTo);
+            $totHours = array();
             while($row = mysqli_fetch_assoc($result)){
                 foreach ($nameRange as $a){
                     if($row['last_name'][0] == $a){
@@ -348,9 +385,24 @@
 			            <td>" . $row['specialties'] . "</td>
                         <td>" . get_hours_volunteered_by($row['id']) . "</td>
                         </tr>";
+                        $hours = get_hours_volunteered_by($row['id']);   
+                        $totHours[] = $hours;
                     }
                 } 
             }
+            $sum = 0;
+            foreach($totHours as $hrs){
+                $sum += $hrs;
+            }
+            echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". $sum ."</label></td>
+                </tr>";
         }
         //only date range for general volunteer report 
         if($type == "general_volunteer_report" && !$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
@@ -381,6 +433,7 @@
                 // Code that might throw an exception or error goes here
                 $dd = getBetweenDates($dateFrom, $dateTo);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                $totHours = array();
                 while($row = mysqli_fetch_assoc($result)){
                     foreach ($dd as $date){
                         if(in_array($date,$dateRange)){
@@ -389,12 +442,27 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['phone1'] . "</td>
                             <td>" . $row['email'] . "</td>
-			    <td>" . $row['specialties'] . "</td>
+			                <td>" . $row['specialties'] . "</td>
                             <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
+                            $hours = get_hours_volunteered_by($row['id']);   
+                            $totHours[] = $hours;
                         }
                     }
                 }
+                $sum = 0;
+                foreach($totHours as $hrs){
+                    $sum += $hrs;
+                }
+                echo"
+                    <tr>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td bgcolor='white'><label>Total Hours:</label></td>
+                    <td bgcolor='white'><label>". $sum ."</label></td>
+                    </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
@@ -427,13 +495,26 @@
                 ORDER BY DURATION DESC";
             }
             $result = mysqli_query($con,$query);
+            $totHours = array();
             while($row = mysqli_fetch_assoc($result)){
                 echo"<tr>
                 <td>" . $row['first_name'] . "</td>
                 <td>" . $row['last_name'] . "</td>
                 <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                 </tr>";
+                $hours = get_hours_volunteered_by($row['id']);
+                $totHours[] = $hours;
             }
+            $sum = 0;
+            foreach($totHours as $hrs){
+                $sum += $hrs;
+            }
+            echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". $sum ."</label></td>
+                </tr>";
         }
         // date range and name range for top performer report
         if($type == "top_perform" && !$dateFrom == NULL && !$dateTo ==NULL && !$lastFrom == NULL  && !$lastTo == NULL){
@@ -467,6 +548,7 @@
                 $nameRange = range($lastFrom,$lastTo);
                 $bothRange = array_merge($dd,$nameRange);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                $totHours = array();
                 while($row = mysqli_fetch_assoc($result)){
                     foreach ($bothRange as $both){
                         if(in_array($both,$dateRange) && in_array($row['last_name'][0],$nameRange)){
@@ -475,9 +557,21 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
+                            $hours = get_hours_volunteered_by($row['id']);
+                            $totHours[] = $hours;
                         }
                     }
                 }
+                $sum = 0;
+                foreach($totHours as $hrs){
+                    $sum += $hrs;
+                }
+                echo"
+                    <tr>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td bgcolor='white'><label>Total Hours:</label></td>
+                    <td bgcolor='white'><label>". $sum ."</label></td>
+                    </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
@@ -510,6 +604,7 @@
             }
             $result = mysqli_query($con,$query);
             $nameRange = range($lastFrom,$lastTo);
+            $totHours = array();
             while($row = mysqli_fetch_assoc($result)){
                 foreach ($nameRange as $a){
                     if($row['last_name'][0] == $a){
@@ -518,9 +613,21 @@
                         <td>" . $row['last_name'] . "</td>
                         <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                         </tr>";
+                        $hours = get_hours_volunteered_by($row['id']);
+                        $totHours[] = $hours;
                     }
                 } 
             }
+            $sum = 0;
+            foreach($totHours as $hrs){
+                $sum += $hrs;
+            }
+            echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". $sum ."</label></td>
+                </tr>";
         }
         //only date range for top performer report
         if($type == "top_perform" && !$dateFrom == NULL && !$dateTo ==NULL && $lastFrom == NULL  && $lastTo == NULL){
@@ -552,6 +659,7 @@
                 // Code that might throw an exception or error goes here
                 $dd = getBetweenDates($dateFrom, $dateTo);
                 $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                $totHours = array();
                 while($row = mysqli_fetch_assoc($result)){
                     foreach ($dd as $date){
                         if(in_array($date,$dateRange)){
@@ -560,9 +668,21 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
                             </tr>";
+                            $hours = get_hours_volunteered_by($row['id']);
+                            $totHours[] = $hours;
                         }
                     }
                 }
+                $sum = 0;
+                foreach($totHours as $hrs){
+                    $sum += $hrs;
+                }
+                echo"
+                    <tr>
+                    <td style='border: none;' bgcolor='white'></td>
+                    <td bgcolor='white'><label>Total Hours:</label></td>
+                    <td bgcolor='white'><label>". $sum ."</label></td>
+                    </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
                 echo "No Results found!"; 
