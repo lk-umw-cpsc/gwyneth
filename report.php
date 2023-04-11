@@ -58,14 +58,18 @@
 
     <main class="report">
 	<?php
-	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) && isset($_POST["report_type"]) && isset($_POST["date_from"]) && isset($_POST["date_to"]) && isset($_POST['lname_start']) && isset($_POST['lname_end']) && isset($_POST['name'])) {
+	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) 
+        && isset($_POST["report_type"]) && isset($_POST["date_from"]) && 
+        isset($_POST["date_to"]) && isset($_POST['lname_start']) && isset($_POST['lname_end']) 
+        && isset($_POST['name']) && isset($_POST['statusFilter'])) {
 		$args = sanitize($_POST);
 		$report = $args['report_type'];
 		$name = $args['name'];
 		$dFrom = $_POST['date_from'];
-                $dTo = $_POST['date_to'];
-                $lastFrom = $_POST['lname_start'];
-                $lastTo = $_POST['lname_end'];
+        $dTo = $_POST['date_to'];
+        $lastFrom = $_POST['lname_start'];
+        $lastTo = $_POST['lname_end'];
+        $status = $_POST['statusFilter'];
 		if ($report=="indiv_vol_hours" && $name == NULL) {
 			echo "<b>Please enter a volunteer's first and/or last name.</b><br>";
 		}
@@ -104,7 +108,7 @@
                         }
                }
 	    	else {
-			header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name");
+			header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status");
 	    	}
 	    } 
             // $alphabet = range('a', 'z');

@@ -288,7 +288,7 @@ function make_a_person($result_row) {
                     $result_row['city'],
                     $result_row['state'],
                     $result_row['zip'],
-                    $result_row['profile_pic'],
+                    @$result_row['profile_pic'],
                     $result_row['phone1'],
                     $result_row['phone1type'],
                     $result_row['phone2'],
