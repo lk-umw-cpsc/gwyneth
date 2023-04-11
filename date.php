@@ -88,6 +88,7 @@
                     </a>';
             }
             ?>
+			<a href="calendar.php" class="button">Return to Calendar</a>
         </main>
     </body>
 </html>
