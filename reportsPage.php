@@ -30,7 +30,7 @@
   $dateTo = $_GET['date_to'];
   $lastFrom = $_GET['lname_start'];
   $lastTo = $_GET['lname_end'];
-  $stats = $_GET['statusFilter'];
+  @$stats = $_GET['statusFilter'];
   $today =  date('Y-m-d');
   if($dateFrom != NULL && $dateTo == NULL){
     $dateTo = $today;
