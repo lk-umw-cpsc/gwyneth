@@ -32,7 +32,7 @@
   $lastTo = $_GET['lname_end'];
   $stats = $_GET['statusFilter'];
   $today =  date('Y-m-d');
-  if($dateTo == NULL){
+  if($dateFrom != NULL && $dateTo == NULL){
     $dateTo = $today;
   }
   // Is user authorized to view this page?
