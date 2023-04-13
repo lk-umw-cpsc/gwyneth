@@ -39,7 +39,6 @@ function add_person($person) {
             $person->get_city() . '","' .
             $person->get_state() . '","' .
             $person->get_zip() . '","' .
-            $person->get_profile_pic() . '","'.
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_phone2() . '","' .
@@ -82,7 +81,8 @@ function add_person($person) {
             $person->get_friday_availability_start() . '","' .
             $person->get_friday_availability_end() . '","' .
             $person->get_saturday_availability_start() . '","' .
-            $person->get_saturday_availability_end() . 
+            $person->get_saturday_availability_end() . '","'.
+            $person->get_profile_pic() .
             '");'
         );							
         mysqli_close($con);
