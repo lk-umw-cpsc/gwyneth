@@ -82,7 +82,9 @@ function add_person($person) {
             $person->get_friday_availability_start() . '","' .
             $person->get_friday_availability_end() . '","' .
             $person->get_saturday_availability_start() . '","' .
-            $person->get_saturday_availability_end() . 
+            $person->get_saturday_availability_end() . '","' .
+            $person->get_profile_pic() . '","' .
+            $person->is_password_change_required() .
             '");'
         );							
         mysqli_close($con);
@@ -149,7 +151,15 @@ function retrieve_persons_by_name ($name) {
 
 function change_password($id, $newPass) {
     $con=connect();
-    $query = 'UPDATE dbPersons SET password = "' . $newPass . '" WHERE id = "' . $id . '"';
+    $query = 'UPDATE dbPersons SET password = "' . $newPass . '", force_password_change="0" WHERE id = "' . $id . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $result;
+}
+
+function reset_password($id, $newPass) {
+    $con=connect();
+    $query = 'UPDATE dbPersons SET password = "' . $newPass . '", force_password_change="1" WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
     return $result;
@@ -333,6 +343,7 @@ function make_a_person($result_row) {
                     $result_row['fridays_end'],
                     $result_row['saturdays_start'],
                     $result_row['saturdays_end'],
+                    $result_row['force_password_change']
                 );   
     return $thePerson;
 }

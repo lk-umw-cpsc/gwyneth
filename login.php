@@ -29,7 +29,13 @@
             if (!$user) {
                 $badLogin = true;
             } else if (password_verify($password, $user->get_password())) {
-                $_SESSION['logged_in'] = true;
+                $changePassword = false;
+                if ($user->is_password_change_required()) {
+                    $changePassword = true;
+                    $_SESSION['logged_in'] = false;
+                } else {
+                    $_SESSION['logged_in'] = true;
+                }
                 $types = $user->get_type();
                 if (in_array('superadmin', $types)) {
                     $_SESSION['access_level'] = 3;
@@ -47,7 +53,15 @@
                 if ($user->get_id() == 'vmsroot') {
                     $_SESSION['access_level'] = 3;
                 }
-                header('Location: index.php');
+                if ($changePassword) {
+                    $_SESSION['access_level'] = 0;
+                    $_SESSION['change-password'] = true;
+                    header('Location: changePassword.php');
+                    die();
+                } else {
+                    header('Location: index.php');
+                    die();
+                }
                 die();
             } else {
                 $badLogin = true;

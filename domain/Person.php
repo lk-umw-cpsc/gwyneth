@@ -76,12 +76,13 @@ class Person {
 	private $fridaysEnd;
 	private $saturdaysStart;
 	private $saturdaysEnd;
+	private $mustChangePassword;
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $pp, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass,
 			$suns, $sune, $mons, $mone, $tues, $tuee, $weds, $wede,
-			$thus, $thue, $fris, $frie, $sats, $sate) {
+			$thus, $thue, $fris, $frie, $sats, $sate, $mcp) {
 		$this->id = $e;
 		$this->start_date = $sd;
 		$this->venue = $v;
@@ -114,6 +115,7 @@ class Person {
 		$this->motivation = $mot;
 		$this->specialties = $spe;
 		$this->convictions = $convictions;
+		$this->mustChangePassword = $mcp;
 		if ($t !== "") {
 			$this->type = explode(',', $t);
 			global $accessLevelsByRole;
@@ -378,6 +380,10 @@ class Person {
 
 	function get_access_level() {
 		return $this->access_level;
+	}
+
+	function is_password_change_required() {
+		return $this->mustChangePassword;
 	}
 }
 ?>

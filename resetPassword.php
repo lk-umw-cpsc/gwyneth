@@ -47,7 +47,7 @@
             $password .= mt_rand(0, 9);
         }
         $hash = password_hash($password, PASSWORD_BCRYPT);
-        change_password($resetID, $hash);
+        reset_password($resetID, $hash);
         $passwordReset = true;
     }
 ?>

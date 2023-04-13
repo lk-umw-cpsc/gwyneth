@@ -8,6 +8,10 @@
     $accessLevel = 0;
     $userID = null;
     $isAdmin = false;
+    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+        header('Location: login.php');
+        die();
+    }
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
