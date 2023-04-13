@@ -39,7 +39,6 @@ function add_person($person) {
             $person->get_city() . '","' .
             $person->get_state() . '","' .
             $person->get_zip() . '","' .
-            $person->get_profile_pic() . '","'.
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_phone2() . '","' .
