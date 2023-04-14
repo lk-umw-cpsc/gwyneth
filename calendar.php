@@ -43,6 +43,7 @@
     // Add another row if it's needed to display all days in the month
     if (date('m', strtotime($calendarEnd . ' +1 day')) == date('m', $first)) {
         $calendarEnd = date('Y-m-d', strtotime($calendarEnd . ' +7 day'));
+        $calendarEndEpoch = strtotime($calendarEnd);
         $weeks = 6;
     }
 ?>
