@@ -568,7 +568,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             and start_date<='$date'
             and id != 'vmsroot' 
             and status='Active'
-            and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
+            and id not in (select userID from dbEventVolunteers where eventID='$eventID')
+            order by last_name, first_name";
         $result = mysqli_query($connection, $query);
         if ($result == null || mysqli_num_rows($result) == 0) {
             mysqli_close($connection);
