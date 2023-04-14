@@ -29,7 +29,7 @@ $(function() {
         $('#month-jumper-wrapper').addClass('hidden');
     });
 
-    $('#jumper-cancel').click(function(e) {
+    $('#month-jumper-wrapper').click(function(e) {
         if (e.target === this) {
             $('#month-jumper-wrapper').addClass('hidden');
         }

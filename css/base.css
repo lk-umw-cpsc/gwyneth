@@ -509,6 +509,10 @@ button.cancel:hover {
     background-color: var(--accent-color);
 }
 
+#calendar-heading-month {
+    cursor: pointer;
+}
+
 /* Dashboard */
 main.dashboard {
     padding: 0 8rem 4rem 8rem;
