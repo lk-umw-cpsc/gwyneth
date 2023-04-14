@@ -221,7 +221,7 @@ main:not(.login):not(.calendar-view):not(.dashboard) {
 
 /* Form Controls */
 
-input[type=text], input[type=password], input[type=date], input[type=email], 
+input[type=text], input[type=password], input[type=date], input[type=email], input[type=number], 
 input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     border: var(--text-field-border);
     border-radius: 0;
@@ -231,14 +231,14 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     margin-bottom: 0.5rem;
 }
 
-input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, 
+input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, input[type=number]:disabled,
 input[type=email]:disabled, input[type=tel]:disabled, select:disabled, textarea:disabled,
 .pseudo-input-disabled {
     background-color: var(--inactive-background-color);
     color: var(--inactive-font-color);
 }
 
-input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, select:active, textarea:focus {
+input[type=text]:focus, input[type=password]:active, input[type=email]:focus, input[type=date]:focus, input[type=tel]:focus, input[type=number]:focus, select:active, textarea:focus {
     outline: var(--text-field-border);
 }
 
@@ -472,10 +472,41 @@ h1.calendar-header a {
     cursor: pointer;
 }
 
+#month-jumper-wrapper {
+    position: fixed;
+    z-index: 99;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .50);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #month-jumper {
-    visibility: hidden;
-    position: absolute;
-    z-index: -1;
+    background-color: var(--page-background-color);
+    /* border: 1px solid var(--secondary-accent-color); */
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border-radius: .5rem;
+    box-shadow: 0px 1rem 1rem rgba(0, 0, 0, 0.5);
+    margin: 0.5rem;
+}
+
+#month-jumper > div {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+}
+
+button.cancel {
+    background-color: var(--cancel-button-background-color);
+}
+
+button.cancel:hover {
+    background-color: var(--accent-color);
 }
 
 /* Dashboard */

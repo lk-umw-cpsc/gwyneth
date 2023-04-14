@@ -1,11 +1,4 @@
 $(function() {
-    // Show date picker menu when user clicks on calendar heading
-    $("#calendar-heading-month").click(function(e) {
-        $('#month-jumper').css('left', e.pageX);
-        $('#month-jumper').css('top', e.pageY);
-        $('#month-jumper').focus();
-        $('#month-jumper')[0].showPicker();
-    });
 
     // Change to selected date when user chooses a new month
     // let startingMonth = $('#month-jumper').val();
@@ -19,5 +12,26 @@ $(function() {
     });
     $('.calendar-day:not(.other-month)').click(function() {
         document.location = 'date.php?date=' + $(this).data('date');
+    });
+
+
+    $('#calendar-heading-month').click(function() {
+        $('#month-jumper-wrapper').removeClass('hidden');
+    });
+
+    $('#month-jumper').submit(function() {
+        let month = $('#jumper-month').val();
+        let year = $('#jumper-year').val();
+        $('#jumper-value').val(year + '-' + month);
+    });
+
+    $('#jumper-cancel').click(function() {
+        $('#month-jumper-wrapper').addClass('hidden');
+    });
+
+    $('#jumper-cancel').click(function(e) {
+        if (e.target === this) {
+            $('#month-jumper-wrapper').addClass('hidden');
+        }
     });
 });
