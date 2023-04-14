@@ -71,7 +71,7 @@
         <?php endif ?>
     <?php endif ?>
     <?php if ($isAdmin): ?>
-        <?php if ($id == 'vmsroot') : ?>
+        <?php if (strtolower($id) == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
         <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>

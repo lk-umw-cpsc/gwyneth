@@ -16,6 +16,8 @@
     } else {
         $month = $_GET['month'];
     }
+    $year = substr($month, 0, 4);
+    $month2digit = substr($month, 5, 2);
 
     $today = strtotime(date("Y-m-d"));
 
@@ -43,6 +45,7 @@
     // Add another row if it's needed to display all days in the month
     if (date('m', strtotime($calendarEnd . ' +1 day')) == date('m', $first)) {
         $calendarEnd = date('Y-m-d', strtotime($calendarEnd . ' +7 day'));
+        $calendarEndEpoch = strtotime($calendarEnd);
         $weeks = 6;
     }
 ?>
@@ -55,6 +58,36 @@
         <style>.happy-toast { margin: 0 1rem 1rem 1rem; }</style>
     </head>
     <body>
+        <div id="month-jumper-wrapper" class="hidden">
+            <form id="month-jumper">
+                <p>Choose a month to jump to</p>
+                <div>
+                    <select id="jumper-month">
+                        <?php
+                            $months = [
+                                'January', 'February', 'March', 'April',
+                                'May', 'June', 'July', 'August',
+                                'September', 'October', 'November', 'December'
+                            ];
+                            $digit = 1;
+                            foreach ($months as $m) {
+                                $month_digits = str_pad($digit, 2, '0', STR_PAD_LEFT);
+                                if ($month_digits == $month2digit) {
+                                    echo "<option value='$month_digits' selected>$m</option>";
+                                } else {
+                                    echo "<option value='$month_digits'>$m</option>";
+                                }
+                                $digit++;
+                            }
+                        ?>
+                    </select>
+                    <input id="jumper-year" type="number" value="<?php echo $year ?>" required min="2023">
+                </div>
+                <input type="hidden" id="jumper-value" name="month" value="<?php echo 'test' ?>">
+                <input type="submit" value="View">
+                <button id="jumper-cancel" class="cancel" type="button">Cancel</button>
+            </form>
+        </div>
         <?php require('header.php'); ?>
         <main class="calendar-view">
             <h1 class='calendar-header'>

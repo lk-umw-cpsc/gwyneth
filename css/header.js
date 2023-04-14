@@ -54,6 +54,15 @@ function validateTimeRange(start, end) {
     return start < end;
 }
 
+function validate12hTimeRange(start, end) {
+    start = time12hTo24h(start);
+    end = time12hTo24h(end);
+    if (!start || !end) {
+        return false;
+    }
+    return start < end;
+}
+
 function validateDateRange(start, end) {
     return start <= end;
 }
@@ -201,7 +210,7 @@ $(function() {
     $('form#new-event-form').submit(function(e) {
         let start = $('#start-time').val();
         let end = $('#end-time').val();
-        if (!validateTimeRange(start, end)) {
+        if (!validate12hTimeRange(start, end)) {
             scrollIntoView($('#start-time'));
             $('#date-range-error').removeClass('hidden');
             e.preventDefault();
