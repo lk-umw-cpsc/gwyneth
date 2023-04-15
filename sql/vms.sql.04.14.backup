@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 15, 2023 at 03:42 PM
--- Server version: 5.7.39-42-log
--- PHP Version: 7.4.33
+-- Generation Time: Mar 24, 2023 at 03:20 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db3dpzjdij5qds`
+-- Database: `homebasedb`
 --
 
 -- --------------------------------------------------------
@@ -29,9 +29,9 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `dbdates` (
   `id` char(20) NOT NULL,
-  `shifts` text,
-  `mgr_notes` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `shifts` text DEFAULT NULL,
+  `mgr_notes` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbdates`
@@ -150,25 +150,7 @@ CREATE TABLE `dbEventMedia` (
   `type` text NOT NULL,
   `format` text NOT NULL,
   `description` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `dbEventMedia`
---
-
-INSERT INTO `dbEventMedia` (`id`, `eventID`, `url`, `type`, `format`, `description`) VALUES
-(19, 17, 'http://test.com', 'post', 'link', 'test'),
-(20, 17, 'https://www.youtube.com/embed/ZyoSNt03o7g', 'training', 'video', 'Lofi Jam'),
-(21, 18, 'https://i.imgur.com/QSfApBk.jpeg', 'training', 'picture', 'Lol'),
-(22, 18, 'https://www.youtube.com/embed/geWYyNbNR24', 'post', 'video', 'Cozy Music'),
-(23, 18, 'https://lk-umw-cpsc.github.io/', 'training', 'link', 'Eagle Dash by Lauren &amp; Matt'),
-(24, 18, 'https://images.unsplash.com/photo-1615789591457-74a63395c990?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9tZXN0aWMlMjBjYXR8ZW58MHx8MHx8&amp;w=1000&amp;q=80', 'post', 'picture', 'This is a very cute cat :)'),
-(25, 19, 'https://www.facebook.com/gwynethsgift/', 'training', 'link', 'test'),
-(27, 19, 'https://www.youtube.com/embed/G9ijqOsYzF8', 'training', 'video', 'ok'),
-(28, 19, 'https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg', 'training', 'picture', 'test'),
-(29, 19, 'https://www.facebook.com/gwynethsgift/', 'post', 'link', 'ok'),
-(30, 20, 'https://www.youtube.com/embed/G9ijqOsYzF8', 'training', 'video', 'asdf'),
-(31, 20, 'https://www.youtube.com/embed/G9ijqOsYzF8', 'post', 'video', 'did zack do a good?');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -186,24 +168,14 @@ CREATE TABLE `dbEvents` (
   `description` text NOT NULL,
   `location` text NOT NULL,
   `capacity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `dbEvents`
 --
 
 INSERT INTO `dbEvents` (`id`, `name`, `abbrevName`, `date`, `startTime`, `endTime`, `description`, `location`, `capacity`) VALUES
-(17, 'Test Event', 'Testing', '2023-03-24', '12:00', '16:00', 'A test event', 'Some place fun', 3),
-(18, 'Test Event', 'Test', '2023-04-06', '13:00', '17:00', 'An event description', '100 Event Location Ave, Locationville, VA 22401', 4),
-(19, 'test me pls', 'test 123', '2023-04-21', '12:00', '13:00', 'test', 'testville', 3),
-(20, 'Test Event 2', 'Test 2', '2023-04-19', '12:00', '13:00', 'Descript', 'Location', 5),
-(21, 'Testing Hours Report', 'Testing Hou', '2023-04-24', '12:00', '13:00', 'Description', 'Location', 1),
-(23, 'CPR Awareness', 'CPR', '2023-06-13', '13:00', '17:00', '', 'Location', 20),
-(24, 'Building Event', 'Build', '2023-05-24', '09:00', '17:00', '', 'Location', 3),
-(25, 'Black and White', 'B&W', '2023-12-10', '20:00', '21:00', '', 'Location', 1),
-(26, 'Government Training', 'Gov\'t', '2023-04-24', '08:00', '09:00', '', 'Location', 20),
-(27, 'schema test', 'schema', '2023-04-14', '10:00', '12:00', 'tomorrow', 'asdfasdfasdf', 1),
-(28, 'asdf', 'asdf', '2023-04-21', '09:00', '17:00', 'tet', 'test', 1);
+(15, 'Test Event', 'Test', '2023-03-27', '12:00', '18:00', 'Hola', ':)', 4);
 
 -- --------------------------------------------------------
 
@@ -214,19 +186,7 @@ INSERT INTO `dbEvents` (`id`, `name`, `abbrevName`, `date`, `startTime`, `endTim
 CREATE TABLE `dbEventVolunteers` (
   `eventID` int(11) NOT NULL,
   `userID` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `dbEventVolunteers`
---
-
-INSERT INTO `dbEventVolunteers` (`eventID`, `userID`) VALUES
-(17, 'jdoe@umw.edu'),
-(17, 'volunteer@example.com'),
-(18, 'volunteer@example.com'),
-(19, 'volunteer@example.com'),
-(21, 'volunteer@example.com'),
-(24, 'lknight2@mail.umw.edu');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -236,10 +196,10 @@ INSERT INTO `dbEventVolunteers` (`eventID`, `userID`) VALUES
 
 CREATE TABLE `dbLog` (
   `id` int(3) NOT NULL,
-  `time` text,
-  `message` text,
-  `venue` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `time` text DEFAULT NULL,
+  `message` text DEFAULT NULL,
+  `venue` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -248,15 +208,15 @@ CREATE TABLE `dbLog` (
 --
 
 CREATE TABLE `dbmasterschedule` (
-  `venue` text,
+  `venue` text DEFAULT NULL,
   `day` text NOT NULL,
   `week_no` text NOT NULL,
-  `hours` text,
+  `hours` text DEFAULT NULL,
   `slots` int(11) DEFAULT NULL,
-  `persons` text,
-  `notes` text,
-  `id` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `persons` text DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `id` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbmasterschedule`
@@ -403,21 +363,22 @@ INSERT INTO `dbmasterschedule` (`venue`, `day`, `week_no`, `hours`, `slots`, `pe
 --
 
 CREATE TABLE `dbPersons` (
-  `id` varchar(256) CHARACTER SET utf8mb4 NOT NULL,
-  `start_date` text,
-  `venue` text,
+  `id` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `start_date` text DEFAULT NULL,
+  `venue` text DEFAULT NULL,
   `first_name` text NOT NULL,
-  `last_name` text,
-  `address` text,
-  `city` text,
+  `last_name` text DEFAULT NULL,
+  `address` text DEFAULT NULL,
+  `city` text DEFAULT NULL,
   `state` varchar(2) DEFAULT NULL,
-  `zip` text,
+  `zip` text DEFAULT NULL,
+  `profile_pic` text DEFAULT NULL,
   `phone1` varchar(12) NOT NULL,
-  `phone1type` text,
+  `phone1type` text DEFAULT NULL,
   `phone2` varchar(12) DEFAULT NULL,
-  `phone2type` text,
-  `birthday` text,
-  `email` text,
+  `phone2type` text DEFAULT NULL,
+  `birthday` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
   `shirt_size` varchar(3) DEFAULT NULL,
   `computer` varchar(3) DEFAULT NULL,
   `camera` varchar(3) NOT NULL,
@@ -426,21 +387,21 @@ CREATE TABLE `dbPersons` (
   `contact_num` varchar(12) NOT NULL,
   `relation` text NOT NULL,
   `contact_time` text NOT NULL,
-  `cMethod` text,
-  `position` text,
-  `credithours` text,
-  `howdidyouhear` text,
-  `commitment` text,
-  `motivation` text,
-  `specialties` text,
-  `convictions` text,
-  `type` text,
-  `status` text,
-  `availability` text,
-  `schedule` text,
-  `hours` text,
-  `notes` text,
-  `password` text,
+  `cMethod` text DEFAULT NULL,
+  `position` text DEFAULT NULL,
+  `credithours` text DEFAULT NULL,
+  `howdidyouhear` text DEFAULT NULL,
+  `commitment` text DEFAULT NULL,
+  `motivation` text DEFAULT NULL,
+  `specialties` text DEFAULT NULL,
+  `convictions` text DEFAULT NULL,
+  `type` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `availability` text DEFAULT NULL,
+  `schedule` text DEFAULT NULL,
+  `hours` text DEFAULT NULL,
+  `notes` text DEFAULT NULL,
+  `password` text DEFAULT NULL,
   `sundays_start` char(5) DEFAULT NULL,
   `sundays_end` char(5) DEFAULT NULL,
   `mondays_start` char(5) DEFAULT NULL,
@@ -454,28 +415,17 @@ CREATE TABLE `dbPersons` (
   `fridays_start` char(5) DEFAULT NULL,
   `fridays_end` char(5) DEFAULT NULL,
   `saturdays_start` char(5) DEFAULT NULL,
-  `saturdays_end` char(5) DEFAULT NULL,
-  `profile_pic` text NOT NULL,
-  `force_password_change` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `saturdays_end` char(5) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbPersons`
 --
 
-INSERT INTO `dbPersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`, `address`, `city`, `state`, `zip`, `phone1`, `phone1type`, `phone2`, `phone2type`, `birthday`, `email`, `shirt_size`, `computer`, `camera`, `transportation`, `contact_name`, `contact_num`, `relation`, `contact_time`, `cMethod`, `position`, `credithours`, `howdidyouhear`, `commitment`, `motivation`, `specialties`, `convictions`, `type`, `status`, `availability`, `schedule`, `hours`, `notes`, `password`, `sundays_start`, `sundays_end`, `mondays_start`, `mondays_end`, `tuesdays_start`, `tuesdays_end`, `wednesdays_start`, `wednesdays_end`, `thursdays_start`, `thursdays_end`, `fridays_start`, `fridays_end`, `saturdays_start`, `saturdays_end`, `profile_pic`, `force_password_change`) VALUES
-('bob@test.com', '1995-10-30', 'portland', 'Bob', 'Testington', '1696 Carl D. Silver Pkway', 'TEST CITY', 'VA', '10000', '1000000000', 'cellphone', '', '', '1991-01-01', 'bob@test.com', 'S', '', '', '', 'akdjf', '1234567890', 'as;dlfj', 'asdflkjashdf', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$8dfJhC/hIJYChCyfVGnyCOAIZ1z1NZlR/7eJ7PkgLtI61ppeTA9gi', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '', 0),
-('clarence@test.com', '2012-01-01', 'portland', 'Clarence', 'Testington', 'asldkfhaslkdjfh', 'asdlkfjahsdlfkj', 'VA', '12345', '1234567890', 'cellphone', '', '', '1991-01-01', 'clarence@test.com', 'S', '', '', '', 'asjdfh', '1234567890', 'askldjfh', 'asdf', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$/r/3t57lNeDTib0h5ow2.OY7AIAtku9/GxKm7SILWFs6w/MtCBqA2', '', '', '13:00', '17:00', '13:00', '17:00', '13:00', '17:00', '', '', '', '', '', '', '', 0),
-('jdoe@umw.edu', '2023-03-03', 'portland', 'John', 'Doe', '123456 College Ave', 'Fredericksburg', 'VA', '22401', '5551234567', 'cellphone', '', '', '2000-01-01', 'jdoe@umw.edu', 'XL', '', '', '', 'Mom Doe', '1234567890', 'Mom, duh', 'Whenever you feel like it, really', 'phone', '', '', '', '', '', '&lt;script&gt;alert(\'if this works, we are vulnerable to XSS!\');&lt;/script&gt;', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$SD9rYWp9tWGM88LnCh5ge.486qOjkRLM5mQ9hqrE3T9oKlmWlf13a', '08:00', '18:00', '', '', '', '', '00:00', '23:59', '', '', '09:00', '23:59', '', '', 'https://www.washingtonian.com/wp-content/uploads/2020/03/sandie-clarke-C8uGiOanMY4-unsplash-2048x1365.jpg', 0),
-('jessie@test.com', '2016-06-19', 'portland', 'Jessie', 'Testington', 'asdlfkjh', 'asdflkj', 'VA', '10000', '5555555555', 'cellphone', '', '', '1991-01-01', 'jessie@test.com', 'S', '', '', '', 'asdf', '5555555555', 'Mother', '123', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$XwmYCzXNfD8EFE/R0zLjsOoFv9jwAjPJIBEBYUmZWkdKWHsBZVj0e', '09:00', '17:00', '09:00', '17:00', '09:00', '17:00', '09:00', '17:00', '09:00', '17:00', '09:00', '17:00', '09:00', '17:00', '', 0),
-('justin@test.com', '2001-12-03', 'portland', 'Justin', 'Testington', 'lhdfoiuhdf', 'alskdjfh', 'VA', '60000', '5555555555', 'cellphone', '', '', '1991-01-01', 'justin@test.com', 'S', '', '', '', 'alkjshdf', '5555555555', 'Mother', 'Days', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$yd7NUrB3DTvOLu8pkvGsmeyA2y7XoJeWOZQpAVylFTOMb0uuzuto6', '00:00', '23:59', '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-('lknight2@mail.umw.edu', '2023-03-21', 'portland', 'Lauren', 'Knight', '1234 Street St', 'Fredericksburg', 'VA', '22401', '5405555555', 'home', '', '', '1990-01-01', 'lknight2@mail.umw.edu', 'S', '1', '1', '1', 'Halulolo', '5555555555', 'That person', 'Days', 'phone', '', '', '', '', '', '', '', 'admin', 'Inactive', '', '', '', 'Administrative', '$2y$10$28EB5VqpTe2.1ZfVN3B/8eoDfCjh8rX/XXIyW7gutbyCvRBJ7k0xS', '', '', '00:00', '23:59', '', '', '', '', '', '', '', '', '', '', '', 0),
-('moe@test.com', '2025-04-24', 'portland', 'Moe', 'Testington', 'asdfklj', 'asdlfkjahsdf', 'VA', '22401', '5555555555', 'cellphone', '', '', '1991-01-01', 'moe@test.com', 'S', '', '', '', 'Olive', '5555555555', 'FRIEND', 'Days', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$0nB9ctK9wkExsuU1NG0Tnu3EZkmY4BVFhQyyUn5uMMQ01EPuun9nC', '', '', '', '', '', '', '', '', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '', 0),
-('suzie@test.com', '2001-12-03', 'portland', 'Suzie', 'Inactington', 'asdf', 'asdf', 'VA', '10000', '5555555555', 'cellphone', '', '', '1991-01-01', 'suzie@test.com', 'S', '', '', '', 'asfdlk', '1001001000', 'asdf', 'asdf', 'phone', '', '', '', '', '', '', '', 'volunteer', 'Inactive', '', '', '', '', '$2y$10$lusHTnyt/PjxDCVLw0ITA.4M5YSxGfyeMI9MFj1r7TAMRAbfahCKC', '00:00', '23:59', '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-('tao@test.com', '2016-06-19', 'portland', 'Tao', 'Inactington', '1696 Carl D. Silver Pkwy', 'Fredericksburg', 'VA', '22401', '5555555555', 'cellphone', '', '', '1991-01-01', 'tao@test.com', 'S', '', '', '', 'asdff', '1001001000', 'Mother', 'Days', 'text', '', '', '', '', '', '', '', 'volunteer', 'Inactive', '', '', '', '', '$2y$10$72vscf.mstNlu5x89kv.LudvKFV0py2R7JWjT48chWUowLuMm0.dS', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '05:00', '21:00', '', 0),
-('testuser@gmail.com', '2023-04-03', 'portland', 'Test', 'User 1', 'kjsaldgjawes', 'sabbs', 'VA', '00000', '0000000000', 'cellphone', '', '', '2023-04-03', 'testuser@gmail.com', 'S', '', '', '', 'Bob', '1235544444', 'Father', 'Evenings', 'text', '', '', '', '', '', '', '', 'admin', 'Active', '', '', '', 'Administrative', '$2y$10$pAQJHJ018sTQXgXRe2JIDex6AByMNhPyrt3QmgSiQfGeQUBIn0z1m', '08:00', '16:00', '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-('vmsroot', 'N/A', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '$2y$10$j4oWLI2Vr/KvGy9pSJdUcuRTkeyxuLVBILvyLYxBbjyzBZkTePwgC', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 0),
-('volunteer@example.com', '2023-04-01', 'portland', 'Harry', 'Potter', '1000 College Ave', 'Fredericksburg', 'VA', '22401', '5408675309', 'work', '', '', '1990-10-10', 'volunteer@example.com', 'S', '', '', '', 'Volunteer\'s Dad', '5408008000', 'Father', 'Evenings', 'email', '', '', '', '', '', '', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$6r3Tu9GwZwjUk6hUp3DWq.ZtuRkPTMv4wYHF1CshWP5dCyXyABqVq', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '00:00', '23:59', '', 0);
+INSERT INTO `dbPersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`, `address`, `city`, `state`, `zip`, `phone1`, `phone1type`, `phone2`, `phone2type`, `birthday`, `email`, `shirt_size`, `computer`, `camera`, `transportation`, `contact_name`, `contact_num`, `relation`, `contact_time`, `cMethod`, `position`, `credithours`, `howdidyouhear`, `commitment`, `motivation`, `specialties`, `convictions`, `type`, `status`, `availability`, `schedule`, `hours`, `notes`, `password`, `sundays_start`, `sundays_end`, `mondays_start`, `mondays_end`, `tuesdays_start`, `tuesdays_end`, `wednesdays_start`, `wednesdays_end`, `thursdays_start`, `thursdays_end`, `fridays_start`, `fridays_end`, `saturdays_start`, `saturdays_end`) VALUES
+('jdoe@umw.edu', '2023-03-03', 'portland', 'John', 'Doe', '123456 College Ave', 'Fredericksburg', 'VA', '22401', '5551234567', 'cellphone', '', '', '2000-01-01', 'jdoe@umw.edu', 'XL', '', '', '', 'Mom Doe', '1234567890', 'Mom, duh', 'Whenever you feel like it, really', 'phone', '', '', '', '', '', '&lt;script&gt;alert(&#039;if this works, we are vulnerable to XSS!&#039;);&lt;/script&gt;', '', 'volunteer', 'Active', '', '', '', '', '$2y$10$SD9rYWp9tWGM88LnCh5ge.486qOjkRLM5mQ9hqrE3T9oKlmWlf13a', '08:00', '18:00', '', '', '', '', '00:00', '23:59', '', '', '', '', '', ''),
+('lknight2@mail.umw.edu', '2023-03-21', 'portland', 'Lauren', 'Knight', '1234 Street St', 'Fredericksburg', 'VA', '22401', '5405555555', 'home', '', '', '1990-01-01', 'lknight2@mail.umw.edu', 'S', '1', '1', '1', 'Halulolo', '5555555555', 'That person', 'Days', 'phone', '', '', '', '', '', '', '', 'superadmin', 'Inactive', '', '', '', 'Volunteer', '$2y$10$28EB5VqpTe2.1ZfVN3B/8eoDfCjh8rX/XXIyW7gutbyCvRBJ7k0xS', '', '', '00:00', '23:59', '', '', '', '', '', '', '', '', '', ''),
+('vmsroot', 'N/A', 'portland', 'vmsroot', '', 'N/A', 'N/A', 'VA', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'vmsroot', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A', '$2y$10$SXBhB4A.TljRvR3KgxpDxOp86Rrg/UstwIRmANb1PhhgUX7PYCGzK', '', '', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -485,11 +435,11 @@ INSERT INTO `dbPersons` (`id`, `start_date`, `venue`, `first_name`, `last_name`,
 
 CREATE TABLE `dbscl` (
   `id` char(25) NOT NULL,
-  `persons` text,
-  `status` text,
-  `vacancies` text,
-  `time` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `persons` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `vacancies` text DEFAULT NULL,
+  `time` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbscl`
@@ -509,13 +459,13 @@ CREATE TABLE `dbshifts` (
   `id` char(25) NOT NULL,
   `start_time` int(11) DEFAULT NULL,
   `end_time` int(11) DEFAULT NULL,
-  `venue` text,
+  `venue` text DEFAULT NULL,
   `vacancies` int(11) DEFAULT NULL,
-  `persons` text,
-  `removed_persons` text,
-  `sub_call_list` text,
-  `notes` text
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `persons` text DEFAULT NULL,
+  `removed_persons` text DEFAULT NULL,
+  `sub_call_list` text DEFAULT NULL,
+  `notes` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbshifts`
@@ -894,12 +844,12 @@ INSERT INTO `dbshifts` (`id`, `start_time`, `end_time`, `venue`, `vacancies`, `p
 
 CREATE TABLE `dbweeks` (
   `id` char(20) NOT NULL,
-  `dates` text,
-  `venue` text,
-  `status` text,
-  `name` text,
+  `dates` text DEFAULT NULL,
+  `venue` text DEFAULT NULL,
+  `status` text DEFAULT NULL,
+  `name` text DEFAULT NULL,
   `end` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `dbweeks`
@@ -989,13 +939,13 @@ ALTER TABLE `dbweeks`
 -- AUTO_INCREMENT for table `dbEventMedia`
 --
 ALTER TABLE `dbEventMedia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `dbEvents`
 --
 ALTER TABLE `dbEvents`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `dbLog`
