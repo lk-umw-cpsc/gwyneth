@@ -221,7 +221,7 @@
                 $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
                 $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
                 $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
-                $saturdaysStart, $saturdaysEnd
+                $saturdaysStart, $saturdaysEnd, false
             );
             $result = add_person($newperson);
             if (!$result) {
