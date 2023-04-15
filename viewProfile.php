@@ -101,14 +101,14 @@
                     }
                   ?>"width="140" height="140">
                 <form class="media-form hidden" method="post" id="edit-profile-picture-form">
-                    <label class="link-like">Edit Photo</label>
+                    <label>Edit Photo</label>
                     <label for="url">URL</label>
                     <input type="text" id="url" name="url" placeholder="Paste link to media" required>
                     <p class="error hidden" id="url-error">Please enter a valid URL.</p>
                     <input type="hidden" name="id" value="<?php echo $id ?>">
                     <input type="submit" name="edit-profile-picture-submit" value="Attach">
                 </form>
-                <a id="edit-profile-picture">Edit Photo</a>
+                <a id="edit-profile-picture" class="link-like">Edit Photo</a>
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>
