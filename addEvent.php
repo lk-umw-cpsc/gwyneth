@@ -88,9 +88,9 @@
                 <label for="name">Date </label>
                 <input type="date" id="date" name="date" <?php if ($date) echo 'value="' . $date . '"'; ?> min="<?php echo date('Y-m-d'); ?>" required>
                 <label for="name">Start Time </label>
-                <input type="text" id="start-time" name="start-time" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" required placeholder="Enter start time. Ex. 12:00PM">
+                <input type="text" id="start-time" name="start-time" pattern="([1-9]|10|11|12):[0-5][0-9] ?([aApP][mM])" required placeholder="Enter start time. Ex. 12:00 PM">
                 <label for="name">End Time </label>
-                <input type="text" id="end-time" name="end-time" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" required placeholder="Enter end time. Ex. 4:00PM">
+                <input type="text" id="end-time" name="end-time" pattern="([1-9]|10|11|12):[0-5][0-9] ?([aApP][mM])" required placeholder="Enter end time. Ex. 4:00 PM">
                 <p id="date-range-error" class="error hidden">Start time must come before end time</p>
                 <label for="name">Description </label>
                 <input type="text" id="description" name="description" required placeholder="Enter description">
