@@ -794,10 +794,14 @@ main.general, form.general {
 }
 
 main.general fieldset {
-    padding: 1.0rem;
+    padding: 1.5rem;
     display: flex;
     gap: .5rem;
     flex-direction: column;
+}
+
+main.general fieldset > label:not(:first-of-type) {
+    margin-top: 0.5rem;
 }
 
 table.general {
@@ -845,4 +849,15 @@ table.general th, table.general td {
     padding: 1rem;
     border: var(--text-field-border);
     text-align: center;
+}
+
+/* Profile picture */
+
+
+img.profile-pic {
+	object-fit: cover;
+}
+
+.pic_update_message {
+  color: green;
 }

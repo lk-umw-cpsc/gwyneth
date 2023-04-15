@@ -47,7 +47,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
+        <!-- <link rel="stylesheet" href="css/editprofile.css" type="text/css" /> -->
         <title>Gwyneth's Gift VMS | View User</title>
     </head>
     <body>
@@ -92,7 +92,7 @@
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
-                <img src="<?php
+                <img class="profile-pic" src="<?php
                     $profile_pic = $user -> get_profile_pic();
                     if ($profile_pic) {
                         echo $profile_pic;
