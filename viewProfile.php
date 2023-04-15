@@ -101,7 +101,7 @@
                     }
                   ?>"width="140" height="140">
                 <form class="media-form hidden" method="post" id="edit-profile-picture-form">
-                    <label>Edit Photo</label>
+                    <label class="link-like">Edit Photo</label>
                     <label for="url">URL</label>
                     <input type="text" id="url" name="url" placeholder="Paste link to media" required>
                     <p class="error hidden" id="url-error">Please enter a valid URL.</p>

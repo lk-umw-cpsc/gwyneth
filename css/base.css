@@ -861,3 +861,7 @@ img.profile-pic {
 .pic_update_message {
   color: green;
 }
+
+.link-like {
+    cursor: pointer;
+}
