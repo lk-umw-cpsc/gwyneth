@@ -92,16 +92,14 @@
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
-                <img src="
-                  <?php
+                <img src="<?php
                     $profile_pic = $user -> get_profile_pic();
                     if ($profile_pic) {
                         echo $profile_pic;
                     } else {
                         echo 'images/default-profile-picture.svg';
                     }
-                  ?>
-                "width="140" height="140">
+                  ?>"width="140" height="140">
                 <form class="media-form hidden" method="post" id="edit-profile-picture-form">
                     <label>Edit Photo</label>
                     <label for="url">URL</label>
