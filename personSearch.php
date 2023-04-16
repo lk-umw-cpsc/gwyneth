@@ -72,7 +72,15 @@
                                         </tr>
                                     </thead>
                                     <tbody class="standout">';
+                            $mailingList = '';
+                            $notFirst = false;
                             foreach ($persons as $person) {
+                                if ($notFirst) {
+                                    $mailingList .= ', ';
+                                } else {
+                                    $notFirst = true;
+                                }
+                                $mailingList .= $person->get_email();
                                 echo '
                                         <tr>
                                             <td>' . $person->get_first_name() . '</td>
@@ -88,6 +96,10 @@
                                     </tbody>
                                 </table>
                             </div>';
+                            echo '
+                            <label>Result Mailing List</label>
+                            <p>' . $mailingList . '</p>
+                            ';
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
