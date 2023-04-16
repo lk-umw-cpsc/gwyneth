@@ -153,7 +153,7 @@
                     echo '<label>Reason for Status Change</label><select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';
                     foreach ($reasons as $reason)
-                        echo '<option value='.$reason.'>'.$reason.'</option>';
+                        echo '<option value="'.$reason.'">'.$reason.'</option>';
                     echo '</select>';
                 
 		?>
