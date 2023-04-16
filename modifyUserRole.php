@@ -113,13 +113,6 @@
                 <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
                     <div class="happy-toast">User's access is updated.</div>
                 <?php endif ?>
-                <div>
-                    <label>Role</label>
-                    <span>
-                        <?php echo ucfirst(implode(" ",$thePerson->get_type())); ?>
-                    </span>
-                </div>
-        	<br>
                     <?php
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
@@ -128,10 +121,13 @@
 			else
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
                         echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
-                        echo '<option value="" SELECTED></option>' ;
+                        // echo '<option value="" SELECTED></option>' ;
+                        $currentRole = $thePerson->get_type()[0];
                         foreach ($roles as $role => $typename) {
-                            if($typename != (implode(" ",$thePerson->get_type()))) {
+                            if($role != $currentRole) {
                                 echo '<option value="'. $role .'">'. $typename .'</option>';
+                            } else {
+                                echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
                             }
                         }
                         echo '</select>';
@@ -154,7 +150,7 @@
 		
 		<?php
 		    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
-                    echo '<label>Reason<select class="form-select-sm" name="s_reason">';
+                    echo '<label>Reason for Status Change</label><select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';

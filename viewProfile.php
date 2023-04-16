@@ -116,7 +116,15 @@
                 <label>Role</label>
                 <p><?php echo ucfirst($user->get_type()[0]) ?></p>
                 <label>Status</label>
-                <p><?php echo ucfirst($user->get_status()); /*if ($user->get_notes()) echo ' (' . $user->get_notes() . ')';*/ ?></p>
+                <p><?php 
+                    $status = ucfirst($user->get_status());
+                    $reason = $user->get_notes();
+                    if ($status == "Inactive" && $reason) {
+                        echo "Inactive (" . $reason . ")";
+                    } else {
+                        echo $status;
+                    }
+                ?></p>
                 <?php if ($id != $userID): ?>
                     <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Role/Status</a>
                 <?php endif ?>
