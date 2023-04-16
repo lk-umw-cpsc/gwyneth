@@ -17,6 +17,7 @@ div.pair {
     flex-direction: row;
     width: 100%;
     align-items: stretch;
+    gap: 0.5rem;
 }
 
 @media only screen and (max-width: 719px) {
@@ -27,6 +28,10 @@ div.pair {
 
 div.pair > select {
     flex: 1 1 0;
+}
+
+div.pair > * {
+    height: 3rem;
 }
 
 main.event-info {
