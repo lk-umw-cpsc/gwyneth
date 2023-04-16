@@ -91,7 +91,7 @@
                     </table></div>
                     <button class="no-print" onclick="window.print()">Print</button>
                 <?php else: ?>
-                    <p>There are no volunteer hours to report</p>
+                    <p>There are no volunteer hours to report.</p>
                 <?php endif ?>
         </main>
     </body>
