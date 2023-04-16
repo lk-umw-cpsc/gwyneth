@@ -109,7 +109,7 @@
 
           $event_persons = getvolunteers_byevent($id);
           $num_persons = count($event_persons);
-
+          $emailList = '';
           for ($x = 0; $x < $num_persons; $x++) {
             $person = $event_persons[$x];
             $first_name = $person->get_first_name();
@@ -119,6 +119,10 @@
             $state = $person->get_state();
             $zip = $person->get_zip();
             $email = $person->get_email();
+            if ($x > 0) {
+              $emailList .= ', ';
+            }
+            $emailList .= $email;
             // put phone number into format (xxx)-xxx-xxxx
             $phone1 = $person->get_phone1();
             if (strlen($phone1) > 0) {
@@ -188,6 +192,11 @@
           }
 
         ?>
+
+        <div class="no-print">
+          <label>Mailing List</label>
+          <p><?php echo $emailList; ?></p>
+        </div>
 
         </main>
     </body>

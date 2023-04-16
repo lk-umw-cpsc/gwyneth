@@ -882,3 +882,9 @@ img.profile-pic {
     color: var(--page-font-color);
     font-weight: 300;
 }
+
+@media print {
+    .no-print {
+        display: none;
+    }
+}
