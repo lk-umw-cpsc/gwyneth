@@ -33,6 +33,9 @@
         require_once('database/dbPersons.php');
         $post = sanitize($_POST);
         $new_role = $post['s_role'];
+        if (!valueConstrainedTo($new_role, ['volunteer', 'admin', 'superadmin'])) {
+            die();
+        }
         if (empty($new_role)){
             // echo "No new role selected";
         }else{
@@ -41,6 +44,9 @@
             // echo "<meta http-equiv='refresh' content='0'>";
         }
         $new_status = $post['statsRadio'];
+        if (!valueConstrainedTo($new_status, ['Active', 'Inactive'])) {
+            die();
+        }
         if (empty($new_status)){
             // echo "No new status selected";
         }else{
