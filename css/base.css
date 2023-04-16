@@ -865,3 +865,20 @@ img.profile-pic {
 .link-like {
     cursor: pointer;
 }
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-start;
+}
+
+.form-row > label {
+    width: auto;
+}
+
+.checkbox-label {
+    margin-right: 1rem;
+    color: var(--page-font-color);
+    font-weight: 300;
+}

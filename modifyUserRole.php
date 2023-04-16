@@ -87,14 +87,19 @@
                 gap: .5rem;
                 padding: 0 0 4rem 0;
             }
+            main.user-role {
+                gap: 1rem;
+                display: flex;
+                flex-direction: column;
+            }
             @media only screen and (min-width: 1024px) {
                 .modUser {
-                    width: 80%;
+                    width: 100%;
                 }
                 main.user-role {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    /* align-items: center; */
+                    margin: 0rem 16rem;
+                    /* width: 50rem; */
                 }
             }
         </style>
@@ -102,21 +107,16 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Modify User Access</h1>
-        <main class="user-role">
+        <main class="user-role"> 
+            <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role and Status</h2>
             <form class="modUser" method="post">
                 <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
                     <div class="happy-toast">User's access is updated.</div>
                 <?php endif ?>
                 <div>
-                    <label>Name:</label>
+                    <label>Role</label>
                     <span>
-                        <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?> 
-                    </span>
-                </div>
-                <div>
-                    <label>Role:</label>
-                    <span>
-                        <?php echo implode(" ",$thePerson->get_type()); ?>
+                        <?php echo ucfirst(implode(" ",$thePerson->get_type())); ?>
                     </span>
                 </div>
         	<br>
@@ -127,7 +127,7 @@
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
 			else
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
-                        echo '<label>Change Role:<select class="form-select-sm" name="s_role">' ;
+                        echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
                         echo '<option value="" SELECTED></option>' ;
                         foreach ($roles as $role => $typename) {
                             if($typename != (implode(" ",$thePerson->get_type()))) {
@@ -136,29 +136,25 @@
                         }
                         echo '</select>';
                     ?>
-                <br>
-		<br>
-		<div>
-		<label>Status:</label>
+		<label>Change Status</label>
+		<div class="form-row">
                 <?php
                     // Check the person's status and check the radio to signal the current status
                     // Display the current and other available statuses as well to change the status
-                    echo '&nbsp&nbsp&nbsp';
-		    $currentStatus = $thePerson->get_status();
+		            $currentStatus = $thePerson->get_status();
                     if ($currentStatus == "Active") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked>&nbspActive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive">&nbspInactive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active" checked><label for="makeActive" class="checkbox-label">Active</label>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive"><label for="makeInactive" class="checkbox-label">Inactive</label>';
                     } elseif ($currentStatus == "Inactive") {
-                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active">&nbspActive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
-                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked>&nbspInactive&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp';
+                        echo '<input type="radio" name="statsRadio" id = "makeActive" value="Active"><label for="makeActive" class="checkbox-label">Active</label>';
+                        echo '<input type="radio" name="statsRadio" id = "makeInactive" value="Inactive" checked><label for="makeInactive" class="checkbox-label">Inactive</label>';
                     }
 		?>
-		</div>    
-		<br>
+		</div>
 		
 		<?php
 		    $reasons = array('Administrative', 'Volunteer Requested Status Change', 'Volunteer with 1 or more No Shows');
-                    echo '<label>Reason:<select class="form-select-sm" name="s_reason">';
+                    echo '<label>Reason<select class="form-select-sm" name="s_reason">';
                     echo '<option value="" SELECTED></option>';
                     foreach ($reasons as $reason)
                         echo '<option value='.$reason.'>'.$reason.'</option>';
