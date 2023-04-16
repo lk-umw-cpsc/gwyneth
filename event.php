@@ -31,9 +31,11 @@
         die();
     }
 
-    $access_level = $_SESSION['access_level'];
-    
     include_once('database/dbPersons.php');
+    $access_level = $_SESSION['access_level'];
+    $user = retrieve_person($_SESSION['_id']);
+    $active = $user->get_status() == 'Active';
+
     ini_set("display_errors",1);
     error_reporting(E_ALL);
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -123,6 +125,10 @@
             // Check if Get request from user is from an organization member
             // (volunteer, admin/super admin)
             if ($request_type == 'add self' && $access_level >= 1) {
+                if (!$active) {
+                    echo 'forbidden';
+                    die();
+                }
                 $volunteerID = $args['selected_id'];
                 update_event_volunteer_list($eventID, $volunteerID);
     
@@ -406,14 +412,18 @@
         <?php 
             if ($remaining_slots > 0 && $user_id != 'vmsroot' && !$event_in_past) {
                 if (!$already_assigned) {
-                    echo '
+                    if ($active) {
+                        echo '
                         <form method="GET">
                             <input type="hidden" name="request_type" value="add self">
                             <input type="hidden" name="id" value="'.$id.'">
                             <input type="hidden" name="selected_id" value="' . $_SESSION['_id'] . '">
                             <input type="submit" value="Sign Up">
                         </form>
-                    ';
+                        ';
+                    } else {
+                        echo '<div class="centered">As an inactive volunteer, you are ineligible to sign up for events.</div>';
+                    }
                 } else {
                     // show "unassigned self" button
                     echo '<div class="centered">You are signed up for this event!</div>';
@@ -425,7 +435,7 @@
                     echo '<div class="centered">You are signed up for this event!</div>';
                 }
             }
-            if ($access_level >= 2) {
+            if ($access_level >= 2 && $num_persons > 0) {
               echo '<br/><a href="roster.php?id='.$id.'" class="button">View Event Roster</a>';
             }
         ?>
