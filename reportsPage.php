@@ -492,7 +492,7 @@
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id GROUP BY dbPersons.first_name,dbPersons.last_name WHERE dbPersons.status LIKE '%" . $stats . "%' 
                 ORDER BY DURATION DESC";
             }else{
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime, TIMESTAMPDIFF(SQL_TSI_HOUR, dbEvents.startTime,dbEvents.endTime) as Dur
+                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))  as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id  GROUP BY dbEventVolunteers.userID
                 ORDER BY Dur DESC";
