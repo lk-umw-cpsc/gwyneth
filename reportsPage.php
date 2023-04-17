@@ -70,8 +70,8 @@
             table {
                 margin-top: 1rem;
                 margin-left: auto;
-		margin-right: auto;
-		border-collapse: collapse;
+                margin-right: auto;
+                border-collapse: collapse;
                 width: 80%;
             }
             td {
@@ -83,7 +83,7 @@
                 border: 1px solid #333333;
                 text-align: left;
                 padding: 8px;
-		font-weight: bold;
+		        font-weight: bold;
             }
           
             tr:nth-child(even) {
@@ -95,7 +95,7 @@
                 width: auto;
                 font-size: 15px;
             }
-	    .center_a {
+	        .center_a {
                 margin-top: 0;
 		        margin-bottom: 3rem;
                 margin-left:auto;
@@ -113,9 +113,10 @@
 		        gap: .8rem;
             }
             #back-to-top-btn {
-                position: fixed;
                 bottom: 20px;
-                
+            }
+            .back-to-top:visited {
+                color: white; /* sets the color of the link when visited */  
             }
 	    .intro {
                 display: flex;
@@ -134,12 +135,7 @@
                 }
             }
     </style>
-    <script>
-        var backToTopButton = document.getElementById("back-to-top-btn");
-        backToTopButton.addEventListener("click", function() {
-            window.scrollTo(0, 0);
-        });
-    </script>
+
     </head>
     <body>
         <h1>Report Result</h1>
@@ -1056,7 +1052,7 @@
         </main>
         <footer>
         <div class="center_b">
-            <button class = "theB" id="back-to-top-btn">Back to top</button>
+            <button class = "theB" id="back-to-top-btn"><a href="#" class="back-to-top">Back to top</a></button>
         </div>
         </footer>
     </body>
