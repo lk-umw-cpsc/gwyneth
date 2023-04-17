@@ -124,7 +124,7 @@
             <label for="status">Status</label>
             <select id="status" name="status">
                 <option value="">Any</option>
-                <option value="Active" <?php if (!isset($status) || (isset($status) && $status == 'Active')) echo 'selected' ?>>Active</option>
+                <option value="Active" <?php if (isset($status) && $status == 'Active') echo 'selected' ?>>Active</option>
                 <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected' ?>>Inactive</option>
             </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
