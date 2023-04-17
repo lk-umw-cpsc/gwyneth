@@ -52,6 +52,7 @@
         $permission_array['eventsearch.php'] = 1;
         $permission_array['changepassword.php'] = 1;
         $permission_array['editprofile.php'] = 1;
+        $permission_array['inbox.php'] = 1;
         $permission_array['date.php'] = 1;
         $permission_array['event.php'] = 1;
         $permission_array['viewprofile.php'] = 1;

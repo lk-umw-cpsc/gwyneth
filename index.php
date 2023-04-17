@@ -41,7 +41,13 @@
             <div id="dashboard">
                 <div class="dashboard-item" data-link="inbox.php">
                     <img src="images/inbox.svg">
-                    <span>Messages</span>
+                    <span>Messages<?php 
+                        require_once('database/dbMessages.php');
+                        $unreadMessageCount = get_user_unread_count($person->get_id());
+                        if ($unreadMessageCount > 0) {
+                            echo ' (' . $unreadMessageCount . ')';
+                        }
+                    ?></span>
                 </div>
                 <div class="dashboard-item" data-link="calendar.php">
                     <img src="images/view-calendar.svg">
