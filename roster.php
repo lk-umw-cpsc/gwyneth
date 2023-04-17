@@ -75,9 +75,6 @@
         <h2 class="centered"><?php echo $event_name ?></h2>
         
       <main class="event-info">
-        <div>
-          <button onClick="window.print()" >Print Page</button>
-        </div>
         <div id="table-wrapper">
             <table class="centered">
                 <tbody>
@@ -197,7 +194,8 @@
           <label>Mailing List</label>
           <p><?php echo $emailList; ?></p>
         </div>
-
+        <button onClick="window.print()" >Print</button>
+        <a class="button cancel no-print" href="event.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Event Details</a>
         </main>
     </body>
 </html>
