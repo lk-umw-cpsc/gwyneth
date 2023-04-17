@@ -480,7 +480,7 @@
             <button onclick="showDeleteConfirmation()">Delete Event</button>
         <?php endif ?>
 
-        <a href="calendar.php?month=<?php echo substr($event_info['date'], 0, 7) ?>" class="button cancel">Return to Calendar</a>
+        <a href="calendar.php?month=<?php echo substr($event_info['date'], 0, 7) ?>" class="button cancel" style="margin-top: -.5rem">Return to Calendar</a>
     </main>
 </body>
 

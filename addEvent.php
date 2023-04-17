@@ -101,9 +101,9 @@
                 <input type="submit" value="Create Event">
             </form>
                 <?php if ($date): ?>
-                    <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>">Return to Calendar</a>
+                    <a class="button cancel" href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" style="margin-top: -.5rem">Return to Calendar</a>
                 <?php else: ?>
-                    <a class="button cancel" href="index.php">Return to Dashboard</a>
+                    <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
                 <?php endif ?>
         </main>
     </body>

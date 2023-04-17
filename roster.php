@@ -194,7 +194,7 @@
           <label>Mailing List</label>
           <p><?php echo $emailList; ?></p>
         </div>
-        <button onClick="window.print()" >Print</button>
+        <button onClick="window.print()" style="margin-bottom: -.5rem">Print</button>
         <a class="button cancel no-print" href="event.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Event Details</a>
         </main>
     </body>
