@@ -116,7 +116,7 @@
                 </form>
                 <a id="edit-profile-picture" class="link-like">Edit Photo</a>
                 <?php
-                  echo '<a href="viewProfile.php?id='.$id.'&removePic=true">Remove Profile Photo</a>'
+                  echo '<a href="viewProfile.php?id='.$id.'&removePic=true" style="color:inherit">Remove Photo</a>'
                 ?>
                 <label>Gender</label>
                 <p><?php echo $user->get_gender(); ?></p>
