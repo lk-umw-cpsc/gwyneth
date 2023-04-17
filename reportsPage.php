@@ -540,14 +540,16 @@
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id  WHERE dbPersons.status LIKE '%" . $stats . "%'
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY DURATION DESC";
+                ORDER BY DURATION DESC
+		LIMIT 5";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY DURATION DESC";
+                ORDER BY DURATION DESC
+		LIMIT 5";
             }
             $result = mysqli_query($con,$query);
             try {
@@ -603,14 +605,16 @@
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE dbPersons.status LIKE '%" . $stats . "%'
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY DURATION DESC ";
+                ORDER BY DURATION DESC
+		LIMIT 5";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.startTime, dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY DURATION DESC ";
+                ORDER BY DURATION DESC
+		LIMIT 5";
             }
             $result = mysqli_query($con,$query);
             $nameRange = range($lastFrom,$lastTo);
@@ -657,14 +661,16 @@
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE dbPersons.status LIKE '%" . $stats . "%'
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY DURATION DESC ";
+                ORDER BY DURATION DESC
+		LIMIT 5";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.startTime, dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		GROUP BY dbPersons.first_name, dbPersons.last_name
-		ORDER BY DURATION DESC ";
+		ORDER BY DURATION DESC
+		LIMIT 5";
             }
             $result = mysqli_query($con,$query);
             try {
