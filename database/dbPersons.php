@@ -586,9 +586,9 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $thePersons;
     }
 
-    function find_users($name, $id, $phone, $type, $status) {
+    function find_users($name, $id, $phone, $zip, $type, $status) {
         $where = 'where ';
-        if (!($name || $id || $phone || $type || $status)) {
+        if (!($name || $id || $phone || $zip || $type || $status)) {
             return [];
         }
         $first = true;
@@ -617,6 +617,13 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "phone1 like '%$phone%'";
             $first = false;
         }
+		if ($zip) {
+			if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "zip like '%$zip%'";
+            $first = false;
+		}
         if ($type) {
             if (!$first) {
                 $where .= ' and ';
