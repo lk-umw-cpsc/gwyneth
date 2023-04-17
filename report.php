@@ -50,6 +50,14 @@
           	display: flex;
             }
 	    }
+	    .hide {
+  		display: none;
+	    }
+
+	    .myDIV:hover + .hide {
+		display: block;
+  		color: red;
+	    }
         </style>
     </head>
     <body>
@@ -65,11 +73,22 @@
 		$args = sanitize($_POST);
 		$report = $args['report_type'];
 		$name = $args['name'];
+		
 		$dFrom = $_POST['date_from'];
-        $dTo = $_POST['date_to'];
-        $lastFrom = $_POST['lname_start'];
-        $lastTo = $_POST['lname_end'];
-        $status = $_POST['statusFilter'];
+        	$dTo = $_POST['date_to'];
+		$dateStampFrom = strtotime($dFrom);
+		$dateStampTo = strtotime($dTo);
+		if ($dateStampTo > $dateStampFrom) {
+		    echo "<b>Please enter a date after the Date Range Start.</b><br>";	
+		}
+        	$lastFrom = $_POST['lname_start'];
+        	$lastTo = $_POST['lname_end'];
+		if (strcmp(strtoupper($lastTo),strtoupper($lastFrom)) > 0) {
+		    echo "<b>Please enter a letter after the Last Name Range Start.</b><br>";
+		}
+
+        	$status = $_POST['statusFilter'];
+		
 		if ($report=="indiv_vol_hours" && $name == NULL) {
 			echo "<b>Please enter a volunteer's first and/or last name.</b><br>";
 		}
@@ -165,7 +184,7 @@
 	</div>
 	</div>
 	<div>
-	    <label for="name">Name</label>
+	    <label for="name">Name</label> <span><i><font size="3">*Individual Hours Report Only</font></i></span>
             <input type="text" id="name" name="name" value="" placeholder="Enter a volunteer's first and/or last name">
 	</div>
 

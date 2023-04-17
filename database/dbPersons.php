@@ -742,6 +742,16 @@ function find_user_names($name) {
         }
         return $hours;
     }
+
+    function get_event_vol_hours_by($personID) {
+        $events = get_events_attended_by($personID);
+	$hours = 0;
+	foreach ($events as $event) {
+            $hours = $event['duration'];
+	    return $hours;
+	}
+    }
+
     function get_tot_vol_hours(){
         $query = "select * from dbPersons";
         $connection = connect();
