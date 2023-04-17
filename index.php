@@ -39,6 +39,10 @@
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <div id="dashboard">
+                <div class="dashboard-item" data-link="inbox.php">
+                    <img src="images/inbox.svg">
+                    <span>Messages</span>
+                </div>
                 <div class="dashboard-item" data-link="calendar.php">
                     <img src="images/view-calendar.svg">
                     <span>View Calendar</span>
