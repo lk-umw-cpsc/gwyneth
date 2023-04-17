@@ -53,12 +53,12 @@
             if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20 || $abbrevLength > 11){
                 $errors .= '<p>Your request was missing arguments.</p>';
             }
-            $success = update_event($id, $args);
-            if (!$success){
-                echo "Oopsy!";
-                die();
-            }
             if (!$errors) {
+                $success = update_event($id, $args);
+                if (!$success){
+                    echo "Oopsy!";
+                    die();
+                }
                 header('Location: event.php?id=' . $id . '&editSuccess');
             }
         }
