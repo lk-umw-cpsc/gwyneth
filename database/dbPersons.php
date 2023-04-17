@@ -713,7 +713,7 @@ function find_user_names($name) {
         $query = "select * from dbEventVolunteers, dbEvents
                   where userID='$personID' and eventID=id
                   and date<='$today'
-                  order by date asc";
+                  order by date desc";
         $connection = connect();
         $result = mysqli_query($connection, $query);
         if ($result) {
@@ -744,12 +744,9 @@ function find_user_names($name) {
     }
 
     function get_event_vol_hours_by($personID) {
-        $events = get_events_attended_by($personID);
-	$hours = 0;
-	foreach ($events as $event) {
-            $hours = $event['duration'];
-	    return $hours;
-	}
+	$events = get_events_attended_by($personID);
+	foreach ($events as $event)
+		return $event['duration'];	
     }
 
     function get_tot_vol_hours(){

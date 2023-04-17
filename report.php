@@ -76,9 +76,7 @@
 		
 		$dFrom = $_POST['date_from'];
         	$dTo = $_POST['date_to'];
-		$dateStampFrom = strtotime($dFrom);
-		$dateStampTo = strtotime($dTo);
-		if ($dateStampTo > $dateStampFrom) {
+		if ($dTo > $dFrom) {
 		    echo "<b>Please enter a date after the Date Range Start.</b><br>";	
 		}
         	$lastFrom = $_POST['lname_start'];
