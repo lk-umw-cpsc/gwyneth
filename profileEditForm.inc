@@ -6,8 +6,10 @@
     $args = sanitize($_GET);
     if ($_SESSION['access_level'] >= 2 && isset($args['id'])) {
         $id = $args['id'];
+        $editingSelf = $id == $_SESSION['_id'];
         // Check to see if user is a lower-level manager here
     } else {
+        $editingSelf = true;
         $id = $_SESSION['_id'];
     }
 
@@ -348,5 +350,10 @@
         </fieldset>
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <input type="submit" name="profile-edit-form" value="Update Profile">
+        <?php if ($editingSelf): ?>
+            <a class="button cancel" href="viewProfile.php">Cancel</a>
+        <?php else: ?>
+            <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Cancel</a>
+        <?php endif ?>
     </form>
 </main>
