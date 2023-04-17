@@ -88,7 +88,7 @@
                     </a>';
             }
             ?>
-			<a href="calendar.php" class="button">Return to Calendar</a>
+			<a href="calendar.php?month=<?php echo substr($date, 0, 7) ?>" class="button cancel">Return to Calendar</a>
         </main>
     </body>
 </html>
