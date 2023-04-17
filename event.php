@@ -480,7 +480,7 @@
             <button onclick="showDeleteConfirmation()">Delete Event</button>
         <?php endif ?>
 
-        <a href="calendar.php" class="button">Return to Calendar</a>
+        <a href="calendar.php" class="button cancel">Return to Calendar</a>
     </main>
 </body>
 

@@ -110,6 +110,7 @@
                 <label for="name">Volunteer Slots</label>
                 <input type="text" id="capacity" name="capacity"  value="<?php echo $event['capacity'] ?>"pattern="([1-9])|([01][0-9])|(20)" required placeholder="Enter a number up to 20">   
                 <input type="submit" value="Update Event">
+                <a class="button cancel" href="event.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
             </form>
         </main>
     </body>
