@@ -194,6 +194,9 @@
         <?php if (isset($_GET['removeSuccess'])): ?>
             <div class="happy-toast">Media removed successfully!</div>
         <?php endif ?>
+        <?php if (isset($_GET['editSuccess'])): ?>
+            <div class="happy-toast">Event details updated successfully!</div>
+        <?php endif ?>
         <?php    
             require_once('include/output.php');
             $event_name = $event_info['name'];

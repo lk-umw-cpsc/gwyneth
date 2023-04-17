@@ -24,6 +24,7 @@
     }
     require_once('include/input-validation.php');
     require_once('database/dbEvents.php');
+    $errors = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
         $required = array(
@@ -33,40 +34,45 @@
             echo 'bad form data';
             die();
         } else {
+            require_once('database/dbPersons.php');
             $id = $args['id'];
             $validated = validate12hTimeRangeAndConvertTo24h($args["start-time"], $args["end-time"]);
             if (!$validated) {
-                echo 'bad time range';
-                die();
+                $errors .= '<p>The provided time range was invalid.</p>';
             }
             $startTime = $args['start-time'] = $validated[0];
             $endTime = $args['end-time'] = $validated[1];
             $date = $args['date'] = validateDate($args["date"]);
             $capacity = intval($args["capacity"]);
+            $assignedVolunteerCount = count(getvolunteers_byevent($id));
+            $difference = $assignedVolunteerCount - $capacity;
+            if ($capacity < $assignedVolunteerCount) {
+                $errors .= "<p>There are currently $assignedVolunteerCount volunteers assigned to this event. The new capacity must not exceed this number. You must remove $difference volunteer(s) from the event to reduce the capacity to $capacity.</p>";
+            }
             $abbrevLength = strlen($args['abbrev-name']);
             if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20 || $abbrevLength > 11){
-                echo 'bad args';
-                die();
+                $errors .= '<p>Your request was missing arguments.</p>';
             }
             $success = update_event($id, $args);
             if (!$success){
                 echo "Oopsy!";
                 die();
             }
-            header('Location: event.php?id=' . $id);
+            if (!$errors) {
+                header('Location: event.php?id=' . $id . '&editSuccess');
+            }
         }
-    } else {
-        if (!isset($_GET['id'])) {
-            // uhoh
-            die();
-        }
-        $args = sanitize($_GET);
-        $id = $args['id'];
-        $event = fetch_event_by_id($id);
-        if (!$event) {
-            echo "Event does not exist";
-            die();
-        }
+    }
+    if (!isset($_GET['id'])) {
+        // uhoh
+        die();
+    }
+    $args = sanitize($_GET);
+    $id = $args['id'];
+    $event = fetch_event_by_id($id);
+    if (!$event) {
+        echo "Event does not exist";
+        die();
     }
     require_once('include/output.php');
 ?>
@@ -80,6 +86,9 @@
         <?php require_once('header.php') ?>
         <h1>Modify Event</h1>
         <main class="date">
+        <?php if ($errors): ?>
+            <div class="error-toast"><?php echo $errors ?></div>
+        <?php endif ?>
             <h2>Event Details</h2>
             <form id="new-event-form" method="post">
                 <label for="name">Event Name </label>
