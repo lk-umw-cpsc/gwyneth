@@ -30,6 +30,12 @@
         $id = $userID;
     }
     require_once('database/dbPersons.php');
+    if (isset($_GET['removePic'])) {
+      if ($_GET['removePic'] === 'true') {
+        remove_profile_picture($id);
+      }
+    }
+
     $user = retrieve_person($id);
     $viewingOwnProfile = $id == $userID;
 
@@ -109,6 +115,9 @@
                     <input type="submit" name="edit-profile-picture-submit" value="Attach">
                 </form>
                 <a id="edit-profile-picture" class="link-like">Edit Photo</a>
+                <?php
+                  echo '<a href="viewProfile.php?id='.$id.'&removePic=true">Remove Profile Photo</a>'
+                ?>
                 <label>Gender</label>
                 <p><?php echo $user->get_gender(); ?></p>
                 <label>Date of Birth</label>

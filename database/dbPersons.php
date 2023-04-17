@@ -762,3 +762,11 @@ function find_user_names($name) {
         }
         return $hours;
     }
+
+    function remove_profile_picture($id) {
+        $con=connect();
+        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
+    }
