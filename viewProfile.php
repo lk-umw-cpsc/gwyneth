@@ -109,6 +109,8 @@
                     <input type="submit" name="edit-profile-picture-submit" value="Attach">
                 </form>
                 <a id="edit-profile-picture" class="link-like">Edit Photo</a>
+                <label>Gender</label>
+                <p><?php echo $user->get_gender(); ?></p>
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>

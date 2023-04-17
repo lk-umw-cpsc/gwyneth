@@ -30,7 +30,7 @@ class Person {
 	private $city;    // city - string
 	private $state;   // state - string
 	private $zip;    // zip code - integer
-  private $profile_pic; // image link
+  	private $profile_pic; // image link
 	private $phone1;   // primary phone -- home, cell, or work
 	private $phone1type; // home, cell, or work
 	private $phone2;   // secondary phone -- home, cell, or work
@@ -77,12 +77,13 @@ class Person {
 	private $saturdaysStart;
 	private $saturdaysEnd;
 	private $mustChangePassword;
+	private $gender;
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $pp, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass,
 			$suns, $sune, $mons, $mone, $tues, $tuee, $weds, $wede,
-			$thus, $thue, $fris, $frie, $sats, $sate, $mcp) {
+			$thus, $thue, $fris, $frie, $sats, $sate, $mcp, $gender) {
 		$this->id = $e;
 		$this->start_date = $sd;
 		$this->venue = $v;
@@ -156,6 +157,7 @@ class Person {
 		$this->fridaysEnd = $frie;
 		$this->saturdaysStart = $sats;
 		$this->saturdaysEnd = $sate;
+		$this->gender = $gender;
 	}
 
 	function get_id() {
@@ -294,7 +296,7 @@ class Person {
 		return $this->status;
 	}
 
-	function get_availability() {   // array of day:hours:venue
+	function get_availability() { // array of day:hours:venue
 		return $this->availability;
 	}
 
@@ -385,5 +387,8 @@ class Person {
 	function is_password_change_required() {
 		return $this->mustChangePassword;
 	}
+
+	function get_gender() {
+		return $this->gender;
+	}
 }
-?>

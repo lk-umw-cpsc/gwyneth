@@ -83,7 +83,8 @@ function add_person($person) {
             $person->get_saturday_availability_start() . '","' .
             $person->get_saturday_availability_end() . '","' .
             $person->get_profile_pic() . '","' .
-            $person->is_password_change_required() .
+            $person->is_password_change_required() . '","' .
+            $person->get_gender() .
             '");'
         );							
         mysqli_close($con);
@@ -342,7 +343,8 @@ function make_a_person($result_row) {
                     $result_row['fridays_end'],
                     $result_row['saturdays_start'],
                     $result_row['saturdays_end'],
-                    $result_row['force_password_change']
+                    $result_row['force_password_change'],
+                    $result_row['gender']
                 );   
     return $thePerson;
 }
@@ -519,7 +521,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
         $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
         $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
-        $saturdaysStart, $saturdaysEnd
+        $saturdaysStart, $saturdaysEnd, $gender
     ) {
         $query = "update dbPersons set 
             first_name='$first', last_name='$last', birthday='$dateOfBirth', address='$address', city='$city', zip='$zipcode',
@@ -529,7 +531,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             sundays_start='$sundaysStart', sundays_end='$sundaysEnd', mondays_start='$mondaysStart', mondays_end='$mondaysEnd',
             tuesdays_start='$tuesdaysStart', tuesdays_end='$tuesdaysEnd', wednesdays_start='$wednesdaysStart', wednesdays_end='$wednesdaysEnd',
             thursdays_start='$thursdaysStart', thursdays_end='$thursdaysEnd', fridays_start='$fridaysStart', fridays_end='$fridaysEnd',
-            saturdays_start='$saturdaysStart', saturdays_end='$saturdaysEnd'
+            saturdays_start='$saturdaysStart', saturdays_end='$saturdaysEnd', gender='$gender'
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);
@@ -753,4 +755,3 @@ function find_user_names($name) {
         }
         return $hours;
     }
-?>

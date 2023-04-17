@@ -102,6 +102,12 @@
         }
         $econtactRelation = $args['econtact-relation'];
 
+        $gender = $args['gender'];
+        if (!valueConstrainedTo($gender, ['Male', 'Female', 'Other'])) {
+            $errors = true;
+            echo 'bad gender';
+        }
+
         $skills = '';
         if (isset($args['skills'])) {
             $skills = $args['skills'];
@@ -202,7 +208,7 @@
             $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
             $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
             $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
-            $saturdaysStart, $saturdaysEnd
+            $saturdaysStart, $saturdaysEnd, $gender
         );
         if ($result) {
             if ($editingSelf) {

@@ -3,7 +3,7 @@
     // Description: Registration page for new volunteers
     session_cache_expire(30);
     session_start();
-
+    
     require_once('include/input-validation.php');
 
     $loggedIn = false;
@@ -51,7 +51,7 @@
                 'first-name', 'last-name', 'birthdate',
                 'address', 'city', 'state', 'zip', 
                 'email', 'phone', 'phone-type', 'contact-when', 'contact-method',
-                'start-date', 'shirt-size', 'password'
+                'start-date', 'shirt-size', 'password', 'gender'
             );
             $errors = false;
             if (!wereRequiredFieldsSubmitted($args, $required)) {
@@ -115,6 +115,11 @@
             if (!$startDate) {
                 $errors = true;
                 echo 'bad start date';
+            }
+            $gender = $args['gender'];
+            if (!valueConstrainedTo($gender, ['Male', 'Female', 'Other'])) {
+                $errors = true;
+                echo 'bad gender';
             }
             $skills = '';
             if (isset($args['skills'])) {
@@ -221,7 +226,7 @@
                 $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
                 $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
                 $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
-                $saturdaysStart, $saturdaysEnd, false
+                $saturdaysStart, $saturdaysEnd, 0, $gender
             );
             $result = add_person($newperson);
             if (!$result) {

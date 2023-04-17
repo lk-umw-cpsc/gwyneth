@@ -90,6 +90,23 @@
             <label for="last-name"><em>* </em>Last Name</label>
             <input type="text" id="last-name" name="last-name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
 
+            <label for="gender"><em>* </em>Gender</label>
+            <select id="gender" name="gender" required>
+                <?php
+                    $genders = ['Male', 'Female', 'Other'];
+                    $currentGender = $person->get_gender();
+                    foreach ($genders as $gender):
+                ?>
+                    <?php if ($currentGender == $gender): ?>
+                        <option value="<?php echo $gender ?>" selected><?php echo $gender ?></option>
+                    <?php else: ?>
+                        <option value="<?php echo $gender ?>"><?php echo $gender ?></option>
+                    <?php endif ?>
+                <?php endforeach ?>
+                <!-- <option value="Female">Female</option> -->
+                <!-- <option value="Other">Other</option> -->
+            </select>
+
             <label for="birthdate"><em>* </em>Date of Birth</label>
             <input type="date" id="birthdate" name="birthdate" value="<?php echo hsc($person->get_birthday()); ?>" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
 
