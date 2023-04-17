@@ -388,6 +388,10 @@ table#calendar {
     margin: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
+#calendar-footer {
+    margin: 0 .5rem 1rem .5rem;
+}
+
 main.calendar-view {
     margin-bottom: 0.5rem;
 }

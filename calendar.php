@@ -156,7 +156,9 @@
                     </tbody>
                 </table>
             </div>
-            <a class="button cancel" href="index.php">Return to Dashboard</a>
+            <div id="calendar-footer">
+                <a class="button cancel" href="index.php">Return to Dashboard</a>
+            </div>
         </main>
     </body>
 </html>
