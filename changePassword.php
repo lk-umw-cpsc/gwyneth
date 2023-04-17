@@ -91,6 +91,9 @@
                 <input type="password" id="new-password-reenter" placeholder="Re-enter new password" required>
                 <p id="password-match-error" class="error hidden">Passwords must match!</p>
                 <input type="submit" id="submit" name="submit" value="Change Password">
+                <?php if (!$forced): ?>
+                    <a class="button cancel" href="index.php">Cancel</a>
+                <?php endif ?>
             </form>
         </main>
     </body>

@@ -388,6 +388,10 @@ table#calendar {
     margin: 0rem 0.5rem 0.5rem 0.5rem;
 }
 
+main.calendar-view {
+    margin-bottom: 0.5rem;
+}
+
 main.calendar-view th {
     text-align: center;
     font-weight: 400;

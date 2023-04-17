@@ -320,4 +320,7 @@ function buildSelect($name, $disabled=false, $selected=null) {
         <p>By pressing Submit below, you are agreeing to volunteer for the organization.</p>
         <input type="submit" name="registration-form" value="Submit">
     </form>
+    <?php if ($loggedIn): ?>
+        <a class="button cancel" href="index.php" style="margin-top: .5rem">Cancel</a>
+    <?php endif ?>
 </main>

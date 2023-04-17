@@ -129,6 +129,7 @@
             </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
+            <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </body>
 </html>
