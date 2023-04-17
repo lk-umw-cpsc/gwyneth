@@ -371,9 +371,10 @@ $(function() {
         let name = $('#name').val().trim();
         let id = $('#id').val().trim();
         let phone = $('#phone').val().trim();
+		let zip = $('#zip').val().trim();
         let role = $('#role').val().trim();
         let status = $('#status').val().trim();
-        if (!(name || id || phone || role || status)) {
+        if (!(name || id || phone || zip || role || status)) {
             $('#criteria-error').removeClass('hidden');
             e.preventDefault();
         }
