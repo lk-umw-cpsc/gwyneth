@@ -34,9 +34,9 @@
   @$stats = $_GET['statusFilter'];
   $today =  date('Y-m-d');
   
-  if($dateFrom != NULL && $dateTo == NULL){
+  if($dateFrom != NULL && $dateTo == NULL)
     $dateTo = $today;
-  }
+
   if($lastFrom != NULL && $lastTo == NULL)
 	$lastTo = 'Z';
   
@@ -693,7 +693,8 @@
         }
         // view indiv_vol_hours report with all date range and all name range
         if($type == "indiv_vol_hours" && $dateFrom == NULL && $dateTo ==NULL){
-            echo"
+            
+	    echo"
             <table>
             <tr>
                 <th>Event</th>
@@ -708,13 +709,13 @@
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%' AND dbEvents.date<= '$today'
                 ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID'
+                WHERE dbPersons.id ='$indivID' AND dbEvents.date <= '$today'
                 ORDER BY dbEvents.date desc";
             }
             $result = mysqli_query($con,$query);
