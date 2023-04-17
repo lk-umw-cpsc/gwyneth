@@ -22,7 +22,6 @@
   require_once('include/input-validation.php');
   require_once('database/dbPersons.php');
   require_once('database/dbEvents.php');
-  require_once('include/output.php');
 
   $get = sanitize($_GET);
   $indivID = @$get['indivID'];
@@ -59,6 +58,7 @@
       return $rangArray;
     }
 
+  require_once('header.php')
 
 ?>
 <!DOCTYPE html>
@@ -142,7 +142,6 @@
     </script>
     </head>
     <body>
-        <?php require_once('header.php') ?>
         <h1>Report Result</h1>
         <main class="report">
 	   <div class="intro">
@@ -492,10 +491,10 @@
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id GROUP BY dbPersons.first_name,dbPersons.last_name WHERE dbPersons.status LIKE '%" . $stats . "%' 
                 ORDER BY DURATION DESC";
             }else{
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime, TIMESTAMPDIFF(SQL_TSI_HOUR, dbEvents.startTime,dbEvents.endTime) as Dur
+                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, dbEvents.startTime, dbEvents.endTime,(dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id  GROUP BY dbEventVolunteers.userID
-                ORDER BY Dur DESC";
+                ORDER BY DURATION DESC";
             }
             $result = mysqli_query($con,$query);
             $totHours = array();
@@ -503,7 +502,7 @@
                 echo"<tr>
                 <td>" . $row['first_name'] . "</td>
                 <td>" . $row['last_name'] . "</td>
-                <td>" . $row['Dur'] . "</td>
+                <td>" . get_hours_volunteered_by($row['id']) . "</td>
                 </tr>";
                 $hours = get_hours_volunteered_by($row['id']);
                 $totHours[] = $hours;
@@ -558,7 +557,7 @@
                             echo"<tr>
                             <td>" . $row['first_name'] . "</td>
                             <td>" . $row['last_name'] . "</td>
-                            <td>" . (int)$row['endTime'] - (int)$row['startTime'] . "</td>
+                            <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
                             $hours = get_hours_volunteered_by($row['id']);
                             $totHours[] = $hours;
