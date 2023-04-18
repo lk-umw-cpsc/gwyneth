@@ -217,15 +217,17 @@
     </div>
 	<div>   
         <?php
-            if($type != "top_perform"){
+            if($type != "top_perform" && $type !=  "indiv_vol_hours"){
                 echo "
                 <label>Total Volunteer Hours: </label>"; 
                 echo '&nbsp&nbsp&nbsp';
                 echo get_tot_vol_hours($type, $dateFrom,$dateTo,$lastFrom,$lastTo);
             }
             if ($type == "indiv_vol_hours"){
+                echo "
+                <label>Total Volunteer Hours: </label>"; 
                 echo '&nbsp&nbsp&nbsp';
-                echo get_hours_volunteered_by($indivID);
+                echo get_tot_vol_hours($type, $dateFrom,$dateTo,$lastFrom,$lastTo);
             }
         ?>
             <span>
@@ -732,24 +734,24 @@
 		        ORDER BY dbEvents.date desc";
             }
             $theEventHrs = get_events_attended_by($indivID);
-	    $result = mysqli_query($con,$query);
+	        $result = mysqli_query($con,$query);
             while($row = mysqli_fetch_assoc($result)) {
                 foreach ($theEventHrs as $event) {
-		echo"<tr>
+		        echo"<tr>
                 <td>" . $event['name'] . "</td>
                 <td>" . $event['location'] . "</td>
                 <td>" . $event['date'] . "</td>
                 <td>" . $event['duration'] . "</td>
                 </tr>";
 		}
-                $hours = get_hours_volunteered_by($row['id']);
+               //$hours = get_hours_volunteered_by($row['id']);
             }
 		echo"
 		<tr>
         <td style='border: none;' bgcolor='white'></td>
         <td style='border: none;' bgcolor='white'></td>
 		<td bgcolor='white'><label>Total Hours:</label></td>
-		<td bgcolor='white'><label>". $hours ."</label></td>
+		<td bgcolor='white'><label>". get_hours_volunteered_by($indivID) ."</label></td>
 		</tr>";
         }
 
@@ -771,14 +773,14 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats'
+                WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats' AND date > '$dateFrom' AND date < '$dateTo'
                 ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID'
+                WHERE dbPersons.id ='$indivID' AND date > '$dateFrom' AND date < '$dateTo'
                 ORDER BY dbEvents.date desc";
             }    
             $result = mysqli_query($con,$query);
@@ -797,14 +799,14 @@
                             </tr>";
                         }
                     }
-                    $hours = get_hours_volunteered_by($row['id']);
+                   
 		}
                 echo"
                 <tr>
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". $hours ."</label></td>
+                <td bgcolor='white'><label>". get_hours_volunteered_by($indivID) ."</label></td>
                 </tr>";
               } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
