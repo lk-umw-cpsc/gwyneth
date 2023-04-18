@@ -862,7 +862,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". 'fix this' ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -885,22 +885,17 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-           if($stats != "All"){
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
-                (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            if($stats != "All"){
+                $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-                GROUP BY dbPersons.first_name, dbPersons.last_name
-		        ORDER BY dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY Dur,dbEvents.date desc";
             }else{
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
-                (dbEvents.endTime - dbEvents.startTime) AS DURATION
+                $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY dbEvents.date desc, DURATION desc";
-            }    
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY Dur,dbEvents.date desc";
+            }
             $result = mysqli_query($con,$query);
             try {
                 // Code that might throw an exception or error goes here
@@ -915,7 +910,7 @@
             			<td>" . $row['name'] . "</td>
             			<td>" . $row['location'] . "</td>
             			<td>" . $row['date'] . "</td>
-            			<td>" . get_hours_volunteered_by($row['id']) . "</td>
+            			<td>" . $row['Dur'] . "</td>
 				</tr>";
 	    		}  
 		    }
@@ -927,7 +922,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". 'fix this' ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -950,22 +945,17 @@
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
-           if($stats != "All"){
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
-                (dbEvents.endTime - dbEvents.startTime) AS DURATION
+            if($stats != "All"){
+                $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
-                GROUP BY dbPersons.first_name, dbPersons.last_name
-		        ORDER BY dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY Dur,dbEvents.date desc";
             }else{
-                $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
-                (dbEvents.endTime - dbEvents.startTime) AS DURATION
+                $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY dbEvents.date desc, DURATION desc";
-            }    
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY Dur,dbEvents.date desc";
+            }
             $result = mysqli_query($con,$query);
             try {
                 // Code that might throw an exception or error goes here
@@ -982,7 +972,7 @@
             			<td>" . $row['name'] . "</td>
             			<td>" . $row['location'] . "</td>
             			<td>" . $row['date'] . "</td>
-            			<td>" . get_hours_volunteered_by($row['id']) . "</td>
+            			<td>" . $row['Dur'] . "</td>
 				</tr>";
 	    		}  
 		    }
@@ -994,7 +984,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". 'fix this' ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
               } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -1046,10 +1036,19 @@
             		<td>" . $row['location'] . "</td>
             		<td>" . $row['date'] . "</td>
             		<td>" . get_hours_volunteered_by($row['id']) . "</td>
-			</tr>";
+			        </tr>";
 	    	    }  
 		}
 	   }
+       echo"
+                <tr>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td style='border: none;' bgcolor='white'></td>
+                <td bgcolor='white'><label>Total Hours:</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                </tr>";
 	}
 
 
