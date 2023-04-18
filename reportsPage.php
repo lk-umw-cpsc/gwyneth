@@ -259,16 +259,16 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		<th>Skills</th>
+		        <th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
             if($stats!="All"){
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' AND status LIKE '%" . $stats . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'";
             }else{
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1'";
             }
             $result = mysqli_query($con,$query);
             $totHours = array();
@@ -308,7 +308,7 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		<th>Skills</th>
+		        <th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
@@ -317,7 +317,7 @@
             if($stats != "All"){
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email, dbPersons.specialties
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE dbPersons.status LIKE '%" . $stats . "%'";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE dbPersons.status='$stats'";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbPersons.phone1,dbPersons.email, dbPersons.specialties
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
@@ -381,9 +381,9 @@
             $con=connect();
             $type1 = "volunteer";
             if($stats != "All"){
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' AND status LIKE '%" . $stats . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'";
             }else{
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1'";
             }
             $result = mysqli_query($con,$query);
             $nameRange = range($lastFrom,$lastTo);
@@ -427,16 +427,16 @@
                 <th>Last Name</th>
                 <th>Phone Number</th>
                 <th>Email Address</th>
-		<th>Skills</th>
+		        <th>Skills</th>
                 <th>Volunteer Hours</th>
             </tr>
             <tbody>";
             $con=connect();
             $type1 = "volunteer";
             if($stats != "All"){
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%' AND status LIKE '%" . $stats . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'";
             }else{
-                $query = "SELECT * FROM dbPersons WHERE type LIKE '%" . $type1 . "%'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1'";
             }
             $result = mysqli_query($con,$query); 
             try {
@@ -452,7 +452,7 @@
                             <td>" . $row['last_name'] . "</td>
                             <td>" . $row['phone1'] . "</td>
                             <td>" . $row['email'] . "</td>
-			    <td>" . $row['specialties'] . "</td>
+			                <td>" . $row['specialties'] . "</td>
                             <td>" . get_hours_volunteered_by($row['id']) . "</td>
                             </tr>";
                             $hours = get_hours_volunteered_by($row['id']);   
@@ -713,7 +713,7 @@
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%' AND dbEvents.date<= '$today'
+                WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats' AND dbEvents.date<= '$today'
                 GROUP BY dbEvents.name
 		ORDER BY dbEvents.date desc";
             }else{
@@ -764,7 +764,7 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.id ='$indivID' AND dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats'
                 ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
@@ -825,9 +825,9 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.status='$stats'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		ORDER BY dbEvents.date desc";
+		        ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
@@ -846,7 +846,7 @@
             	<td>" . $row['location'] . "</td>
             	<td>" . $row['date'] . "</td>
             	<td>" . get_hours_volunteered_by($row['id']) . "</td>
-		</tr>";
+		        </tr>";
              }
             echo"
                 <tr>
@@ -883,9 +883,9 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.status='$stats'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		ORDER BY dbEvents.date desc";
+		        ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
@@ -948,9 +948,9 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.status='$stats'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		ORDER BY dbEvents.date desc";
+		        ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
@@ -1016,9 +1016,9 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status LIKE '%" . $stats . "%'
+                WHERE dbPersons.status='$stats'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		ORDER BY dbEvents.date desc";
+		        ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
