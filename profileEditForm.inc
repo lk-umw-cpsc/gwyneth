@@ -6,8 +6,10 @@
     $args = sanitize($_GET);
     if ($_SESSION['access_level'] >= 2 && isset($args['id'])) {
         $id = $args['id'];
+        $editingSelf = $id == $_SESSION['_id'];
         // Check to see if user is a lower-level manager here
     } else {
+        $editingSelf = true;
         $id = $_SESSION['_id'];
     }
 
@@ -71,7 +73,7 @@
         <?php endif ?>
     <?php endif ?>
     <?php if ($isAdmin): ?>
-        <?php if ($id == 'vmsroot') : ?>
+        <?php if (strtolower($id) == 'vmsroot') : ?>
             <div class="error-toast">The root user profile cannot be modified</div></main></body>
             <?php die() ?>
         <?php elseif (isset($_GET['id']) && $_GET['id'] != $_SESSION['_id']): ?>
@@ -89,6 +91,23 @@
 
             <label for="last-name"><em>* </em>Last Name</label>
             <input type="text" id="last-name" name="last-name" value="<?php echo hsc($person->get_last_name()); ?>" required placeholder="Enter your last name">
+
+            <label for="gender"><em>* </em>Gender</label>
+            <select id="gender" name="gender" required>
+                <?php
+                    $genders = ['Male', 'Female', 'Other'];
+                    $currentGender = $person->get_gender();
+                    foreach ($genders as $gender):
+                ?>
+                    <?php if ($currentGender == $gender): ?>
+                        <option value="<?php echo $gender ?>" selected><?php echo $gender ?></option>
+                    <?php else: ?>
+                        <option value="<?php echo $gender ?>"><?php echo $gender ?></option>
+                    <?php endif ?>
+                <?php endforeach ?>
+                <!-- <option value="Female">Female</option> -->
+                <!-- <option value="Other">Other</option> -->
+            </select>
 
             <label for="birthdate"><em>* </em>Date of Birth</label>
             <input type="date" id="birthdate" name="birthdate" value="<?php echo hsc($person->get_birthday()); ?>" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
@@ -331,5 +350,10 @@
         </fieldset>
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <input type="submit" name="profile-edit-form" value="Update Profile">
+        <?php if ($editingSelf): ?>
+            <a class="button cancel" href="viewProfile.php" style="margin-top: -.5rem">Cancel</a>
+        <?php else: ?>
+            <a class="button cancel" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: -.5rem">Cancel</a>
+        <?php endif ?>
     </form>
 </main>

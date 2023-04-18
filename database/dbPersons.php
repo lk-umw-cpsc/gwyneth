@@ -39,7 +39,6 @@ function add_person($person) {
             $person->get_city() . '","' .
             $person->get_state() . '","' .
             $person->get_zip() . '","' .
-            $person->get_profile_pic() . '","'.
             $person->get_phone1() . '","' .
             $person->get_phone1type() . '","' .
             $person->get_phone2() . '","' .
@@ -82,7 +81,10 @@ function add_person($person) {
             $person->get_friday_availability_start() . '","' .
             $person->get_friday_availability_end() . '","' .
             $person->get_saturday_availability_start() . '","' .
-            $person->get_saturday_availability_end() . 
+            $person->get_saturday_availability_end() . '","' .
+            $person->get_profile_pic() . '","' .
+            $person->is_password_change_required() . '","' .
+            $person->get_gender() .
             '");'
         );							
         mysqli_close($con);
@@ -149,7 +151,15 @@ function retrieve_persons_by_name ($name) {
 
 function change_password($id, $newPass) {
     $con=connect();
-    $query = 'UPDATE dbPersons SET password = "' . $newPass . '" WHERE id = "' . $id . '"';
+    $query = 'UPDATE dbPersons SET password = "' . $newPass . '", force_password_change="0" WHERE id = "' . $id . '"';
+    $result = mysqli_query($con,$query);
+    mysqli_close($con);
+    return $result;
+}
+
+function reset_password($id, $newPass) {
+    $con=connect();
+    $query = 'UPDATE dbPersons SET password = "' . $newPass . '", force_password_change="1" WHERE id = "' . $id . '"';
     $result = mysqli_query($con,$query);
     mysqli_close($con);
     return $result;
@@ -333,6 +343,8 @@ function make_a_person($result_row) {
                     $result_row['fridays_end'],
                     $result_row['saturdays_start'],
                     $result_row['saturdays_end'],
+                    $result_row['force_password_change'],
+                    $result_row['gender']
                 );   
     return $thePerson;
 }
@@ -509,7 +521,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         $sundaysStart, $sundaysEnd, $mondaysStart, $mondaysEnd,
         $tuesdaysStart, $tuesdaysEnd, $wednesdaysStart, $wednesdaysEnd,
         $thursdaysStart, $thursdaysEnd, $fridaysStart, $fridaysEnd,
-        $saturdaysStart, $saturdaysEnd
+        $saturdaysStart, $saturdaysEnd, $gender
     ) {
         $query = "update dbPersons set 
             first_name='$first', last_name='$last', birthday='$dateOfBirth', address='$address', city='$city', zip='$zipcode',
@@ -519,7 +531,7 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             sundays_start='$sundaysStart', sundays_end='$sundaysEnd', mondays_start='$mondaysStart', mondays_end='$mondaysEnd',
             tuesdays_start='$tuesdaysStart', tuesdays_end='$tuesdaysEnd', wednesdays_start='$wednesdaysStart', wednesdays_end='$wednesdaysEnd',
             thursdays_start='$thursdaysStart', thursdays_end='$thursdaysEnd', fridays_start='$fridaysStart', fridays_end='$fridaysEnd',
-            saturdays_start='$saturdaysStart', saturdays_end='$saturdaysEnd'
+            saturdays_start='$saturdaysStart', saturdays_end='$saturdaysEnd', gender='$gender'
             where id='$id'";
         $connection = connect();
         $result = mysqli_query($connection, $query);
@@ -558,7 +570,8 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             and start_date<='$date'
             and id != 'vmsroot' 
             and status='Active'
-            and id not in (select userID from dbEventVolunteers where eventID='$eventID')";
+            and id not in (select userID from dbEventVolunteers where eventID='$eventID')
+            order by last_name, first_name";
         $result = mysqli_query($connection, $query);
         if ($result == null || mysqli_num_rows($result) == 0) {
             mysqli_close($connection);
@@ -573,9 +586,9 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
         return $thePersons;
     }
 
-    function find_users($name, $id, $phone, $type, $status) {
+    function find_users($name, $id, $phone, $zip, $type, $status) {
         $where = 'where ';
-        if (!($name || $id || $phone || $type || $status)) {
+        if (!($name || $id || $phone || $zip || $type || $status)) {
             return [];
         }
         $first = true;
@@ -604,6 +617,13 @@ function get_logged_hours($from, $to, $name_from, $name_to, $venue) {
             $where .= "phone1 like '%$phone%'";
             $first = false;
         }
+		if ($zip) {
+			if (!$first) {
+                $where .= ' and ';
+            }
+            $where .= "zip like '%$zip%'";
+            $first = false;
+		}
         if ($type) {
             if (!$first) {
                 $where .= ' and ';
@@ -799,5 +819,13 @@ function find_user_names($name) {
                 }
                 return $sum; 
             }
+    }
+
+    function remove_profile_picture($id) {
+        $con=connect();
+        $query = 'UPDATE dbPersons SET profile_pic="" WHERE id="'.$id.'"';
+        $result = mysqli_query($con,$query);
+        mysqli_close($con);
+        return True;
     }
 ?>

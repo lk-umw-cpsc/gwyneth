@@ -89,9 +89,14 @@
                             <tr><td>Print Admin Name: _____________________________________</td></tr>
                         </tbody>
                     </table></div>
-                    <button class="no-print" onclick="window.print()">Print</button>
+                    <button class="no-print" onclick="window.print()" style="margin-bottom: -.5rem">Print</button>
                 <?php else: ?>
-                    <p>There are no volunteer hours to report</p>
+                    <p>There are no volunteer hours to report.</p>
+                <?php endif ?>
+                <?php if ($viewingSelf): ?>
+                    <a class="button cancel no-print" href="viewProfile.php">Return to Profile</a>
+                <?php else: ?>
+                    <a class="button cancel no-print" href="viewProfile.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Return to Profile</a>
                 <?php endif ?>
         </main>
     </body>

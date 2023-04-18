@@ -24,6 +24,7 @@
     }
     require_once('include/input-validation.php');
     require_once('database/dbEvents.php');
+    $errors = '';
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $args = sanitize($_POST, null);
         $required = array(
@@ -33,40 +34,45 @@
             echo 'bad form data';
             die();
         } else {
+            require_once('database/dbPersons.php');
             $id = $args['id'];
             $validated = validate12hTimeRangeAndConvertTo24h($args["start-time"], $args["end-time"]);
             if (!$validated) {
-                echo 'bad time range';
-                die();
+                $errors .= '<p>The provided time range was invalid.</p>';
             }
             $startTime = $args['start-time'] = $validated[0];
             $endTime = $args['end-time'] = $validated[1];
             $date = $args['date'] = validateDate($args["date"]);
             $capacity = intval($args["capacity"]);
+            $assignedVolunteerCount = count(getvolunteers_byevent($id));
+            $difference = $assignedVolunteerCount - $capacity;
+            if ($capacity < $assignedVolunteerCount) {
+                $errors .= "<p>There are currently $assignedVolunteerCount volunteers assigned to this event. The new capacity must not exceed this number. You must remove $difference volunteer(s) from the event to reduce the capacity to $capacity.</p>";
+            }
             $abbrevLength = strlen($args['abbrev-name']);
             if (!$startTime || !$endTime || !$date || $capacity < 1 || $capacity > 20 || $abbrevLength > 11){
-                echo 'bad args';
-                die();
+                $errors .= '<p>Your request was missing arguments.</p>';
             }
-            $success = update_event($id, $args);
-            if (!$success){
-                echo "Oopsy!";
-                die();
+            if (!$errors) {
+                $success = update_event($id, $args);
+                if (!$success){
+                    echo "Oopsy!";
+                    die();
+                }
+                header('Location: event.php?id=' . $id . '&editSuccess');
             }
-            header('Location: event.php?id=' . $id);
         }
-    } else {
-        if (!isset($_GET['id'])) {
-            // uhoh
-            die();
-        }
-        $args = sanitize($_GET);
-        $id = $args['id'];
-        $event = fetch_event_by_id($id);
-        if (!$event) {
-            echo "Event does not exist";
-            die();
-        }
+    }
+    if (!isset($_GET['id'])) {
+        // uhoh
+        die();
+    }
+    $args = sanitize($_GET);
+    $id = $args['id'];
+    $event = fetch_event_by_id($id);
+    if (!$event) {
+        echo "Event does not exist";
+        die();
     }
     require_once('include/output.php');
 ?>
@@ -80,6 +86,9 @@
         <?php require_once('header.php') ?>
         <h1>Modify Event</h1>
         <main class="date">
+        <?php if ($errors): ?>
+            <div class="error-toast"><?php echo $errors ?></div>
+        <?php endif ?>
             <h2>Event Details</h2>
             <form id="new-event-form" method="post">
                 <label for="name">Event Name </label>
@@ -90,9 +99,9 @@
                 <label for="name">Date </label>
                 <input type="date" id="date" name="date" value="<?php echo $event['date'] ?>" min="<?php echo date('Y-m-d'); ?>" required>
                 <label for="name">Start Time </label>
-                <input type="text" id="start-time" name="start-time" value="<?php echo time24hto12h($event['startTime']) ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" required placeholder="Enter start time. Ex. 12:00PM">
+                <input type="text" id="start-time" name="start-time" value="<?php echo time24hto12h($event['startTime']) ?>" pattern="([1-9]|10|11|12):[0-5][0-9] ?([aApP][mM])" required placeholder="Enter start time. Ex. 12:00 PM">
                 <label for="name">End Time </label>
-                <input type="text" id="end-time" name="end-time" value="<?php echo time24hto12h($event['endTime']) ?>" pattern="([1-9]|10|11|12):[0-5][0-9]([aApP][mM])" required placeholder="Enter end time. Ex. 4:00PM">
+                <input type="text" id="end-time" name="end-time" value="<?php echo time24hto12h($event['endTime']) ?>" pattern="([1-9]|10|11|12):[0-5][0-9] ?([aApP][mM])" required placeholder="Enter end time. Ex. 4:00 PM">
                 <p id="date-range-error" class="error hidden">Start time must come before end time</p>
                 <label for="name">Description </label>
                 <input type="text" id="description" name="description" value="<?php echo $event['description'] ?>" required placeholder="Enter description">
@@ -101,6 +110,7 @@
                 <label for="name">Volunteer Slots</label>
                 <input type="text" id="capacity" name="capacity"  value="<?php echo $event['capacity'] ?>"pattern="([1-9])|([01][0-9])|(20)" required placeholder="Enter a number up to 20">   
                 <input type="submit" value="Update Event">
+                <a class="button cancel" href="event.php?id=<?php echo htmlspecialchars($_GET['id']) ?>" style="margin-top: .5rem">Cancel</a>
             </form>
         </main>
     </body>

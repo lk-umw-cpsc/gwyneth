@@ -8,6 +8,10 @@
     $accessLevel = 0;
     $userID = null;
     $isAdmin = false;
+    if (!isset($_SESSION['access_level']) || $_SESSION['access_level'] < 1) {
+        header('Location: login.php');
+        die();
+    }
     if (isset($_SESSION['_id'])) {
         $loggedIn = true;
         // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
@@ -21,11 +25,17 @@
     if ($isAdmin && isset($_GET['id'])) {
         require_once('include/input-validation.php');
         $args = sanitize($_GET);
-        $id = $args['id'];
+        $id = strtolower($args['id']);
     } else {
         $id = $userID;
     }
     require_once('database/dbPersons.php');
+    if (isset($_GET['removePic'])) {
+      if ($_GET['removePic'] === 'true') {
+        remove_profile_picture($id);
+      }
+    }
+
     $user = retrieve_person($id);
     $viewingOwnProfile = $id == $userID;
 
@@ -43,7 +53,7 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <link rel="stylesheet" href="css/editprofile.css" type="text/css" />
+        <!-- <link rel="stylesheet" href="css/editprofile.css" type="text/css" /> -->
         <title>Gwyneth's Gift VMS | View User</title>
     </head>
     <body>
@@ -63,7 +73,6 @@
               }
             }
         ?>
-            <div class=>
             <?php if ($id == 'vmsroot'): ?>
                 <div class="error-toast">The root user does not have a profile.</div>
                 </main></body></html>
@@ -89,27 +98,28 @@
                 <label>Username</label>
                 <p><?php echo $user->get_id() ?></p>
                 <label>Profile Picture</label>
-                <img src=
-                  <?php
+                <img class="profile-pic" src="<?php
                     $profile_pic = $user -> get_profile_pic();
-                    if ($profile_pic === NULL) {
-                      echo '"'.'https://www.gwynethsgift.org/wp-content/uploads/2021/11/gg-icon-transparent-small.png'.'"';
+                    if ($profile_pic) {
+                        echo $profile_pic;
                     } else {
-                      echo '"'.$profile_pic.'"';
+                        echo 'images/default-profile-picture.svg';
                     }
-                  ?>
-                width="140" height="140">
-								<tr><td colspan="2">
-                            <form class="media-form hidden" method="post" id="edit-profile-picture-form">
-                                <label>Edit Photo</label>
-                                <label for="url">URL</label>
-                                <input type="text" id="url" name="url" placeholder="Paste link to media" required>
-                                <p class="error hidden" id="url-error">Please enter a valid URL.</p>
-                                <input type="hidden" name="id" value="<?php echo $id ?>">
-                                <input type="submit" name="edit-profile-picture-submit" value="Attach">
-                            </form>
-                            <a id="edit-profile-picture">Edit Photo</a>
-                        </td></tr>        
+                  ?>"width="140" height="140">
+                <form class="media-form hidden" method="post" id="edit-profile-picture-form">
+                    <label>Edit Photo</label>
+                    <label for="url">URL</label>
+                    <input type="text" id="url" name="url" placeholder="Paste link to media" required>
+                    <p class="error hidden" id="url-error">Please enter a valid URL.</p>
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="submit" name="edit-profile-picture-submit" value="Attach">
+                </form>
+                <a id="edit-profile-picture" class="link-like">Edit Photo</a>
+                <?php
+                  echo '<a href="viewProfile.php?id='.$id.'&removePic=true" style="color:inherit">Remove Photo</a>'
+                ?>
+                <label>Gender</label>
+                <p><?php echo $user->get_gender(); ?></p>
                 <label>Date of Birth</label>
                 <p><?php echo date('d/m/Y', strtotime($user->get_birthday())) ?></p>
                 <label>Address</label>
@@ -117,7 +127,15 @@
                 <label>Role</label>
                 <p><?php echo ucfirst($user->get_type()[0]) ?></p>
                 <label>Status</label>
-                <p><?php echo ucfirst($user->get_status()); /*if ($user->get_notes()) echo ' (' . $user->get_notes() . ')';*/ ?></p>
+                <p><?php 
+                    $status = ucfirst($user->get_status());
+                    $reason = $user->get_notes();
+                    if ($status == "Inactive" && $reason) {
+                        echo "Inactive (" . $reason . ")";
+                    } else {
+                        echo $status;
+                    }
+                ?></p>
                 <?php if ($id != $userID): ?>
                     <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Role/Status</a>
                 <?php endif ?>
@@ -180,15 +198,33 @@
                 <p><?php if ($user->get_camera()) echo 'Owns a camera'; else echo 'Does NOT own a camera'; ?></p>
                 <p><?php if ($user->get_transportation()) echo 'Has access to transportation'; else echo 'Does NOT have access to transportation'; ?></p>
                 <label>T-Shirt Size</label>
-                <p><?php echo $user->get_shirt_size() ?></p>
+                <p>
+                    <?php 
+                        $sizes = [
+                            null => '',
+                            '' => '',
+                            'S' => 'Small',
+                            'M' => 'Medium',
+                            'L' => 'Large',
+                            'XL' => 'Extra Large',
+                            'XXL' => '2X Large',
+                        ];
+                        $size = $sizes[$user->get_shirt_size()];
+                        echo $size;
+                    ?>
+                </p>
             </fieldset>
             <a class="button" href="editProfile.php<?php if ($id != $userID) echo '?id=' . $id ?>">Edit Profile</a>
             <?php if ($id != $userID): ?>
-                <a class="button" href="#">Reset Password (not implemented)</a>
+                <?php if ($accessLevel > $user->get_access_level()): ?>
+                    <a class="button" href="resetPassword.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">Reset Password</a>
+                <?php endif ?>
                 <a class="button" href="volunteerReport.php?id=<?php echo htmlspecialchars($_GET['id']) ?>">View Volunteer Hours</a>
+                <a class="button cancel" href="personSearch.php">Return to User Search</a>
             <?php else: ?>
                 <a class="button" href="changePassword.php">Change Password</a>
                 <a class="button" href="volunteerReport.php">View Volunteer Hours</a>
+                <a class="button cancel" href="index.php">Return to Dashboard</a>
             <?php endif ?>
         </main>
     </body>

@@ -105,6 +105,7 @@
                 <p id="date-range-error" class="error hidden">Start date must come before end date</p>
                 <input type="submit" name="submitDateRange" id="submitDateRange" value="Search by Date Range">
             </form>
+            <a class="button cancel" href="index.php" style="margin-top: -.5rem">Return to Dashboard</a>
         </main>
     </body>
 </html>

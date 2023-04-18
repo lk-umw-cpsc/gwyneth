@@ -37,16 +37,17 @@
                     require_once('include/input-validation.php');
                     require_once('database/dbPersons.php');
                     $args = sanitize($_GET);
-                    $required = ['name', 'id', 'phone', 'role', 'status'];
+                    $required = ['name', 'id', 'phone', 'zip', 'role', 'status'];
                     if (!wereRequiredFieldsSubmitted($args, $required, true)) {
                         echo 'Missing expected form elements';
                     }
                     $name = $args['name'];
                     $id = $args['id'];
                     $phone = preg_replace("/[^0-9]/", "", $args['phone']);
+					$zip = $args['zip'];
                     $role = $args['role'];
                     $status = $args['status'];
-                    if (!($name || $id || $phone || $role || $status)) {
+                    if (!($name || $id || $phone || $zip || $role || $status)) {
                         echo '<div class="error-toast">At least one search criterion is required.</div>';
                     } else if (!valueConstrainedTo($role, ['admin', 'superadmin', 'volunteer', ''])) {
                         echo '<div class="error-toast">The system did not understand your request.</div>';
@@ -54,7 +55,7 @@
                         echo '<div class="error-toast">The system did not understand your request.</div>';
                     } else {
                         echo "<h3>Search Results</h3>";
-                        $persons = find_users($name, $id, $phone, $role, $status);
+                        $persons = find_users($name, $id, $phone, $zip, $role, $status);
                         require_once('include/output.php');
                         if (count($persons) > 0) {
                             echo '
@@ -66,19 +67,29 @@
                                             <th>Last</th>
                                             <th>E-mail</th>
                                             <th>Phone Number</th>
+											<th>Zip Code</th>
                                             <th>Role</th>
                                             <th>Status</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody class="standout">';
+                            $mailingList = '';
+                            $notFirst = false;
                             foreach ($persons as $person) {
+                                if ($notFirst) {
+                                    $mailingList .= ', ';
+                                } else {
+                                    $notFirst = true;
+                                }
+                                $mailingList .= $person->get_email();
                                 echo '
                                         <tr>
                                             <td>' . $person->get_first_name() . '</td>
                                             <td>' . $person->get_last_name() . '</td>
                                             <td><a href="mailto:' . $person->get_id() . '">' . $person->get_id() . '</a></td>
                                             <td><a href="tel:' . $person->get_phone1() . '">' . formatPhoneNumber($person->get_phone1()) .  '</td>
+											<td>' . $person->get_zip() . '</td>
                                             <td>' . ucfirst($person->get_type()[0]) . '</td>
                                             <td>' . ucfirst($person->get_status()) . '</td>
                                             <td><a href="viewProfile.php?id=' . $person->get_id() . '">Profile</a></td>
@@ -88,6 +99,10 @@
                                     </tbody>
                                 </table>
                             </div>';
+                            echo '
+                            <label>Result Mailing List</label>
+                            <p>' . $mailingList . '</p>
+                            ';
                         } else {
                             echo '<div class="error-toast">Your search returned no results.</div>';
                         }
@@ -102,7 +117,9 @@
             <input type="text" id="id" name="id" value="<?php if (isset($id)) echo htmlspecialchars($_GET['id']) ?>" placeholder="Enter the user's email address (login ID)">
             <label for="phone">Phone Number</label>
             <input type="tel" id="phone" name="phone" value="<?php if (isset($phone)) echo htmlspecialchars($_GET['phone']) ?>" placeholder="Enter the user's phone number">
-            <label for="role">Role</label>
+            <label for="zip">Zip Code</label>
+			<input type="text" id="zip" name="zip" value="<?php if (isset($zip)) echo htmlspecialchars($_GET['zip']) ?>" placeholder="Enter the user's zip code">
+			<label for="role">Role</label>
             <select id="role" name="role">
                 <option value="">Any</option>
                 <option value="volunteer" <?php if (isset($role) && $role == 'volunteer') echo 'selected' ?>>Volunteer</option>
@@ -112,11 +129,12 @@
             <label for="status">Status</label>
             <select id="status" name="status">
                 <option value="">Any</option>
-                <option value="Active" <?php if (!isset($status) || (isset($status) && $status == 'Active')) echo 'selected' ?>>Active</option>
+                <option value="Active" <?php if (isset($status) && $status == 'Active') echo 'selected' ?>>Active</option>
                 <option value="Inactive" <?php if (isset($status) && $status == 'Inactive') echo 'selected' ?>>Inactive</option>
             </select>
             <div id="criteria-error" class="error hidden">You must provide at least one search criterion.</div>
             <input type="submit" value="Search">
+            <a class="button cancel" href="index.php">Return to Dashboard</a>
         </form>
     </body>
 </html>

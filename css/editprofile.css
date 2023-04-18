@@ -815,11 +815,3 @@ table.general th, table.general td {
         margin: 0rem 8rem 4rem 8rem;
     }
 }
-
-img {
-	object-fit: cover;
-}
-
-.pic_update_message {
-  color: green;
-}

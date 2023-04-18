@@ -13,7 +13,14 @@
  * @author Oliver Radwan <oradwan@bowdoin.edu>, Sam Roberts, Allen Tucker
  * @version 3/28/2008, revised 7/1/2015
  */
- class Person {
+
+$accessLevelsByRole = [
+	'volunteer' => 1,
+	'admin' => 2,
+	'superadmin' => 3
+];
+
+class Person {
 	private $id;         // id (unique key) = first_name . phone1
 	private $start_date; // format: 99-03-12
 	private $venue;      // portland or bangor
@@ -23,7 +30,7 @@
 	private $city;    // city - string
 	private $state;   // state - string
 	private $zip;    // zip code - integer
-  private $profile_pic; // image link
+  	private $profile_pic; // image link
 	private $phone1;   // primary phone -- home, cell, or work
 	private $phone1type; // home, cell, or work
 	private $phone2;   // secondary phone -- home, cell, or work
@@ -47,6 +54,7 @@
 	private $specialties;  // special training or skills
 	private $convictions;  // App: ever convicted of a felony?  "yes" or blank
 	private $type;       // array of "volunteer", "weekendmgr", "sub", "guestchef", "events", "projects", "manager"
+	private $access_level;
 	private $status;     // a person may be "active" or "inactive"
 	private $availability; // array of day:hours:venue triples; e.g., Mon:9-12:bangor, Sat:afternoon:portland
 	private $schedule;     // array of scheduled shift ids; e.g., 15-01-05:9-12:bangor
@@ -68,12 +76,14 @@
 	private $fridaysEnd;
 	private $saturdaysStart;
 	private $saturdaysEnd;
+	private $mustChangePassword;
+	private $gender;
 
 	function __construct($f, $l, $v, $a, $c, $s, $z, $pp, $p1, $p1t, $p2, $p2t, $e, $ts, $comp, $cam, $tran, $cn, $cpn, $rel,
 			$ct, $t, $st, $cntm, $pos, $credithours, $comm, $mot, $spe,
 			$convictions, $av, $sch, $hrs, $bd, $sd, $hdyh, $notes, $pass,
 			$suns, $sune, $mons, $mone, $tues, $tuee, $weds, $wede,
-			$thus, $thue, $fris, $frie, $sats, $sate) {
+			$thus, $thue, $fris, $frie, $sats, $sate, $mcp, $gender) {
 		$this->id = $e;
 		$this->start_date = $sd;
 		$this->venue = $v;
@@ -83,7 +93,7 @@
 		$this->city = $c;
 		$this->state = $s;
 		$this->zip = $z;
-    $this->profile_pic = $pp;
+    	$this->profile_pic = $pp;
 		$this->phone1 = $p1;
 		$this->phone1type = $p1t;
 		$this->phone2 = $p2;
@@ -106,11 +116,15 @@
 		$this->motivation = $mot;
 		$this->specialties = $spe;
 		$this->convictions = $convictions;
-		if ($t !== "")
+		$this->mustChangePassword = $mcp;
+		if ($t !== "") {
 			$this->type = explode(',', $t);
-		else
+			global $accessLevelsByRole;
+			$this->access_level = $accessLevelsByRole[$t];
+		} else {
 			$this->type = array();
-
+			$this->access_level = 0;
+		}
 		$this->status = $st;
 		if ($av == "")
 			$this->availability = array();
@@ -143,6 +157,7 @@
 		$this->fridaysEnd = $frie;
 		$this->saturdaysStart = $sats;
 		$this->saturdaysEnd = $sate;
+		$this->gender = $gender;
 	}
 
 	function get_id() {
@@ -281,7 +296,7 @@
 		return $this->status;
 	}
 
-	function get_availability() {   // array of day:hours:venue
+	function get_availability() { // array of day:hours:venue
 		return $this->availability;
 	}
 
@@ -364,5 +379,16 @@
 	function get_saturday_availability_end() {
 		return $this->saturdaysEnd;
 	}
+
+	function get_access_level() {
+		return $this->access_level;
+	}
+
+	function is_password_change_required() {
+		return $this->mustChangePassword;
+	}
+
+	function get_gender() {
+		return $this->gender;
+	}
 }
-?>

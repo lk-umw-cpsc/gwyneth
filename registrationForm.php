@@ -58,6 +58,14 @@ function buildSelect($name, $disabled=false, $selected=null) {
             <label for="last-name"><em>* </em>Last Name</label>
             <input type="text" id="last-name" name="last-name" required placeholder="Enter your last name">
 
+            <label for="gender"><em>* </em>Gender</label>
+            <select id="gender" name="gender" required>
+                <option value="">Choose an option</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+
             <label for="birthdate"><em>* </em>Date of Birth</label>
             <input type="date" id="birthdate" name="birthdate" required placeholder="Choose your birthday" max="<?php echo date('Y-m-d'); ?>">
 
@@ -312,4 +320,7 @@ function buildSelect($name, $disabled=false, $selected=null) {
         <p>By pressing Submit below, you are agreeing to volunteer for the organization.</p>
         <input type="submit" name="registration-form" value="Submit">
     </form>
+    <?php if ($loggedIn): ?>
+        <a class="button cancel" href="index.php" style="margin-top: .5rem">Cancel</a>
+    <?php endif ?>
 </main>
