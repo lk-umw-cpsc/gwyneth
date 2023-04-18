@@ -1,0 +1,59 @@
+<?php
+    // Template for new VMS pages. Base your new page on this one
+
+    // Make session information accessible, allowing us to associate
+    // data with the logged-in user.
+    session_cache_expire(30);
+    session_start();
+    ini_set("display_errors",1);
+    error_reporting(E_ALL);
+    $loggedIn = false;
+    $accessLevel = 0;
+    $userID = null;
+    if (isset($_SESSION['_id'])) {
+        $loggedIn = true;
+        // 0 = not logged in, 1 = standard user, 2 = manager (Admin), 3 super admin (TBI)
+        $accessLevel = $_SESSION['access_level'];
+        $userID = $_SESSION['_id'];
+    }
+    if (!isset($_GET['id'])) {
+        header('Location: index.php');
+        die();
+    }
+    $id = intval($_GET['id']);
+    if ($id < 1) {
+        header('Location: index.php');
+        die();
+    }
+    require_once('database/dbMessages.php');
+    $message = get_message_by_id($id);
+    if (!$message || $message['recipientID'] != $_SESSION['_id']) {
+        header('Location: index.php');
+        die();
+    }
+    mark_read($id);
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <?php require_once('universal.inc') ?>
+        <title>Gwyneth's Gift VMS | View Message</title>
+        <link rel="stylesheet" href="css/messages.css"></link>
+        <script src="js/messages.js"></script>
+    </head>
+    <body>
+        <?php require_once('header.php') ?>
+        <h1>View Message</h1>
+        <main class="general">
+            <?php require_once('database/dbPersons.php') ?>
+            <p class="message-from">
+                <label>From </label><span><?php echo get_name_from_id($message['senderID']) ?></span>
+            </p>
+            <div class="message-body">
+                <h2><?php echo $message['title'] ?></h2>
+                <p><?php echo $message['body'] ?></p>
+            </div>
+            <a class="button cancel" href="inbox.php">Return to Inbox</a>
+        </main>
+    </body>
+</html>

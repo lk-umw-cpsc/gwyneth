@@ -20,6 +20,8 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
+        <link rel="stylesheet" href="css/messages.css"></link>
+        <script src="js/messages.js"></script>
         <title>Gwyneth's Gift VMS | Inbox</title>
     </head>
     <body>
@@ -51,24 +53,31 @@
                                     $id_to_name_hash[$sender] = $lookup;
                                     $sender = $lookup;
                                 }
+                                $messageID = $message['id'];
                                 $title = htmlspecialchars($message['title']);
-                                $timeUnpacked = $message['time'];
-                                $pieces = explode('-', $timeUnpacked);
+                                $timePacked = $message['time'];
+                                $pieces = explode('-', $timePacked);
                                 $year = $pieces[0];
                                 $month = $pieces[1];
                                 $day = $pieces[2];
                                 $time = time24hto12h($pieces[3]);
+                                $class = 'message';
+                                if (!$message['wasRead']) {
+                                    $class .= ' unread';
+                                }
                                 echo "
-                                <tr>
-                                    <td>$sender</td>
-                                    <td>$title</td>
-                                    <td>$month/$day/$year $time</td>
-                                </tr>";
+                                    <tr class='$class' data-message-id='$messageID'>
+                                        <td>$sender</td>
+                                        <td>$title</td>
+                                        <td>$month/$day/$year $time</td>
+                                    </tr>";
                             }
                         ?>
                     </tbody>
                 </table>
             </div>
+            <button>Compose New Message</button>
+            <a class="button cancel" href="index.php">Return to Dashboard</a>
         </main>
     </body>
 </html>

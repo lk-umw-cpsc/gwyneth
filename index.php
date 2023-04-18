@@ -39,11 +39,17 @@
             <p>Welcome back, <?php echo $person->get_first_name() ?>!</p>
             <p>Today is <?php echo date('l, F j, Y'); ?>.</p>
             <div id="dashboard">
+                <?php
+                    require_once('database/dbMessages.php');
+                    $unreadMessageCount = get_user_unread_count($person->get_id());
+                    $inboxIcon = 'inbox.svg';
+                    if ($unreadMessageCount) {
+                        $inboxIcon = 'inbox-unread.svg';
+                    }
+                ?>
                 <div class="dashboard-item" data-link="inbox.php">
-                    <img src="images/inbox.svg">
+                    <img src="images/<?php echo $inboxIcon ?>">
                     <span>Messages<?php 
-                        require_once('database/dbMessages.php');
-                        $unreadMessageCount = get_user_unread_count($person->get_id());
                         if ($unreadMessageCount > 0) {
                             echo ' (' . $unreadMessageCount . ')';
                         }

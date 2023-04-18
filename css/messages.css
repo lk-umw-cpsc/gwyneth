@@ -1,0 +1,29 @@
+:root {
+    --unread-message-background: #f1eadf;
+    --message-body-border-color: #ddd;
+}
+
+tr.message {
+    cursor: pointer;
+    transition: filter .3s;
+    background-color: inherit;
+}
+
+tr.message.unread {
+    font-weight: 500;
+    background-color: var(--unread-message-background);
+}
+
+tr.message:hover {
+    filter: brightness(0.85);
+}
+
+.message-body {
+    border: 1px solid var(--message-body-border-color);
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+.message-body > h2 {
+    margin-bottom: 0.5rem;
+}

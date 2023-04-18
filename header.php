@@ -56,6 +56,7 @@
         $permission_array['date.php'] = 1;
         $permission_array['event.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
+        $permission_array['viewmessage.php'] = 1;
         $permission_array['volunteerreport.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
