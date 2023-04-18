@@ -118,6 +118,9 @@
             .back-to-top:visited {
                 color: white; /* sets the color of the link when visited */  
             }
+            .back-to-top {
+                color: white; /* sets the color of the link when visited */  
+            }
 	    .intro {
                 display: flex;
                 flex-direction: column;
@@ -212,14 +215,23 @@
                     ?>
                 </span>
     </div>
-	<div>
-            <label>Total Volunteer Hours: </label>
+	<div>   
+        <?php
+            if($type != "top_perform"){
+                echo "
+                <label>Total Volunteer Hours: </label>"; 
+                echo '&nbsp&nbsp&nbsp';
+                echo get_tot_vol_hours();
+            }
+            if ($type == "indiv_vol_hours"){
+                echo '&nbsp&nbsp&nbsp';
+                echo get_hours_volunteered_by($indivID);
+            }
+        ?>
             <span>
-                <?php echo '&nbsp&nbsp&nbsp';
+                <?php 
                     if ($type == "indiv_vol_hours")
-			echo get_hours_volunteered_by($indivID);
-		    else
-			echo get_tot_vol_hours();
+			            echo get_hours_volunteered_by($indivID);
                    ?>
             </span>
         </div>
