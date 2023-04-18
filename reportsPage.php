@@ -35,9 +35,13 @@
   
   if($dateFrom != NULL && $dateTo == NULL)
     $dateTo = $today;
+  if($dateFrom == NULL && $dateTo != NULL)
+    $dateFrom = date('Y-m-d', strtotime(' - 1 year'));
 
   if($lastFrom != NULL && $lastTo == NULL)
 	$lastTo = 'Z';
+  if($lastFrom == NULL && $lastTo != NULL)
+	$lastFrom = 'A';
   
   // Is user authorized to view this page?
   if ($accessLevel < 2) {
@@ -268,9 +272,11 @@
             $con=connect();
             $type1 = "volunteer";
             if($stats!="All"){
-                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'
+			ORDER BY dbPersons.first_name, dbPersons.last_name";
             }else{
-                $query = "SELECT * FROM dbPersons WHERE type='$type1'";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1'
+			ORDER BY dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query);
             $totHours = array();
@@ -730,8 +736,7 @@
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbEvents.date <= '$today'
-                GROUP BY dbEvents.name
-		        ORDER BY dbEvents.date desc";
+		ORDER BY dbEvents.date desc";
             }
             $theEventHrs = get_events_attended_by($indivID);
 	        $result = mysqli_query($con,$query);
