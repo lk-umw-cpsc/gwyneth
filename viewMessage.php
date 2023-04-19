@@ -44,12 +44,17 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>View Message</h1>
-        <main class="general">
-            <?php require_once('database/dbPersons.php') ?>
-            <p class="message-from">
-                <label>From </label><span><?php echo get_name_from_id($message['senderID']) ?></span>
-            </p>
+        <main class="message">
+            <?php 
+                require_once('database/dbPersons.php');
+                require_once('include/output.php');
+            ?>
             <div class="message-body">
+                <p class="sender-time-line"><span><label>From </label><?php echo get_name_from_id($message['senderID']) ?></span>
+                <span><label>Received </label><?php 
+                        $unpackedTimestamp = unpackMessageTimestamp($message['time']);
+                        echo $unpackedTimestamp[0] . ' at ' . $unpackedTimestamp[1];
+                    ?></span></p>
                 <h2><?php echo $message['title'] ?></h2>
                 <p><?php echo $message['body'] ?></p>
             </div>

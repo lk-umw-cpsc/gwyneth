@@ -21,9 +21,39 @@ tr.message:hover {
 .message-body {
     border: 1px solid var(--message-body-border-color);
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 2rem;
+    padding: 2rem;
 }
 
-.message-body > h2 {
-    margin-bottom: 0.5rem;
+.message-body {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.sender-time-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+@media only screen and (min-width: 1024px) {
+    main.message > * {
+        width: 50rem;
+    }   
+}
+
+@media only screen and (max-width: 700px) {
+    .sender-time-line {
+        flex-direction: column;
+        gap: .5rem;
+    }
+}
+
+main.message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: .5rem;
 }
