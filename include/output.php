@@ -48,4 +48,8 @@
         return [$date, $time];
     }
 
-?>
+    function prepareMessageBody($body) {
+        $eventLinkPattern = "/\\[([^\\]]+)\\]\\(event: ?(\\d+)\\)/";
+        $body = preg_replace($eventLinkPattern, '<a href="event.php?id=${2}">${1}</a>', $body);
+        return $body;
+    }

@@ -56,7 +56,7 @@
                         echo $unpackedTimestamp[0] . ' at ' . $unpackedTimestamp[1];
                     ?></span></p>
                 <h2><?php echo $message['title'] ?></h2>
-                <p><?php echo $message['body'] ?></p>
+                <p><?php echo prepareMessageBody($message['body']) ?></p>
             </div>
             <a class="button cancel" href="inbox.php">Return to Inbox</a>
         </main>

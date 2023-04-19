@@ -53,10 +53,12 @@ function get_message_by_id($id) {
 
 function send_message($from, $to, $title, $body) {
     $time = date('Y-m-d-H:i');
+    $connection = connect();
+    $title = mysqli_real_escape_string($connection, $title);
+    $body = mysqli_real_escape_string($connection, $body);
     $query = "insert into dbMessages
         (senderID, recipientID, title, body, time)
         values ('$from', '$to', '$title', '$body', '$time')";
-    $connection = connect();
     $result = mysqli_query($connection, $query);
     if (!$result) {
         mysqli_close($connection);

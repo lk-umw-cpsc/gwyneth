@@ -131,7 +131,6 @@
                 }
                 $volunteerID = $args['selected_id'];
                 update_event_volunteer_list($eventID, $volunteerID);
-    
             // Check if GET request from user is from an admin/super admin
             // (Only admins and super admins can add another user)
             } else if ($request_type == 'add another' && $access_level > 1) {
@@ -141,7 +140,14 @@
                     die();
                 }
                 update_event_volunteer_list($eventID, $volunteerID);
-    
+                require_once('database/dbMessages.php');
+                require_once('include/output.php');
+                $event = fetch_event_by_id($eventID);
+                $eventName = $event['name'];
+                $eventDate = date('l, F j, Y', strtotime($event['date']));
+                $eventStart = time24hto12h($event['startTime']);
+                $eventEnd = time24hto12h($event['endTime']);
+                send_system_message($volunteerID, 'You were assigned to an event!', "Hello,\r\n\r\nYou were assigned to the [$eventName](event: $eventID) event from $eventStart to $eventEnd on $eventDate.");
             } else if ($request_type == 'remove' && $access_level > 1) {
                 $volunteerID = $args['selected_removal_id'];
                 remove_volunteer_from_event($eventID, $volunteerID);
