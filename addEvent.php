@@ -55,7 +55,8 @@
                 die();
             }
             require_once('include/output.php');
-            $name = $args['name'];
+            
+            $name = htmlspecialchars_decode($args['name']);
             $startTime = time24hto12h($startTime);
             $endTime = time24hto12h($endTime);
             $date = date('l, F j, Y', strtotime($date));

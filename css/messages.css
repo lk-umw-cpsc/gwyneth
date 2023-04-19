@@ -34,7 +34,9 @@ tr.message:hover {
 .sender-time-line {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: left;
+    gap: .5rem;
+    /* justify-content: space-between; */
 }
 
 @media only screen and (min-width: 1024px) {
@@ -47,6 +49,8 @@ tr.message:hover {
     .sender-time-line {
         flex-direction: column;
         gap: .5rem;
+        /* align-items: left; */
+        width: 100%;
     }
 }
 

@@ -57,7 +57,7 @@
                                         $sender = $lookup;
                                     }
                                     $messageID = $message['id'];
-                                    $title = htmlspecialchars($message['title']);
+                                    $title = $message['title'];
                                     $timePacked = $message['time'];
                                     $pieces = explode('-', $timePacked);
                                     $year = $pieces[0];

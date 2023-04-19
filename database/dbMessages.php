@@ -14,6 +14,12 @@ function get_user_messages($userID) {
         return null;
     }
     $messages = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    foreach ($messages as &$message) {
+        foreach ($message as $key => $value) {
+            $message[$key] = htmlspecialchars($value);
+        }
+    }
+    unset($message);
     mysqli_close($connection);
     return $messages;
 }
@@ -90,7 +96,6 @@ function message_all_users_of_types($from, $types, $title, $body) {
     $types = implode(', ', $types);
     $time = date('Y-m-d-H:i');
     $query = "select id from dbPersons where type in ($types)";
-    echo $query;
     $connection = connect();
     $result = mysqli_query($connection, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_NUM);
@@ -98,7 +103,6 @@ function message_all_users_of_types($from, $types, $title, $body) {
         $to = $row[0];
         $query = "insert into dbMessages (senderID, recipientID, title, body, time)
                   values ('$from', '$to', '$title', '$body', '$time')";
-        echo $query;
         $result = mysqli_query($connection, $query);
     }
     mysqli_close($connection);    
@@ -124,7 +128,6 @@ function system_message_all_admins($title, $body) {
 function system_message_all_users_except($except, $title, $body) {
     $time = date('Y-m-d-H:i');
     $query = "select id from dbPersons where id!='$except'";
-    echo $query;
     $connection = connect();
     $result = mysqli_query($connection, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_NUM);
@@ -132,7 +135,6 @@ function system_message_all_users_except($except, $title, $body) {
         $to = $row[0];
         $query = "insert into dbMessages (senderID, recipientID, title, body, time)
                   values ('vmsroot', '$to', '$title', '$body', '$time')";
-        echo $query;
         $result = mysqli_query($connection, $query);
     }
     mysqli_close($connection);    
@@ -142,7 +144,6 @@ function system_message_all_users_except($except, $title, $body) {
 function message_all_users($from, $title, $body) {
     $time = date('Y-m-d-H:i');
     $query = "select id from dbPersons where id!='$from'";
-    echo $query;
     $connection = connect();
     $result = mysqli_query($connection, $query);
     $rows = mysqli_fetch_all($result, MYSQLI_NUM);
@@ -150,9 +151,10 @@ function message_all_users($from, $title, $body) {
         $to = $row[0];
         $query = "insert into dbMessages (senderID, recipientID, title, body, time)
                   values ('$from', '$to', '$title', '$body', '$time')";
-        echo $query;
         $result = mysqli_query($connection, $query);
     }
     mysqli_close($connection);    
     return true;
 }
+
+// send_message('vmsroot', 'lknight2@mail.umw.edu', 'I am a bad test """""!!ASDF', "helloAAA'''ffdf!!$$");
