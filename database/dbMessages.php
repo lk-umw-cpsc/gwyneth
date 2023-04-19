@@ -85,3 +85,74 @@ function mark_read($id) {
     mysqli_close($connection);
     return true;
 }
+
+function message_all_users_of_types($from, $types, $title, $body) {
+    $types = implode(', ', $types);
+    $time = date('Y-m-d-H:i');
+    $query = "select id from dbPersons where type in ($types)";
+    echo $query;
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    $rows = mysqli_fetch_all($result, MYSQLI_NUM);
+    foreach ($rows as $row) {
+        $to = $row[0];
+        $query = "insert into dbMessages (senderID, recipientID, title, body, time)
+                  values ('$from', '$to', '$title', '$body', '$time')";
+        echo $query;
+        $result = mysqli_query($connection, $query);
+    }
+    mysqli_close($connection);    
+    return true;
+}
+
+function message_all_volunteers($from, $title, $body) {
+    return message_all_users_of_types($from, ['"volunteer"'], $title, $body);
+}
+
+function system_message_all_volunteers($title, $body) {
+    return message_all_users_of_types('vmsroot', ['"volunteer"'], $title, $body);
+}
+
+function message_all_admins($from, $title, $body) {
+    return message_all_users_of_types($from, ['"admin"', '"superadmin"'], $title, $body);
+}
+
+function system_message_all_admins($title, $body) {
+    return message_all_users_of_types('vmsroot', ['"admin"', '"superadmin"'], $title, $body);
+}
+
+function system_message_all_users_except($except, $title, $body) {
+    $time = date('Y-m-d-H:i');
+    $query = "select id from dbPersons where id!='$except'";
+    echo $query;
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    $rows = mysqli_fetch_all($result, MYSQLI_NUM);
+    foreach ($rows as $row) {
+        $to = $row[0];
+        $query = "insert into dbMessages (senderID, recipientID, title, body, time)
+                  values ('vmsroot', '$to', '$title', '$body', '$time')";
+        echo $query;
+        $result = mysqli_query($connection, $query);
+    }
+    mysqli_close($connection);    
+    return true;
+}
+
+function message_all_users($from, $title, $body) {
+    $time = date('Y-m-d-H:i');
+    $query = "select id from dbPersons where id!='$from'";
+    echo $query;
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    $rows = mysqli_fetch_all($result, MYSQLI_NUM);
+    foreach ($rows as $row) {
+        $to = $row[0];
+        $query = "insert into dbMessages (senderID, recipientID, title, body, time)
+                  values ('$from', '$to', '$title', '$body', '$time')";
+        echo $query;
+        $result = mysqli_query($connection, $query);
+    }
+    mysqli_close($connection);    
+    return true;
+}

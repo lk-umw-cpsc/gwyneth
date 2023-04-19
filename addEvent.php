@@ -54,6 +54,13 @@
                 echo "Oopsy!";
                 die();
             }
+            require_once('include/output.php');
+            $name = $args['name'];
+            $startTime = time24hto12h($startTime);
+            $endTime = time24hto12h($endTime);
+            $date = date('l, F j, Y', strtotime($date));
+            require_once('database/dbMessages.php');
+            system_message_all_users_except($userID, "A new event was created!", "Exciting news!\r\n\r\nThe [$name](event: $id) event from $startTime to $endTime on $date was added!\r\nSign up today!");
             header("Location: event.php?id=$id&createSuccess");
             die();
         }

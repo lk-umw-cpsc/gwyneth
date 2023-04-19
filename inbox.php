@@ -28,7 +28,7 @@
         <?php require_once('header.php') ?>
         <h1>Inbox</h1>
         <main class="general">
-            <h2>Your Messages</h2>
+            <h2>Your Notifications</h2>
             <?php 
                 require_once('database/dbMessages.php');
                 $messages = get_user_messages($userID);
@@ -82,7 +82,7 @@
             <?php else: ?>
                 <p class="no-messages standout">You currently have no unread messages.</p>
             <?php endif ?>
-            <button>Compose New Message</button>
+            <!-- <button>Compose New Message</button> -->
             <a class="button cancel" href="index.php">Return to Dashboard</a>
         </main>
     </body>

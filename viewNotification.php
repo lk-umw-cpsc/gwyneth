@@ -37,13 +37,13 @@
 <html>
     <head>
         <?php require_once('universal.inc') ?>
-        <title>Gwyneth's Gift VMS | View Message</title>
+        <title>Gwyneth's Gift VMS | View Notification</title>
         <link rel="stylesheet" href="css/messages.css"></link>
         <script src="js/messages.js"></script>
     </head>
     <body>
         <?php require_once('header.php') ?>
-        <h1>View Message</h1>
+        <h1>View Notification</h1>
         <main class="message">
             <?php 
                 require_once('database/dbPersons.php');

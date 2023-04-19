@@ -131,7 +131,15 @@
                 }
                 $volunteerID = $args['selected_id'];
                 update_event_volunteer_list($eventID, $volunteerID);
-            // Check if GET request from user is from an admin/super admin
+                require_once('database/dbMessages.php');
+                require_once('include/output.php');
+                $event = fetch_event_by_id($eventID);
+                $eventName = $event['name'];
+                $eventDate = date('l, F j, Y', strtotime($event['date']));
+                $eventStart = time24hto12h($event['startTime']);
+                $eventEnd = time24hto12h($event['endTime']);
+                system_message_all_admins("$volunteerID signed up for an event!", "Exciting news!\r\n\r\n$volunteerID signed up for the [$eventName](event: $eventID) event from $eventStart to $eventEnd on $eventDate.");
+                // Check if GET request from user is from an admin/super admin
             // (Only admins and super admins can add another user)
             } else if ($request_type == 'add another' && $access_level > 1) {
                 $volunteerID = strtolower($args['selected_id']);
