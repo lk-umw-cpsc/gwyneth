@@ -57,3 +57,8 @@ main.message {
     width: 100%;
     gap: .5rem;
 }
+
+p.no-messages {
+    text-align: center;
+    padding: 2rem;
+}
