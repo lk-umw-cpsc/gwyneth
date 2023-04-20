@@ -35,7 +35,8 @@
             }
             @media only screen and (min-width: 1024px) {
                 .report_select {
-                    width: 40%;
+                    /* width: 40%; */
+                    width: 35rem;
             }
             main.report {
                 display: flex;
