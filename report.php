@@ -125,7 +125,7 @@
                         }
                }
 	    	else {
-			header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status");
+			echo '<a href="/gwyneth/reportsPage.php?report_type='.$report.'&date_from='.$dFrom.'&date_to='.$dTo.'&lname_start='.$lastFrom.'&lname_end='.$lastTo.'&name='.$name.'&statusFilter='.$status.'"</a>';
 	    	}
 	    } 
             // $alphabet = range('a', 'z');

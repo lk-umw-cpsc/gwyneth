@@ -35,9 +35,13 @@
   
   if($dateFrom != NULL && $dateTo == NULL)
     $dateTo = $today;
+  if($dateFrom == NULL && $dateTo != NULL)
+    $dateFrom = date('Y-m-d', strtotime(' - 1 year'));
 
   if($lastFrom != NULL && $lastTo == NULL)
 	$lastTo = 'Z';
+  if($lastFrom == NULL && $lastTo != NULL)
+	$lastFrom = 'A';
   
   // Is user authorized to view this page?
   if ($accessLevel < 2) {
@@ -58,7 +62,6 @@
       return $rangArray;
     }
 
-  require_once('header.php')
 
 ?>
 <!DOCTYPE html>
@@ -148,6 +151,7 @@
 
     </head>
     <body>
+  	<?php require_once('header.php') ?>
         <h1>Report Result</h1>
         <main class="report">
 	   <div class="intro">
@@ -269,9 +273,11 @@
             $con=connect();
             $type1 = "volunteer";
             if($stats!="All"){
-                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats' ORDER BY last_name, first_name";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'
+			ORDER BY dbPersons.first_name, dbPersons.last_name";
             }else{
-                $query = "SELECT * FROM dbPersons WHERE type='$type1' ORDER BY last_name, first_name";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1'
+			ORDER BY dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query);
             $totHours = array();
@@ -733,14 +739,13 @@
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats' AND dbEvents.date<= '$today'
                 GROUP BY dbEvents.name
-		        ORDER BY dbEvents.date desc";
+		ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbEvents.date <= '$today'
-                GROUP BY dbEvents.name
-		        ORDER BY dbEvents.date desc";
+		ORDER BY dbEvents.date desc";
             }
             $theEventHrs = get_events_attended_by($indivID);
 	        $result = mysqli_query($con,$query);
