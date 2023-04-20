@@ -21,7 +21,6 @@ tr.message:hover {
 .message-body {
     border: 1px solid var(--message-body-border-color);
     border-radius: 1rem;
-    padding: 1rem 1rem 1rem 2rem;
     padding: 2rem;
 }
 
