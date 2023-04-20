@@ -62,7 +62,6 @@
       return $rangArray;
     }
 
-  require_once('header.php')
 
 ?>
 <!DOCTYPE html>
@@ -145,6 +144,7 @@
 
     </head>
     <body>
+  	<?php require_once('header.php') ?>
         <h1>Report Result</h1>
         <main class="report">
 	   <div class="intro">
@@ -730,7 +730,7 @@
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
                 WHERE dbPersons.id ='$indivID' AND dbPersons.status='$stats' AND dbEvents.date<= '$today'
                 GROUP BY dbEvents.name
-		        ORDER BY dbEvents.date desc";
+		ORDER BY dbEvents.date desc";
             }else{
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
