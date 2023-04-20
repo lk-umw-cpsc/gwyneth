@@ -117,10 +117,10 @@
                 table {
                     width: 100%;
                 }
-            }
 
-            a {
-                color: inherit;
+                a {
+                    color: black;
+                }
             }
 
             .theB{
@@ -276,7 +276,7 @@
                 <button class = "theB">Home Page</button>
                 </a>
 	</div>
-
+        <div class="table-wrapper">
         <?php 
         
         // view General volunteer report with all date range and all name range
@@ -1097,6 +1097,7 @@
 
         </tbody>
         </table>
+        </div>
         <div class="center_b">
 	    <a href="http://localhost/gwyneth/report.php">
             <button class = "theB">New Report</button>
