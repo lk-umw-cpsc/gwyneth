@@ -92,9 +92,27 @@
             }
           
             tr:nth-child(even) {
-                background-color: #98989e;
-                color:var(--button-font-color);
+                background-color: #f0f0f0;
+                /* color:var(--button-font-color); */
 		
+            }
+
+            @media print {
+                tr:nth-child(even) {
+                    background-color: white;
+                }
+
+                button, header {
+                    display: none;
+                }
+
+                :root {
+                    font-size: 10pt;
+                }
+
+                label {
+                    color: black;
+                }
             }
 
             a {
