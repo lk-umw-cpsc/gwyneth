@@ -1099,10 +1099,10 @@
         </table>
         </div>
         <div class="center_b">
-	    <a href="http://localhost/gwyneth/report.php">
+	    <a href="report.php">
             <button class = "theB">New Report</button>
             </a>
-	    <a href="http://localhost/gwyneth/index.php">
+	    <a href="index.php">
             <button class = "theB">Home Page</button>
         </a>
         </div>
