@@ -113,6 +113,10 @@
                 label {
                     color: black;
                 }
+
+                table {
+                    width: 100%;
+                }
             }
 
             a {
