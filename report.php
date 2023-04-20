@@ -128,7 +128,7 @@
 	    	else {
 			// header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status");
                 // NOT IDEAL. Can be broken by browsers with JS disabled.
-                echo "<script>window.location.replace('reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status');</script>";
+                echo "<script>window.location.href = 'reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status';</script>";
 	    	}
 	    } 
             // $alphabet = range('a', 'z');
