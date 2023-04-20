@@ -820,7 +820,7 @@ function find_user_names($name) {
                 return $sum; 
             }
             if($type == "general_volunteer_report" ||$type == "total_vol_hours" && $dateFrom && $dateTo && $lastFrom == NULL  && $lastTo == NULL){
-                $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
+                $query = $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
                 ORDER BY Dur";
@@ -842,30 +842,30 @@ function find_user_names($name) {
                     foreach($totHours as $hrs){
                         $sum += $hrs;
                     }
-                    }catch (TypeError $e) {
+                }catch (TypeError $e) {
                     // Code to handle the exception or error goes here
                     echo "No Results found!"; 
                 }
                 return $sum;
             }
-            if($type == "general_volunteer_report" || $type == "total_vol_hours" && $dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo){
-                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'";
+            if($type == "general_volunteer_report"  && $dateFrom == NULL && $dateTo ==NULL && $lastFrom && $lastTo){
+                $query = "SELECT * FROM dbPersons WHERE dbPersons.status='$stats'";
                 $result = mysqli_query($con,$query);
                 $nameRange = range($lastFrom,$lastTo);
                 $totHours = array();
-            while($row = mysqli_fetch_assoc($result)){
-                foreach ($nameRange as $a){
-                    if($row['last_name'][0] == $a){
-                        $hours = get_hours_volunteered_by($row['id']);   
-                        $totHours[] = $hours;
+                while($row = mysqli_fetch_assoc($result)){
+                    foreach ($nameRange as $a){
+                        if($row['last_name'][0] == $a){
+                            $hours = get_hours_volunteered_by($row['id']);   
+                            $totHours[] = $hours;
+                        }
                     }
                 }
-            }
-            $sum = 0;
-            foreach($totHours as $hrs){
-                $sum += $hrs;
-            }
-            return $sum;
+                $sum = 0;
+                foreach($totHours as $hrs){
+                    $sum += $hrs;
+                }
+                return $sum;
             }
     }
 
