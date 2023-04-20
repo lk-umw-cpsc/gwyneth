@@ -169,6 +169,9 @@
                     align-items: center;
                 }
             }
+        footer {
+            margin-bottom: 2rem;
+        }
     </style>
 
     </head>
