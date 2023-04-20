@@ -35,7 +35,7 @@
             }
             @media only screen and (min-width: 1024px) {
                 .report_select {
-                    width: 48%;
+                    width: 40%;
             }
             main.report {
                 display: flex;
@@ -125,7 +125,7 @@
                         }
                }
 	    	else {
-			echo '<a href="/gwyneth/reportsPage.php?report_type='.$report.'&date_from='.$dFrom.'&date_to='.$dTo.'&lname_start='.$lastFrom.'&lname_end='.$lastTo.'&name='.$name.'&statusFilter='.$status.'"</a>';
+			header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status");
 	    	}
 	    } 
             // $alphabet = range('a', 'z');
