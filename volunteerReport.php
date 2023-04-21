@@ -61,7 +61,7 @@
                     <thead>
                         <tr>
                             <th>Date</th>
-                            <th>Name</th>
+                            <th>Event</th>
                             <th>Location</th>
                             <th class="align-right">Hours</th>
                         </tr>

@@ -14,7 +14,14 @@ function calculateHourDuration($start, $end) {
 
     $hours = $endHours - $startHours;
     $minutes = $endMinutes - $startMinutes;
-    return $hours + ($minutes / 60.0);
+    if ($minutes < 0) {
+	$hours--;
+	$minutes += 60;
+    }
+    if ($minutes > 0)
+  	return number_format(($hours + ($minutes / 60.0)), 1, '.', '');
+    else
+  	return $hours + ($minutes / 60.0);
 }
 
 ?>
