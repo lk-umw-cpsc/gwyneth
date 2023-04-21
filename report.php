@@ -35,7 +35,8 @@
             }
             @media only screen and (min-width: 1024px) {
                 .report_select {
-                    width: 40%;
+                    /* width: 40%; */
+                    width: 35rem;
             }
             main.report {
                 display: flex;
@@ -50,6 +51,14 @@
           	display: flex;
             }
 	    }
+	    .hide {
+  		display: none;
+	    }
+
+	    .myDIV:hover + .hide {
+		display: block;
+  		color: red;
+	    }
         </style>
     </head>
     <body>
@@ -58,14 +67,27 @@
 
     <main class="report">
 	<?php
-	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) && isset($_POST["report_type"]) && isset($_POST["date_from"]) && isset($_POST["date_to"]) && isset($_POST['lname_start']) && isset($_POST['lname_end']) && isset($_POST['name'])) {
+	    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit_click"]) 
+        && isset($_POST["report_type"]) && isset($_POST["date_from"]) && 
+        isset($_POST["date_to"]) && isset($_POST['lname_start']) && isset($_POST['lname_end']) 
+        && isset($_POST['name']) && isset($_POST['statusFilter'])) {
 		$args = sanitize($_POST);
 		$report = $args['report_type'];
 		$name = $args['name'];
+		
 		$dFrom = $_POST['date_from'];
-                $dTo = $_POST['date_to'];
-                $lastFrom = $_POST['lname_start'];
-                $lastTo = $_POST['lname_end'];
+        	$dTo = $_POST['date_to'];
+		if ($dTo > $dFrom) {
+		    echo "<b>Please enter a date after the Date Range Start.</b><br>";	
+		}
+        	$lastFrom = $_POST['lname_start'];
+        	$lastTo = $_POST['lname_end'];
+		if (strcmp(strtoupper($lastTo),strtoupper($lastFrom)) > 0) {
+		    echo "<b>Please enter a letter after the Last Name Range Start.</b><br>";
+		}
+
+        	$status = $_POST['statusFilter'];
+		
 		if ($report=="indiv_vol_hours" && $name == NULL) {
 			echo "<b>Please enter a volunteer's first and/or last name.</b><br>";
 		}
@@ -104,7 +126,9 @@
                         }
                }
 	    	else {
-			header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name");
+			// header("Location: /gwyneth/reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status");
+                // NOT IDEAL. Can be broken by browsers with JS disabled.
+                echo "<script>window.location.href = 'reportsPage.php?report_type=$report&date_from=$dFrom&date_to=$dTo&lname_start=$lastFrom&lname_end=$lastTo&name=$name&statusFilter=$status';</script>";
 	    	}
 	    } 
             // $alphabet = range('a', 'z');
@@ -161,7 +185,7 @@
 	</div>
 	</div>
 	<div>
-	    <label for="name">Name</label>
+	    <label for="name">Name</label> <span><i><font size="3">*Individual Hours Report Only</font></i></span>
             <input type="text" id="name" name="name" value="" placeholder="Enter a volunteer's first and/or last name">
 	</div>
 
