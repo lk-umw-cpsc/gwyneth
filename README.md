@@ -1,94 +1,35 @@
-**Homebase is a web-based application that provides database and scheduling support
-for Gwyneth's Gift Foundation, a local non-profit in Fredericksburg, VA.**
+# Gwyneth's Gift Volunteer Management System (VMS)
+## Purpose
+This project is the result of two semesters' worth of collaboration among UMW students. The goal of the project was to create a web application that the Gwyneth's Gift organization could utlize to make managing volunteers and organizing events easier. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system, and basic notification system.
 
-**Credits**: Homebase was originally developed in 2008 by Oliver Radwan, Maxwell Palmer, Nolan
-McNair, Taylor Talmage, and Allen Tucker for the Ronald McDonald Houses in Maineand Rhode
-Island. Since then, it has been significantly upgraded by other student teams and is
-currently maintained by NPFI (https://npfi.org). The version of Homebase contained within
-this repository was built upon the NPFI legacy code, and its development was catered to the
-needs of Gwyneth's Gift Foundation staff members.
+## Authors
+The VMS is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maineand Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. A major overhaul to the existing system took place this semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains.
 
-**License**: GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
+Modifications to the original Homebase code were made by the previous semester's group of students. That team consisted of TEAM MEMBERS LIST HERE.
 
-**Installation**: Homebase runs on an Apache/MySQL/PHP MAMP-server. For details on
-installing and setting up a server for the project, visit the original Wiki
-at https://github.com/megandalster/homebasedemo2017/wiki/Setting-Up-a-MAMP-Server.
+The major overhaul took place in the Spring 2023 semester. This team consisted of Lauren Knight, Zack Burnley, Matt Nguyen, Rishi Shankar, Alip Yalikun, and Tamra Arant. Every page and feature of the app was changed by this team.
 
-Be sure your MAMP-server is running before installing Homebase. Also, be sure you
-have your GitHub account ID and token. To obtain a GitHub token, you will need to
-verify your email. Complete the following steps:
+## License
+The project remains under the GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
 
-  1) Log into GitHub using your account ID and password.
+## "localhost" Installation
+Below are the steps required to run the project on your local machine for testing purposes.
+1. A LIST WILL GO HERE
 
-  2) In the upper-right corner of any page, click your profile photo, then click Settings.
+## SiteGround Dashboard
+Below are the steps needed to access the project's SiteGround dashboard, as well as some useful details about how to use SiteGround.
 
-  3) In the "Access" section of the sidebar, click:\
-     • Emails. (if it does not say *unverified*, then you have already verified your email)\
-     • Under your email address, click Resend verification email.\
-     • GitHub will send you an email with a link in it. After you click that link, you'll be
-       taken to your GitHub dashboard and see a confirmation banner.
+## Remoting into SiteGround via SSH
+Below are the steps needed to gain terminal access to the SiteGround virtual machine.
+1. STEPS HERE
 
-  4) In the upper-right corner of any page, click your profile photo, then click Settings.\
-     • In the left sidebar, click Developer settings.\
-     • Now in the left sidebar, click Personal access tokens.
-
-  5) Click Generate new token.\
-     • Give your token a descriptive name.\
-     • Select the Expiration drop-down menu, and click "no expiration date".\
-     • Select the scopes, or permissions, you'd like to grant this token.
-       (To use your token to access repositories from the command line, select repo.)
-
-  6) Click Generate token. Be sure to save a copy of your GitHub token in a safe place. 
-     You will be using it often whenever you commit code to your team's repository.
-     
-Now, to install Homebase:
-
-  1) Download the database file *homebasedb.sql* located in this repository's sql folder.\
-     • Open the file on GitHub and select the **Raw** button.\
-     • When the file is opened, select Ctrl-S on keyboard and select *Save as* to save the file locally.
-
-  3) On your phpmyadmin page, create a MySQL database "homebasedb" on your server's\
-     localhost with user = password = "homebasedb".\
-     • Select User Accounts --> New User.\
-     • Fill in the boxes as shown. (set password = homebasedb)
-
-     ![img1](./images/readme1.png)
-
-     • Scroll to the bottom and hit **Go**.\
-     • Your new database "homebasedb" should now appear in the list of databases on the left of your phpmyadmin page.
-
-  4) On your phpmyadmin page, import your downloaded database *homebasedb.sql* into your newly created database with the same name.\
-     • Select "homebasedb" on the list of databases on the left.\
-     • Select Import from the top menu, and choose the file homebasedb.sql from your Downloads as shown below:
-
-     ![img2](./images/readme2.png)
-
-     • Scroll to the bottom and hit **Go**.
-
-  5) To set up for code sharing with your team, one member should mirror the github repository *jbbuechler/GwynethsGift* into your team's own github repository, *yourgithubaccount/yourteamsrepo*.\
-     • Log into *yourgithubaccount*.\
-     • On github, create or access the blank repository *yourteamsrepo*.\
-     • In a terminal window, execute the following commands:
-     > ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
-       ‣git clone https://github.com/jbbuechler/GwynethsGift \
-       ‣cd GwynethsGift\
-       ‣git push --mirror https://github.com/yourgithubaccount/yourteamsrepo \
-       (You will need to enter your GitHub account ID and token here, not your password.)
-
-  6) Each team member should then clone this mirror into their own local directory.\
-     • In a terminal window, execute the following commands:
-     > ‣cd /Applications/MAMP/htdocs (on Windows, it's c:\MAMP\htdocs)\
-       ‣git clone https://github.com/yourgithubaccount/yourteamsrepo
-
-  7) Each team member can then point their browser to http://localhost/yourteamsrepo/index.php.
-     You should see the following Homebase login screen:
-
-     ![img3](./images/readme3.png)
-     
-  8) Login with Username = Password = Admin7037806282 to get full administrative access to Homebase on your server.
-
-**Usage**: Homebase can run stand-alone on a MAMP server such as this one, or it can be embedded in a Web page inside an "iFrame" such as the one shown at https://npfi.org/homebase-demo/.
-
-     
-
-     
+## Potential Improvements
+Below is a list of improvements that could be made to the system in subsequent semesters.
+* The system could generate emails and send them to users (would require access to an @gwynethsgift.org email address)
+* The notification system could be turned into a full-fledged messaging system
+  * The existing dbMessages table is set up to allow this
+* Reports
+  * Additional reports could be added
+  * Visual components could be added (graphs)
+  * Client originally requested a reports dashboard with at-a-glance information available
+* 
