@@ -41,7 +41,7 @@ Below is an in-depth list of features that were implemented within the system
   * Assign Volunteer to event (Admin/SuperAdmin only)
   * Attach event training media (links, pictures, videos) (Admin/SuperAdmin only)
   * Attach post-event media (links, pictures, videos) (Admin/SuperAdmin only)
-  * View Event Roster (Admin/SuperAdmin only)
+  * View Event Roster (Admin/SuperAdmin only) (print-friendly)
   * Modify event details (Admin/SuperAdmin only)
   * Create new event listing
   * Delete event
