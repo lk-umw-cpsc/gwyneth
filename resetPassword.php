@@ -36,7 +36,8 @@
         $errors = 'This form cannot be used to reset the root user password';
     } else if ($resetID == $userID) {
         $errors = 'This form cannot be used to reset your own password';
-    } else if ($targetUser->get_access_level() >= $accessLevel) {
+    } else if ($accessLevel == 2 && $targetUser->get_access_level() > 1) {
+        // Admins (AL2) can only reset the passwords of standard user accounts (AL1)
         $errors = "You do not have permission to modify this user's password";
     }
     $passwordReset = false;
