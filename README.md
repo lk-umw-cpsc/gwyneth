@@ -9,8 +9,8 @@ Modifications to the original Homebase code were made by the previous semester's
 
 The major overhaul took place in the Spring 2023 semester. This team consisted of Lauren Knight, Zack Burnley, Matt Nguyen, Rishi Shankar, Alip Yalikun, and Tamra Arant. Every page and feature of the app was changed by this team.
 
-## User types
-There are three types of users within the VMS.
+## User Types
+There are three types of users (also referred to as 'roles') within the VMS.
 * Volunteers
 * Admins
 * SuperAdmins
