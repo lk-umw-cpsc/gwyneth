@@ -809,11 +809,17 @@ function find_user_names($name) {
         return $hours;
     }
 
-    function get_event_vol_hours_by($personID) {
-        $events = get_events_attended_by($personID);
-        foreach ($events as $event)
-            return $event['duration'];	
+    function get_hours_volunteered_by_and_date($personID,$fromDate,$toDate) {
+        $events = get_events_attended_by_and_date($personID,$fromDate,$toDate);
+        $hours = 0;
+        foreach ($events as $event) {
+            $duration = $event['duration'];
+            if ($duration > 0) {
+                $hours += $duration;
+            }
         }
+        return $hours;
+    }
 
     function get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo){
         $con = connect();

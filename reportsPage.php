@@ -845,7 +845,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_hours_volunteered_by($indivID) ."</label></td>
+                <td bgcolor='white'><label>". get_hours_volunteered_by_and_date($indivID,$dateFrom,$dateTo) ."</label></td>
                 </tr>";
         }
 
