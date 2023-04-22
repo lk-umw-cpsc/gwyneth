@@ -46,7 +46,7 @@ Below is an in-depth list of features that were implemented within the system
   * Create new event listing
   * Delete event
   * Event search
-* Reports (Admin/SuperAdmin only)
+* Reports (Admin/SuperAdmin only) (print-friendly)
   * General Volunteer Report
   * Total Volunteer Hours
   * Top Performers
