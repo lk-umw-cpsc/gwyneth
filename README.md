@@ -95,3 +95,6 @@ Below is a list of improvements that could be made to the system in subsequent s
 
 ## License
 The project remains under the GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
+
+## Acknowledgements
+Thank you to Dr. Polack and Veronica for the chance to work on this exciting project. A lot of love went into making it!
