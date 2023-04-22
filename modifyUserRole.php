@@ -38,7 +38,7 @@
         }
         if (empty($new_role)){
             // echo "No new role selected";
-        }else{
+        }else if ($accessLevel >= 3) {
             update_type($id, $new_role);
             $typeChange = true;
             // echo "<meta http-equiv='refresh' content='0'>";
@@ -113,8 +113,12 @@
     <body>
         <?php require_once('header.php') ?>
         <h1>Modify User Access</h1>
-        <main class="user-role"> 
-            <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role and Status</h2>
+        <main class="user-role">
+            <?php if ($accessLevel == 3): ?>
+                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Role and Status</h2>
+            <?php else: ?>
+                <h2>Modify <?php echo $thePerson->get_first_name() . " " . $thePerson->get_last_name(); ?>'s Status</h2>
+            <?php endif ?>
             <form class="modUser" method="post">
                 <?php if (isset($typeChange) || isset($notesChange) || isset($statusChange)): ?>
                     <div class="happy-toast">User's access is updated.</div>
@@ -122,22 +126,21 @@
                     <?php
                         // Provides drop down of the role types to select and change the role
 			//other than the person's current role type is displayed
-            if ($accessLevel == 3)
+            if ($accessLevel == 3) {
 				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin', 'superadmin' => 'SuperAdmin');
-			else
-				$roles = array('volunteer' => 'Volunteer', 'admin' => 'Admin');
-                        echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
-                        // echo '<option value="" SELECTED></option>' ;
-                        $currentRole = $thePerson->get_type()[0];
-                        foreach ($roles as $role => $typename) {
-                            if($role != $currentRole) {
-                                echo '<option value="'. $role .'">'. $typename .'</option>';
-                            } else {
-                                echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
-                            }
-                        }
-                        echo '</select>';
-                    ?>
+                echo '<label for="role">Change Role</label><select id="role" class="form-select-sm" name="s_role">' ;
+                // echo '<option value="" SELECTED></option>' ;
+                $currentRole = $thePerson->get_type()[0];
+                foreach ($roles as $role => $typename) {
+                    if($role != $currentRole) {
+                        echo '<option value="'. $role .'">'. $typename .'</option>';
+                    } else {
+                        echo '<option value="'. $role .'" selected>'. $typename .' (current)</option>';
+                    }
+                }
+                echo '</select>';
+            }
+        ?>
 		<label>Change Status</label>
 		<div class="form-row">
                 <?php

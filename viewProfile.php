@@ -136,8 +136,12 @@
                         echo $status;
                     }
                 ?></p>
-                <?php if ($id != $userID): ?>
-                    <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Role/Status</a>
+                <?php if ($id != $userID && $accessLevel >= 2): ?>
+                    <?php if ($accessLevel >= 3): ?>
+                        <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Role/Status</a>
+                    <?php else: ?>
+                        <a href="modifyUserRole.php?id=<?php echo $id ?>" class="button">Change Status</a>
+                    <?php endif ?>
                 <?php endif ?>
             </fieldset>
             <fieldset>
