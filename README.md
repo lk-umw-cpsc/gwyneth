@@ -69,10 +69,13 @@ Several types of diagrams describing the design of the VMS, including sequence d
 Below are the steps required to run the project on your local machine for testing purposes.
 1. A LIST WILL GO HERE
 
-## SiteGround Dashboard
+## Platform
+Dr. Polack chose SiteGround as the platform on which to host the project. Below are some guides on how to manage the live project.
+
+### SiteGround Dashboard
 Below are the steps needed to access the project's SiteGround dashboard, as well as some useful details about how to use SiteGround.
 
-## Remoting into SiteGround via SSH
+### Remoting into SiteGround via SSH
 Below are the steps needed to gain terminal access to the SiteGround virtual machine.
 1. STEPS HERE
 
