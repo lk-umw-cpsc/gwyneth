@@ -40,6 +40,7 @@ Below is an in-depth list of features that were implemented within the system
 * Events and Event Management
   * Calendar with event listings
   * Calendar day view with event listings
+  * Event search
   * Event details page
   * Volunteer event sign up
   * Assign Volunteer to event (Admin/SuperAdmin only)
@@ -47,9 +48,8 @@ Below is an in-depth list of features that were implemented within the system
   * Attach post-event media (links, pictures, videos) (Admin/SuperAdmin only)
   * View Event Roster (Admin/SuperAdmin only) (print-friendly)
   * Modify event details (Admin/SuperAdmin only)
-  * Create new event listing
-  * Delete event
-  * Event search
+  * Create new event listing (Admin/SuperAdmin only)
+  * Delete event (Admin/SuperAdmin only)
 * Reports (Admin/SuperAdmin only) (print-friendly)
   * General Volunteer Report
   * Total Volunteer Hours
