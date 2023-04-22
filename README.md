@@ -21,6 +21,8 @@ Admin and SuperAdmins have the ability to manage users, generate reports, assign
 
 Only a SuperAdmin can modify a user's access level.
 
+Users of any type can have their status changed to Inactive to prevent them from signing up for events. Inactive users will also stop appearing in the list of volunteers available to be assigned. Additionally, the reports page allows staff members to filter out inactive users.
+
 There is also a root admin account with username 'vmsroot'. The default password for this account is 'vmsroot', but it must be changed upon initial log in. This account has hardcoded SuperAdmin privileges but cannot be assigned to events and does not have a user profile. It is crucial that this account be given a strong password and that the password be easily remembered, as it cannot easily be reset. This account should be used for system administration purposes only.
 
 ## Features
