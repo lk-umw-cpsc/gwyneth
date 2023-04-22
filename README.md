@@ -21,7 +21,7 @@ Admin and SuperAdmins have the ability to manage users, generate reports, assign
 
 Only a SuperAdmin can modify a user's access level.
 
-There is also a root admin account with username 'vmsroot'. The default password for this account is 'vmsroot', but it must be changed upon initial log in. This account has hardcoded SuperAdmin privileges but cannot be assigned to events and does not have any user details. It is crucial that this account be given a strong password and that the password be easily remembered, as it cannot easily be reset.
+There is also a root admin account with username 'vmsroot'. The default password for this account is 'vmsroot', but it must be changed upon initial log in. This account has hardcoded SuperAdmin privileges but cannot be assigned to events and does not have a user profile. It is crucial that this account be given a strong password and that the password be easily remembered, as it cannot easily be reset. This account should be used for system administration purposes only.
 
 ## Features
 Below is an in-depth list of features that were implemented within the system
