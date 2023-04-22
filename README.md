@@ -62,6 +62,9 @@ Below is an in-depth list of features that were implemented within the system
 ## Video Tour of Features
 A video demo of the system's features is available as an unlisted YouTube video. Please contact Dr. Polack for access to the video.
 
+## Design Documentation
+Several types of diagrams describing the design of the VMS, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
+
 ## License
 The project remains under the GNU General Public License v3.0 (https://www.gnu.org/licenses/gpl.txt)
 
