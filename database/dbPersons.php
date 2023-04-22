@@ -751,6 +751,52 @@ function find_user_names($name) {
         }
     }
 
+    function get_events_attended_by_and_date($personID,$fromDate,$toDate) {
+        $today = date("Y-m-d");
+        $query = "select * from dbEventVolunteers, dbEvents
+                  where userID='$personID' and eventID=id
+                  and date<='$toDate' and date >= '$fromDate'
+                  order by date desc";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if ($result) {
+            require_once('include/time.php');
+            $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            mysqli_close($connection);
+            foreach ($rows as &$row) {
+                $row['duration'] = calculateHourDuration($row['startTime'], $row['endTime']);
+            }
+            unset($row); // suggested for security
+            return $rows;
+        } else {
+            mysqli_close($connection);
+            return [];
+        }
+    }
+
+    function get_events_attended_by_desc($personID) {
+        $today = date("Y-m-d");
+        $query = "select * from dbEventVolunteers, dbEvents
+                  where userID='$personID' and eventID=id
+                  and date<='$today'
+                  order by date desc";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if ($result) {
+            require_once('include/time.php');
+            $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            mysqli_close($connection);
+            foreach ($rows as &$row) {
+                $row['duration'] = calculateHourDuration($row['startTime'], $row['endTime']);
+            }
+            unset($row); // suggested for security
+            return $rows;
+        } else {
+            mysqli_close($connection);
+            return [];
+        }
+    }
+
     function get_hours_volunteered_by($personID) {
         $events = get_events_attended_by($personID);
         $hours = 0;

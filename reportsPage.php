@@ -772,9 +772,9 @@
                 WHERE dbPersons.id ='$indivID' AND dbEvents.date <= '$today'
 		ORDER BY dbEvents.date desc";
             }
-            $theEventHrs = get_events_attended_by($indivID);
-	        $result = mysqli_query($con,$query);
-            while($row = mysqli_fetch_assoc($result)) {
+            $theEventHrs = get_events_attended_by_desc($indivID);
+	    //    $result = mysqli_query($con,$query);
+            //while($row = mysqli_fetch_assoc($result)) {
                 foreach ($theEventHrs as $event) {
 		        echo"<tr>
                 <td>" . $event['name'] . "</td>
@@ -784,7 +784,7 @@
                 </tr>";
 		}
                //$hours = get_hours_volunteered_by($row['id']);
-            }
+            //}
 		echo"
 		<tr>
         <td style='border: none;' bgcolor='white'></td>
@@ -822,35 +822,31 @@
                 WHERE dbPersons.id ='$indivID' AND date > '$dateFrom' AND date < '$dateTo'
                 ORDER BY dbEvents.date desc";
             }    
-            $result = mysqli_query($con,$query);
-            try {
+            //$result = mysqli_query($con,$query);
+            
                 // Code that might throw an exception or error goes here
-                $dd = getBetweenDates($dateFrom, $dateTo);
-                $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
-                while($row = mysqli_fetch_assoc($result)){
-		        foreach ($dd as $date) {
-                        if(in_array($date, $dateRange)){
+                //$dd = getBetweenDates($dateFrom, $dateTo);
+                //$dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                //while($row = mysqli_fetch_assoc($result)){
+            	$theEventHrs = get_events_attended_by_and_date($indivID,$dateFrom,$dateTo);
+		foreach ($theEventHrs as $event) {
+                        //if(in_array($date, $dateRange)){
                             echo"<tr>
-                            <td>" . $row['name'] . "</td>
-                            <td>" . $row['location'] . "</td>
-                            <td>" . $row['date'] . "</td>
-                            <td>" . get_event_vol_hours_by($row,['id']) . "</td>
+                            <td>" . $event['name'] . "</td>
+                            <td>" . $event['location'] . "</td>
+                            <td>" . $event['date'] . "</td>
+                            <td>" . $event['duration'] . "</td>
                             </tr>";
-                        }
-                    }
+                        //}
+                }
                    
-		}
-                echo"
+		echo"
                 <tr>
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
                 <td bgcolor='white'><label>". get_hours_volunteered_by($indivID) ."</label></td>
                 </tr>";
-              } catch (TypeError $e) {
-                // Code to handle the exception or error goes here
-                echo "No Results found!"; 
-            }
         }
 
         //No filters on total_vol_hours report
