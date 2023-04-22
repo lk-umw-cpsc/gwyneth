@@ -66,7 +66,7 @@ A video demo of the system's features is available as an unlisted YouTube video.
 Several types of diagrams describing the design of the VMS, including sequence diagrams and use case diagrams, are available. Please contact Dr. Polack for access.
 
 ## "localhost" Installation
-Below are the steps required to run the project on your local machine for testing purposes.
+Below are the steps required to run the project on your local machine for development and/or testing purposes.
 1. A LIST WILL GO HERE
 
 ## Platform
