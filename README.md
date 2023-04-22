@@ -76,6 +76,9 @@ Below are the steps needed to access the project's SiteGround dashboard, as well
 Below are the steps needed to gain terminal access to the SiteGround virtual machine.
 1. STEPS HERE
 
+## External Libraries and APIs
+The only outside library utilized by the VMS is the jQuery library. The version of jQuery used by the system is stored locally within the repo, within the lib folder. jQuery was used to implement form validation and the hiding/showing of certain page elements.
+
 ## Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * The system could generate emails and send them to users (would require access to an @gwynethsgift.org email address)
