@@ -3,7 +3,7 @@
 This project is the result of two semesters' worth of collaboration among UMW students. The goal of the project was to create a web application that the Gwyneth's Gift organization could utlize to make managing volunteers and organizing events easier. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system, and basic notification system.
 
 ## Authors
-The VMS is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maineand Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. A major overhaul to the existing system took place this semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains.
+The VMS is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. A major overhaul to the existing system took place this semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains.
 
 Modifications to the original Homebase code were made by the previous semester's group of students. That team consisted of TEAM MEMBERS LIST HERE.
 
