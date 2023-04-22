@@ -31,6 +31,8 @@ Below is an in-depth list of features that were implemented within the system
   * Change own password
   * View volunteer hours (print-friendly)
   * Modify profile
+  * Modify user status (Admin/SuperAdmin only)
+  * Modify user access level (SuperAdmin only)
   * Reset password (Admin/SuperAdmin only)
   * User search (Admin/SuperAdmin only)
 * Events and Event Management
