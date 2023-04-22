@@ -28,28 +28,28 @@ Below is an in-depth list of features that were implemented within the system
 * User registration and log in
 * Dashboard
 * User Management
-*  Change own password
-*  View volunteer hours (print-friendly)
-*  Modify profile
-*  Reset password (Admin/SuperAdmin only)
-*  User search (Admin/SuperAdmin only)
+  * Change own password
+  * View volunteer hours (print-friendly)
+  * Modify profile
+  * Reset password (Admin/SuperAdmin only)
+  * User search (Admin/SuperAdmin only)
 * Events and Event Management
- * Calendar with event listings
- * Calendar day view with event listings
- * Event details page
- * Volunteer event sign up
- * Assign Volunteer to event (Admin/SuperAdmin only)
- * Attach event training media (links, pictures, videos) (Admin/SuperAdmin only)
- * Attach post-event media (links, pictures, videos) (Admin/SuperAdmin only)
- * View Event Roster (Admin/SuperAdmin only)
- * Modify event details (Admin/SuperAdmin only)
- * Create new event listing
- * Delete event
- * Event search
+  * Calendar with event listings
+  * Calendar day view with event listings
+  * Event details page
+  * Volunteer event sign up
+  * Assign Volunteer to event (Admin/SuperAdmin only)
+  * Attach event training media (links, pictures, videos) (Admin/SuperAdmin only)
+  * Attach post-event media (links, pictures, videos) (Admin/SuperAdmin only)
+  * View Event Roster (Admin/SuperAdmin only)
+  * Modify event details (Admin/SuperAdmin only)
+  * Create new event listing
+  * Delete event
+  * Event search
 * Reports (Admin/SuperAdmin only)
- * General Volunteer Report
- * Total Volunteer Hours
- * Top Performers
+  * General Volunteer Report
+  * Total Volunteer Hours
+  * Top Performers
 
 ## Video Tour of Features
 A video demo of the system's features is available as an unlisted YouTube video. Please contact Dr. Polack for access to the video.
