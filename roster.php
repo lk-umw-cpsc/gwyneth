@@ -58,7 +58,7 @@
     <head>
         <?php require_once('universal.inc') ?>
         <link rel="stylesheet" href="css/roster.css" type="text/css" />
-        <title>Gwyneth's Gift VMS | Template Page</title>
+        <title>Gwyneth's Gift VMS | View Event Roster</title>
     </head>
     <body>
         <?php require_once('header.php') ?>
