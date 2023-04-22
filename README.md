@@ -73,7 +73,10 @@ Below are the steps required to run the project on your local machine for develo
 Dr. Polack chose SiteGround as the platform on which to host the project. Below are some guides on how to manage the live project.
 
 ### SiteGround Dashboard
-Below are the steps needed to access the project's SiteGround dashboard, as well as some useful details about how to use SiteGround.
+Access to the SiteGround Dashboard requires a SiteGround account with access. Access is managed by Dr. Polack.
+
+### Clearing the SiteGround cache
+There may occasionally be a hiccup if the caching system provided by SiteGround decides to cache one of the application's pages in an erroneous way. The cache can be cleared via the Dashboard by navigating to Speed -> Caching on the lefthand side of the control panel, choosing the DYNAMIC CACHE option in the center of the screen, and then clicking the Flush Cache option with a small broom icon under Actions.
 
 ### Remoting into SiteGround via SSH
 Below are the steps needed to gain terminal access to the SiteGround virtual machine.
