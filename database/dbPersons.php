@@ -962,4 +962,20 @@ function find_user_names($name) {
         mysqli_close($con);
         return True;
     }
-?>
+
+    function get_name_from_id($id) {
+        if ($id == 'vmsroot') {
+            return 'System';
+        }
+        $query = "select first_name, last_name from dbPersons
+            where id='$id'";
+        $connection = connect();
+        $result = mysqli_query($connection, $query);
+        if (!$result) {
+            return null;
+        }
+
+        $row = mysqli_fetch_assoc($result);
+        mysqli_close($connection);
+        return $row['first_name'] . ' ' . $row['last_name'];
+    }

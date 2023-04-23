@@ -38,4 +38,18 @@
         return number_format((float)$number, $places, '.', '');
     }
 
-?>
+    function unpackMessageTimestamp($timestamp) {
+        $pieces = explode('-', $timestamp);
+        $year = $pieces[0];
+        $month = $pieces[1];
+        $day = $pieces[2];
+        $time = time24hto12h($pieces[3]);
+        $date = $month . '/' . $day . '/' . $year;
+        return [$date, $time];
+    }
+
+    function prepareMessageBody($body) {
+        $eventLinkPattern = "/\\[([^\\]]+)\\]\\(event: ?(\\d+)\\)/";
+        $body = preg_replace($eventLinkPattern, '<a href="event.php?id=${2}">${1}</a>', $body);
+        return $body;
+    }

@@ -50,6 +50,40 @@
     }
 
     /**
+     * Trims a given input string, then removes any
+     * SQL- or HTML-sensitive characters (', <, etc.)
+     * from the string, then returns the resulting string
+     */
+    function sql_safe_input($connection, $input) {
+        $input = trim($input);
+        // This should be removed, with htmlspecialchars being
+        // called prior to OUTPUT. I will try to change this later.
+        $input = mysqli_real_escape_string($connection, $input);
+        $input = htmlspecialchars($input);
+        return $input;
+    }
+
+    function sql_safe_associative_array($input, $ignoreList=null) {
+        $sanitized = [];
+        $connection = connect();
+        if ($ignoreList) {
+            foreach ($input as $key => $value) {
+                if (in_array($key, $ignoreList)) {
+                    $sanitized[$key] = $value;
+                } else {
+                    $sanitized[$key] = sql_safe_input($connection, $value);
+                }
+            }
+        } else {
+            foreach ($input as $key => $value) {
+                $sanitized[$key] = sql_safe_input($connection, $value);
+            }
+        }
+        mysqli_close($connection);
+        return $sanitized;
+    }
+
+    /**
      * Credit: https://www.codexworld.com/how-to/validate-date-input-string-in-php/
      */
     function validateDate($date, $format = 'Y-m-d'){

@@ -1,0 +1,67 @@
+:root {
+    --unread-message-background: #f1eadf;
+    --message-body-border-color: #ddd;
+}
+
+tr.message {
+    cursor: pointer;
+    transition: filter .3s;
+    background-color: inherit;
+}
+
+tr.message.unread {
+    font-weight: 500;
+    background-color: var(--unread-message-background);
+}
+
+tr.message:hover {
+    filter: brightness(0.85);
+}
+
+.message-body {
+    border: 1px solid var(--message-body-border-color);
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
+.message-body {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
+}
+
+.sender-time-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    gap: .5rem;
+    /* justify-content: space-between; */
+}
+
+@media only screen and (min-width: 1024px) {
+    main.message > * {
+        width: 50rem;
+    }   
+}
+
+@media only screen and (max-width: 700px) {
+    .sender-time-line {
+        flex-direction: column;
+        gap: .5rem;
+        /* align-items: left; */
+        width: 100%;
+    }
+}
+
+main.message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: .5rem;
+}
+
+p.no-messages {
+    text-align: center;
+    padding: 2rem;
+}

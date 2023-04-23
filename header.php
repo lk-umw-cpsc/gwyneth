@@ -52,9 +52,11 @@
         $permission_array['eventsearch.php'] = 1;
         $permission_array['changepassword.php'] = 1;
         $permission_array['editprofile.php'] = 1;
+        $permission_array['inbox.php'] = 1;
         $permission_array['date.php'] = 1;
         $permission_array['event.php'] = 1;
         $permission_array['viewprofile.php'] = 1;
+        $permission_array['viewnotification.php'] = 1;
         $permission_array['volunteerreport.php'] = 1;
         //pages only managers can view
         $permission_array['personsearch.php'] = 2;
