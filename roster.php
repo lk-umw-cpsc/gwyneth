@@ -62,7 +62,9 @@
     </head>
     <body>
         <?php require_once('header.php') ?>
-
+        <span class="logo_print">
+          <img src="images/gwynethsgift.png">
+        </span>
           <?php
             $event_name = $event_info['name'];
             $event_date = date('l, F j, Y', strtotime($event_info['date']));

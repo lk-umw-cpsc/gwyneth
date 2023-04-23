@@ -92,18 +92,34 @@ hr {
     display: none;
 }
 
+.logo_print {
+  display: none;
+}
+
 /* print settings */
 @media print {
 
-  header img[id='menu-toggle'], header ul, button {
+  /*header img[id='menu-toggle'], header ul, button {
     display: none;
+  }*/
+
+  header {
+    visibility: hidden;
   }
 
-  .logo {
+  .logo_print {
+    display: inline;
+    visibility: visible;
     position: absolute;
     top: 0%;
-    left: 5%;
+    left: 0%;
   }
+
+  .logo_print img {
+    max-width: 65%;
+    height: auto;
+  }
+
   hr {
     display: block;
   }
