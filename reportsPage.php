@@ -23,8 +23,11 @@
   require_once('database/dbPersons.php');
   require_once('database/dbEvents.php');
   require_once('include/output.php');
+  
   $get = sanitize($_GET);
   $indivID = @$get['indivID'];
+  $role = @$get['role'];
+  $indivStatus = @$get['status'];
   $type = $get['report_type'];
   $dateFrom = $get['date_from'];
   $dateTo = $get['date_to'];
@@ -244,29 +247,45 @@
                 <label>Volunteer Status:</label>
                 <span>
                     <?php echo '&nbsp&nbsp&nbsp';
-                        if($type == "indiv_vol_hours"){
-                            echo "Not applicable";
-                        }
-                        echo $stats;
+			if ($type == 'indiv_vol_hours')
+				echo $indivStatus;
+			else                        
+				echo $stats;
                     ?>
                 </span>
     </div>
+    <div>
+                <?php if($type == "indiv_vol_hours"): ?>
+                <label>Role:</label>
+                <span>
+                    <?php echo '&nbsp&nbsp&nbsp';
+			$con=connect();
+             		$query = "SELECT dbPersons.type FROM dbPersons WHERE id= '$indivID' ";
+             		$result = mysqli_query($con,$query);
+			$theName = mysqli_fetch_assoc($result);
+			if ($role == 'volunteer')
+				$role = 'Volunteer';
+			elseif ($role == 'admin')
+				$role = 'Admin';
+			elseif ($role == 'superadmin')
+				$role = 'SuperAdmin';	
+			echo $role ?>
+		<?php endif?>
+   </div>
 	<div>   
         <?php
             if($type != "top_perform" ){
                 echo "
                 <label>Total Volunteer Hours: </label>"; 
                 echo '&nbsp&nbsp&nbsp';
-                echo get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo);
+		if ($type != 'indiv_vol_hours')
+                	echo get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo);
+		elseif ($type == 'indiv_vol_hours' && $dateTo == NULL && $dateFrom == NULL)
+			echo get_hours_volunteered_by($indivID);
+		elseif ($type == 'indiv_vol_hours' && $dateTo != NULL && $dateFrom != NULL)
+                        echo get_hours_volunteered_by_and_date($indivID,$dateFrom,$dateTo);
             }
         ?>
-            <span>
-                <?php 
-                    if ($type == "indiv_vol_hours")
-			            echo get_hours_volunteered_by($indivID);
-                   ?>
-            </span>
-        </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
 	</div>
     </main>
@@ -299,7 +318,7 @@
             $type1 = "volunteer";
             if($stats!="All"){
                 $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'
-			ORDER BY dbPersons.first_name, dbPersons.last_name";
+			ORDER BY dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT * FROM dbPersons WHERE type='$type1'
 			ORDER BY dbPersons.last_name, dbPersons.first_name";
@@ -352,13 +371,17 @@
             if($stats != "All"){
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPersons.first_name";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPersons.first_name";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query);
             try {
@@ -420,7 +443,8 @@
             $con=connect();
             $type1 = "volunteer";
             if($stats != "All"){
-                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats' ORDER BY last_name, first_name";
+                $query = "SELECT * FROM dbPersons WHERE type='$type1' AND status='$stats'
+			ORDER BY last_name, first_name";
             }else{
                 $query = "SELECT * FROM dbPersons WHERE type='$type1' ORDER BY last_name, first_name";
             }
@@ -477,13 +501,16 @@
             if($stats != "All"){
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur,dbPersons.last_name, dbPersons.first_name";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur,dbPersons.last_name, dbPersons.first_name";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query); 
             try {
@@ -545,13 +572,17 @@
                 $today = date("Y-m-d");
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$today' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$today' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
                 ORDER BY Dur DESC LIMIT 5";
             }else{
                 $today = date("Y-m-d");
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$today' GROUP BY dbEventVolunteers.userID
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$today' AND dbPersons.type='$type1'
+		GROUP BY dbEventVolunteers.userID
                 ORDER BY Dur DESC LIMIT 5";
             }
             $result = mysqli_query($con,$query);
@@ -591,12 +622,16 @@
             if($stats != "All"){
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
                 ORDER BY Dur DESC LIMIT 5";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$dateTo' GROUP BY dbEventVolunteers.userID
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$dateTo' AND dbPersons.type='$type1'
+		GROUP BY dbEventVolunteers.userID
                 ORDER BY Dur DESC LIMIT 5";
             }
             $result = mysqli_query($con,$query);
@@ -651,13 +686,17 @@
                 $today = date("Y-m-d");
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$today' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$today' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
                 ORDER BY Dur DESC LIMIT 5";
             }else{
                 $today = date("Y-m-d");
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$today' GROUP BY dbEventVolunteers.userID
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$today' AND dbPersons.type='$type1'
+		GROUP BY dbEventVolunteers.userID
                 ORDER BY Dur DESC LIMIT 5";
             }
             $result = mysqli_query($con,$query);
@@ -702,12 +741,16 @@
             if($stats != "All"){
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
                 ORDER BY Dur DESC LIMIT 5";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date<='$dateTo' GROUP BY dbEventVolunteers.userID
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date<='$dateTo' AND dbPersons.type='$type1'
+		GROUP BY dbEventVolunteers.userID
                 ORDER BY Dur DESC LIMIT 5";
             }
             $result = mysqli_query($con,$query);
@@ -757,7 +800,6 @@
             </tr>
             <tbody>";
             $con=connect();
-            $type1 = "volunteer";
             if($stats != "All"){
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
@@ -772,9 +814,9 @@
                 WHERE dbPersons.id ='$indivID' AND dbEvents.date <= '$today'
 		ORDER BY dbEvents.date desc";
             }
-            $theEventHrs = get_events_attended_by($indivID);
-	        $result = mysqli_query($con,$query);
-            while($row = mysqli_fetch_assoc($result)) {
+            $theEventHrs = get_events_attended_by_desc($indivID);
+	    //    $result = mysqli_query($con,$query);
+            //while($row = mysqli_fetch_assoc($result)) {
                 foreach ($theEventHrs as $event) {
 		        echo"<tr>
                 <td>" . $event['name'] . "</td>
@@ -784,7 +826,7 @@
                 </tr>";
 		}
                //$hours = get_hours_volunteered_by($row['id']);
-            }
+            //}
 		echo"
 		<tr>
         <td style='border: none;' bgcolor='white'></td>
@@ -806,7 +848,6 @@
             </tr>
             <tbody>";
             $con=connect();
-            $type1 = "volunteer";
            if($stats != "All"){
                 $query = "SELECT dbPersons.id,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
@@ -822,35 +863,31 @@
                 WHERE dbPersons.id ='$indivID' AND date > '$dateFrom' AND date < '$dateTo'
                 ORDER BY dbEvents.date desc";
             }    
-            $result = mysqli_query($con,$query);
-            try {
+            //$result = mysqli_query($con,$query);
+            
                 // Code that might throw an exception or error goes here
-                $dd = getBetweenDates($dateFrom, $dateTo);
-                $dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
-                while($row = mysqli_fetch_assoc($result)){
-		        foreach ($dd as $date) {
-                        if(in_array($date, $dateRange)){
+                //$dd = getBetweenDates($dateFrom, $dateTo);
+                //$dateRange = @fetch_events_in_date_range_as_array($dateFrom, $dateTo)[0];
+                //while($row = mysqli_fetch_assoc($result)){
+            	$theEventHrs = get_events_attended_by_and_date($indivID,$dateFrom,$dateTo);
+		foreach ($theEventHrs as $event) {
+                        //if(in_array($date, $dateRange)){
                             echo"<tr>
-                            <td>" . $row['name'] . "</td>
-                            <td>" . $row['location'] . "</td>
-                            <td>" . $row['date'] . "</td>
-                            <td>" . get_event_vol_hours_by($row,['id']) . "</td>
+                            <td>" . $event['name'] . "</td>
+                            <td>" . $event['location'] . "</td>
+                            <td>" . $event['date'] . "</td>
+                            <td>" . $event['duration'] . "</td>
                             </tr>";
-                        }
-                    }
+                        //}
+                }
                    
-		}
-                echo"
+		echo"
                 <tr>
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_hours_volunteered_by($indivID) ."</label></td>
+                <td bgcolor='white'><label>". get_hours_volunteered_by_and_date($indivID,$dateFrom,$dateTo) ."</label></td>
                 </tr>";
-              } catch (TypeError $e) {
-                // Code to handle the exception or error goes here
-                echo "No Results found!"; 
-            }
         }
 
         //No filters on total_vol_hours report
@@ -873,19 +910,20 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
+                WHERE dbPersons.status='$stats' AND dbPersons.type='$type1'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		        ORDER BY dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc";
+		ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY  dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc, DURATION desc";
+                WHERE dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name, dbPersons.last_name
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }    
                  $result = mysqli_query($con,$query);
-            try {
+            
 	    while($row = mysqli_fetch_assoc($result)){
             	echo"<tr>
             	<td>" . $row['first_name'] . "</td>
@@ -903,12 +941,8 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
-            } catch (TypeError $e) {
-                // Code to handle the exception or error goes here
-                echo "No Results found!"; 
-            }
 	}
 
         //Date range filter on total_vol_hours report
@@ -929,13 +963,17 @@
             if($stats != "All"){
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query);
             try {
@@ -963,7 +1001,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -989,13 +1027,17 @@
             if($stats != "All"){
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPerson.first_name,dbEvents.name,dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.status='$stats' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPerson.first_name";
             }else{
                 $query = "SELECT *, SUM(HOUR(TIMEDIFF(dbEvents.endTime, dbEvents.startTime))) as Dur
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
-                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id WHERE date >= '$dateFrom' AND date<='$dateTo' GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY Dur, dbPersons.last_name, dbPerson.first_name,dbEvents.name,dbEvents.date desc";
+                JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.type='$type1'
+		GROUP BY dbPersons.first_name,dbPersons.last_name
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPerson.first_name";
             }
             $result = mysqli_query($con,$query);
             try {
@@ -1025,7 +1067,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
               } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -1054,16 +1096,17 @@
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
-                WHERE dbPersons.status='$stats'
+                WHERE dbPersons.status='$stats' AND dbPersons.type='$type1'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-		        ORDER BY  dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc";
+		ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }else{
                 $query = "SELECT dbPersons.id,dbPersons.first_name,dbPersons.last_name,dbEvents.name, dbEvents.location,dbEvents.date,dbEvents.startTime,dbEvents.endTime,
                 (dbEvents.endTime - dbEvents.startTime) AS DURATION
                 FROM dbPersons JOIN dbEventVolunteers ON dbPersons.id = dbEventVolunteers.userID
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
+		WHERE dbPersons.type='$type1'
                 GROUP BY dbPersons.first_name, dbPersons.last_name
-                ORDER BY  dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc, DURATION desc";
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }    
             $result = mysqli_query($con,$query);
             $nameRange = range($lastFrom,$lastTo);
@@ -1088,7 +1131,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
 	}
 
