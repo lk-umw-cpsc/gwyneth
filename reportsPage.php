@@ -278,16 +278,14 @@
                 echo "
                 <label>Total Volunteer Hours: </label>"; 
                 echo '&nbsp&nbsp&nbsp';
-                echo get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo);
+		if ($type != 'indiv_vol_hours')
+                	echo get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo);
+		elseif ($type == 'indiv_vol_hours' && $dateTo == NULL && $dateFrom == NULL)
+			echo get_hours_volunteered_by($indivID);
+		elseif ($type == 'indiv_vol_hours' && $dateTo != NULL && $dateFrom != NULL)
+                        echo get_hours_volunteered_by_and_date($indivID,$dateFrom,$dateTo);
             }
         ?>
-            <span>
-                <?php 
-                    if ($type == "indiv_vol_hours")
-			            echo get_hours_volunteered_by($indivID);
-                   ?>
-            </span>
-        </div>
         <!--- <h3 style="font-weight: bold">Result: <h3> -->
 	</div>
     </main>
