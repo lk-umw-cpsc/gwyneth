@@ -257,7 +257,7 @@
                 echo "
                 <label>Total Volunteer Hours: </label>"; 
                 echo '&nbsp&nbsp&nbsp';
-                echo get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo);
+                echo get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo);
             }
         ?>
             <span>
@@ -881,7 +881,7 @@
                 ORDER BY  dbPersons.last_name, dbPersons.first_name,dbEvents.name,dbEvents.date desc, DURATION desc";
             }    
                  $result = mysqli_query($con,$query);
-            try {
+            
 	    while($row = mysqli_fetch_assoc($result)){
             	echo"<tr>
             	<td>" . $row['first_name'] . "</td>
@@ -899,12 +899,8 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
-            } catch (TypeError $e) {
-                // Code to handle the exception or error goes here
-                echo "No Results found!"; 
-            }
 	}
 
         //Date range filter on total_vol_hours report
@@ -959,7 +955,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
             } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -1021,7 +1017,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
               } catch (TypeError $e) {
                 // Code to handle the exception or error goes here
@@ -1084,7 +1080,7 @@
                 <td style='border: none;' bgcolor='white'></td>
                 <td style='border: none;' bgcolor='white'></td>
                 <td bgcolor='white'><label>Total Hours:</label></td>
-                <td bgcolor='white'><label>". get_tot_vol_hours($type,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
+                <td bgcolor='white'><label>". get_tot_vol_hours($type,$stats,$dateFrom,$dateTo,$lastFrom,$lastTo) ."</label></td>
                 </tr>";
 	}
 
