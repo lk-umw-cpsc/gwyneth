@@ -1037,7 +1037,7 @@
                 JOIN dbEvents ON dbEventVolunteers.eventID = dbEvents.id
 		WHERE date >= '$dateFrom' AND date<='$dateTo' AND dbPersons.type='$type1'
 		GROUP BY dbPersons.first_name,dbPersons.last_name
-                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPerson.first_name";
+                ORDER BY dbEvents.date DESC, dbPersons.last_name, dbPersons.first_name";
             }
             $result = mysqli_query($con,$query);
             try {
