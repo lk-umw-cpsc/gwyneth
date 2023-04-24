@@ -104,6 +104,7 @@ hr {
   }*/
 
   header {
+    display: none;
     visibility: hidden;
   }
 
