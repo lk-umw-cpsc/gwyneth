@@ -5,7 +5,7 @@ This project is the result of two semesters' worth of collaboration among UMW st
 ## Authors
 The VMS is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker. A major overhaul to the existing system took place this semester, throwing out and restructuring many of the existing database tables. Very little original Homebase code remains.
 
-Modifications to the original Homebase code were made by the previous semester's group of students. That team consisted of TEAM MEMBERS LIST HERE.
+Modifications to the original Homebase code were made by the previous semester's group of students. That team consisted of Jeremy Buechler, Rebecca Daniel, Luke Gentry, Christopher Herriott, Ryan Persinger, and Jennifer Wells.
 
 The major overhaul took place in the Spring 2023 semester. This team consisted of Lauren Knight, Zack Burnley, Matt Nguyen, Rishi Shankar, Alip Yalikun, and Tamra Arant. Every page and feature of the app was changed by this team.
 
