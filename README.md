@@ -88,6 +88,8 @@ The only outside library utilized by the VMS is the jQuery library. The version 
 ## Potential Improvements
 Below is a list of improvements that could be made to the system in subsequent semesters.
 * The system could generate emails and send them to users (would require access to an @gwynethsgift.org email address)
+  * For user email verification
+  * For password reset
 * The notification system could be turned into a full-fledged messaging system
   * The existing dbMessages table is set up to allow this
 * Reports
