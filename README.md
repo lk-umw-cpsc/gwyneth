@@ -67,7 +67,27 @@ Several types of diagrams describing the design of the VMS, including sequence d
 
 ## "localhost" Installation
 Below are the steps required to run the project on your local machine for development and/or testing purposes.
-1. A LIST WILL GO HERE
+1. [Download and install XAMPP](https://www.apachefriends.org/download.html)
+2. Open a terminal/command prompt and change directory to your XAMPP install's htdocs folder
+  * For Mac, the htdocs path is /Applications/XAMPP/xamppfiles/htdocs
+  * For Ubuntu, the htdocs path is /opt/lampp/htdocs/
+  * For Windows, the htdocs path is C:\xampp\htdocs
+3. Clone the VMS repo by running the following command: git clone https://github.com/lk-umw-cpsc/gwyneth.git
+4. Start the XAMPP MySQL server and Apache server
+5. Open the PHPMyAdmin console by navigating to [http://localhost/phpmyadmin/](http://localhost/phpmyadmin/)
+6. Create a new database named homebasedb. With the database created, navigate to it by clicking on it in the lefthand pane
+7. Import the vms.sql file located in htdocs/gwyneth/sql into this new database
+8. Create a new user by navigating to Privileges -> New -> Add user account
+9. Enter the following credentials for the new user:
+  * Name: homebasedb
+  * Hostname: Local
+  * Password: homebasedb
+  * Leave everything else untouched
+11. Navigate [http://localhost/gwnyeth/](http://localhost/gwnyeth/) 
+12. Log into the root user account using the usernamd vmsroot with password vmsroot
+13. Change the root user password to a strong password
+
+Installation is now complete.
 
 ## Platform
 Dr. Polack chose SiteGround as the platform on which to host the project. Below are some guides on how to manage the live project.
