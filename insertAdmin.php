@@ -51,5 +51,10 @@
         $person[$day . 'days_end'] = '';
     }
     $PERSON = make_a_person($person);
-    add_person($PERSON);
+    $result = add_person($PERSON);
+    if ($result) {
+        echo 'ROOT USER CREATION SUCCESS';
+    } else {
+        echo 'USER ALREADY EXISTS';
+    }
 ?>
