@@ -97,6 +97,7 @@ Below is a list of improvements that could be made to the system in subsequent s
   * Visual components could be added (graphs)
   * Client originally requested a reports dashboard with at-a-glance information available
 * If a better webhosting option was chosen, file upload for pictures and documents would be better than having to use outside resources such as Google Docs or imgur for file upload
+* A password complexity policy could be implemented. As it stands, there are no minimum password complexity requirements
 
 ## License
 The project remains under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl.txt).
