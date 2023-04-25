@@ -90,6 +90,12 @@ Below are the steps required to run the project on your local machine for develo
 
 Installation is now complete.
 
+## Reset root user credentials
+In the event of being locked out of the root user, the following steps will allow resetting the root user's login credentials:
+1. Using the PHPMyAdmin console, delete the `vmsroot` user row from the `dbPersons` table
+2. Navigate to gwyneth/insertAdmin.php. You should see a message that says `ROOT USER CREATION SUCCESS`
+3. You may now log in with the username and password `vmsroot`
+
 ## Platform
 Dr. Polack chose SiteGround as the platform on which to host the project. Below are some guides on how to manage the live project.
 
