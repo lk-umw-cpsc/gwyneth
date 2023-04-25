@@ -42,6 +42,9 @@
     $person['howdidyouhear'] = 'N/A';
     $person['notes'] = 'N/A';
     $person['password'] = password_hash('vmsroot', PASSWORD_BCRYPT);
+    $person['profile_pic'] = '';
+    $person['gender'] = '';
+    $person['force_password_change'] = 0;
     $days = array('sun', 'mon', 'tues', 'wednes', 'thurs', 'fri', 'satur');
     foreach ($days as $day) {
         $person[$day . 'days_start'] = '';
