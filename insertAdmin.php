@@ -54,6 +54,7 @@
     $result = add_person($PERSON);
     if ($result) {
         echo 'ROOT USER CREATION SUCCESS';
+        echo $result;
     } else {
         echo 'USER ALREADY EXISTS';
     }
