@@ -113,6 +113,7 @@ Below are the steps needed to gain terminal access to the SiteGround virtual mac
 3. The new key will appear below the form, under 'Manage SSH Keys'. Click the '...' under Actions and choose 'Private Key'
 
 The following steps are for Mac and Linux users:
+
 5. Copy the key and save it somewhere on your system, such as your home directory. Remember the filename you save it as
 6. Click '...' under Actions again. This time, choose 'SSH Credentials'
 7. Note the hostname, username, and port number
