@@ -115,6 +115,9 @@ The following steps are for Mac and Linux users:
 10. You now have SSH access into SiteGround
 11. The repo is located in `~/www/SITEGROUNDURL/public-html/gwyneth/`, where `SITEGROUNDURL` is the domain of the SiteGround website
 
+On PC, use the following tutorial to set up SSH access:
+[https://www.siteground.com/tutorials/ssh/putty/](https://www.siteground.com/tutorials/ssh/putty/)
+
 ### Clearing the SiteGround cache
 There may occasionally be a hiccup if the caching system provided by SiteGround decides to cache one of the application's pages in an erroneous way. The cache can be cleared via the Dashboard by navigating to Speed -> Caching on the lefthand side of the control panel, choosing the DYNAMIC CACHE option in the center of the screen, and then clicking the Flush Cache option with a small broom icon under Actions.
 
