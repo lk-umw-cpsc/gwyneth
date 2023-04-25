@@ -37,7 +37,7 @@
             $hash = password_hash($newPassword, PASSWORD_BCRYPT);
             change_password($userID, $hash);
             if ($userID == 'vmsroot') {
-
+                $_SESSION['access_level'] = 3;
             } else {
                 $user = retrieve_person($userID);
                 $_SESSION['access_level'] = $user->get_access_level();
