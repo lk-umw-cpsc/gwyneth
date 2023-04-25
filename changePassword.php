@@ -43,7 +43,7 @@
                 $_SESSION['access_level'] = $user->get_access_level();
             }
             $_SESSION['logged_in'] = true;
-            unset($_SESSION['change password']);
+            unset($_SESSION['change-password']);
             header('Location: index.php?pcSuccess');
             die();
         } else {
