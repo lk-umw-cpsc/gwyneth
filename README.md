@@ -1,6 +1,6 @@
 # Gwyneth's Gift Volunteer Management System (VMS)
 ## Purpose
-This project is the result of two semesters' worth of collaboration among UMW students. The goal of the project was to create a web application that the Gwyneth's Gift organization could utilize to make easier to manage volunteers and organize events. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system, and basic notification system.
+This project is the result of two semesters' worth of collaboration among UMW students. The goal of the project was to create a web application that the Gwyneth's Gift organization could utilize to make it easier to manage volunteers and organize events. At-a-glance features include a web-based calendar of events, event sign up, volunteer registration & login system, reporting system, and basic notification system.
 
 ## Authors
 The VMS is based on an old open source project named "Homebase". [Homebase](https://a.link.will.go.here/) was originally developed for the Ronald McDonald Houses in Maine and Rhode Island by Oliver Radwan, Maxwell Palmer, Nolan McNair, Taylor Talmage, and Allen Tucker.
