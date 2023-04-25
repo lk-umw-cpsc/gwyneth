@@ -83,7 +83,7 @@ Below are the steps required to run the project on your local machine for develo
   * Hostname: `Local`
   * Password: `homebasedb`
   * Leave everything else untouched
-10. Navigate [http://localhost/gwnyeth/](http://localhost/gwnyeth/) 
+10. Navigate [http://localhost/gwyneth/](http://localhost/gwnyeth/) 
 11. Log into the root user account using the username `vmsroot` with password `vmsroot`
 12. Change the root user password to a strong password
 
