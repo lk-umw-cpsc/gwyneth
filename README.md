@@ -60,7 +60,7 @@ Below is an in-depth list of features that were implemented within the system
   * A user is assigned to an event by a staff member (sent to that volunteer)
   * A new event is created by a staff member (sent to all users)
 
-## Video Tour of Features
+### Video Tour of Features
 A video demo of the system's features is available as an unlisted YouTube video. Please contact Dr. Polack for access to the video.
 
 ## Design Documentation
