@@ -53,6 +53,7 @@ Below is an in-depth list of features that were implemented within the system
 * Reports (Admin/SuperAdmin only) (print-friendly)
   * General Volunteer Report
   * Total Volunteer Hours
+  * Individual Volunteer Hours
   * Top Performers
 * Notification system, with notifications generated when
   * A user signs up for an event (sent to all staff members)
