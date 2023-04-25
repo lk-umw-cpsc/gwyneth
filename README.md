@@ -104,7 +104,7 @@ Below are the steps needed to gain terminal access to the SiteGround virtual mac
 2. Create a new SSH key using the form
   * Provide a memorable string as the Key Name
   * Provide a strong password. This cannot be retrieved, so be sure to remember it
-4. The new key will appear below the form, under 'Manage SSH Keys'. Click the '...' under Actions and choose 'Public Key'
+3. The new key will appear below the form, under 'Manage SSH Keys'. Click the '...' under Actions and choose 'Public Key'
 
 The following steps are for Mac and Linux users:
 5. Copy the key and save it somewhere on your system, such as your home directory. Remember the filename you save it as
