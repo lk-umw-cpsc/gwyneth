@@ -16,19 +16,23 @@
         $accessLevel = $_SESSION['access_level'];
         $userID = $_SESSION['_id'];
     }
+    if (!$loggedIn) {
+        header('Location: login.php');
+        die();
+    }
     if (!isset($_GET['id'])) {
-        header('Location: index.php');
+        header('Location: inbox.php');
         die();
     }
     $id = intval($_GET['id']);
     if ($id < 1) {
-        header('Location: index.php');
+        header('Location: inbox.php');
         die();
     }
     require_once('database/dbMessages.php');
     $message = get_message_by_id($id);
     if (!$message || $message['recipientID'] != $_SESSION['_id']) {
-        header('Location: index.php');
+        header('Location: inbox.php');
         die();
     }
     mark_read($id);
@@ -59,6 +63,7 @@
                 <h2><?php echo $message['title'] ?></h2>
                 <p><?php echo prepareMessageBody($message['body']) ?></p>
             </div>
+            <button id="delete-button" data-message-id="<?php echo $id ?>">Delete Notification</button>
             <a class="button cancel" href="inbox.php">Return to Inbox</a>
         </main>
     </body>

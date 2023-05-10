@@ -50,6 +50,9 @@ function get_message_by_id($id) {
 
     $row = mysqli_fetch_assoc($result);
     mysqli_close($connection);
+    if ($row == null) {
+        return null;
+    }
     foreach ($row as $key => $value) {
         $row[$key] = htmlspecialchars($value);
     }
@@ -155,6 +158,15 @@ function message_all_users($from, $title, $body) {
     }
     mysqli_close($connection);    
     return true;
+}
+
+function delete_message($id) {
+    $query = "delete from dbMessages where id='$id'";
+    $connection = connect();
+    $result = mysqli_query($connection, $query);
+    $result = boolval($result);
+    mysqli_close($connection);
+    return $result;
 }
 
 // send_message('vmsroot', 'lknight2@mail.umw.edu', 'I am a bad test """""!!ASDF', "helloAAA'''ffdf!!$$");
