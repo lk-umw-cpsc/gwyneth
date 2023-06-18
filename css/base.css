@@ -229,6 +229,7 @@ input[type=tel], select, textarea, .pseudo-input, .pseudo-input-disabled {
     width: 100%;
     background-color: var(--page-background-color);
     margin-bottom: 0.5rem;
+    scroll-margin: 6rem;
 }
 
 input[type=text]:disabled, input[type=password]:disabled, input[type=date]:disabled, input[type=number]:disabled,
